@@ -1,9 +1,12 @@
 body {
-    background-image:url("../images/hero_2.jpg");
+
   /*background: rgba(129,193,65,.5);*/
     /*#efefef;*/
+    background-image:url("../images/hero_2.jpg");
     background: -webkit-linear-gradient(legacy-direction(rgba(65,193,158,.7), rgba(129,193,65,.7)));
     background: linear-gradient(rgba(65,193,158,.7), rgba(129,193,65,.7));
+
+
     background-attachment: fixed;
     padding: 10px;
     font-family: 'Varela Round';
@@ -15,8 +18,10 @@ body div.box {
     margin-right: auto;
     background: rgba(239,239,239, 0.6);
     border-radius: 15px;
+}
 
-
+#fh5co-header {
+  margin-top:50px;
 }
 
 
