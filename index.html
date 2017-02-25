@@ -5,15 +5,27 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- JQUERY UI FOR TAGS -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
+
+    <!-- ONLINE BOOTSTRAP FILES -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+    <!-- LOCAL BOOTSTRAP FILES  -->
+      <link rel="stylesheet" href="bootstrap/bootstrap.css">
+      <script src="bootstrap/bootstrap.js"></script>
+
+    <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <!-- NAV BAR -->
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
         <div class="container-fluid background-image">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -75,15 +87,15 @@
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
                                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                                <div class="help-block text-right"><a href="">Forget your password ?</a></div>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-											 <input type="checkbox"> keep me logged-in
-											 </label>
+                        											               <input type="checkbox"> keep me logged-in
+                        											 </label>
                                             </div>
                                         </form>
                                     </div>
@@ -101,10 +113,8 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
-
-
-
+<!-- Main PAGE -->
+    <div class="container-fluid">
         <div class="col-xs-8 well">
             <div class="row">
                 <h1 class="">Registration Form</h1><br>
