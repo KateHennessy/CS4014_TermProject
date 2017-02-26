@@ -8,6 +8,9 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+    <!-- JAVASCRIPT FOR AUTOCOMPLETE -->
+    <!-- <script src="https://raw.githubusercontent.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.min.js" /></script> -->
+	<script src="js/typeahead.js"> </script>
     <!-- JQUERY UI FOR TAGS -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
@@ -22,6 +25,7 @@
 
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/typeahead.css">
 </head>
 
 <body>
@@ -162,7 +166,8 @@
 
                                 <div class="form-group">
                                     <label>Tags</label>
-                                    <input class="form-control autocomplete" placeholder="Tag 1" />
+                                    <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
+                                    <input class="form-control" name="query" id="query" placeholder="Enter First Tag..." type="text">
                                 </div>
 
                             </div>
@@ -175,16 +180,23 @@
             </div>
         </div>
         <script>
-            $(function() {
-                var availableTags = [
-                    "Computer Science", "Engineering", "History",
-                    "Psychology", "Science", "Sociology", "Zoology"
-                ];
+            // $(function() {
+            //     var availableTags = [
+            //         "Computer Science", "Engineering", "History",
+            //         "Psychology", "Science", "Sociology", "Zoology"
+            //     ];
+            //
+            //     $(".autocomplete").autocomplete({
+            //         source: availableTags
+            //     });
+            // });
 
-                $(".autocomplete").autocomplete({
-                    source: availableTags
-                });
-            });
+
+$('#query').typeahead({
+        local: ['alpha','allpha2','alpha3','bravo','charlie','delta','epsilon','gamma','zulu']
+});
+
+$('.tt-query').css('background-color','#fff');
         </script>
 
 </body>
