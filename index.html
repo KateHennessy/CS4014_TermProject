@@ -10,7 +10,7 @@
 
     <!-- JAVASCRIPT FOR AUTOCOMPLETE -->
     <!-- <script src="https://raw.githubusercontent.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.min.js" /></script> -->
-	<script src="js/typeahead.js"> </script>
+    <script src="js/typeahead.js"> </script>
     <!-- JQUERY UI FOR TAGS -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
@@ -20,8 +20,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
     <!-- LOCAL BOOTSTRAP FILES  -->
-      <link rel="stylesheet" href="bootstrap/bootstrap.css">
-      <script src="bootstrap/bootstrap.js"></script>
+    <link rel="stylesheet" href="bootstrap/bootstrap.css">
+    <script src="bootstrap/bootstrap.js"></script>
 
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <!-- NAV BAR -->
+    <!-- NAV BAR -->
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
         <div class="container-fluid background-image">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -117,7 +117,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-<!-- Main PAGE -->
+    <!-- Main PAGE -->
     <div class="container-fluid">
         <div class="col-xs-10 col-sm-8 well">
             <div class="row">
@@ -180,23 +180,17 @@
             </div>
         </div>
         <script>
-            // $(function() {
-            //     var availableTags = [
-            //         "Computer Science", "Engineering", "History",
-            //         "Psychology", "Science", "Sociology", "Zoology"
-            //     ];
-            //
-            //     $(".autocomplete").autocomplete({
-            //         source: availableTags
-            //     });
-            // });
+        // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
+            $('#query').typeahead({
+                local: ['Performing Arts', 'Visual Arts', 'Geography', 'History', 'Languages',
+                    'Literature', 'Philosophy', 'Economics', 'Law', 'Political Science', 'Psychology',
+                    'Sociology', 'Biology', 'Chemistry', 'Earth and Space Sciences', 'Mathematics',
+                    'Physics', 'Agricultural Sciences', 'Computer Science', 'Engineering and Technology',
+                    'Medicine and Health Sciences'
+                ]
+            });
 
-
-$('#query').typeahead({
-        local: ['alpha','allpha2','alpha3','bravo','charlie','delta','epsilon','gamma','zulu']
-});
-
-$('.tt-query').css('background-color','#fff');
+            $('.tt-query').css('background-color', '#fff');
         </script>
 
 </body>
