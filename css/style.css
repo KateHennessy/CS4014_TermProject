@@ -24,6 +24,7 @@
   padding:15px;
 }
 
+
 /*START OF LOGIN PROPERTIES*/
 #login-dp{
     min-width: 250px;
@@ -78,7 +79,7 @@
 
 /*END OF LOGIN PROPERTIES*/
 
-.ui-autocomplete {
+/*.ui-autocomplete {
   position: relative;
   /*top: 85%;
   left: 35%;*/
@@ -128,4 +129,4 @@
   padding: 0;
   position: absolute;
   width: 1px;
-}
+}*/
