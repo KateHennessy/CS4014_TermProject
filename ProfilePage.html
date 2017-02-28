@@ -76,10 +76,11 @@
 
                                 <li><a href="#">My Profile</a></li>
                                 <li><a href="#">My Tasks</a></li>
-                                <li><a href="#">Information</a></li>
+                                <li><a href="Information.html">Information</a></li>
                                 <li><a href="#">Account Settings</a></li>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                    <!-- <button type="submit" class="btn btn-primary btn-block">Log Out</button> -->
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href='index.html'">
                                 </div>
 
                                 <!-- <div class="bottom text-center">
@@ -127,7 +128,7 @@
                                 <li><a href="#"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
                                 <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
                                 <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
-                                <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
+                                <li><a href="Information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
                             </ul>
                         </div>
 
@@ -234,120 +235,124 @@
                                             </div>
                                         </div>
                                     </div>
+                                  </div>
                                     <!-- End Task3-->
 
                                     <!-- Begin Task4-->
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <div class="row">
-                                                    <div class="col-xs-8">
-                                                        <a class="pull-left" href="#" target="_parent">
-                                                            <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
-                                                        </a>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-lg-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-8">
+                                                            <a class="pull-left" href="#" target="_parent">
+                                                                <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <h4><small class="pull-right">Assignment</small></h4>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-xs-4">
-                                                        <h4><small class="pull-right">Assignment</small></h4>
-                                                    </div>
+                                                    <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                        <li>Word Document</li>
+                                                        <li style="list-style: none">|</li>
+                                                        <li>1000 Words</li>
+                                                        <li style="list-style: none">|</li>
+                                                        <li>7 Pages</li>
+                                                    </ul>
+                                                    <p class="hidden-xs">A brief overview of social issues we face today</p>
+                                                    <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
                                                 </div>
-                                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                                    <li>Word Document</li>
-                                                    <li style="list-style: none">|</li>
-                                                    <li>1000 Words</li>
-                                                    <li style="list-style: none">|</li>
-                                                    <li>7 Pages</li>
-                                                </ul>
-                                                <p class="hidden-xs">A brief overview of social issues we face today</p>
-                                                <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- End Task4-->
 
-                                <br />
+                                    <!-- End Task4-->
 
-                                <!-- Reputation Section-->
-                                <div class="row">
-                                    <div class="col-sm-4 pull-left">
-                                        <div class="hero-widget well well-sm">
-                                            <div class="icon">
-                                                <i class="glyphicon glyphicon-star"></i>
-                                            </div>
-                                            <div class="text">
-                                                <var>21</var>
-                                                <label class="text-muted">Reputation Score</label>
+
+                                    <br />
+
+                                    <!-- Reputation Section-->
+                                    <div class="row">
+                                        <div class="col-sm-4 pull-left">
+                                            <div class="hero-widget well well-sm">
+                                                <div class="icon">
+                                                    <i class="glyphicon glyphicon-star"></i>
+                                                </div>
+                                                <div class="text">
+                                                    <var>21</var>
+                                                    <label class="text-muted">Reputation Score</label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4 pull-right">
-                                        <div class="hero-widget well well-sm">
-                                            <div class="icon">
-                                                <i class="glyphicon glyphicon-tags"></i>
-                                            </div>
-                                            <div class="text">
-                                                <var>4</var>
-                                                <label class="text-muted">Total Number of Tasks Uploaded</label>
+                                        <div class="col-sm-4 pull-right">
+                                            <div class="hero-widget well well-sm">
+                                                <div class="icon">
+                                                    <i class="glyphicon glyphicon-tags"></i>
+                                                </div>
+                                                <div class="text">
+                                                    <var>4</var>
+                                                    <label class="text-muted">Total Number of Tasks Uploaded</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Contact Me Section -->
-                        <div>
-                            <h2>Contact Me</h2>
-                        </div>
-
-                        <!-- <div class="container"> -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="well well-sm">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="name">Name</label>
-                                                    <input type="text" class="form-control" id="name" placeholder="Enter name" required="required" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="email">My Email Address</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                                        <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="name">Message</label>
-                                                    <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Send Message</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                            <!-- Contact Me Section -->
+                            <div>
+                                <h2>Contact Me</h2>
                             </div>
 
+                            <!-- <div class="container"> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="well well-sm">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" class="form-control" id="name" placeholder="Enter name" required="required" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">My Email Address</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                                            <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name">Message</label>
+                                                        <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Send Message</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+
                 </div>
-
+                <!-- End Col -->
             </div>
-            <!-- End Col -->
         </div>
-    </div>
 
-    <!-- <center>
+        <!-- <center>
         <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
     </center> -->
-    <br>
-    <br>
+        <br>
+        <br>
 
 </body>
 
