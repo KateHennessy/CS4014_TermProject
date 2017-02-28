@@ -200,7 +200,7 @@ body {
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-    
+
 .profile-usermenu {
   margin-top: 30px;
 }
@@ -247,5 +247,16 @@ body {
   min-height: 460px;
 }
 
-
-
+@media(min-width:768px){
+  .fixed{
+    height:300px;
+  }
+}
+.fixed{}
+.fixedBody{
+  height:30%;
+  overflow-y: auto;
+}
+.fixedHead{
+  height:40%;
+}
