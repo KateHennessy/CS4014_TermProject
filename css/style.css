@@ -276,11 +276,22 @@ body {
     height:40%;
   }
 }
-.fixed{}
+
 .fixedBody{
   height:30%;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
+
+/*A smaller fixed area than stardard fixed which is 300px*/
+.smallfixed{
+  height:100px;
+}
+/*larger area for text*/
+.fixedBodyLarge{
+height:80%;
+}
+
+
 /*     END OF TASK PANEL CLASSES    */
 
 /*SCROLLBAR CLASS*/
