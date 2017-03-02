@@ -200,7 +200,7 @@ body {
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-    
+
 .profile-usermenu {
   margin-top: 30px;
 }
@@ -267,5 +267,30 @@ body {
   border-color: #222;
 }
 
+/*        TASKS PANEL CLASSES        */
+@media(min-width:768px){
+  .fixed{
+    height:300px;
+  }
+  .fixedHead{
+    height:40%;
+  }
+}
+.fixed{}
+.fixedBody{
+  height:30%;
+  overflow-y: auto;
+}
+/*     END OF TASK PANEL CLASSES    */
 
+/*SCROLLBAR CLASS*/
+.scroll{
+  overflow-y: auto;
+}
+/*LEFT HORIZONTAL BAR DIVIDER*/
+.divider{
+  border-left: 1px solid #ccc;
+}
 
+/*SPACE AFTER ICON */
+.glyphicon:before { margin-right: 5px; }
