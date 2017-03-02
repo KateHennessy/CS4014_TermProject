@@ -200,7 +200,7 @@ body {
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-
+    
 .profile-usermenu {
   margin-top: 30px;
 }
@@ -246,17 +246,26 @@ body {
   background: #fff;
   min-height: 460px;
 }
+/*upload task */
+/* layout.css Style */
+.upload-drop-zone {
+  height: 200px;
+  border-width: 2px;
+  margin-bottom: 20px;
+}
 
-@media(min-width:768px){
-  .fixed{
-    height:300px;
-  }
+/* skin.css Style*/
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center
 }
-.fixed{}
-.fixedBody{
-  height:30%;
-  overflow-y: auto;
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
 }
-.fixedHead{
-  height:40%;
-}
+
+
+
