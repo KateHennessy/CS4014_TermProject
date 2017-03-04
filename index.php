@@ -201,7 +201,7 @@
     </div>
     <script>
       $(document).ready(function(){
-        // alert("Ready");
+        alert("Ready");
         // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
         $('[id^=tag]').typeahead({
           //[id^=tag] -- anything starting with 'tag'
@@ -216,37 +216,77 @@
                                 );
         $('.tt-query').css('background-color', '#fff');
         // END OF TAG code
-        $('form input').blur(function(){
+
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
+        $('form input').blur(function(){
+          //GETS THE ID OF ELEMENT JUST BLURRED
           id = $(this).attr("id");
-          // alert("ID: " + id);
+
+
+          // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
           if(id.indexOf("email") != -1){
             validateEmail(this);
           }
+          // IF IT IS HAS A TAG ID, ONLY VALIDATE IF tag1 (the rest are optional)
           else if(id.indexOf("tag") != -1){
             if(id.indexOf("tag1") != -1){
               validateInput(this);
             }
           }
+          // IF WE ARE IN ONE OF THE PASSWORD FIELDS
+          else if(id.indexOf("pass") != -1){
+            // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
+              if(id.indexOf("pass1") != -1){
+
+                if( $('#pass1Form').val().length >= 7){
+                  successInput(this);
+                  return true;
+                }else{
+                  failInput(this);
+                  return false;
+                }
+              }
+              if(id.indexOf("pass2") != -1){
+                if(validateInput(this)){
+                var pass = $('#pass1Form').val();
+                var repass = $('#pass2Form').val();
+                // passwords are not equal
+              if(pass == repass){
+                successInput(this);
+                return false;
+              }else{
+                failInput(this);
+                return true;
+              }
+            }else{
+              failInput(this);
+            }
+
+            }
+
+            else{
+
+            }
+          }
+          // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
           else{
             validateInput(this);
           }
-        }
-                            );
+        });
+        // END OF ONBLUR CHECKING OF FORM
+
         // VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
         function validateInput(element){
           id = element.id;
           if(!$(element).val()){
-            successInput(element);
+            failInput(element);
             return false;
           }
           else {
-            if(id=="pass2Form"){
-            }
-            else{
-              failInput(element);
+
+              successInput(element);
               return true;
-            }
+
           }
         }
         function validateEmail(element){
@@ -254,15 +294,15 @@
           var email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g;
           //ul.ie domain
           if (!email_regex.test($("#" + id).val())) {
-            successInput(element);
+            failInput(element);
             return false;
           }
           else {
-            failInput(element);
+            successInput(element);
             return true;
           }
         }
-        function successInput(element){
+        function failInput(element){
           id = element.id;
           var div = $("#" + id).closest("div");
           div.removeClass("has-success");
@@ -270,7 +310,8 @@
           div.addClass("has-error has-feedback");
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
         }
-        function failInput(element){
+
+        function successInput(element){
           id = element.id;
           var div = $("#" + id).closest("div");
           div.removeClass("has-error");
@@ -278,8 +319,7 @@
           div.addClass("has-success has-feedback");
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
-      }
-                       );
+      });
     </script>
   </body>
 </html>
