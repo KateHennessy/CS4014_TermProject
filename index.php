@@ -201,7 +201,7 @@
     </div>
     <script>
       $(document).ready(function(){
-        alert("Ready");
+        // alert("Ready");
         // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
         $('[id^=tag]').typeahead({
           //[id^=tag] -- anything starting with 'tag'
