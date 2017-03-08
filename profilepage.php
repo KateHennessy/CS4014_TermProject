@@ -55,7 +55,7 @@
                     </li>
                 </ul>
                 <form>
-                  <!--Menu bar on right hand side of nav bar -->
+                    <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
@@ -100,21 +100,21 @@
 
                         <!-- END SIDEBAR USER TITLE -->
 
-                      <!-- USER REPUTATION -->
+                        <!-- USER REPUTATION -->
 
-                          <div class="text text-center">
-                                  <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
-                              </div>
+                        <div class="text text-center">
+                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+                        </div>
 
-                      <!-- END USER REPUTATION -->
+                        <!-- END USER REPUTATION -->
 
-                      <!-- Start User Tasks -->
+                        <!-- Start User Tasks -->
 
 
-                              <div class="text text-center">
+                        <div class="text text-center">
 
-                                  <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
-                              </div>
+                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
+                        </div>
 
 
 
@@ -133,22 +133,22 @@
 
                     </div>
                 </div>
-                  <!-- END MENU -->
+                <!-- END MENU -->
                 <div class="col-md-9">
                     <div class="profile-content" id="overview">
-                      <div class="profile-content">
-                        <div class="container-fluid" style="background-color:#e8e8e8">
-                            <div class="col-xs-12">
+                        <div class="profile-content">
+                            <div class="container-fluid" style="background-color:#e8e8e8">
+                                <div class="col-xs-12">
 
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-12">
-                                        <h2> My Tasks Overview</h2>
-                                        <p>A snippet of information on tasks I have uploaded</p>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-12">
+                                            <h2> My Tasks Overview</h2>
+                                            <p>A snippet of information on tasks I have uploaded</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <br />
+                                    <br />
 
-                                <!-- <div class="row"> -->
+                                    <!-- <div class="row"> -->
                                     <!-- Begin Task1-->
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
@@ -235,36 +235,36 @@
                                             </div>
                                         </div>
                                     </div>
-                                  <!-- </div> -->
+                                    <!-- </div> -->
                                     <!-- End Task3-->
 
                                     <!-- Begin Task4-->
                                     <!-- <div class="row"> -->
-                                        <div class="col-sm-6 col-lg-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading fixed">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-8">
-                                                            <a class="pull-left" href="detailedtask.html" target="_parent">
-                                                                <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
-                                                            </a>
-                                                        </div>
-                                                        <div class="pull-right hidden-xs col-sm-4">
-                                                            <h4><small class="pull-right">Assignment</small></h4>
-                                                        </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading fixed">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-8">
+                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                            <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
+                                                        </a>
                                                     </div>
-                                                    <ul class="list-inline">
-                                                        <li>Word Document</li>
-                                                        <li style="list-style: none">|</li>
-                                                        <li>1000 Words</li>
-                                                        <li style="list-style: none">|</li>
-                                                        <li>7 Pages</li>
-                                                    </ul>
-                                                    <p class="hidden-xs fixedBody">A brief overview of social issues we face today</p>
-                                                    <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
+                                                    <div class="pull-right hidden-xs col-sm-4">
+                                                        <h4><small class="pull-right">Assignment</small></h4>
+                                                    </div>
                                                 </div>
+                                                <ul class="list-inline">
+                                                    <li>Word Document</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>1000 Words</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>7 Pages</li>
+                                                </ul>
+                                                <p class="hidden-xs fixedBody">A brief overview of social issues we face today</p>
+                                                <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
                                             </div>
                                         </div>
+                                    </div>
                                     <!-- </div> -->
 
                                     <!-- End Task4-->
@@ -285,7 +285,7 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <!-- <div class="col-sm-4 pull-right">
+                                    <!-- <div class="col-sm-4 pull-right">
                                             <div class="hero-widget well well-sm">
                                                 <div class="icon">
                                                     <i class="glyphicon glyphicon-tags"></i>
@@ -297,13 +297,13 @@
                                             </div>
                                         </div> -->
 
-                            <!-- Contact Me Section -->
-                          <!--  <div>
+                                    <!-- Contact Me Section -->
+                                    <!--  <div>
                                 <h2>Contact Me</h2>
                             </div> -->
 
-                            <!-- <div class="container"> -->
-                          <!--   <div class="row">
+                                    <!-- <div class="container"> -->
+                                    <!--   <div class="row">
                                 <div class="col-md-12">
                                     <div class="well well-sm">
                                         <form>
@@ -335,6 +335,7 @@
                                         </form>
                                       </div>-->
 
+                                    <!--Claimed Tasks -->
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
                                             <h2> My  Claimed Tasks Overview</h2>
@@ -400,20 +401,45 @@
                                     </div>
 
                                     <!-- End Task2-->
+                                    <!--End Claimed Tasks-->
 
-                                  </div>
-                              </div>
-                          </div>
+                                    <!--Tags-->
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-12">
+                                            <h2> My Tags</h2>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div>
+                                        <div class="row">
+                                            <div>
+                                                <div>
+                                                    <button class="btn btn-info btn-lg btn-block">Computer Science</button>
+                                                    <button class="btn btn-info btn-lg btn-block">Empirical Psychology</button>
+                                                    <button class="btn btn-info btn-lg btn-block">Research Methods</button>
+                                                    <button class="btn btn-info btn-lg btn-block">Fruit</button>
+                                                </div>
+                                                <br />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--End of Tags-->
 
                                 </div>
-
                             </div>
                         </div>
+
                     </div>
 
-              <!--  </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  </div>
                 <!-- End Col -->
-            <!--</div> -->
+        <!--</div> -->
         <!-- </div> -->
 
         <!-- <center>
@@ -421,7 +447,7 @@
     </center> -->
         <br>
         <br>
-      </div>
+    </div>
 
 </body>
 
