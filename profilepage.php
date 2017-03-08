@@ -172,7 +172,7 @@
                                                     <li>2000 Words</li>
                                                 </ul>
                                                 <p class="hidden-xs fixedBody">A study on the native habibtat and behvaiour of monkeys. </p>
-                                                <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
+                                                <div><label for="danger" class="btn btn-danger">Not Claimed</label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                                                     <li>20 Pages</li>
                                                 </ul>
                                                 <p class="hidden-xs  fixedBody">An investigation of the best method to develop software in specific contexts</p>
-                                                <div><label for="danger" class="btn btn-danger">Completed</label></div>
+                                                <div><label for="Success" class="btn btn-success">Completed</label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -261,7 +261,7 @@
                                                     <li>7 Pages</li>
                                                 </ul>
                                                 <p class="hidden-xs fixedBody">A brief overview of social issues we face today</p>
-                                                <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
+                                                <div><label for="danger" class="btn btn-danger">Not Claimed</label></div>
                                             </div>
                                         </div>
                                     </div>
