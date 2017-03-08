@@ -8,6 +8,13 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+    <!-- JAVASCRIPT FOR AUTOCOMPLETE -->
+    <!-- <script src="https://raw.githubusercontent.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.min.js" /></script> -->
+    <script src="js/typeahead.js"> </script>
+    <!-- JQUERY UI FOR TAGS -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
+
     <!-- ONLINE BOOTSTRAP FILES -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
@@ -18,6 +25,7 @@
 
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/typeahead.css">
 </head>
 
 <body>
@@ -39,10 +47,27 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="aboutus.php">About Us</a></li>
 
+                    <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li> -->
                 </ul>
-
+                <!-- <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form> -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <p class="navbar-text">Already have an account?</p>
@@ -61,7 +86,8 @@
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
                                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                <div class="help-block text-right"><a href="index.html">Register</a></div>
+                                                <div class="help-block text-right"><a href="forgottenpassword.php">Forget your password ?</a></div>
+                                                <div class="help-block text-right"><a href="index.php">Register</a></div>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
@@ -87,65 +113,18 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <!-- Main PAGE -->
     <div class="container-fluid">
         <div class="col-xs-11 col-sm-8 well">
             <div class="row">
-                <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
-                <div class="col-xs-10">
-                  <p> We'll send a new password to your email address </p>
-                    <form>
-                        <div class="row">
-                            <div class="col-sm-12 form-group">
-                                <label>Email Address</label>
-                                <div><input type="email" onblur="validateEmail()" id="contactEmail" placeholder="Enter Email Address Here.." class="form-control"></div>
-                            </div>
-						</div>
-                    <button type="button" class="btn btn-lg btn-success">Send me a new Password</button>
-                </form>
-				</div>
-                </div>
-            </div>
-        </div>
-    <script>
-        // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
-        $('[id^=tag]').typeahead({ //[id^=tag] -- anything starting with 'tag'
-            // $('tag1').typeahead({
-            local: ['Performing Arts', 'Visual Arts', 'Geography', 'History', 'Languages',
-                'Literature', 'Philosophy', 'Economics', 'Law', 'Political Science', 'Psychology',
-                'Sociology', 'Biology', 'Chemistry', 'Earth and Space Sciences', 'Mathematics',
-                'Physics', 'Agricultural Sciences', 'Computer Science', 'Engineering and Technology',
-                'Medicine and Health Sciences'
-            ]
-        });
-
-        $('.tt-query').css('background-color', '#fff');
-
-
-        function validateEmail() {
-            id = "contactEmail";
-            // var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-            var email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g; //ul.ie domain
-            if (!email_regex.test($("#" + id).val())) {
-
-                var div = $("#" + id).closest("div");
-                div.removeClass("has-success");
-                $("#glypcn" + id).remove();
-                div.addClass("has-error has-feedback");
-                div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
-                return false;
-            } else {
-                var div = $("#" + id).closest("div");
-                div.removeClass("has-error");
-                $("#glypcn" + id).remove();
-                div.addClass("has-success has-feedback");
-                div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
-                return true;
-            }
-
-        }
-    </script>
+                <h1 class="">About Us</h1><br>
+                <h2>Orla Bonar</h2>
+                  <p>
+                    Orla is currently studying for her Higher Diploma in Software Development. She has a Masters in Psychology and a Bachelor of Arts Degree in Sociological & Political Studies and Psychologcal Studies.
+                  </p>
+                <h2>Kate Hennessy</h2>
+                <!-- add content here -->
+                <h2>Mary Annie Vijula Ashok Kumar</h2>
+                <!-- add content here -->
 
 </body>
-
 </html>
