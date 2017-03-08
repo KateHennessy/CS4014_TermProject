@@ -85,8 +85,8 @@
     <!-- User Side Bar -->
     <div class="container-fluid">
         <div class="col-xs-12 well">
-            <div class="row profile">
-                <div class="col-md-3">
+            <!-- <div class="row profile"> -->
+                <div class="col-md-3 adapt">
                     <div class="profile-sidebar">
 
                         <!-- SIDEBAR USER TITLE -->
@@ -130,9 +130,9 @@
                         <!-- END MENU -->
                     </div>
                 </div>
-              </div>
+              <!-- </div> -->
 
-              <div class="row profile">
+              <!-- <div class="row profile"> -->
                 <div class="col-md-9 profile-content">
                     <div class="" id="overview">
                         <div class="">
@@ -243,7 +243,7 @@
                     </div>
                 </div>
 
-            </div>
+            <!-- </div> -->
             <!-- End Col -->
         </div>
         <!-- </div> -->

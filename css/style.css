@@ -300,6 +300,11 @@ body {
     height:40%;
   }
 }
+@media(max-width:991px){
+  .col-md-3.adapt{
+    padding:0;
+  }
+}
 
 .fixedBody{
   height:30%;
