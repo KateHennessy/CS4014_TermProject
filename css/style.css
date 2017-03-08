@@ -279,11 +279,14 @@ body {
   .container-fluid{
     padding:0;
     margin:0;
-    width:350px;
+    width:330px;
 
   }
   html body{
-    width: 350px; !important
+    width: 350px;
+  }
+  div.navbar-header{
+    margin-right:0px;
   }
 
 
