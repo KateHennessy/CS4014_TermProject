@@ -75,11 +75,11 @@
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
                               <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
-                              <li><a href="#">My Tasks</a></li>
+                              <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
                               <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
                               <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
-                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href='index.html'">
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
                                 </div>
                               </ul>
                           </li>

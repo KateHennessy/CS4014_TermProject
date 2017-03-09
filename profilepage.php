@@ -67,7 +67,7 @@
                                 <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
                                     <!-- <button type="submit" class="btn btn-primary btn-block">Log Out</button> -->
-                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href='index.html'">
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
                                 </div>
 
                                 <!-- <div class="bottom text-center">
