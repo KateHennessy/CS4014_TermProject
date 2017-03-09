@@ -144,7 +144,7 @@
                                         <div class="col-xs-12">
                                             <h2>Available Tasks</h2>
                                             <p>These tasks were chosen based on your
-                                                <a href="ProfilePage.html#overview">selected tags.</a></p>
+                                                <a href="ProfilePage.php#mytags">selected tags.</a></p>
                                         </div>
                                     </div>
                                     <br />

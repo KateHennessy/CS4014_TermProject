@@ -414,7 +414,7 @@
                                     <!--Tags-->
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
-                                            <h2> My Tags</h2>
+                                            <h2 id="mytags"> My Tags</h2>
                                         </div>
                                     </div>
                                     <br />
