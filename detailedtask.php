@@ -77,7 +77,7 @@
                                     <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
                                     <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
                                     <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
-                                    <li><a href="<?php echo 'changepassword.php'; ?>">Change Password</a></li>
+                                    <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">Log Out</button>
                                     </div>
@@ -116,9 +116,11 @@
                         <div class="profile-usermenu">
                             <ul class="nav">
                                 <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Change Password </a></li>
-                                <li class="active"><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+                                <li class="active"><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-check"></i> Tasks </a></li>
                                 <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
+                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+                                <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
                                 <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
                             </ul>
                         </div>
