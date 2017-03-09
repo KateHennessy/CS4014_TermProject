@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -61,10 +61,10 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
                             <ul id="login-dp" class="dropdown-menu">
 
-                                <li><a href="#overview">My Profile</a></li>
-                                <li><a href="detailedtask.html">My Tasks</a></li>
-                                <li><a href="Information.html">Information</a></li>
-                                <li><a href="changepassword.html">Change Password</a></li>
+                                <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+                                <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
+                                <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>">Change Password</a></li>
                                 <div class="form-group">
                                     <!-- <button type="submit" class="btn btn-primary btn-block">Log Out</button> -->
                                     <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href='index.html'">
@@ -122,11 +122,11 @@
                         <!-- SIDEBAR MENU -->
                         <div class="profile-usermenu">
                             <ul class="nav">
-                                <li class="active"><a href="#overview"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="changepassword.html"><i class="glyphicon glyphicon-user"></i> Change Password </a></li>
-                                <li><a href="detailedtask.html" target="_blank"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
+                                <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Change Password </a></li>
+                                <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
                                 <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
-                                <li><a href="Information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
+                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
                             </ul>
                         </div>
                         <!-- END MENU -->

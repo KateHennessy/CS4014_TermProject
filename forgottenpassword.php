@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="aboutus.php">About Us</a></li>
+                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
                 </ul>
 
@@ -61,7 +61,7 @@
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
                                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                <div class="help-block text-right"><a href="index.php">Register</a></div>
+                                                <div class="help-block text-right"><a href="<?php echo 'index.php'; ?>">Register</a></div>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
