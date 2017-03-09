@@ -88,8 +88,8 @@
     <!-- User Side Bar -->
     <div class="container-fluid">
         <div class="col-xs-12 well">
-            <div class="row profile">
-                <div class="col-md-3">
+          <!--  <div class="row profile"> -->
+                <div class="col-md-3 adapt">
                     <div class="profile-sidebar">
 
                         <!-- SIDEBAR USER TITLE -->
@@ -129,19 +129,25 @@
                                 <li><a href="Information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
                             </ul>
                         </div>
-
+                        <!-- END MENU -->
 
                     </div>
                 </div>
-                <!-- END MENU -->
-                <div class="col-md-9">
+
+
+
+                <div class="col-md-9 profile-content">
+                    <div class="" id="overview">
+                        <div class="">
+
+                <!-- <div class="col-md-9">
                     <div class="profile-content" id="overview">
                         <div class="profile-content">
                             <div class="container-fluid" style="background-color:#e8e8e8">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12"> -->
 
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-12">
+                                        <div class="col-xs-12">
                                             <h2> My Tasks Overview</h2>
                                             <p>A snippet of information on tasks I have uploaded</p>
                                         </div>
