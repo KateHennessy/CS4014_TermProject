@@ -79,8 +79,11 @@
                               <li><a href="information.php">Information</a></li>
                               <li><a href="changepassword.php">Change Password</a></li>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href='index.html'">
                                 </div>
+                              </ul>
+                          </li>
+                      </ul>
                   </form>
 
             <!-- <div class="bottom text-center">
@@ -88,6 +91,7 @@
                                     </div> Not neccessary here-->
         <!-- /.navbar-collapse -->
         </div>
+      </div>
         <!-- /.container-fluid -->
     </nav>
 
@@ -95,8 +99,8 @@
 <!-- User Side Bar -->
     <div class="container-fluid">
     <div class="col-xs-12 well">
-    <div class="row profile">
-    <div class="col-md-3">
+    <!--<div class="row profile"> -->
+    <div class="col-md-3 adapt">
     <div class="profile-sidebar">
 
 <!-- SIDEBAR USER TITLE -->
@@ -117,12 +121,16 @@
             <li><a href="information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
         </ul>
     </div>
+<!-- END MENU -->
   </div>
   </div>
+  <div class="col-md-9 profile-content">
+      <div class="" id="overview">
+          <div>
 
-<!--Chnage Password Text -->
+<!--Change Password Text -->
   <div class="container-fluid">
-      <div class="col-xs-11 col-sm-8 well">
+      <div class="col-xs-11 col-xs-8 well">
           <div class="row">
               <h1><div class="glyphicon glyphicon-lock"></div> Change Password </h1><br>
               <div class="col-xs-10">
