@@ -280,7 +280,6 @@ body {
     padding:0;
     margin:0;
     width:330px;
-
   }
   html body .col-xs-12.well{
     width: 362px;
@@ -288,9 +287,8 @@ body {
   div.navbar-header{
     margin-right:0px;
   }
-
-
 }
+
 /*        TASKS PANEL CLASSES        */
 @media(min-width:768px){
   .fixed{
