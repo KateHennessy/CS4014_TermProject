@@ -107,13 +107,19 @@
 
 <!-- END SIDEBAR USER TITLE -->
 
-<!-- SIDEBAR BUTTONS -->
-    <div class="profile-userbuttons">
-        <!--<button type="button" class="btn btn-success btn-sm">Follow</button> -->
-        <button type="button" class="btn btn-danger btn-sm">Message</button>
-    </div>
+<!-- USER REPUTATION -->
+<div class="text text-center">
+    <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+</div>
+<!-- END USER REPUTATION -->
 
-<!-- END SIDEBAR BUTTONS -->
+
+<!-- Start User Tasks -->
+<div class="text text-center">
+
+    <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
+</div>
+
 
 <!-- SIDEBAR MENU -->
     <div class="profile-usermenu">
