@@ -174,7 +174,7 @@
               </div>
               <div class="row">
                 <div class="col-sm-6 form-group">
-                  <label>Tag 1 <em class="text-danger"> *</em>
+                  <label>Tags <em class="text-danger"> *</em>
                   </label>
                   <button id="tooltip1" type="button" class="btn btn-primary btn-circle"
                   data-toggle="tooltip" data-placement="bottom"
