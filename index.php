@@ -115,14 +115,16 @@
                 <div class="col-sm-6 form-group">
                   <label>First Name <em class="text-danger"> *</em>
                   </label>
-                  <div>
+                  <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter First Name Here.." id="firstName" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
                   <label>Last Name <em class="text-danger"> *</em>
                   </label>
-                  <div>
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter Last Name Here.." id="lastName" class="form-control">
                   </div>
                 </div>
@@ -131,7 +133,8 @@
                 <div class="col-sm-6 form-group">
                   <label>Email Address <em class="text-danger"> *</em>
                   </label>
-                  <div>
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                     <input type="email" placeholder="Enter Discipline Here.." id="emailForm"
                            class="form-control">
                   </div>
@@ -139,7 +142,8 @@
                 <div class="col-sm-6 form-group">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
-                  <div>
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <input type="text" placeholder="Enter Discipline Here.." id="discipline" class="form-control">
                   </div>
                 </div>
@@ -148,14 +152,16 @@
                 <div class="col-sm-6 form-group">
                   <label>Password <em class="text-danger"> *</em>
                   </label>
-                  <div>
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Enter Password Here.." id="pass1Form" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
                   <label>Confirm Password <em class="text-danger"> *</em>
                   </label>
-                  <div>
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Reenter Password Here..." id="pass2Form" class="form-control">
                   </div>
                 </div>
