@@ -282,8 +282,8 @@ body {
     width:330px;
 
   }
-  html body{
-    width: 350px;
+  html body .col-xs-12.well{
+    width: 362px;
   }
   div.navbar-header{
     margin-right:0px;
