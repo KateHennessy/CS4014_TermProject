@@ -111,6 +111,19 @@
 
 <!-- END SIDEBAR USER TITLE -->
 
+<!-- USER REPUTATION -->
+<div class="text text-center">
+    <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+</div>
+<!-- END USER REPUTATION -->
+
+
+<!-- Start User Tasks -->
+<div class="text text-center">
+
+    <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
+</div>
+
 <!-- SIDEBAR MENU -->
     <div class="profile-usermenu">
         <ul class="nav">
