@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -74,12 +74,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
                             <ul id="login-dp" class="dropdown-menu">
                                 <li>
-                                    <li><a href="ProfilePage.html">My Profile</a></li>
-                                    <li><a href="#">My Tasks</a></li>
-                                    <li><a href="information.html">Information</a></li>
-                                    <li><a href="changepassword.html">Change Password</a></li>
+                                    <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+                                    <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
+                                    <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+                                    <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                        <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
                                     </div>
                                 </li>
                             </ul>
@@ -100,8 +100,8 @@
     <!-- User Side Bar -->
     <div class="container-fluid">
         <div class="col-xs-12 well">
-            <div class="row profile">
-                <div class="col-md-3">
+          <!--  <div class="row profile"> -->
+                <div class="col-md-3 adapt">
                     <div class="profile-sidebar">
 
                         <!-- SIDEBAR USER TITLE -->
@@ -115,22 +115,28 @@
                         <!-- SIDEBAR MENU -->
                         <div class="profile-usermenu">
                             <ul class="nav">
-                                <li><a href="ProfilePage.html"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="changepassword.html"><i class="glyphicon glyphicon-user"></i> Change Password </a></li>
-                                <li class="active"><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
-                                <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
-                                <li><a href="Information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
+                                <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+                                <li class="active"><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-check"></i> Tasks </a></li>
+                                <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
+                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+                                <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
+                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
                             </ul>
                         </div>
 
                         <!--end menu-->
                     </div>
                 </div>
-                <div class="col-md-9">
+
+                <div class="col-md-9 profile-content">
+                    <div class="" id="overview">
+                        <div class="">
+                <!--<div class="col-md-9">
                     <div class="profile-content" id="overview">
                         <div class="profile-content">
                             <div class="container-fluid" style="background-color:#e8e8e8">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12"> -->
 
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
@@ -204,11 +210,14 @@
                                 </div>
                             </div>
                             <div class="panel-footer">
-                                <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i> Message To Claim Task</a>
+                                <!--<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i> Message To Claim Task</a> -->
                                 <span class="pull-right">
                             <!--<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a> -->
+                            <a data-original-title="Claim" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</a>
                             <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</a>
                         </span>
+                        <br />
+
                                 <!--</div> -->
                                 <!--End of detailed task section-->
 
@@ -246,7 +255,8 @@
                                                     </div>
 
                                                     <div class="col-md-12">
-                                                        <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Send Message</button>
+                                                        <!--<button type="submit" class="btn  pull-right" id="btnContactUs"> Send Message</button> -->
+                                                        <a data-original-title="Submit" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-envelope"></i>Send Message</a>
                                                     </div>
                                                 </div>
                                             </form>

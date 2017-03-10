@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -74,23 +74,78 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
-                              <li><a href="#">My Profile</a></li>
-                              <li><a href="#">My Tasks</a></li>
-                              <li><a href="#">Information</a></li>
-                              <li><a href="#">Account Settings</a></li>
+                              <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+                              <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
+                              <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+                              <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
                                 </div>
+                              </div>
+                          </ul>
+                      </li>
+                  </ul>
+              </form>
+          </div>
+      </div>
+      <!-- /.navbar-collapse -->
 
-            <!-- <div class="bottom text-center">
-                                        New here ? <a href="#"><b>Join Us</b></a>
-                                    </div> Not neccessary here-->
-        </div>
-        </div>
-        <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+      <!-- /.container-fluid -->
+  </nav>
+
+  <!-- User Side Bar -->
+  <div class="container-fluid">
+      <div class="col-xs-12 well">
+          <!-- <div class="row profile"> -->
+              <div class="col-md-3 adapt">
+                  <div class="profile-sidebar">
+
+                      <!-- SIDEBAR USER TITLE -->
+                      <div class="profile-usertitle">
+                          <div class="profile-usertitle-name">Marcus Doe</div>
+                          <div class="profile-usertitle-job">General User</div>
+                      </div>
+
+                      <!-- END SIDEBAR USER TITLE -->
+
+                      <!-- USER REPUTATION -->
+
+                      <div class="text text-center">
+                          <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+                      </div>
+
+                      <!-- END USER REPUTATION -->
+
+                      <!-- Start User Tags -->
+
+
+                      <div class="text text-center">
+
+                          <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
+                      </div>
+
+
+                      <!-- SIDEBAR MENU -->
+                      <div class="profile-usermenu">
+                          <ul class="nav">
+                              <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+                              <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+                              <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-check"></i> Tasks </a></li>
+                              <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
+                              <li class="active"><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+                              <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
+                              <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
+                          </ul>
+                      </div>
+
+                      <!-- END MENU -->
+                    </div>
+                    </div>
+                    <!-- </div> -->
+
+                    <div class="col-md-9 profile-content">
+                        <div class="" id="overview">
+                            <div class="">
 
 
 <!-- upload -->

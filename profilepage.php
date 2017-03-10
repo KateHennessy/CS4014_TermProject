@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -55,19 +55,19 @@
                     </li>
                 </ul>
                 <form>
-                  <!--Menu bar on right hand side of nav bar -->
+                    <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
                             <ul id="login-dp" class="dropdown-menu">
 
-                                <li><a href="#overview">My Profile</a></li>
-                                <li><a href="detailedtask.html">My Tasks</a></li>
-                                <li><a href="Information.html">Information</a></li>
-                                <li><a href="changepassword.html">Change Password</a></li>
+                                <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+                                <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
+                                <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
                                     <!-- <button type="submit" class="btn btn-primary btn-block">Log Out</button> -->
-                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href='index.html'">
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
                                 </div>
 
                                 <!-- <div class="bottom text-center">
@@ -88,8 +88,8 @@
     <!-- User Side Bar -->
     <div class="container-fluid">
         <div class="col-xs-12 well">
-            <div class="row profile">
-                <div class="col-md-3">
+          <!--  <div class="row profile"> -->
+                <div class="col-md-3 adapt">
                     <div class="profile-sidebar">
 
                         <!-- SIDEBAR USER TITLE -->
@@ -100,21 +100,21 @@
 
                         <!-- END SIDEBAR USER TITLE -->
 
-                      <!-- USER REPUTATION -->
+                        <!-- USER REPUTATION -->
 
-                          <div class="text text-center">
-                                  <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
-                              </div>
+                        <div class="text text-center">
+                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+                        </div>
 
-                      <!-- END USER REPUTATION -->
+                        <!-- END USER REPUTATION -->
 
-                      <!-- Start User Tasks -->
+                        <!-- Start User Tasks -->
 
 
-                              <div class="text text-center">
+                        <div class="text text-center">
 
-                                  <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
-                              </div>
+                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
+                        </div>
 
 
 
@@ -122,40 +122,48 @@
                         <!-- SIDEBAR MENU -->
                         <div class="profile-usermenu">
                             <ul class="nav">
-                                <li class="active"><a href="#overview"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="changepassword.html"><i class="glyphicon glyphicon-user"></i> Change Password </a></li>
-                                <li><a href="detailedtask.html" target="_blank"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
-                                <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
-                                <li><a href="Information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
+                                <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+                                <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-check"></i> Tasks </a></li>
+                                <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
+                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+                                <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
+                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
                             </ul>
                         </div>
-
+                        <!-- END MENU -->
 
                     </div>
                 </div>
-                  <!-- END MENU -->
-                <div class="col-md-9">
+
+
+
+                <div class="col-md-9 profile-content">
+                    <div class="" id="overview">
+                        <div class="">
+
+                <!-- <div class="col-md-9">
                     <div class="profile-content" id="overview">
-                      <div class="profile-content">
-                        <div class="container-fluid" style="background-color:#e8e8e8">
-                            <div class="col-xs-12">
+                        <div class="profile-content">
+                            <div class="container-fluid" style="background-color:#e8e8e8">
+                                <div class="col-xs-12"> -->
 
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-12">
-                                        <h2>Tasks Overview</h2>
-                                        <p>A snippet of information on tasks I have uploaded</p>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <h2> My Tasks Overview</h2>
+                                            <p>A snippet of information on tasks I have uploaded</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <br />
+                                    <br />
 
-                                <!-- <div class="row"> -->
+                                    <!-- <div class="row"> -->
                                     <!-- Begin Task1-->
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-sm-8 col-xs-12">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left"  href="<?php echo 'detailedtask.php'; ?>" target="_parent">
 
                                                             <!-- </a> -->
                                                             <h4><div class="glyphicon glyphicon-edit"></div>The Study of Monkeys</h4></a>
@@ -172,7 +180,7 @@
                                                     <li>2000 Words</li>
                                                 </ul>
                                                 <p class="hidden-xs fixedBody">A study on the native habibtat and behvaiour of monkeys. </p>
-                                                <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
+                                                <div><label for="danger" class="btn btn-danger">Not Claimed</label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +192,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Methods in Empirical Psychology</h4>
                                                         </a>
                                                     </div>
@@ -215,7 +223,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Software Development Paradigms</h4>
                                                         </a>
                                                     </div>
@@ -231,40 +239,40 @@
                                                     <li>20 Pages</li>
                                                 </ul>
                                                 <p class="hidden-xs  fixedBody">An investigation of the best method to develop software in specific contexts</p>
-                                                <div><label for="danger" class="btn btn-danger">Completed</label></div>
+                                                <div><label for="Success" class="btn btn-success">Completed</label></div>
                                             </div>
                                         </div>
                                     </div>
-                                  <!-- </div> -->
+                                    <!-- </div> -->
                                     <!-- End Task3-->
 
                                     <!-- Begin Task4-->
                                     <!-- <div class="row"> -->
-                                        <div class="col-sm-6 col-lg-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading fixed">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-8">
-                                                            <a class="pull-left" href="detailedtask.html" target="_parent">
-                                                                <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
-                                                            </a>
-                                                        </div>
-                                                        <div class="pull-right hidden-xs col-sm-4">
-                                                            <h4><small class="pull-right">Assignment</small></h4>
-                                                        </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading fixed">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-8">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
+                                                            <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
+                                                        </a>
                                                     </div>
-                                                    <ul class="list-inline">
-                                                        <li>Word Document</li>
-                                                        <li style="list-style: none">|</li>
-                                                        <li>1000 Words</li>
-                                                        <li style="list-style: none">|</li>
-                                                        <li>7 Pages</li>
-                                                    </ul>
-                                                    <p class="hidden-xs fixedBody">A brief overview of social issues we face today</p>
-                                                    <div><label for="Success" class="btn btn-success">Not Claimed</label></div>
+                                                    <div class="pull-right hidden-xs col-sm-4">
+                                                        <h4><small class="pull-right">Assignment</small></h4>
+                                                    </div>
                                                 </div>
+                                                <ul class="list-inline">
+                                                    <li>Word Document</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>1000 Words</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>7 Pages</li>
+                                                </ul>
+                                                <p class="hidden-xs fixedBody">A brief overview of social issues we face today</p>
+                                                <div><label for="danger" class="btn btn-danger">Not Claimed</label></div>
                                             </div>
                                         </div>
+                                    </div>
                                     <!-- </div> -->
 
                                     <!-- End Task4-->
@@ -285,7 +293,7 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <!-- <div class="col-sm-4 pull-right">
+                                    <!-- <div class="col-sm-4 pull-right">
                                             <div class="hero-widget well well-sm">
                                                 <div class="icon">
                                                     <i class="glyphicon glyphicon-tags"></i>
@@ -296,17 +304,14 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Contact Me Section -->
-                            <div>
+                                    <!-- Contact Me Section -->
+                                    <!--  <div>
                                 <h2>Contact Me</h2>
-                            </div>
+                            </div> -->
 
-                            <!-- <div class="container"> -->
-                            <div class="row">
+                                    <!-- <div class="container"> -->
+                                    <!--   <div class="row">
                                 <div class="col-md-12">
                                     <div class="well well-sm">
                                         <form>
@@ -336,16 +341,113 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
+                                      </div>-->
 
+                                    <!--Claimed Tasks -->
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-12">
+                                            <h2> My  Claimed Tasks Overview</h2>
+                                            <p>A snippet of information on tasks I have claimed</p>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <!-- Begin Task1-->
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading fixed">
+                                                <div class="row">
+                                                    <div class="col-sm-8 col-xs-12">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
+
+                                                            <!-- </a> -->
+                                                            <h4><div class="glyphicon glyphicon-edit"></div>The Study of Pineapples</h4></a>
+                                                    </div>
+                                                    <div class="pull-right hidden-xs col-sm-4">
+                                                        <h4><small class="pull-right">Assignment</small></h4>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline">
+                                                    <li>PDF</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>10 Pages</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>7000 Words</li>
+                                                </ul>
+                                                <p class="hidden-xs fixedBody">A study on the groweing habitats of pineapples </p>
+                                                <div><label for="Success" class="btn btn-success">Completed</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Task1-->
+
+                                    <!-- Begin Task2-->
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading fixed">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-8">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
+                                                            <h4><div class="glyphicon glyphicon-edit"></div>Are Video Games Bad?</h4>
+                                                        </a>
+                                                    </div>
+                                                    <div class="pull-right hidden-xs col-sm-4">
+                                                        <h4><small class="pull-right">PhD Thesis</small></h4>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline">
+                                                    <li>Docx</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>35000 Words</li>
+                                                    <li style="list-style: none">|</li>
+                                                    <li>100 Pages</li>
+                                                </ul>
+                                                <p class="hidden-xs fixedBody"> A study investigating the side effects of violent video games on children</p>
+                                                <div><label for="Warning" class="btn btn-warning">In Progress</label></div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End Task2-->
+                                    <!--End Claimed Tasks-->
+
+                                    <!--Tags-->
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-12">
+                                            <h2 id="mytags"> My Tags</h2>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div>
+                                        <div class="row">
+                                            <div>
+                                                <div>
+                                                    <button class="btn btn-info btn-lg btn-block">Computer Science</button>
+                                                    <button class="btn btn-info btn-lg btn-block">Empirical Psychology</button>
+                                                    <button class="btn btn-info btn-lg btn-block">Research Methods</button>
+                                                    <button class="btn btn-info btn-lg btn-block">Fruit</button>
+                                                </div>
+                                                <br />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--End of Tags-->
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
-                <!-- End Col -->
             </div>
+        </div>
+
+        <!--  </div>
+                <!-- End Col -->
+        <!--</div> -->
         <!-- </div> -->
 
         <!-- <center>
@@ -353,7 +455,7 @@
     </center> -->
         <br>
         <br>
-      </div>
+    </div>
 
 </body>
 

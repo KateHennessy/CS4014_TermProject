@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -74,13 +74,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
-                              <li><a href="ProfilePage.html">My Profile</a></li>
-                              <li><a href="#">My Tasks</a></li>
-                              <li><a href="information.html">Information</a></li>
-                              <li><a href="#">Change Password</a></li>
+                              <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+                              <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
+                              <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+                              <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
                                 </div>
+                              </ul>
+                          </li>
+                      </ul>
                   </form>
 
             <!-- <div class="bottom text-center">
@@ -88,6 +91,7 @@
                                     </div> Not neccessary here-->
         <!-- /.navbar-collapse -->
         </div>
+      </div>
         <!-- /.container-fluid -->
     </nav>
 
@@ -95,8 +99,8 @@
 <!-- User Side Bar -->
     <div class="container-fluid">
     <div class="col-xs-12 well">
-    <div class="row profile">
-    <div class="col-md-3">
+    <!--<div class="row profile"> -->
+    <div class="col-md-3 adapt">
     <div class="profile-sidebar">
 
 <!-- SIDEBAR USER TITLE -->
@@ -110,19 +114,25 @@
 <!-- SIDEBAR MENU -->
     <div class="profile-usermenu">
         <ul class="nav">
-            <li><a href="#"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-            <li class="active"><a href="#"><i class="glyphicon glyphicon-user"></i> Change Password </a></li>
-            <li><a href="detailedtask.html" target="_blank"><i class="glyphicon glyphicon-ok"></i> Tasks </a></li>
-            <li><a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
-            <li><a href="information.html"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
+            <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+            <li class="active"><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+            <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-check"></i> Tasks </a></li>
+            <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
+            <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+            <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
+            <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
         </ul>
     </div>
+<!-- END MENU -->
   </div>
   </div>
+  <div class="col-md-9 profile-content">
+      <div class="" id="overview">
+          <div>
 
-<!--Chnage Password Text -->
+<!--Change Password Text -->
   <div class="container-fluid">
-      <div class="col-xs-11 col-sm-8 well">
+      <div class="col-xs-11 col-xs-8 well">
           <div class="row">
               <h1><div class="glyphicon glyphicon-lock"></div> Change Password </h1><br>
               <div class="col-xs-10">
@@ -146,6 +156,91 @@
       </div>
 
 <!-- END MENU -->
+
+<!--<script>
+$(document).ready(function(){
+    $('.tt-query').css('background-color', '#fff');
+
+              //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
+            $('form input').blur(function(){
+              //GETS THE ID OF ELEMENT JUST BLURRED
+              id = $(this).attr("id");
+              // IF WE ARE IN ONE OF THE PASSWORD FIELDS
+              else if(id.indexOf("pass") != -1){
+                // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
+                  if(id.indexOf("pass1") != -1){
+
+                    if( $('#pass1Form').val().length >= 7){
+                      successInput(this);
+                      return true;
+                    }else{
+                      failInput(this);
+                      return false;
+                    }
+                  }
+                  if(id.indexOf("pass2") != -1){
+                    if(validateInput(this)){
+                    var pass = $('#pass1Form').val();
+                    var repass = $('#pass2Form').val();
+                    // passwords are not equal
+                  if(pass == repass){
+                    successInput(this);
+                    return false;
+                  }else{
+                    failInput(this);
+                    return true;
+                  }
+                }else{
+                  failInput(this);
+                }
+
+                }
+
+                else{
+
+                }
+              }
+              // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
+              else{
+                validateInput(this);
+              }
+            });
+            // END OF ONBLUR CHECKING OF FORM
+
+            // VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
+            function validateInput(element){
+              id = element.id;
+              if(!$(element).val()){
+                failInput(element);
+                return false;
+              }
+              else {
+
+                  successInput(element);
+                  return true;
+
+              }
+            }
+            function failInput(element){
+              id = element.id;
+              var div = $("#" + id).closest("div");
+              div.removeClass("has-success");
+              $("#glypcn" + id).remove();
+              div.addClass("has-error has-feedback");
+              div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+            }
+
+            function successInput(element){
+              id = element.id;
+              var div = $("#" + id).closest("div");
+              div.removeClass("has-error");
+              $("#glypcn" + id).remove();
+              div.addClass("has-success has-feedback");
+              div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+            }
+          });
+        </script> -->
+
 
 </body>
 </html>

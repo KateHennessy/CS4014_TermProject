@@ -17,6 +17,14 @@
     -ms-filter: blur(3px);
     filter: blur(3px);
 }
+.background-image.main::before{
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e9296+1,50cc80+100 */
+background: rgb(30,146,150); /* Old browsers */*/
+background: -moz-radial-gradient(center, ellipse cover,  rgba(30,146,150,1) 1%, rgba(80,204,128,1) 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(30,146,150,1) 1%,rgba(80,204,128,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  rgba(30,146,150,1) 1%,rgba(80,204,128,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', endColorstr='#50cc80',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
 
 .rounded{
   background-color:rgba(235, 232, 228,0.8);
@@ -267,6 +275,20 @@ body {
   border-color: #222;
 }
 
+@media (max-width:362px){
+  .container-fluid{
+    padding:0;
+    margin:0;
+    width:330px;
+  }
+  html body .col-xs-12.well{
+    width: 362px;
+  }
+  div.navbar-header{
+    margin-right:0px;
+  }
+}
+
 /*        TASKS PANEL CLASSES        */
 @media(min-width:768px){
   .fixed{
@@ -274,6 +296,11 @@ body {
   }
   .fixedHead{
     height:40%;
+  }
+}
+@media(max-width:991px){
+  .col-md-3.adapt{
+    padding:0;
   }
 }
 
@@ -288,7 +315,8 @@ body {
 }
 /*larger area for text*/
 .fixedBodyLarge{
-height:80%;
+  height:80%;
+
 }
 
 
