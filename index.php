@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
     </script>
+
+    <!-- ONLINE BOOTSTRAP SELECT FILES -->
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script> -->
+
     <!-- LOCAL BOOTSTRAP FILES  -->
     <!-- <link rel="stylesheet" href="bootstrap/bootstrap.css">
 <script src="bootstrap/bootstrap.js"></script> -->
@@ -172,27 +181,37 @@
                   </label>
                   <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
                   <div>
-                    <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text">
+                    <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
+                    <select class="selectpicker" name="tags" data-width="fit" multiple data-selected-text-format="count > 2">
+                      <optgroup label="Computer Science">
+                        <option>Graphics</option>
+                        <option>Artificial Intelligence</option>
+                        <option>Computer Architecture & Engineering</option>
+                        <option>Biosystems & Computational Biology</option>
+                        <option>Human-Computer Interaction</option>
+                        <option>Operating Systems & Networking</option>
+                        <option>Programming Systems</option>
+                        <option>Scientific Computing</option>
+                        <option>Security</option>
+                        <option>Theory</option>
+                    </optgroup>
+                    <optgroup label="Psychology">
+                      <option>Abnormal Psychology</option>
+                      <option>Behavioral Psychology</option>
+                      <option>Biopsychology</option>
+                      <option>Cognitive Psychology</option>
+                      <option>Comparative Psychology</option>
+                      <option>Cross-Cultural Psychology</option>
+                      <option>Developmental Psychology</option>
+                      <option>Educational Psychology</option>
+                      <option>Experimental Psychology</option>
+                    </optgroup>
+                  </select>
+
+
                   </div>
                 </div>
-                <div class="col-sm-6 form-group">
-                  <label>Tag 2
-                  </label>
-                  <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
-                  <input class="form-control" name="tag2" id="tag2" placeholder="Enter 2nd Tag..." type="text">
-                </div>
-                <div class="col-sm-6 form-group">
-                  <label>Tag 3
-                  </label>
-                  <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
-                  <input class="form-control" name="tag3" id="tag3" placeholder="Enter 3rd Tag..." type="text">
-                </div>
-                <div class="col-sm-6 form-group">
-                  <label>Tag 4
-                  </label>
-                  <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
-                  <input class="form-control" name="tag4" id="tag4" placeholder="Enter 4th Tag..." type="text">
-                </div>
+
               </div>
             </div>
             <button type="button" class="btn btn-lg btn-success">Submit
