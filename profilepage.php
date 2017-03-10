@@ -163,7 +163,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-sm-8 col-xs-12">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left"  href="<?php echo 'detailedtask.php'; ?>" target="_parent">
 
                                                             <!-- </a> -->
                                                             <h4><div class="glyphicon glyphicon-edit"></div>The Study of Monkeys</h4></a>
@@ -192,7 +192,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Methods in Empirical Psychology</h4>
                                                         </a>
                                                     </div>
@@ -223,7 +223,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Software Development Paradigms</h4>
                                                         </a>
                                                     </div>
@@ -253,7 +253,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Social Issues</h4>
                                                         </a>
                                                     </div>
@@ -357,7 +357,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-sm-8 col-xs-12">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
 
                                                             <!-- </a> -->
                                                             <h4><div class="glyphicon glyphicon-edit"></div>The Study of Pineapples</h4></a>
@@ -386,7 +386,7 @@
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Are Video Games Bad?</h4>
                                                         </a>
                                                     </div>
