@@ -334,3 +334,15 @@ body {
 
 /*SPACE AFTER ICON */
 .glyphicon:before { margin-right: 5px; }
+
+
+/*Circular button*/
+
+.btn-circle {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding: 2px 0;
+  font-size: 12px;
+  border-radius: 10px;
+}

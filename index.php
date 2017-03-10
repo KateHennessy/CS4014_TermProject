@@ -5,16 +5,12 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
-    <!-- JAVASCRIPT FOR AUTOCOMPLETE -->
-    <!-- <script src="https://raw.githubusercontent.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.min.js" /></script> -->
-    <script src="js/typeahead.js"> </script>
-    <!-- JQUERY UI FOR TAGS -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js">
-    </script>
+
+
     <!-- ONLINE BOOTSTRAP FILES -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
@@ -25,12 +21,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-<!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script> -->
 
     <!-- LOCAL BOOTSTRAP FILES  -->
     <!-- <link rel="stylesheet" href="bootstrap/bootstrap.css">
 <script src="bootstrap/bootstrap.js"></script> -->
+
+
+
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/typeahead.css">
@@ -179,6 +176,12 @@
                 <div class="col-sm-6 form-group">
                   <label>Tag 1 <em class="text-danger"> *</em>
                   </label>
+                  <button id="tooltip1" type="button" class="btn btn-primary btn-circle"
+                  data-toggle="tooltip" data-placement="bottom"
+                  data-original-title="Tags are used to identify areas you are interested in.
+                  These tags will determine what tasks appear in your feed. Please choose between 1 and 4 tags.">
+                    <span class="text-white"> ?</span>
+                  </button>
                   <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
                   <div>
                     <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
@@ -223,6 +226,9 @@
     <script>
       $(document).ready(function(){
 
+        // TOOLTIP FOR TAGS
+         $('#tooltip1').tooltip();
+// });
         // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
         $('[id^=tag]').typeahead({
           //[id^=tag] -- anything starting with 'tag'
