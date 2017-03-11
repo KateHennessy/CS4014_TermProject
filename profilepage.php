@@ -108,7 +108,25 @@
                           echo $row ['f_name']." ".$row ['l_name']."<br/>";
                           ?>
 
-                            <div class="profile-usertitle-job">General User</div>
+                          <!--Output User Type -->
+                            <!--<div class="profile-usertitle-job">General User</div> -->
+                            <?php
+                            $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                            $db_username = "root";
+                            $db_pass = "";
+                            $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
+
+                            $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
+                            $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                            $result -> execute();
+                            $row = $result -> fetch(PDO::FETCH_ASSOC);
+                            if($row >= 40) {  /*This syntax does not work as of yet */
+                              echo "Moderator";
+                            } else {
+                              echo "General User";
+                            }
+                            ?>
+
                         </div>
 
                         <!-- END SIDEBAR USER TITLE -->
@@ -140,7 +158,6 @@
 
 
                         <div class="text text-center">
-
                             <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
                         </div>
 
