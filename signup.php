@@ -121,7 +121,7 @@
 
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
-// });
+
         // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
         $('[id^=tag]').typeahead({
           //[id^=tag] -- anything starting with 'tag'
