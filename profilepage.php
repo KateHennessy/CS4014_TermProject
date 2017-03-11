@@ -93,8 +93,40 @@
 
                         <!-- SIDEBAR USER TITLE -->
                         <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">Marcus Doe</div>
-                            <div class="profile-usertitle-job">General User</div>
+
+                          <!--Output User Name -->
+                          <?php
+                          $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                          $db_username = "root";
+                          $db_pass = "";
+                          $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
+
+                          $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
+                          $result = $db -> query ("SELECT f_name, l_name FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                          $result -> execute();
+                          $row = $result -> fetch(PDO::FETCH_ASSOC);
+                          echo $row ['f_name']." ".$row ['l_name']."<br/>";
+                          ?>
+
+                          <!--Output User Type -->
+                            <!--<div class="profile-usertitle-job">General User</div> -->
+                            <?php
+                            $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                            $db_username = "root";
+                            $db_pass = "";
+                            $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
+
+                            $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
+                            $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                            $result -> execute();
+                            $row = $result -> fetch(PDO::FETCH_ASSOC);
+                            if($row >= 40) {  /*This syntax does not work as of yet */
+                              echo "Moderator";
+                            } else {
+                              echo "General User";
+                            }
+                            ?>
+
                         </div>
 
                         <!-- END SIDEBAR USER TITLE -->
@@ -102,7 +134,22 @@
                         <!-- USER REPUTATION -->
 
                         <div class="text text-center">
-                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><!--<var>21</var> Reputation Score</label> -->
+
+                            <!--PHP to bring reputation score from database -->
+                            <?php
+                            $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                            $db_username = "root";
+                            $db_pass = "";
+                            $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
+
+                            $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
+                            $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                            $result -> execute();
+                            $row = $result -> fetch(PDO::FETCH_ASSOC);
+                            echo $row ['reputation']." Reputation Score"."<br/>";
+                            ?>
+
                         </div>
 
                         <!-- END USER REPUTATION -->
@@ -111,7 +158,6 @@
 
 
                         <div class="text text-center">
-
                             <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
                         </div>
 
