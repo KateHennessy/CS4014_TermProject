@@ -16,11 +16,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
     </script>
 
-    <!-- ONLINE BOOTSTRAP SELECT FILES -->
+    <!-- ONLINE BOOTSTRAP SELECT FILES (FOR TAGS SELECTION) -->
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
 
     <!-- LOCAL BOOTSTRAP FILES  -->
     <!-- <link rel="stylesheet" href="bootstrap/bootstrap.css">
