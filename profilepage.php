@@ -93,7 +93,21 @@
 
                         <!-- SIDEBAR USER TITLE -->
                         <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">Marcus Doe</div>
+
+                          <!--Output User Name -->
+                          <?php
+                          $db_host ="localhost:9080";
+                          $db_username = "root";
+                          $db_pass = "";
+                          $db_name = "sample";
+
+                          $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
+                          $result = $db -> query ("SELECT f_name, l_name FROM user WHERE user_id = '1'");
+                          $result -> execute();
+                          $row = $result -> fetch(PDO::FETCH_ASSOC);
+                          echo $row ['f_name']." ".$row ['l_name']."<br/>";
+                          ?>
+
                             <div class="profile-usertitle-job">General User</div>
                         </div>
 
