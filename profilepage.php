@@ -96,7 +96,7 @@
 
                           <!--Output User Name -->
                           <?php
-                          $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                          $db_host ="localhost";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
                           $db_username = "root";
                           $db_pass = "";
                           $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
@@ -105,13 +105,13 @@
                           $result = $db -> query ("SELECT f_name, l_name FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
                           $result -> execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          echo $row ['f_name']." ".$row ['l_name']."<br/>";
+                          echo '<label class="text-muted">'.$row ['f_name']." ".$row ['l_name']."<br/>";
                           ?>
 
                           <!--Output User Type -->
                             <!--<div class="profile-usertitle-job">General User</div> -->
                             <?php
-                            $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                            $db_host ="localhost:";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
                             $db_username = "root";
                             $db_pass = "";
                             $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
@@ -120,10 +120,10 @@
                             $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
                             $result -> execute();
                             $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            if($row >= 40) {  /*This syntax does not work as of yet */
+                            if($row['reputation'] >= 40) {  /*This syntax does not work as of yet */
                               echo "Moderator";
                             } else {
-                              echo "General User";
+                              echo "<label class=\"text-muted\">General User</label>";
                             }
                             ?>
 
