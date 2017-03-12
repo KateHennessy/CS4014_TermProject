@@ -1,6 +1,75 @@
 <?php
     require_once __DIR__.'/templates/header.template.php';
-    ?>
+    require_once __DIR__.'/models/User.class.php';
+    require_once __DIR__.'/models/Tag.class.php';
+
+
+
+      if (isset($_POST) && count ($_POST) > 0) {
+        printf("<h1>In Post</h1>");
+          $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
+          $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
+          $email = trim(strtolower($_POST["email"]));
+          $passOne = $_POST["pass_one"];
+          $passTwo = $_POST["pass_two"];
+          $discipline=$_POST["discipline"];
+          $tags= $_POST["tags"];
+
+
+
+
+
+
+
+          //check wheter user/email alerady exists
+
+          if ($passOne != $passTwo) { //in case Javascript is disabled.
+              printf("<h2> Passwords do not match. </h2>");
+          }else if(count($tags) < 1 || count($tags) > 4){
+            printf("<h2> Incorrect number of tags entered. </h2>");
+          } else {
+
+
+                  $siteSalt  = "hPxmjz6hJc";
+                  $saltedHash = hash('sha256', $passOne.$siteSalt);
+                  $user = new User();
+                  $dbquery = new DatabaseQueries();
+
+                  $user->set_first_name($firstName);
+                  $user->set_last_name($lastName);
+                  $user->set_email($email);
+                  $user->set_password($saltedHash);
+                  $user->set_discipline($discipline);
+                  $tagArray = array();
+                  for($i = 0; $i < count($tags); $i++){
+                      $aTag = new Tag();
+                      $aTag->set_name($tags[$i]);
+                      $aTag->set_id($aTag->find_id());
+                      $tagArray[$i] = $aTag;
+                  }
+                  $user->set_tags($tagArray);
+                  $dbquery->addUser($user);
+                  // printf($user->insert_query());
+                  // require_once __DIR__."../utils/Settings.class.php";
+                  // $db_name = Settings::get('database.database');
+                  // $db_host = Settings::get('database.server');
+                  // $server_port = Settings::get('database.server_port');
+                  // $db_username = Settings::get('database.username');
+                  // $db_pass = Settings::get('database.password');
+
+                  // $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port, $db_username, $db_pass);
+                  // $result = $db -> query ($user->insert_query()); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                  // $result -> execute();
+
+
+                  // if (!is_null($user)) {
+                  //         printf("<h2> Welcome %s! Please <a href=\"./login.php\"> login </a> to proceed. </h2>", $user->get_first_name());
+                  //         // $userDao->logout();
+                  }
+              // }
+          // }
+      }
+            if (!isset($_POST) || count($_POST) == 0) {?>
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
@@ -16,7 +85,7 @@
                   </label>
                   <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" placeholder="Enter First Name Here.." id="firstName" class="form-control">
+                    <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -24,7 +93,7 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" placeholder="Enter Last Name Here.." id="lastName" class="form-control">
+                    <input type="text" placeholder="Enter Last Name Here.." id="lastName" name="last_name" class="form-control">
                   </div>
                 </div>
               </div>
@@ -34,7 +103,7 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                    <input type="email" placeholder="Enter Discipline Here.." id="emailForm"
+                    <input type="email" placeholder="Enter UL Email Here.." id="emailForm" name="email"
                            class="form-control">
                   </div>
                 </div>
@@ -43,7 +112,7 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                    <input type="text" placeholder="Enter Discipline Here.." id="discipline" class="form-control">
+                    <input type="text" placeholder="Enter Discipline Here.." name = "discipline" id="discipline" class="form-control">
                   </div>
                 </div>
               </div>
@@ -53,7 +122,7 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" placeholder="Enter Password Here.." id="pass1Form" class="form-control">
+                    <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -61,7 +130,7 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" placeholder="Reenter Password Here..." id="pass2Form" class="form-control">
+                    <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control">
                   </div>
                 </div>
               </div>
@@ -78,9 +147,9 @@
                   <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
                   <div>
                     <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
-                    <select class="selectpicker" id="bootstrap-select" name="tags" data-width="fit" multiple
+                    <select class="selectpicker" id="bootstrap-select" name="tags[]" data-width="fit" multiple
                     data-selected-text-format="count > 1" data-max-options="4"
-                    required="required" >
+                    required="required" name="tags">
                       <optgroup label="Computer Science">
                         <option>Graphics</option>
                         <option>Artificial Intelligence</option>
@@ -112,9 +181,10 @@
 
               </div>
             </div>
-            <button type="button" class="btn btn-lg btn-success">Submit
+            <button type="submit" class="btn btn-lg btn-success">Submit
             </button>
           </form>
+            <?php } ?>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@
                 if (isset($no_access)) { // need to set this up for moderators
                     //header("location:./signup.php");   could change this to "sorry not found page"
                 } else {
-                    header("location:./signup.php");
+                    header("location:./register.php");
                 }
 
             }

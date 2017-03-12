@@ -1,5 +1,6 @@
 <!--Based on UL-BuynSell example -->
 <?php
+require_once __DIR__."/../database/DatabaseQueries.php";
 class User {
     /*http://www.kjetil-hartveit.com/blog/1/setter-and-getter-generator-for-php-javascript-c%2B%2B-and-csharp*/
 
@@ -26,6 +27,14 @@ class User {
     function set_tags($tags) { $this->tags = $tags; }
     function get_tags(){return $this->tags;}
 
+    function find_id(){     //finds id of user in database from their email - used after user just inserted
+      $dbquery = new DatabaseQueries();
+      $db = $dbquery->connect_db();
+      $result = $db -> query ("SELECT user_id FROM user WHERE email = '" .$this->email ."';");
+      $result -> execute();
+      $row = $result -> fetch(PDO::FETCH_ASSOC);
+      return $row['user_id'];
+    }
 
 }
 ?>
