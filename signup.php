@@ -8,7 +8,7 @@
           <h1 class="">Sign Up
           </h1>
           <br>
-          <form>
+          <form method="post">
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-6 form-group">
@@ -78,7 +78,9 @@
                   <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
                   <div>
                     <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
-                    <select class="selectpicker" name="tags" data-width="fit" multiple data-selected-text-format="count > 2">
+                    <select class="selectpicker" id="bootstrap-select" name="tags" data-width="fit" multiple
+                    data-selected-text-format="count > 1" data-max-options="4"
+                    required="required" >
                       <optgroup label="Computer Science">
                         <option>Graphics</option>
                         <option>Artificial Intelligence</option>
@@ -119,23 +121,20 @@
     <script>
       $(document).ready(function(){
 
+        $('.selectpicker').on('change', function () {
+          var count = $(this).find("option:selected").length;
+          if(count > 0 && count <= 4){
+            successInput(this);
+          }else{
+            failInput(this);
+          }
+        });
+
+
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
 
-        // FUNCTION TO PROVIDE AUTO COMPLETE FOR TAGS
-        $('[id^=tag]').typeahead({
-          //[id^=tag] -- anything starting with 'tag'
-          // $('tag1').typeahead({
-          local: ['Performing Arts', 'Visual Arts', 'Geography', 'History', 'Languages',
-                  'Literature', 'Philosophy', 'Economics', 'Law', 'Political Science', 'Psychology',
-                  'Sociology', 'Biology', 'Chemistry', 'Earth and Space Sciences', 'Mathematics',
-                  'Physics', 'Agricultural Sciences', 'Computer Science', 'Engineering and Technology',
-                  'Medicine and Health Sciences'
-                 ]
-        }
-                                );
-        $('.tt-query').css('background-color', '#fff');
-        // END OF TAG code
+
 
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
         $('form input').blur(function(){
@@ -143,16 +142,12 @@
           id = $(this).attr("id");
 
 
+
           // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
           if(id.indexOf("email") != -1){
             validateEmail(this);
           }
-          // IF IT IS HAS A TAG ID, ONLY VALIDATE IF tag1 (the rest are optional)
-          else if(id.indexOf("tag") != -1){
-            if(id.indexOf("tag1") != -1){
-              validateInput(this);
-            }
-          }
+
           // IF WE ARE IN ONE OF THE PASSWORD FIELDS
           else if(id.indexOf("pass") != -1){
             // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
@@ -194,6 +189,17 @@
           }
         });
         // END OF ONBLUR CHECKING OF FORM
+
+        function validateTags(element){
+          id = element.id;
+          var options =(element).val();
+          alert(options);
+          if((options != null && options.length >= 2 && options.length <= 4)){
+            successInput(element);
+            return true;
+          }
+          return false;
+        }
 
         // VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
         function validateInput(element){
