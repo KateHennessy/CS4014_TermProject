@@ -2,6 +2,8 @@
     require_once __DIR__.'/templates/header.template.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
+    require_once __DIR__."/utils/Settings.class.php";
+    require_once __DIR__."/database/DatabaseQueries.php";
     ?>
 
 
@@ -17,33 +19,18 @@
 
                           <!--Output User Name -->
                           <?php
-                          require_once __DIR__."/utils/Settings.class.php";
-                          $db_name = Settings::get('database.database');
-                          $db_host = Settings::get('database.server');
-                          $server_port = Settings::get('database.server_port');
-                          $db_username = Settings::get('database.username');
-                          $db_pass = Settings::get('database.password');
                           $dbquery = new DatabaseQueries();
-
-
                           $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '2'");
-
-                          echo($db_name ." ".$db_host." ".$server_port." ".$db_pass);
-
-                          $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port, $db_username, $db_pass);
-                          $result = $db->prepare("SELECT f_name, l_name FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
-
-                          $result -> execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          return $row ['f_name']." ".$row ['l_name']."<br/>";
+                          echo( $row ['f_name']." ".$row ['l_name']."<br/>");
 
                           $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '2'");
                           $result -> execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            if($row['reputation'] >= 40) {  /*This syntax does not work as of yet */
-                              return "<label class=\"text-muted\">Moderator</label>";
+                            if($row['reputation'] >= 40) {
+                              echo("<label class=\"text-muted\">Moderator</label>");
                             } else {
-                              return "<label class=\"text-muted\">General User</label>";
+                              echo("<label class=\"text-muted\">General User</label>");
                             }
                           ?>
 
@@ -58,14 +45,8 @@
 
                             <!--PHP to bring reputation score from database -->
                             <?php
-                            $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
-                            $db_username = "root";
-                            $db_pass = "";
-                            $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
-
-                            $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
-                            $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '2'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
-                            $result -> execute();
+                            $dbquery = new DatabaseQueries();
+                            $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '2'");
                             $row = $result -> fetch(PDO::FETCH_ASSOC);
                             echo $row ['reputation']." Reputation Score"."<br/>";
                             ?>
