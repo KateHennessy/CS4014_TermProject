@@ -74,8 +74,7 @@
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
         <div class="row">
-          <h1 class="">Sign Up
-          </h1>
+          <h1 class="">Sign Up</h1>
           <br>
           <form method="post">
             <div class="col-sm-12">
