@@ -1,4 +1,19 @@
 <?php
+    session_start();
+
+
+
+            if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
+              $id = $_SESSION["user_id"];
+              echo("ID: " .$id);
+            } else {
+              echo("In else " .$_SESSION["user_id"]);
+                // header("location:./register.php");
+            }
+		  ?>
+
+
+<?php
     require_once __DIR__.'/templates/header.template.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
@@ -20,11 +35,11 @@
                           <!--Output User Name -->
                           <?php
                           $dbquery = new DatabaseQueries();
-                          $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '2'");
+                          $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '".$id ."'");
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          echo( $row ['f_name']." ".$row ['l_name']."<br/>");
+                          echo("<label class=\"text-muted\">" .$row ['f_name']." ".$row ['l_name']."</label><br/>");
 
-                          $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '2'");
+                          $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
                           $result -> execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
                             if($row['reputation'] >= 40) {
@@ -46,7 +61,7 @@
                             <!--PHP to bring reputation score from database -->
                             <?php
                             $dbquery = new DatabaseQueries();
-                            $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '2'");
+                            $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
                             $row = $result -> fetch(PDO::FETCH_ASSOC);
                             echo $row ['reputation']." Reputation Score"."<br/>";
                             ?>
@@ -63,7 +78,7 @@
                             <!--php for counting number of tasks the user has uploaded -->
                             <?php
                             $dbquery = new DatabaseQueries();
-                            $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '2'");
+                            $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '".$id ."'");
                             $row = $result -> fetch(PDO::FETCH_ASSOC);
                             echo $row ['count(task_id)']." Tasks Uploaded"."<br/>";
                             ?>
@@ -378,7 +393,7 @@
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
@@ -387,7 +402,7 @@
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
@@ -396,7 +411,7 @@
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
@@ -405,7 +420,7 @@
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>

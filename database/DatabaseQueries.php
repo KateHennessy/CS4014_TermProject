@@ -18,14 +18,16 @@ class DatabaseQueries{
   }
 
     function insertSQLquery($query){
-      echo($query);
+      // echo($query);
       $db = $this -> connect_db();
       $result = $db -> prepare ($query);
 
       if($result){
         $result -> execute();
+        return true;
       }else{
         echo("ERROR WITH INSERTING TO DB");
+        return false;
       }
 
     }
@@ -40,28 +42,30 @@ class DatabaseQueries{
       date_default_timezone_set('Europe/Dublin');
       $date = date('Y-m-d H:i:s', time());
 
-      $query = "INSERT INTO `User` (`user_id`, `f_name`,
+      $query = "INSERT INTO `user` (`user_id`, `f_name`,
         `l_name`, `email`, `pass`, `discipline_id`, `reputation`,
          `signup_date`) VALUES ( NULL,'" .$user->get_first_name() ."','"
          .$user->get_last_name() ."','" .$user->get_email() ."','"
          .$user->get_password() ."','" .$user->get_discipline()->get_id() ."','0','" .$date ."');";
-         $this->insertSQLquery($query);
-         $this->addUserTags($user);
+         $bool1 = $this->insertSQLquery($query);
+         $bool2 = $this->addUserTags($user);
+         return ($bool1 && $bool2);
     }
 
 
     function addUserTags($user){
      $tags = $user->get_tags();
      for($i = 0; $i < count($tags); $i++){
-       $query = "INSERT INTO `User_Tag` (`user_id`, `tag_id`, `clicks`) VALUES ('"
+       $query = "INSERT INTO `user_tag` (`user_id`, `tag_id`, `clicks`) VALUES ('"
        .$user->find_id() ."', '" .$tags[$i]->find_id() ."', '0');";
-       $this->insertSQLquery($query);
+       return $this->insertSQLquery($query);
      }
     }
 
     function checkUserExists($user){
-       $query = "SELECT user_id FROM User WHERE email = '" .$user.get_email() ."';";
+       $query = "SELECT user_id FROM user WHERE email = '" .$user.get_email() ."';";
        $result = returnSQLquery($query);
+       return $result;
 
     }
 

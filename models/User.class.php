@@ -30,7 +30,7 @@ class User {
     function find_id(){     //finds id of user in database from their email - used after user just inserted
       $dbquery = new DatabaseQueries();
       $db = $dbquery->connect_db();
-      $result = $db -> prepare ("SELECT user_id FROM User WHERE email = '" .$this->email ."';");
+      $result = $db -> prepare ("SELECT user_id FROM user WHERE email = '" .$this->email ."';");
       $result -> execute();
       $row = $result -> fetch(PDO::FETCH_ASSOC);
       return $row['user_id'];
