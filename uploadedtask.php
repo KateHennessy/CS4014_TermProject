@@ -218,18 +218,53 @@
 </div>
 
 <!-- Select Basic -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="Decision Timeframe">Tags To Describe The Task</label>
-  <div class="col-md-5">
-    <select id="Decision Timeframe" name="Decision Timeframe" class="form-control">
-      <option value="1">Select One</option>
-      <option value="2">As soon as possible</option>
-      <option value="3">1 to 3 months</option>
-      <option value="4">3 to 6 months</option>
-      <option value="">6+ months</option>
-    </select>
-  </div>
-</div>
+ <div class="row">
+                <div class="col-sm-6 form-group">
+                  <label>Tags <em class="text-danger"> *</em>
+                  </label>
+                   <button id="tooltip1" type="button" class="btn btn-primary btn-circle"
+                  data-toggle="tooltip" data-placement="bottom"
+                  data-original-title="Tags are used to identify areas you are interested in.
+                  These tags will determine what tasks appear in your feed. Please choose between 1 and 4 tags.">
+                    <span class="text-white"> ?</span>
+                  </button>
+                  <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
+                  <div>
+                    <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
+                    <select class="selectpicker" id="bootstrap-select" name="tags[]" data-width="fit" multiple
+                    data-selected-text-format="count > 1" data-max-options="4"
+                    required="required" name="tags">
+                      <optgroup label="Computer Science">
+                        <option>Graphics</option>
+                        <option>Artificial Intelligence</option>
+                        <option>Computer Architecture & Engineering</option>
+                        <option>Biosystems & Computational Biology</option>
+                        <option>Human-Computer Interaction</option>
+                        <option>Operating Systems & Networking</option>
+                        <option>Programming Systems</option>
+                        <option>Scientific Computing</option>
+                        <option>Security</option>
+                        <option>Theory</option>
+                    </optgroup>
+                    <optgroup label="Psychology">
+                      <option>Abnormal Psychology</option>
+                      <option>Behavioral Psychology</option>
+                      <option>Biopsychology</option>
+                      <option>Cognitive Psychology</option>
+                      <option>Comparative Psychology</option>
+                      <option>Cross-Cultural Psychology</option>
+                      <option>Developmental Psychology</option>
+                      <option>Educational Psychology</option>
+                      <option>Experimental Psychology</option>
+                    </optgroup>
+                  </select>
+
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
 
 
 <!--number input-->
@@ -267,7 +302,7 @@
 <div class="row">
 
         <div class="form-group">
-    		<label for="happy" class="col-sm-4 col-md-4 control-label text-right">Sample Of The Document Uploaded?</label>
+    		
             <br>
     		
 
@@ -275,11 +310,7 @@
 
 
   <div class="col-md-4">
-  <form>
-  <input type="radio" name="gender" value="male" checked> yes 
-  <input type="radio" name="gender" value="female" > no
   
-</form> <br><br>
     <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
     <div class="col-sm-7 col-md-7"></div>
   </div>
@@ -310,9 +341,16 @@
         
         <!--JS-->
         <script>
-        $(function()
-{
-    $(document).on('click', '.btn-add', function(e)
+		
+		// TOOLTIP FOR TAGS
+         
+		 
+		 
+		 
+		 
+        $(document).ready(function(){
+			$('#tooltip1').tooltip();
+  $(document).on('click', '.btn-add', function(e)
     {
         e.preventDefault();
 
