@@ -62,12 +62,11 @@
                             <ul id="login-dp" class="dropdown-menu">
 
                                 <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
-                                <li><a href="<?php echo 'detailedtask.php'; ?>">My Tasks</a></li>
                                 <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
                                 <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
-                                    <!-- <button type="submit" class="btn btn-primary btn-block">Log Out</button> -->
-                                    <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>">
+                                    <!-- <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
+                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
                                 </div>
 
                                 <!-- <div class="bottom text-center">
@@ -94,8 +93,32 @@
 
                         <!-- SIDEBAR USER TITLE -->
                         <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">Marcus Doe</div>
-                            <div class="profile-usertitle-job">General User</div>
+
+                          <!--Output User Name -->
+                          <?php
+                          require_once __DIR__."../utils/Settings.class.php";
+                          $db_name = Settings::get('database.database');
+                          $db_host = Settings::get('database.server');
+                          $server_port = Settings::get('database.server_port');
+                          $db_username = Settings::get('database.username');
+                          $db_pass = Settings::get('database.password');
+
+                          $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port, $db_username, $db_pass);
+                          $result = $db -> query ("SELECT f_name, l_name FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                          $result -> execute();
+                          $row = $result -> fetch(PDO::FETCH_ASSOC);
+                          echo '<label class="text-muted">'.$row ['f_name']." ".$row ['l_name']."<br/>";
+
+                          $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                          $result -> execute();
+                          $row = $result -> fetch(PDO::FETCH_ASSOC);
+                          if($row['reputation'] >= 40) {  /*This syntax does not work as of yet */
+                            echo "<label class=\"text-muted\">Moderator</label>";
+                          } else {
+                            echo "<label class=\"text-muted\">General User</label>";
+                          }
+                          ?>
+
                         </div>
 
                         <!-- END SIDEBAR USER TITLE -->
@@ -103,7 +126,22 @@
                         <!-- USER REPUTATION -->
 
                         <div class="text text-center">
-                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
+                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><!--<var>21</var> Reputation Score</label> -->
+
+                            <!--PHP to bring reputation score from database -->
+                            <?php
+                            $db_host ="localhost:9080";  /* I have to use port 9080 but I will change afterwards feel free to change if yuou are testing the db */
+                            $db_username = "root";
+                            $db_pass = "";
+                            $db_name = "sample"; /*I am using a sample db as it does not yet have correct info */
+
+                            $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name, $db_username, $db_pass);
+                            $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                            $result -> execute();
+                            $row = $result -> fetch(PDO::FETCH_ASSOC);
+                            echo $row ['reputation']." Reputation Score"."<br/>";
+                            ?>
+
                         </div>
 
                         <!-- END USER REPUTATION -->
@@ -112,7 +150,6 @@
 
 
                         <div class="text text-center">
-
                             <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
                         </div>
 
@@ -124,8 +161,6 @@
                             <ul class="nav">
                                 <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
                                 <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
-                                <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-check"></i> Tasks </a></li>
-                                <li><a href="<?php echo 'detailedtask.php'; ?>"><i class="glyphicon glyphicon-ok"></i> Claimed Tasks </a> </li>
                                 <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
                                 <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
                                 <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
