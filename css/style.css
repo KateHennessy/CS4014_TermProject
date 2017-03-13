@@ -288,6 +288,12 @@ body {
     margin-right:0px;
   }
 }
+  
+  @media only screen and (max-width: 480px) {
+ .controls{
+   	width:100px;
+	}
+}
 
 /*        TASKS PANEL CLASSES        */
 @media(min-width:768px){
@@ -333,3 +339,38 @@ body {
 
 /*SPACE AFTER ICON */
 .glyphicon:before { margin-right: 5px; }
+
+/*overlapping container*/
+.container{
+	width: auto;
+}
+
+/*multiple upload*/
+
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+
+/*textarea*/
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+
+
+
+
