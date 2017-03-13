@@ -289,7 +289,7 @@ body {
   }
 
 }
-  
+
   @media only screen and (max-width: 480px) {
  .controls{
    	width:100px;
@@ -367,7 +367,7 @@ input[type=text], select, textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin-top: 6px;
+    /*margin-top: 6px; */
     margin-bottom: 16px;
     resize: vertical;
 }
@@ -388,4 +388,3 @@ input[type=text], select, textarea {
 #bootstrapSelectForm .selectContainer .form-control-feedback {
     /* Adjust feedback icon position */
     right: -15px;
-
