@@ -60,6 +60,7 @@
 
                         <div class="text text-center">
                             <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <!-- <var>4</var> Total Number of Tasks Uploaded</label> -->
+                            <!--php for counting number of tasks the user has uploaded -->
                             <?php
                             $dbquery = new DatabaseQueries();
                             $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '2'");
@@ -373,10 +374,42 @@
                                         <div class="row">
                                             <div>
                                                 <div>
-                                                    <button class="btn btn-info btn-lg btn-block">Computer Science</button>
-                                                    <button class="btn btn-info btn-lg btn-block">Empirical Psychology</button>
-                                                    <button class="btn btn-info btn-lg btn-block">Research Methods</button>
-                                                    <button class="btn btn-info btn-lg btn-block">Fruit</button>
+                                                    <button class="btn btn-info btn-lg btn-block">
+                                                      <!--php to get tag names from database -->
+                                                      <?php
+                                                      $dbquery = new DatabaseQueries();
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
+                                                      echo $row ['tag_name']."<br/>";
+                                                      ?>
+                                                    </button>
+                                                    <button class="btn btn-info btn-lg btn-block">
+                                                      <!--php to get tag names from database -->
+                                                      <?php
+                                                      $dbquery = new DatabaseQueries();
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
+                                                      echo $row ['tag_name']."<br/>";
+                                                      ?>
+                                                    </button>
+                                                    <button class="btn btn-info btn-lg btn-block">
+                                                      <!--php to get tag names from database -->
+                                                      <?php
+                                                      $dbquery = new DatabaseQueries();
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
+                                                      echo $row ['tag_name']."<br/>";
+                                                      ?>
+                                                    </button>
+                                                    <button class="btn btn-info btn-lg btn-block">
+                                                      <!--php to get tag names from database -->
+                                                      <?php
+                                                      $dbquery = new DatabaseQueries();
+                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '2'");
+                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
+                                                      echo $row ['tag_name']."<br/>";
+                                                      ?>
+                                                    </button>
                                                 </div>
                                                 <br />
                                             </div>
