@@ -23,21 +23,21 @@
                           $server_port = Settings::get('database.server_port');
                           $db_username = Settings::get('database.username');
                           $db_pass = Settings::get('database.password');
+                          $dbquery = new DatabaseQueries();
 
-                          $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port, $db_username, $db_pass);
-                          $result = $db -> query ("SELECT f_name, l_name FROM user WHERE user_id = '2'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                          $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '2'");
                           $result -> execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          echo '<label class="text-muted">'.$row ['f_name']." ".$row ['l_name']."<br/>";
+                          return $row ['f_name']." ".$row ['l_name']."<br/>";
 
-                          $result = $db -> query ("SELECT reputation FROM user WHERE user_id = '2'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                          $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '2'");
                           $result -> execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          if($row['reputation'] >= 40) {  /*This syntax does not work as of yet */
-                            echo "<label class=\"text-muted\">Moderator</label>";
-                          } else {
-                            echo "<label class=\"text-muted\">General User</label>";
-                          }
+                            if($row['reputation'] >= 40) {  /*This syntax does not work as of yet */
+                              return "<label class=\"text-muted\">Moderator</label>";
+                            } else {
+                              return "<label class=\"text-muted\">General User</label>";
+                            }
                           ?>
 
                         </div>
