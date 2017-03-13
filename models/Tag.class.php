@@ -16,17 +16,14 @@ class Tag {
     function find_id(){
       $dbquery = new DatabaseQueries();
       $db = $dbquery->connect_db();
-      $result = $db -> query ("SELECT tag_id FROM tag WHERE tag_name = '" .$this->name ."';");
-      $result -> execute();
+      $result = $dbquery->returnSQLquery("SELECT tag_id FROM Tag WHERE tag_name = '" .$this->name ."';");
       $row = $result -> fetch(PDO::FETCH_ASSOC);
       return $row['tag_id'];
     }
 
-
-
     function find_name(){
       $db = DatabaseQueries::connect_db();
-      $result = $db -> query ("SELECT tag_name FROM tag WHERE tag_id = '" .$id ."';");
+      $result = $db -> prepare ("SELECT tag_name FROM Tag WHERE tag_id = '" .$id ."';");
       $result -> execute();
       $row = $result -> fetch(PDO::FETCH_ASSOC);
       return $row['tag_id'];

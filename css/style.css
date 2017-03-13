@@ -162,7 +162,7 @@ body {
   background: #fff;
 }
 
-.profile-userpic img {
+/*.profile-userpic img {
   float: none;
   margin: 0 auto;
   width: 50%;
@@ -170,7 +170,7 @@ body {
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
-}
+} */
 
 .profile-usertitle {
   text-align: center;
@@ -289,8 +289,13 @@ body {
   }
 
 }
+
   
  /* @media only screen and (max-width: 480px) {
+
+
+  @media only screen and (max-width: 480px) {
+
  .controls{
    	width:100px;
 	}
@@ -355,10 +360,6 @@ body {
     margin-top: 10px;
 }
 
-.glyphicon
-{
-    font-size: 12px;
-}
 
 /*textarea*/
 input[type=text], select, textarea {
@@ -367,7 +368,7 @@ input[type=text], select, textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin-top: 6px;
+    /*margin-top: 6px; */
     margin-bottom: 16px;
     resize: vertical;
 }
@@ -388,4 +389,3 @@ input[type=text], select, textarea {
 #bootstrapSelectForm .selectContainer .form-control-feedback {
     /* Adjust feedback icon position */
     right: -15px;
-
