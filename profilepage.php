@@ -59,7 +59,13 @@
 
 
                         <div class="text text-center">
-                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
+                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <!-- <var>4</var> Total Number of Tasks Uploaded</label> -->
+                            <?php
+                            $dbquery = new DatabaseQueries();
+                            $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '2'");
+                            $row = $result -> fetch(PDO::FETCH_ASSOC);
+                            echo $row ['count(task_id)']." Tasks Uploaded"."<br/>";
+                            ?>
                         </div>
 
 
