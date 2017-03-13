@@ -1,84 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <!-- JQUERY -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <!-- ONLINE BOOTSTRAP FILES -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-
-    <!-- LOCAL BOOTSTRAP FILES  -->
-    <link rel="stylesheet" href="bootstrap/bootstrap.css">
-    <script src="bootstrap/bootstrap.js"></script>
-
-    <!-- Custom CSS FILES -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-    <!-- NAV BAR -->
-    <nav class="navbar navbar-default navbar-inverse" role="navigation">
-        <div class="container-fluid background-image">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-                <a class="navbar-brand" href="#">RevIUL</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form>
-                    <!--Menu bar on right hand side of nav bar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
-                            <ul id="login-dp" class="dropdown-menu">
-
-                                <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
-                                <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
-                                <div class="form-group">
-                                  <!--  <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
-                                </div>
-                            </ul>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-        </div>
-        <!-- /.navbar-collapse -->
-
-        <!-- /.container-fluid -->
-    </nav>
+<?php
+    require_once __DIR__.'/templates/header.template.php';
+    require_once __DIR__.'/models/User.class.php';
+    require_once __DIR__.'/models/Tag.class.php';
+    ?>
 
 
     <!-- User Side Bar -->
