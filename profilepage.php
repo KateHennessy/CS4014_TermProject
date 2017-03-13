@@ -96,16 +96,18 @@
 
                           <!--Output User Name -->
                           <?php
-                          require_once __DIR__."../utils/Settings.class.php";
+                          require_once __DIR__."/utils/Settings.class.php";
                           $db_name = Settings::get('database.database');
                           $db_host = Settings::get('database.server');
                           $server_port = Settings::get('database.server_port');
                           $db_username = Settings::get('database.username');
                           $db_pass = Settings::get('database.password');
 
+                          echo($db_name ." ".$db_host." ".$server_port." ".$db_pass);
+
                           $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port, $db_username, $db_pass);
-                          $result = $db -> query ("SELECT f_name, l_name FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
-                          $result -> execute();
+                          $result = $db->prepare("SELECT f_name, l_name FROM user WHERE user_id = '1'"); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
+                          $result->execute();
                           $row = $result -> fetch(PDO::FETCH_ASSOC);
                           echo '<label class="text-muted">'.$row ['f_name']." ".$row ['l_name']."<br/>";
 

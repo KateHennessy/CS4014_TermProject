@@ -19,8 +19,6 @@
 
 
 
-
-
           //check wheter user/email alerady exists
 
           if ($passOne != $passTwo) { //in case Javascript is disabled.

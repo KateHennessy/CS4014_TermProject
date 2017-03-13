@@ -22,8 +22,6 @@ class Tag {
       return $row['tag_id'];
     }
 
-
-
     function find_name(){
       $db = DatabaseQueries::connect_db();
       $result = $db -> query ("SELECT tag_name FROM tag WHERE tag_id = '" .$id ."';");

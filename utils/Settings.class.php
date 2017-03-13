@@ -3,7 +3,7 @@
 class Settings {
     public static function get($var)
     {
-        $filePath = __DIR__."//../database/database.ini";
+        $filePath = __DIR__."/../database/database.ini";
         $settings = self::load($filePath);
         $var = explode('.', $var);
         if (isset($settings[$var[0]][$var[1]])) {
