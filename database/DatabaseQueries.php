@@ -20,6 +20,7 @@ class DatabaseQueries{
     function insertSQLquery($query){
       $db = $this -> connect_db();
       $result = $db -> query ($query);
+      // echo("result: " .$result);
       if($result){
         $result -> execute();
       }else{
@@ -60,6 +61,7 @@ class DatabaseQueries{
     function checkUserExists($user){
        $query = "SELECT user_id FROM user WHERE email = '" .$user.get_email() ."';";
        $result = returnSQLquery($query);
+
     }
 
 

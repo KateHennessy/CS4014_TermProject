@@ -5,7 +5,9 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <!-- JQUERY -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!-- JAVASCRIPT FOR AUTOCOMPLETE -->
@@ -152,45 +154,38 @@
         <div class="panel-heading"><h2><strong>Analyze</strong><i> your paper</i></h2></div>
         <div class="panel-body">
 
-          <!-- Standar Form -->
-          <h4>Select files from your computer</h4>
-          <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-            <div class="form-inline">
-              <div class="form-group">
-                <input type="file" name="files[]" id="js-upload-files" multiple>
+          <!-- multiple upload -->
+         <div class="col-md-12">
+      <div class="row">
+      <div class="control-group" id="fields">
+          <label class="control-label" for="field1">
+            Select files from your computer
+          </label> <br>
+          <div class="controls">
+           
+              <div class="entry input-group col-xs-3">
+                
+             
+                <input class="btn btn-primary" name="fields[]" type="file">
+                <span class="input-group-btn">
+              <button class="btn btn-success btn-add" type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                </span>
               </div>
-              <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-            </div>
-          </form>
-
-          <!-- Drop Zone -->
-          <h4>Or drag and drop files below</h4>
-          <div class="upload-drop-zone" id="drop-zone">
-            Just drag and drop files here
+           
           </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- JS-->
+    
+    
 
-		   <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-              <span class="sr-only">60% Complete</span>
-            </div>
-          </div>
-
-          <!-- Upload Finished -->
-          <div class="js-upload-finished">
-            <h3>Processed files</h3>
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>Task-1</a>
-              <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>Task-2</a>
-            </div>
-          </div>
-
-		  <!--upload form-->
-
-		  <div class="container">
-	<div class="row">
-		<form class="form-horizontal">
-<fieldset>
-
+   <br><br>      
 <!-- Form Name -->
 <legend>Fill in the form:</legend>
 
@@ -217,14 +212,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
   <div class="col-md-5">
-    <select id="Task description" name="Task description" class="form-control" multiple="multiple">
-      <option value="1"></option>
-      <option value="2"></option>
-      <option value="3"></option>
-      <option value="4"></option>
-      <option value="5"></option>
-      <option value=""></option>
-    </select>
+    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" style="overflow:scroll"></textarea>
+</textarea>
   </div>
 </div>
 
@@ -279,20 +268,20 @@
 
         <div class="form-group">
     		<label for="happy" class="col-sm-4 col-md-4 control-label text-right">Sample Of The Document Uploaded?</label>
-    		<div class="col-sm-7 col-md-7">
-    			<div class="input-group">
-    				<div id="radioBtn" class="btn-group">
-    					<a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="Y">YES</a>
-    					<a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N">NO</a>
-    				</div>
-					</div>
-					<br>
+            <br>
+    		
 
 <!-- Button -->
 
 
   <div class="col-md-4">
+  <form>
+  <input type="radio" name="gender" value="male" checked> yes 
+  <input type="radio" name="gender" value="female" > no
+  
+</form> <br><br>
     <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+    <div class="col-sm-7 col-md-7"></div>
   </div>
   </div>
 
@@ -318,6 +307,33 @@
 
 
         <br />
+        
+        <!--JS-->
+        <script>
+        $(function()
+{
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controls:first'),
+            currentEntry = $(this).parents('.entry:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+      $(this).parents('.entry:first').remove();
+
+		e.preventDefault();
+		return false;
+	});
+});
+</script>
 
 
 
