@@ -2,6 +2,7 @@
     require_once __DIR__.'/templates/header.template.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
+    require_once __DIR__.'/models/Discipline.class.php';
 
 
 
@@ -12,7 +13,7 @@
           $email = trim(strtolower($_POST["email"]));
           $passOne = $_POST["pass_one"];
           $passTwo = $_POST["pass_two"];
-          $discipline=$_POST["discipline"];
+          $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
 
 
@@ -37,7 +38,12 @@
                   $user->set_last_name($lastName);
                   $user->set_email($email);
                   $user->set_password($saltedHash);
+                  $discipline = new Discipline();
+                  $discipline->set_name($discipline_name);
+                  $discipline->set_id($discipline->find_disciplineid());
+
                   $user->set_discipline($discipline);
+                  // echo("User discipline: " .$user->get_discipline()->get_id() ."Discipline name : " .$user->get_discipline()->get_name());
                   $tagArray = array();
                   for($i = 0; $i < count($tags); $i++){
                       $aTag = new Tag();
@@ -47,22 +53,6 @@
                   }
                   $user->set_tags($tagArray);
                   $dbquery->addUser($user);
-                  // printf($user->insert_query());
-                  // require_once __DIR__."../utils/Settings.class.php";
-                  // $db_name = Settings::get('database.database');
-                  // $db_host = Settings::get('database.server');
-                  // $server_port = Settings::get('database.server_port');
-                  // $db_username = Settings::get('database.username');
-                  // $db_pass = Settings::get('database.password');
-
-                  // $db = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port, $db_username, $db_pass);
-                  // $result = $db -> query ($user->insert_query()); /*Do not yet have corect id's, will need to have user_id equal to an id variable later on */
-                  // $result -> execute();
-
-
-                  // if (!is_null($user)) {
-                  //         printf("<h2> Welcome %s! Please <a href=\"./login.php\"> login </a> to proceed. </h2>", $user->get_first_name());
-                  //         // $userDao->logout();
                   }
               // }
           // }
@@ -72,8 +62,7 @@
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
         <div class="row">
-          <h1 class="">Sign Up
-          </h1>
+          <h1 class="">Sign Up</h1>
           <br>
           <form method="post">
             <div class="col-sm-12">

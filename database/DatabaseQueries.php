@@ -18,9 +18,10 @@ class DatabaseQueries{
   }
 
     function insertSQLquery($query){
+      echo($query);
       $db = $this -> connect_db();
-      $result = $db -> query ($query);
-      // echo("result: " .$result);
+      $result = $db -> prepare ($query);
+
       if($result){
         $result -> execute();
       }else{
@@ -30,7 +31,7 @@ class DatabaseQueries{
     }
     function returnSQLquery($query){
       $db = $this -> connect_db();
-      $result = $db -> query ($query);
+      $result = $db -> prepare ($query);
       $result -> execute();
       return $result;
     }
@@ -39,11 +40,11 @@ class DatabaseQueries{
       date_default_timezone_set('Europe/Dublin');
       $date = date('Y-m-d H:i:s', time());
 
-      $query = "INSERT INTO `user` (`user_id`, `f_name`,
-        `l_name`, `email`, `pass`, `discipline`, `reputation`,
+      $query = "INSERT INTO `User` (`user_id`, `f_name`,
+        `l_name`, `email`, `pass`, `discipline_id`, `reputation`,
          `signup_date`) VALUES ( NULL,'" .$user->get_first_name() ."','"
          .$user->get_last_name() ."','" .$user->get_email() ."','"
-         .$user->get_password() ."','" .$user->get_discipline() ."','0','" .$date ."');";
+         .$user->get_password() ."','" .$user->get_discipline()->get_id() ."','0','" .$date ."');";
          $this->insertSQLquery($query);
          $this->addUserTags($user);
     }
@@ -52,14 +53,14 @@ class DatabaseQueries{
     function addUserTags($user){
      $tags = $user->get_tags();
      for($i = 0; $i < count($tags); $i++){
-       $query = "INSERT INTO `user_tag` (`user_id`, `tag_id`, `clicks`) VALUES ('"
+       $query = "INSERT INTO `User_Tag` (`user_id`, `tag_id`, `clicks`) VALUES ('"
        .$user->find_id() ."', '" .$tags[$i]->find_id() ."', '0');";
        $this->insertSQLquery($query);
      }
     }
 
     function checkUserExists($user){
-       $query = "SELECT user_id FROM user WHERE email = '" .$user.get_email() ."';";
+       $query = "SELECT user_id FROM User WHERE email = '" .$user.get_email() ."';";
        $result = returnSQLquery($query);
 
     }
