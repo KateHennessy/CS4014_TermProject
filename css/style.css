@@ -389,3 +389,14 @@ input[type=text], select, textarea {
 #bootstrapSelectForm .selectContainer .form-control-feedback {
     /* Adjust feedback icon position */
     right: -15px;
+
+
+
+/*UPLOAD A TASK CSS FOR UPLOAD FILE*/
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+
+
+}

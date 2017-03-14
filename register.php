@@ -1,5 +1,6 @@
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+    session_start();
+
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/models/Discipline.class.php';
@@ -7,7 +8,6 @@
 
 
       if (isset($_POST) && count ($_POST) > 0) {
-        printf("<h1>In Post</h1>");
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
           $email = trim(strtolower($_POST["email"]));
@@ -37,6 +37,7 @@
                   $user->set_first_name($firstName);
                   $user->set_last_name($lastName);
                   $user->set_email($email);
+                  $user->set_id($user->find_id());
                   $user->set_password($saltedHash);
                   $discipline = new Discipline();
                   $discipline->set_name($discipline_name);
@@ -52,12 +53,16 @@
                       $tagArray[$i] = $aTag;
                   }
                   $user->set_tags($tagArray);
-                  $dbquery->addUser($user);
+                  if($dbquery->addUser($user)){
+                    $_SESSION["user_id"] = $user->find_id();
+                    header("location:./profilepage.php");
+                  }
                   }
               // }
           // }
       }
-            if (!isset($_POST) || count($_POST) == 0) {?>
+            if (!isset($_POST) || count($_POST) == 0) {
+                require_once __DIR__.'/templates/header.template.php';?>
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">

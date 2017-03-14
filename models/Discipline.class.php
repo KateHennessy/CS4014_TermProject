@@ -13,7 +13,7 @@ class Discipline {
   function find_disciplineid(){
     $dbquery = new DatabaseQueries();
     $db = $dbquery->connect_db();
-    $result = $db -> prepare ("SELECT discipline_id FROM Discipline WHERE discipline_name = '" .$this->name ."';");
+    $result = $db -> prepare ("SELECT discipline_id FROM discipline WHERE discipline_name = '" .$this->name ."';");
     $result -> execute();
     $row = $result -> fetch(PDO::FETCH_ASSOC);
 
