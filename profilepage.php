@@ -5,10 +5,10 @@
 
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $id = $_SESSION["user_id"];
-              echo("ID: " .$id);
+              // echo("ID: " .$id);
             } else {
-              echo("In else " .$_SESSION["user_id"]);
-                // header("location:./register.php");
+              // echo("In else " .$_SESSION["user_id"]);
+                header("location:./register.php");
             }
 		  ?>
 
