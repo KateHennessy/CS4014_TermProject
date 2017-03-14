@@ -60,7 +60,7 @@
 <!-- upload -->
     			<div class="container">
       <div class="panel panel-default">
-        <div class="panel-heading"><h2><strong>Analyze</strong><i> your paper</i></h2></div>
+        <div class="panel-heading"><h2><strong>Upload</strong><i> your paper</i></h2></div>
         <div class="panel-body">
 
           <!-- multiple upload -->
@@ -68,7 +68,7 @@
       <div class="row">
       <div class="control-group" id="fields">
           <label class="control-label" for="field1">
-            Select files from your computer
+            Select a sample file from your computer
           </label> <br>
           <div class="controls">
 
@@ -145,52 +145,22 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="Decision Timeframe">Page Count</label>
   <div class="col-md-5">
-    <select id="Decision Timeframe" name="Decision Timeframe" class="form-control">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="">5</option>
-    </select>
+  <input id="Task Type" name="Task Type" type="text" placeholder="" class="form-control input-md">
   </div>
 </div>
 <!--number input2-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="Decision Timeframe">Word Count</label>
   <div class="col-md-5">
-    <select id="Decision Timeframe" name="Decision Timeframe" class="form-control">
-      <option value="1">50-100</option>
-      <option value="2">100-200</option>
-      <option value="3">200-300</option>
-      <option value="4">300-400</option>
-      <option value="">400-500</option>
-    </select>
-  </div>
+  <input id="Task Type" name="Task Type" type="text" placeholder="" class="form-control input-md">
+</div>
 </div>
 
 
 
-<!-- Text input-->
-
-
-<div class="row">
-
-        <div class="form-group">
-    		<label for="happy" class="col-sm-4 col-md-4 control-label text-right">Sample Of The Document Uploaded?</label>
-            <br>
-
-
-<!-- Button -->
-
-
-  <div class="col-md-4">
-  <form>
-  <input type="radio" name="gender" value="male" checked> yes
-  <input type="radio" name="gender" value="female" > no
-
 </form> <br><br>
     <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
-    <div class="col-sm-7 col-md-7"></div>
+    <div class="col-md-7"></div>
   </div>
   </div>
 
