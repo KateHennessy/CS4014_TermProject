@@ -32,7 +32,7 @@
 
   </head>
 
-  
+
   <body>
     <!-- NAV BAR -->
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -54,10 +54,7 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <!--   <li class="active"> - used to highlight current tab in menu bar -->
-            <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
-          </ul>
+          
 
 
 
