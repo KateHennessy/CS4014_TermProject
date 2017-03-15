@@ -47,6 +47,11 @@
               </div>
           </div>
       </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 
 <!-- END MENU -->
 
@@ -133,6 +138,10 @@ $(document).ready(function(){
             }
           });
         </script> -->
+
+        <?php
+        require_once __DIR__.'/templates/footer.php';
+        ?>
 
 
 </body>

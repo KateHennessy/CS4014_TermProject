@@ -368,9 +368,13 @@
         <!-- <center>
         <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
     </center> -->
-        <br>
-        <br>
+
     </div>
+
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
+
 
 </body>
 

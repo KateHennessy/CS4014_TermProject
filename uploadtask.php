@@ -342,6 +342,11 @@ require_once __DIR__.'/templates/usersidebar.php';
     </center> -->
     <br>
     <br>
+
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
+
   </body>
 </html>
 
