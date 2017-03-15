@@ -254,7 +254,20 @@ body {
   background: #fff;
   min-height: 460px;
 }
+
+.tags label.info{
+  color:#FFF;
+  background-color:#5BC0DE;
+  border-color:#46B8DA
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+}
+
+
+
 /*upload task */
+
 /* layout.css Style */
 .upload-drop-zone {
   height: 200px;
@@ -290,7 +303,7 @@ body {
 
 }
 
-  
+
  /* @media only screen and (max-width: 480px) {
 
 

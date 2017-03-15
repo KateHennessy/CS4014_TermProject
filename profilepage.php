@@ -305,8 +305,8 @@
                                     <div>
                                         <div class="row">
                                             <div>
-                                                <div>
-                                                    <button class="btn btn-info btn-lg btn-block">
+                                                  <div class="tags col-md-12">
+                                                    <label class="info">
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
@@ -314,8 +314,8 @@
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
-                                                    </button>
-                                                    <button class="btn btn-info btn-lg btn-block">
+                                                    </label>
+                                                    <label class="info">
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
@@ -323,8 +323,8 @@
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
-                                                    </button>
-                                                    <button class="btn btn-info btn-lg btn-block">
+                                                    </label>
+                                                    <label class="info">
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
@@ -332,8 +332,8 @@
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
-                                                    </button>
-                                                    <button class="btn btn-info btn-lg btn-block">
+                                                    </label>
+                                                    <label class="info">
                                                       <!--php to get tag names from database -->
                                                       <?php
                                                       $dbquery = new DatabaseQueries();
@@ -341,7 +341,7 @@
                                                       $row = $result -> fetch(PDO::FETCH_ASSOC);
                                                       echo $row ['tag_name']."<br/>";
                                                       ?>
-                                                    </button>
+                                                    </label>
                                                 </div>
                                                 <br />
                                             </div>

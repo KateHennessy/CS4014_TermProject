@@ -29,7 +29,10 @@
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/typeahead.css">
+
   </head>
+
+  
   <body>
     <!-- NAV BAR -->
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -55,6 +58,10 @@
             <!--   <li class="active"> - used to highlight current tab in menu bar -->
             <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
           </ul>
+
+
+
+
           <ul class="nav navbar-nav navbar-right">
             <li>
               <p class="navbar-text">Already have an account?
