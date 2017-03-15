@@ -254,7 +254,22 @@ body {
   background: #fff;
   min-height: 460px;
 }
+
+.tags label.info{
+  color:#FFF;
+  background-color:#5BC0DE;
+  border-color:#46B8DA
+  font-size: 20px;
+  font-weight: 600;
+  padding: 15px 15px;
+  width: 40%;
+  text-align: center;
+}
+
+
+
 /*upload task */
+
 /* layout.css Style */
 .upload-drop-zone {
   height: 200px;
@@ -290,7 +305,7 @@ body {
 
 }
 
-  
+
  /* @media only screen and (max-width: 480px) {
 
 
@@ -399,4 +414,46 @@ input[type=text], select, textarea {
     margin-top: 10px;
 
 
+}
+
+
+/*FOOTER CSS FOR ALL PAGES */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  /* Set the fixed height of the footer here */
+  height: 180px;
+  background:
+  /* color overlay */
+    linear-gradient(
+      rgba(240, 212, 0, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
+    /* image to overlay */
+    url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);
+}
+
+
+/* Custom footer CSS
+-------------------------------------------------- */
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+.footertext {
+  color: #ffffff;
 }
