@@ -19,109 +19,26 @@
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__."/utils/Settings.class.php";
     require_once __DIR__."/database/DatabaseQueries.php";
+    require_once __DIR__.'/templates/usersidebar.php';
     ?>
 
+    <div class="col-md-9 profile-content">
+        <div class="" id="overview">
+            <div class="">
 
-    <!-- User Side Bar -->
-    <div class="container-fluid">
-        <div class="col-xs-12 well">
-          <!--  <div class="row profile"> -->
-                <div class="col-md-3 adapt">
-                    <div class="profile-sidebar">
+    <!-- <div class="col-md-9">
+        <div class="profile-content" id="overview">
+            <div class="profile-content">
+                <div class="container-fluid" style="background-color:#e8e8e8">
+                    <div class="col-xs-12"> -->
 
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle">
-
-                          <!--Output User Name -->
-                          <?php
-                          $dbquery = new DatabaseQueries();
-                          $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '".$id ."'");
-                          $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          echo("<label class=\"text-muted\">" .$row ['f_name']." ".$row ['l_name']."</label><br/>");
-
-                          $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
-                          $result -> execute();
-                          $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            if($row['reputation'] >= 40) {
-                              echo("<label class=\"text-muted\">Moderator</label>");
-                            } else {
-                              echo("<label class=\"text-muted\">General User</label>");
-                            }
-                          ?>
-
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2> My Tasks Overview</h2>
+                                <p>A snippet of information on tasks I have uploaded</p>
+                            </div>
                         </div>
-
-                        <!-- END SIDEBAR USER TITLE -->
-
-                        <!-- USER REPUTATION -->
-
-                        <div class="text text-center">
-                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><!--<var>21</var> Reputation Score</label> -->
-
-                            <!--PHP to bring reputation score from database -->
-                            <?php
-                            $dbquery = new DatabaseQueries();
-                            $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
-                            $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            echo $row ['reputation']." Reputation Score"."<br/>";
-                            ?>
-
-                        </div>
-
-                        <!-- END USER REPUTATION -->
-
-                        <!-- Start User Tasks -->
-
-
-                        <div class="text text-center">
-                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <!-- <var>4</var> Total Number of Tasks Uploaded</label> -->
-                            <!--php for counting number of tasks the user has uploaded -->
-                            <?php
-                            $dbquery = new DatabaseQueries();
-                            $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '".$id ."'");
-                            $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            echo $row ['count(task_id)']." Tasks Uploaded"."<br/>";
-                            ?>
-                        </div>
-
-
-
-
-                        <!-- SIDEBAR MENU -->
-                        <div class="profile-usermenu">
-                            <ul class="nav">
-                                <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
-                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
-                                <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
-                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
-                            </ul>
-                        </div>
-                        <!-- END MENU -->
-
-                    </div>
-                </div>
-
-
-
-                <div class="col-md-9 profile-content">
-                    <div class="" id="overview">
-                        <div class="">
-
-                <!-- <div class="col-md-9">
-                    <div class="profile-content" id="overview">
-                        <div class="profile-content">
-                            <div class="container-fluid" style="background-color:#e8e8e8">
-                                <div class="col-xs-12"> -->
-
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <h2> My Tasks Overview</h2>
-                                            <p>A snippet of information on tasks I have uploaded</p>
-                                        </div>
-                                    </div>
-                                    <br />
-
+                        <br />
                                     <!-- <div class="row"> -->
                                     <!-- Begin Task1-->
                                     <div class="col-sm-6 col-lg-4">
