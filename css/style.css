@@ -457,3 +457,10 @@ body {
 .footertext {
   color: #ffffff;
 }
+
+
+/*validation error mess*/
+
+.val_error{
+	color:#FF1F1F;
+}
