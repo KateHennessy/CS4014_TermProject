@@ -286,12 +286,8 @@
         }
       });
 
-	   <!-- Scripts -->
+	   //Scripts
 	  <script src="scripts/validation.js"></script>
-
-
-
-
 
 
     </script>
