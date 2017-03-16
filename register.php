@@ -4,6 +4,9 @@
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/models/Discipline.class.php';
+    require_once __DIR__.'/daos/DisciplineDAO.class.php';
+    require_once __DIR__.'/daos/TagDAO.class.php';
+    require_once __DIR__.'/daos/UserDAO.class.php';
 
       if (isset($_POST) && count ($_POST) > 0) {
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
@@ -19,34 +22,47 @@
               printf("<h2> Passwords do not match. </h2>");
           }else if(count($tags) < 1 || count($tags) > 4){
             printf("<h2> Incorrect number of tags entered. </h2>");
-          } else {
+          $user = new User();
+          $userDao = new UserDAO();
+          $user = $userDao->getUserByEmail($email);
+        } else if(isset($user)){
+            require_once __DIR__.'/templates/header.template.php';
+            echo('<div class="container-fluid">
+                    <div class="col-xs-11 col-sm-8 well">
+                      <h2> A user already exists with this email</h2>
+                      <br />
+                      Please login or click back to try register again. <br /><br />
+                        <a href = "logout.php"><button class="btn btn-success"> Back </button></a>
+                    </div>
+                  </div>
+
+                  </div>');
+          }else{
 
                   $siteSalt  = "hPxmjz6hJc";
                   $saltedHash = hash('sha256', $passOne.$siteSalt);
+
                   $user = new User();
-                  $dbquery = new DatabaseQueries();
+                  // $dbquery = new DatabaseQueries();
                   $user->set_first_name($firstName);
                   $user->set_last_name($lastName);
                   $user->set_email($email);
-                  $user->set_id($user->find_id());
+                  // $user->set_id($user->find_id());
                   $user->set_password($saltedHash);
-                  $discipline = new Discipline();
-                  $discipline->set_name($discipline_name);
-                  $discipline->set_id($discipline->find_disciplineid());
-
-                  $user->set_discipline($discipline);
+                  $user->set_discipline(DisciplineDAO::find_discipline_by_name($discipline_name));
                   // echo("User discipline: " .$user->get_discipline()->get_id() ."Discipline name : " .$user->get_discipline()->get_name());
                   $tagArray = array();
                   for($i = 0; $i < count($tags); $i++){
-                      $aTag = new Tag();
-                      $aTag->set_name($tags[$i]);
-                      $aTag->set_id($aTag->find_id());
-                      $tagArray[$i] = $aTag;
+                      $tagArray[$i] = TagDAO::find_tag_by_name($tags[$i]);
                   }
                   $user->set_tags($tagArray);
-                  if($dbquery->addUser($user)){
-                    $_SESSION["user_id"] = $user->find_id();
+                  $user = UserDAO::save($user);
+
+                  if(!is_null($user->get_id())){
+                    $_SESSION["user_id"] = $user->get_id();
                     header("location:./profilepage.php");
+                  }else{
+                    echo("null");
                   }
                   }
               // }
@@ -137,7 +153,7 @@
                     <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
                     <select class="selectpicker" id="bootstrap-select" name="tags[]" data-width="fit" multiple
                     data-selected-text-format="count > 1" data-max-options="4"
-                    required="required" name="tags">
+                    required="required">
                       <optgroup label="Computer Science">
                         <option>Graphics</option>
                         <option>Artificial Intelligence</option>

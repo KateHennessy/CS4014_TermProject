@@ -1,8 +1,15 @@
 <?php
     session_start();
+    require_once __DIR__."/models/User.class.php";
+    require_once __DIR__."/daos/UserDAO.class.php";
+
+
 
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $id = $_SESSION["user_id"];
+              $user = new User();
+              $userDao = new UserDAO();
+              $user = $userDao->getUserByID($id);
               // echo("ID: " .$id);
             } else {
               // echo("In else " .$_SESSION["user_id"]);
@@ -154,77 +161,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- </div> -->
-
-                                    <!-- End Task4-->
-
 
                                     <br />
 
-                                    <!-- Reputation Section-->
-                                    <!-- <div class="row">
-                                        <div class="col-sm-4 pull-left">
-                                            <div class="hero-widget well well-sm">
-                                                <div class="icon">
-                                                    <i class="glyphicon glyphicon-star"></i>
-                                                </div>
-                                                <div class="text">
-                                                    <var>21</var>
-                                                    <label class="text-muted">Reputation Score</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    <!-- <div class="col-sm-4 pull-right">
-                                            <div class="hero-widget well well-sm">
-                                                <div class="icon">
-                                                    <i class="glyphicon glyphicon-tags"></i>
-                                                </div>
-                                                <div class="text">
-                                                    <var>4</var>
-                                                    <label class="text-muted">Total Number of Tasks Uploaded</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-                                    <!-- Contact Me Section -->
-                                    <!--  <div>
-                                <h2>Contact Me</h2>
-                            </div> -->
-
-                                    <!-- <div class="container"> -->
-                                    <!--   <div class="row">
-                                <div class="col-md-12">
-                                    <div class="well well-sm">
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" class="form-control" id="name" placeholder="Enter name" required="required" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="email">My Email Address</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                                            <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="name">Message</label>
-                                                        <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Send Message</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                      </div>-->
-
-                                    <!--Claimed Tasks -->
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
                                             <h2> My  Claimed Tasks Overview</h2>
@@ -304,42 +243,18 @@
                                         <div class="row">
                                             <div>
                                                   <div class="tags col-md-12">
-                                                    <label class="info">
+
                                                       <!--php to get tag names from database -->
                                                       <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
+                                                      foreach($user->get_tags() as $atag){
+                                                        echo('
+                                                              
+                                                          <label class="info">'.$atag->get_name() .'<br />
+                                                            </label>');
+                                                      }
                                                       ?>
-                                                    </label>
-                                                    <label class="info">
-                                                      <!--php to get tag names from database -->
-                                                      <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
-                                                      ?>
-                                                    </label>
-                                                    <label class="info">
-                                                      <!--php to get tag names from database -->
-                                                      <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
-                                                      ?>
-                                                    </label>
-                                                    <label class="info">
-                                                      <!--php to get tag names from database -->
-                                                      <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
-                                                      ?>
-                                                    </label>
+
+
                                                 </div>
                                                 <br />
                                             </div>

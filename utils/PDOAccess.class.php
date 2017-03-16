@@ -9,7 +9,7 @@ class PDOAccess {
 	private static $instance = null;
 
 
-	private function __construct() {
+	private function __construct() { //Constructor - called on instance created
 		$this->openConnection();
 	}
 
@@ -26,14 +26,21 @@ class PDOAccess {
 		$conn = false;
 		$ret = false;
 
-        $dbName = Settings::get('database.database');
-        $server = Settings::get('database.server');
-        $server_port = Settings::get('database.server_port');
-        $username = Settings::get('database.username');
-        $password = Settings::get('database.password');
 
-		$conn = new PDO("mysql:host=$server;dbname=$dbName;port=$server_port", $username, $password);
-		unset($password); unset($dbName); unset($server); unset($server_port);     unset($username);
+        $db_name = Settings::get('database.database');
+        $db_host = Settings::get('database.server');
+        $server_port = Settings::get('database.server_port');
+        $db_username = Settings::get('database.username');
+        $db_pass = Settings::get('database.password');
+
+        try{
+          $conn = new PDO ('mysql:host ='. $db_host.';dbname='.$db_name.';port='.$server_port,
+           $db_username, $db_pass);
+        }catch(PDOException $e){
+           echo 'Connection failed: ' . $e->getMessage();
+           return NULL;
+        }
+
 		if (!$conn) {
             $this->error_msg = "\r\n" . "Unable to connect to database - " . date('H:i:s');
             $ret = false;
@@ -45,53 +52,47 @@ class PDOAccess {
 	}
 
   function insertSQLquery($query){
-    // echo($query);
-    $db = PDOAccess::getInstance();
-    $result = $db -> prepare ($query);
-
+    $db = self::getInstance();
+    $conn = $db->connection;
+    $result = $conn -> prepare($query);
     if($result){
-      $result -> execute();
-      return true;
+        $result-> execute();
+				return true;
     }else{
-      echo("ERROR WITH INSERTING TO DB");
-      return false;
+      echo("issue with insert");
+      return NULL;
     }
+
+    // return $result-> execute();
+    // $result -> execute();
+
+      // return $result -> execute();
+
   }
 
   function returnSQLquery($query){
-    $db = $this -> connect_db();
-    $result = $db -> prepare ($query);
-    $result -> execute();
-    return $result;
+    $db = PDOAccess::getInstance();
+    $conn = $db->connection;
+
+      $result = $conn->query($query);
+      // print_r("Result: " .$result);
+      return $result;
+  // if($result){
+  //     foreach ($result as $row) {
+  //             $data[] = $row;
+  //         }
+  //         print_r($data);
+  //         return $data;
+  //   }else{
+  //     echo("noResult");
+  //     return false;
+  //   }
   }
 
-	// public static function call($procedure, $procArgs) {
-  //       $db = PDOAccess::getInstance();
-  //
-  //       if (!is_array($procArgs)) {
-  //           $sql = "CALL $procedure ($procArgs)";
-  //       } else {
-  //           $sql = "CALL $procedure (".implode(', ', $procArgs).")";
-  //       }
-  //
-  //       if ((empty($sql)) || (empty($db->connection))) {
-  //           $db->error_msg = "\r\n" . "SQL Statement or connect is <code>null</code>" . date('H:i:s');
-  //           return false;
-  //       }
-  //
-  //       $conn = $db->connection;
-  //       $data = array();
-  //       if ($result = $conn->query($sql)) {
-  //           foreach ($result as $row) {
-  //               $data[] = $row;
-  //           }
-  //       }
-  //       return empty($data) ? false : $data;
-  //   }
 
 	public static function prepareString($string) {
-		$db = PDOAccess::getInstance();
-		$conn = $db->connection;
+    $db = PDOAccess::getInstance();
+    $conn = $db->connection;
 		return $conn->quote($string);
 	}
 }
