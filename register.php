@@ -1,10 +1,11 @@
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+     session_start();
+
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/models/Discipline.class.php';
+
       if (isset($_POST) && count ($_POST) > 0) {
-        printf("<h1>In Post</h1>");
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
           $email = trim(strtolower($_POST["email"]));
@@ -12,12 +13,14 @@
           $passTwo = $_POST["pass_two"];
           $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
+
           //check wheter user/email alerady exists
           if ($passOne != $passTwo) { //in case Javascript is disabled.
               printf("<h2> Passwords do not match. </h2>");
           }else if(count($tags) < 1 || count($tags) > 4){
             printf("<h2> Incorrect number of tags entered. </h2>");
           } else {
+
                   $siteSalt  = "hPxmjz6hJc";
                   $saltedHash = hash('sha256', $passOne.$siteSalt);
                   $user = new User();
@@ -25,10 +28,12 @@
                   $user->set_first_name($firstName);
                   $user->set_last_name($lastName);
                   $user->set_email($email);
+                  $user->set_id($user->find_id());
                   $user->set_password($saltedHash);
                   $discipline = new Discipline();
                   $discipline->set_name($discipline_name);
                   $discipline->set_id($discipline->find_disciplineid());
+
                   $user->set_discipline($discipline);
                   // echo("User discipline: " .$user->get_discipline()->get_id() ."Discipline name : " .$user->get_discipline()->get_name());
                   $tagArray = array();
@@ -39,14 +44,18 @@
                       $tagArray[$i] = $aTag;
                   }
                   $user->set_tags($tagArray);
-                  $dbquery->addUser($user);
+                  if($dbquery->addUser($user)){
+                    $_SESSION["user_id"] = $user->find_id();
+                    header("location:./profilepage.php");
+                  }
                   }
               // }
           // }
       }
 
 
-            if (!isset($_POST) || count($_POST) == 0) {?>
+            if (!isset($_POST) || count($_POST) == 0) {
+              require_once __DIR__.'/templates/header.template.php';?>
 
 
 
