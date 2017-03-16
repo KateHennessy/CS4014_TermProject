@@ -57,13 +57,13 @@
               // }
           // }
       }
-	 
 
- 
+
+
             if (!isset($_POST) || count($_POST) == 0) {?>
-									
-									
-			
+
+
+
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
@@ -182,7 +182,7 @@
       </div>
     </div>
     <script>
-       
+
         $('.selectpicker').on('change', function () {
           var count = $(this).find("option:selected").length;
           if(count > 0 && count <= 4){
@@ -308,20 +308,20 @@
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
       });
-	  
+
 	   <!-- Scripts -->
 	  <script src="scripts/validation.js"></script>
-	  
-	  
-	  
-	  
-	  
-	  
+
+
+
+
+
+
     </script>
 
-    <?php
+  <!-- <?php
     require_once __DIR__.'/templates/footer.php';
-    ?>
+    ?>  -->
 
   </body>
 </html>
