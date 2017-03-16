@@ -52,11 +52,7 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
-
-                </ul>
+                
                 <form>
                     <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">

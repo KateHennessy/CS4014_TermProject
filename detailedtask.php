@@ -12,7 +12,7 @@
 
 
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+    require_once __DIR__.'/templates/loggedinuser.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/templates/usersidebar.php';
@@ -160,7 +160,7 @@
                         </div>
                     </div>
                 </div>
-          
+
 
             <?php
             require_once __DIR__.'/templates/footer.php';
