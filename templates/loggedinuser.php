@@ -52,11 +52,7 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
-                </ul>
                 <form>
                     <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -69,12 +65,9 @@
                                 <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
                                     <!-- <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                    <button type="submit" class="btn btn-primary btn-block" onclick="location.href='logout.php';">Log Out</a></button>
                                 </div>
 
-                                <!-- <div class="bottom text-center">
-                                        New here ? <a href="#"><b>Join Us</b></a>
-                                    </div> Not neccessary here-->
                             </ul>
                         </li>
                     </ul>

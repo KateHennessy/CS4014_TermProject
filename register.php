@@ -1,13 +1,11 @@
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+     session_start();
+
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/models/Discipline.class.php';
 
-
-
       if (isset($_POST) && count ($_POST) > 0) {
-        printf("<h1>In Post</h1>");
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
           $email = trim(strtolower($_POST["email"]));
@@ -16,27 +14,21 @@
           $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
 
-
-
-
-
           //check wheter user/email alerady exists
-
           if ($passOne != $passTwo) { //in case Javascript is disabled.
               printf("<h2> Passwords do not match. </h2>");
           }else if(count($tags) < 1 || count($tags) > 4){
             printf("<h2> Incorrect number of tags entered. </h2>");
           } else {
 
-
                   $siteSalt  = "hPxmjz6hJc";
                   $saltedHash = hash('sha256', $passOne.$siteSalt);
                   $user = new User();
                   $dbquery = new DatabaseQueries();
-
                   $user->set_first_name($firstName);
                   $user->set_last_name($lastName);
                   $user->set_email($email);
+                  $user->set_id($user->find_id());
                   $user->set_password($saltedHash);
                   $discipline = new Discipline();
                   $discipline->set_name($discipline_name);
@@ -52,18 +44,21 @@
                       $tagArray[$i] = $aTag;
                   }
                   $user->set_tags($tagArray);
-                  $dbquery->addUser($user);
+                  if($dbquery->addUser($user)){
+                    $_SESSION["user_id"] = $user->find_id();
+                    header("location:./profilepage.php");
+                  }
                   }
               // }
           // }
       }
-	 
 
- 
-            if (!isset($_POST) || count($_POST) == 0) {?>
-									
-									
-			
+
+            if (!isset($_POST) || count($_POST) == 0) {
+              require_once __DIR__.'/templates/header.template.php';?>
+
+
+
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
@@ -191,7 +186,7 @@
       </div>
     </div>
     <script>
-       
+
         $('.selectpicker').on('change', function () {
           var count = $(this).find("option:selected").length;
           if(count > 0 && count <= 4){
@@ -200,30 +195,20 @@
             failInput(this);
           }
         });
-
-
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
-
-
-
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
         $('form input').blur(function(){
           //GETS THE ID OF ELEMENT JUST BLURRED
           id = $(this).attr("id");
-
-
-
           // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
           if(id.indexOf("email") != -1){
             validateEmail(this);
           }
-
           // IF WE ARE IN ONE OF THE PASSWORD FIELDS
           else if(id.indexOf("pass") != -1){
             // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
               if(id.indexOf("pass1") != -1){
-
                 if( $('#pass1Form').val().length >= 7){
                   successInput(this);
                   return true;
@@ -247,11 +232,8 @@
             }else{
               failInput(this);
             }
-
             }
-
             else{
-
             }
           }
           // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
@@ -260,7 +242,6 @@
           }
         });
         // END OF ONBLUR CHECKING OF FORM
-
         function validateTags(element){
           id = element.id;
           var options =(element).val();
@@ -271,7 +252,6 @@
           }
           return false;
         }
-
         // VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
         function validateInput(element){
           id = element.id;
@@ -280,10 +260,8 @@
             return false;
           }
           else {
-
               successInput(element);
               return true;
-
           }
         }
         function validateEmail(element){
@@ -307,7 +285,6 @@
           div.addClass("has-error has-feedback");
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
         }
-
         function successInput(element){
           id = element.id;
           var div = $("#" + id).closest("div");
@@ -317,6 +294,7 @@
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
       });
+/*conflict<<<<<<< HEAD*/
 	  
 	  <!--validation-->
 	  <script type ="text/javascript">
@@ -403,9 +381,12 @@
 	  
 	     </script>
 
-    <?php
-    require_once __DIR__.'/templates/footer.php';
-    ?>
 
+	   
+	  <script src="scripts/validation.js"></script>
+     
+
+
+    </script>
   </body>
 </html>
