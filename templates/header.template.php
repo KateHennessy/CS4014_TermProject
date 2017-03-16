@@ -54,7 +54,7 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          
+
 
 
 
@@ -64,6 +64,29 @@
               <p class="navbar-text">Already have an account?
               </p>
             </li>
+
+            <?php
+
+              if (isset($_POST["e"]) && isset($_POST["p"])
+                && trim($_POST["e"]) !='' && trim($_POST["p"]) != ''  ){
+                    try {
+                        $email = trim(strtolower($_POST["e"]));
+                        $password = $_POST["p"];
+                        $userDao = new UserDAO();
+                        $user = $userDao->login($email, $password);
+
+                        if (!is_null($user)) {
+                            $_SESSION['user_id'] = $user->get_id();
+                            header("Location:./index.php");
+                        } else {
+                            printf("<h2> Password incorrect or account not found. </h2>");
+                        }
+                    } catch (Exception $exception) {
+                        printf("Connection error: %s", $exception->getMessage());
+                    }
+                }
+              ?>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <b>Login
@@ -79,12 +102,12 @@
                         <div class="form-group">
                           <label class="sr-only" for="exampleInputEmail2">Email address
                           </label>
-                          <input type="email" class="form-control" id="emailLogin" placeholder="Email address" required>
+                          <input type="email" name ="email" class="form-control" id="emailLogin" placeholder="Email address" required>
                         </div>
                         <div class="form-group">
                           <label class="sr-only" for="exampleInputPassword2">Password
                           </label>
-                          <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                          <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
                           <div class="help-block text-right">
                             <a href="<?php echo 'profilepage.php'; ?>">Forget your password ?</a>
                           </div>
