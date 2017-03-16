@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__."/../utils/ModelFactory.class.php";
 require_once __DIR__."/../utils/PDOAccess.class.php";
 require_once __DIR__."/../daos/TagDAO.class.php";
@@ -76,9 +77,25 @@ class UserDAO{
 					echo("Null");
             $user = null;
         }
-	
+
 
     }
+
+
+public static function login($email, $password) {
+		$user = self::getUserByEmail($email);
+		if (!is_null($user)) {
+			$id = $user->get_id();
+			$passwordHash = $user->get_password();
+			$siteSalt  = "hPxmjz6hJc";
+			$saltedHash = hash('sha256', $password.$siteSalt);
+			if ($passwordHash == $saltedHash) {
+				return $user;
+			}
+        return null;
+		}
+	}
+
 
 public static function logout() {
 		/*http://php.net/manual/en/function.session-unset.php*/

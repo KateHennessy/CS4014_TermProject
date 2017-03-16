@@ -8,5 +8,3 @@
                     $userDao->logout();
 										header("location:./register.php");
                 ?>
-
-<?php include(__DIR__."/templates/footer.template.php"); ?>

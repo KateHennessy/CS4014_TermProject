@@ -81,7 +81,7 @@
         <div class="row">
           <h1 class="">Sign Up</h1>
           <br>
-          <form method="post">
+          <form method="POST" action="index.php" onsubmit="return Validate()" name="vform">
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-6 form-group">
@@ -90,6 +90,7 @@
                   <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
+					<div id="name_error" class="val_error"></div>
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -98,6 +99,7 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter Last Name Here.." id="lastName" name="last_name" class="form-control">
+					<div id="name_error" class="val_error"></div>
                   </div>
                 </div>
               </div>
@@ -109,6 +111,7 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                     <input type="email" placeholder="Enter UL Email Here.." id="emailForm" name="email"
                            class="form-control">
+						   <div id="email_error" class="val_error"></div>
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -117,6 +120,7 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <input type="text" placeholder="Enter Discipline Here.." name = "discipline" id="discipline" class="form-control">
+					<div id="name_error" class="val_error"></div>
                   </div>
                 </div>
               </div>
@@ -127,6 +131,7 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control">
+					
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -135,6 +140,7 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control">
+					<div id="password_error" class="val_error"></div>
                   </div>
                 </div>
               </div>
@@ -189,6 +195,9 @@
             </button>
           </form>
             <?php } ?>
+			
+			
+
         </div>
       </div>
     </div>
@@ -301,9 +310,97 @@
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
       });
+/*conflict<<<<<<< HEAD*/
+	  
+	  <!--validation-->
+	  <script type ="text/javascript">
+	  //GETTING ALL INPUT TEXT OBJECTS
+	  var firstname = document.forms["vform"]["firstname"]
+	   var lastname = document.forms["vform"]["lastname"]
+	    var email = document.forms["vform"]["email"]
+		 var password = document.forms["vform"]["password"]
+		  var password_confirmation = document.forms["vform"]["password_confirmation"];
+		  
+		  //GETTING ALL ERROR DISPLAY OBJECTS
+		  var name_error = document.getElementById("name_error");
+		   var email_error = document.getElementById("email_error");
+		    var password_error = document.getElementById("password_error");
+			 
+			 //SETTING ALL EVENT LISTENERS
+			 firstname.addEventListener("blur", nameVerify, true);
+			 lastname.addEventListener("blur", nameVerify, true);
+			 email.addEventListener("blur", emailVerify, true);
+			 password.addEventListener("blur", passwordVerify, true);
+			 
+			 //validation function
+			 function Validate(){
+				 //name validation
+				 if (firstname.value == ""){
+					 firstname.style.border = "1px solid red";
+					 name_error.textContent = "Name is required";
+					 firstname.focus();
+					 return false;
+				 }
+				 
+				 if (lastname.value == ""){
+					 lastname.style.border = "1px solid red";
+					 name_error.textContent = "Name is required";
+					 lastname.focus();
+					 return false;
+				 }
+				 
+				 //email validation
+				 if (email.value == ""){
+					 email.style.border = "1px solid red";
+					 email_error.textContent = "Name is required";
+					 email.focus();
+					 return false;
+				 }
+				 //password validation
+				  if (password.value == ""){
+					 password.style.border = "1px solid red";
+					 password_error.textContent = "Name is required";
+					 password.focus();
+					 return false;
+				 }
+				 
+			 }
+			 
+			 //event handler functions
+			 function nameVerify(){
+				 if(firstname.value!=""){
+					 firstname.style.border= "1px solid #ccc";
+					 firstname_error.innerHTML = "";
+					 return true;
+				 }
+			 }
+			 
+			 function emailVerify(){
+				 if(email.value!=""){
+					 email.style.border= "1px solid #ccc";
+					 email_error.innerHTML = "";
+					 return true;
+				 }
+			 }
+			 
+			 function passwordVerify(){
+				 if(password.value!=""){
+					 password.style.border= "1px solid #ccc";
+					 password_error.innerHTML = ""; 
+					 return true;
+				 }
+			 }
+		  
+	  
+  
+	  
+	  
+	     </script>
 
-	   //Scripts
+
+	   
 	  <script src="scripts/validation.js"></script>
+     
 
 
     </script>

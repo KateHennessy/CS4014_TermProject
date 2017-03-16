@@ -415,6 +415,7 @@ input[type=text], select, textarea {
 
 
 }
+/*conflict<<<<<<< HEAD*/ 
 
 
 /*FOOTER CSS FOR ALL PAGES */
@@ -457,3 +458,13 @@ body {
 .footertext {
   color: #ffffff;
 }
+
+
+/*validation error mess*/
+
+.val_error{
+	color:#FF1F1F;
+}
+/*conflict
+=======
+>>>>>>> 3d63574b84cb8a7bcd949eeb8f3ff6fcf2f6174e*/
