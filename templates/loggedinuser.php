@@ -29,7 +29,6 @@
 
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/typeahead.css">
   </head>
   <body>
     <!-- NAV BAR -->

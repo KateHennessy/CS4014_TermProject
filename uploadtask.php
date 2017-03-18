@@ -10,7 +10,9 @@
     }
 ?>
 
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css"/>
 <?php
+
 require_once __DIR__ . '/templates/loggedinuser.php';
 require_once __DIR__ . '/models/User.class.php';
 require_once __DIR__ . '/models/Tag.class.php';
@@ -43,7 +45,8 @@ require_once __DIR__.'/templates/usersidebar.php';
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="File Type">Task Name</label>
-  <div class="col-md-8">
+  <div class="input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
   <input id="task_name" name="task_name" type="text" placeholder="" class="form-control input-md">
 
 </div>
@@ -56,19 +59,33 @@ require_once __DIR__.'/templates/usersidebar.php';
     data-toggle="tooltip" data-placement="bottom"
     data-original-title="This is the type of document you are putting up for review. Examples include Master's Assignment, Undergraduate Project, PHD Thesis, etc."> ?</span>
     </button></label>
-
-  <div class="col-md-8">
-  <input id="Task Type" name="Task Type" type="text" placeholder="" class="form-control input-md">
+  <div class="input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+  <input id="tasktype" name="tasktype" type="text" placeholder="" class="form-control input-md">
 
   </div>
 </div>
 
-<!-- Select Multiple -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
   <div class="col-md-8">
-    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" style="overflow:scroll"></textarea>
+    <textarea id="subject" name="description" placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll"></textarea>
 </textarea>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="claim_deadline">Claim Deadline</label>
+  <div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+    <input type="text" value="" id="datetimepicker1" class="form-control input-md"/><br><br>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="due_date">Due Date</label>
+  <div class="input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+    <input type="text" value="" id="datetimepicker2" class="form-control input-md"/><br><br>
   </div>
 </div>
 
@@ -136,6 +153,12 @@ require_once __DIR__.'/templates/usersidebar.php';
 </div>
 </div>
 
+<!-- <label class="btn btn-primary" for="my-file-selector">
+    <input id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+    Button Text Here
+</label>
+<span class='label label-info' id="upload-file-info"></span> -->
+
 <div class="col-md-12">
       <div class="row">
       <div class="control-group" id="fields">
@@ -160,42 +183,6 @@ require_once __DIR__.'/templates/usersidebar.php';
     </div>
 
 
-<!-- <div class="panel panel-default">
-  <div class="panel-heading"><strong>Upload Files</strong> <small>Bootstrap files upload</small></div>
-  <div class="panel-body">
-
-    Standar Form
-    <h4>Select files from your computer</h4>
-    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-      <div class="form-inline">
-        <div class="form-group">
-          <input type="file" name="files[]" id="js-upload-files" multiple>
-        </div>
-        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-      </div>
-    </form>
-
-    Drop Zone
-    <h4>Or drag and drop files below</h4>
-    <div class="upload-drop-zone" id="drop-zone">
-      Just drag and drop files here
-    </div> -->
-
-    <!-- Progress Bar -->
-    <!-- <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-        <span class="sr-only">60% Complete</span>
-      </div>
-    </div> -->
-
-    <!-- Upload Finished -->
-    <!-- <div class="js-upload-finished">
-      <h3>Processed files</h3>
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>image-01.jpg</a>
-        <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>image-02.jpg</a>
-      </div>
-    </div> -->
 
   </div>
 </div>
@@ -235,8 +222,11 @@ require_once __DIR__.'/templates/usersidebar.php';
         <br />
 
         <!--JS-->
+        <script src="js/jquery.datetimepicker.full.js"></script>
         <script>
         $(document).ready(function(){
+          // $('#datetimepicker').datetimepicker();
+          $("[id^='datetimepicker']").datetimepicker();
 
 // Tooltip function
      $("[id^='tooltip']").tooltip();
