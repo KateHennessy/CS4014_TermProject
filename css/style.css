@@ -86,14 +86,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
 }
 
 /*END OF LOGIN PROPERTIES*/
-
+/*
 /*.ui-autocomplete {
   position: relative;
   /*top: 85%;
   left: 35%;*/
-  z-index: 1000;
+  /*z-index: 1000;
   display: none;
-  /*float: left;*/
+
   min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
@@ -140,7 +140,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
 }*/
 
 
-
 /***
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
@@ -149,6 +148,7 @@ Licensed under MIT
 
 body {
   background: #F1F3FA;
+
 }
 
 /* Profile container */
@@ -349,6 +349,8 @@ body {
 
 /*     END OF TASK PANEL CLASSES    */
 
+
+
 /*SCROLLBAR CLASS*/
 .scroll{
   overflow-y: auto;
@@ -368,12 +370,10 @@ body {
 }
 
 /*multiple upload*/
-
-
-.entry:not(:first-of-type)
+/*.entry:not(:first-of-type)
 {
     margin-top: 10px;
-}
+}*/
 
 
 /*textarea*/
@@ -389,9 +389,8 @@ input[type=text], select, textarea {
 }
 
 
-
+/*TOOLTIP CLASSES*/
 /*Circular button*/
-
 .btn-circle {
   width: 20px;
   height: 20px;
@@ -409,13 +408,13 @@ input[type=text], select, textarea {
 
 /*UPLOAD A TASK CSS FOR UPLOAD FILE*/
 
-.entry:not(:first-of-type)
+/*.entry:not(:first-of-type)
 {
     margin-top: 10px;
 
 
-}
-/*conflict<<<<<<< HEAD*/ 
+}*/
+/*conflict<<<<<<< HEAD*/
 
 
 /*FOOTER CSS FOR ALL PAGES */
@@ -427,20 +426,21 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 40px;
 }
-#footer {
+/*UNSURE IF BELOW CODE IS BEING USED*/
+/*#footer {
   position: absolute;
   bottom: 0;
-  width: 90%;
+  width: 90%;*/
   /* Set the fixed height of the footer here */
-  height: 180px;
-  background:
+  /*height: 180px;
+  background:*/
   /* color overlay */
-    linear-gradient(
+    /*linear-gradient(
       rgba(240, 212, 0, 0.45),
-      rgba(0, 0, 0, 0.45)
+      rgba(0, 0, 0, 0.45)*/
     ),
     /* image to overlay */
-    url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);
+    /*url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);*/
 }
 
 

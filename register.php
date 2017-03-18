@@ -46,20 +46,11 @@
                   $saltedHash = hash('sha256', $passOne.$siteSalt);
 
                   $user = new User();
-// <<<<<<< HEAD
-//                   // $dbquery = new DatabaseQueries();
-// =======
-//                   $dbquery = new DatabaseQueries();
-//
-// >>>>>>> 3fe80a3c6e21ad4e6efa9bc1ff2f85b8b3df2a4d
-
                   $user->set_first_name($firstName);
                   $user->set_last_name($lastName);
                   $user->set_email($email);
-                  // $user->set_id($user->find_id());
                   $user->set_password($saltedHash);
                   $user->set_discipline(DisciplineDAO::find_discipline_by_name($discipline_name));
-                  // echo("User discipline: " .$user->get_discipline()->get_id() ."Discipline name : " .$user->get_discipline()->get_name());
                   $tagArray = array();
                   for($i = 0; $i < count($tags); $i++){
                       $tagArray[$i] = TagDAO::find_tag_by_name($tags[$i]);
@@ -121,7 +112,11 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                    <input type="text" placeholder="Enter Discipline Here.." name = "discipline" id="discipline" class="form-control">
+                    <select class="selectpicker" name="discipline" id="single-select" multiple data-max-options="1"
+                    required="required" data-width="75%">
+                      <option>Computer Science</option>
+                      <option>Psychology</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -153,10 +148,9 @@
                   These tags will determine what tasks appear in your feed. Please choose between 1 and 4 tags.">
                     <span class="text-white"> ?</span>
                   </button>
-                  <!-- <input class="form-control autocomplete" placeholder="Tag 1" /> -->
-                  <div>
-                    <!-- <input class="form-control" name="tag1" id="tag1" placeholder="Enter 1st Tag..." type="text"> -->
-                    <select class="selectpicker" id="bootstrap-select" name="tags[]" data-width="fit" multiple
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
+                    <select class="selectpicker" id="multi-select" name="tags[]" data-width="75%" multiple
                     data-selected-text-format="count > 1" data-max-options="4"
                     required="required">
                       <optgroup label="Computer Science">
@@ -201,9 +195,18 @@
     <script>
       $(document).ready(function(){
 
-        $('.selectpicker').on('change', function () {
+        $('#multi-select').on('change', function () {
           var count = $(this).find("option:selected").length;
           if(count > 0 && count <= 4){
+            successInput(this);
+          }else{
+            failInput(this);
+          }
+        });
+
+        $('#single-select').on('change', function () {
+          var count = $(this).find("option:selected").length;
+          if(count == 1){
             successInput(this);
           }else{
             failInput(this);
