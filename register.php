@@ -1,3 +1,9 @@
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Bootstrap Form with jQuery Validations</title>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css" />
+</head>
 <?php
      session_start();
 
@@ -63,18 +69,28 @@
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
         <div class="row">
+		
+		
+		<form method="post" id="reg_form">
+    <fieldset>
+      
+      <!-- Form Name -->
+     	  
           <h1 class="">Sign Up</h1>
           <br>
-          <form method="POST" action="index.php" onsubmit="return Validate()" name="vform">
+		  <form class="form-horizontal" action=" " method="post"  id="reg_form">
+          
             <div class="col-sm-12">
-              <div class="row">
+			
+			
+			  <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>First Name <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
-					<div id="name_error" class="val_error"></div>
+				 <span class="help-block" id="error"></span>
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -83,11 +99,13 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter Last Name Here.." id="lastName" name="last_name" class="form-control">
-					<div id="name_error" class="val_error"></div>
+					 <span class="help-block" id="error"></span>
                   </div>
                 </div>
               </div>
-              <div class="row">
+			
+              
+			   <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Email Address <em class="text-danger"> *</em>
                   </label>
@@ -95,21 +113,23 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                     <input type="email" placeholder="Enter UL Email Here.." id="emailForm" name="email"
                            class="form-control">
-						   <div id="email_error" class="val_error"></div>
+						   <span class="help-block" id="error"></span>
                   </div>
                 </div>
-                <div class="col-sm-6 form-group">
+				
+				 <div class="col-sm-6 form-group">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <input type="text" placeholder="Enter Discipline Here.." name = "discipline" id="discipline" class="form-control">
-					<div id="name_error" class="val_error"></div>
+					 <span class="help-block" id="error"></span>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6 form-group">
+				</div>
+				
+				 <div class="row">
+				 <div class="col-sm-6 form-group">
                   <label>Password <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
@@ -117,18 +137,30 @@
                     <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control">
 					
                   </div>
-                </div>
-                <div class="col-sm-6 form-group">
+				  </div>
+                
+				
+				 <div class="col-sm-6 form-group">
                   <label>Confirm Password <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control">
-					<div id="password_error" class="val_error"></div>
+					 <span class="help-block" id="error"></span>
                   </div>
                 </div>
-              </div>
-              <div class="row">
+				</div>
+				
+               
+				</div>
+				
+			  
+              
+                            
+               
+               <!---Tags-->
+              
+               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Tags <em class="text-danger"> *</em>
                   </label>
@@ -175,8 +207,18 @@
 
               </div>
             </div>
-            <button type="submit" class="btn btn-lg btn-success">Submit
+			
+			
+                 <!-- Button -->
+      <div>
+        
+          <button type="submit" class="btn btn-lg btn-success">Submit
             </button>
+			</div>
+			</div>
+        
+     
+			</fieldset>
           </form>
             <?php } ?>
 			
@@ -294,99 +336,117 @@
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
       });
+	  
+	 </script>
+	  
 /*conflict<<<<<<< HEAD*/
 	  
-	  <!--validation-->
-	  <script type ="text/javascript">
-	  //GETTING ALL INPUT TEXT OBJECTS
-	  var firstname = document.forms["vform"]["firstname"]
-	   var lastname = document.forms["vform"]["lastname"]
-	    var email = document.forms["vform"]["email"]
-		 var password = document.forms["vform"]["password"]
-		  var password_confirmation = document.forms["vform"]["password_confirmation"];
-		  
-		  //GETTING ALL ERROR DISPLAY OBJECTS
-		  var name_error = document.getElementById("name_error");
-		   var email_error = document.getElementById("email_error");
-		    var password_error = document.getElementById("password_error");
-			 
-			 //SETTING ALL EVENT LISTENERS
-			 firstname.addEventListener("blur", nameVerify, true);
-			 lastname.addEventListener("blur", nameVerify, true);
-			 email.addEventListener("blur", emailVerify, true);
-			 password.addEventListener("blur", passwordVerify, true);
-			 
-			 //validation function
-			 function Validate(){
-				 //name validation
-				 if (firstname.value == ""){
-					 firstname.style.border = "1px solid red";
-					 name_error.textContent = "Name is required";
-					 firstname.focus();
-					 return false;
-				 }
-				 
-				 if (lastname.value == ""){
-					 lastname.style.border = "1px solid red";
-					 name_error.textContent = "Name is required";
-					 lastname.focus();
-					 return false;
-				 }
-				 
-				 //email validation
-				 if (email.value == ""){
-					 email.style.border = "1px solid red";
-					 email_error.textContent = "Name is required";
-					 email.focus();
-					 return false;
-				 }
-				 //password validation
-				  if (password.value == ""){
-					 password.style.border = "1px solid red";
-					 password_error.textContent = "Name is required";
-					 password.focus();
-					 return false;
-				 }
-				 
-			 }
-			 
-			 //event handler functions
-			 function nameVerify(){
-				 if(firstname.value!=""){
-					 firstname.style.border= "1px solid #ccc";
-					 firstname_error.innerHTML = "";
-					 return true;
-				 }
-			 }
-			 
-			 function emailVerify(){
-				 if(email.value!=""){
-					 email.style.border= "1px solid #ccc";
-					 email_error.innerHTML = "";
-					 return true;
-				 }
-			 }
-			 
-			 function passwordVerify(){
-				 if(password.value!=""){
-					 password.style.border= "1px solid #ccc";
-					 password_error.innerHTML = ""; 
-					 return true;
-				 }
-			 }
-		  
-	  
-  
-	  
-	  
-	     </script>
+	  <!--Validation-->
+	 <script>
+	  $(document).ready(function() {
+    $('#reg_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            first_name: {
+                validators: {
+                        stringLength: {
+                        min: 2,
+                    },
+                        notEmpty: {
+                        message: 'Please supply your first name'
+                    }
+                }
+            },
+             last_name: {
+                validators: {
+                     stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Please supply your last name'
+                    }
+                }
+            },
+				 email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply your email address'
+                    },
+                    emailAddress: {
+                        message: 'Please supply a valid email address'
+                    }
+                }
+            },
+					
+			password: {
+				validators: {
+					identical: {
+						field: 'confirmPassword',
+							message: 'Confirm your password below - type same password please'
+                }
+            }
+        },
+        confirmPassword: {
+            validators: {
+                identical: {
+                    field: 'password',
+                    message: 'The password and its confirm are not the same'
+                }
+            }
+         },
+			
+            
+            }
+        })
+		
+		.on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#reg_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
 
 
-	   
-	  <script src="scripts/validation.js"></script>
+
+
+
+
+
+<!-- Script--> 
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+
+        <script src="js/index.js"></script>
+<script type="text/javascript"></script>
+
+	  
+<!--end script-->	
+
+
+
      
 
 
-    </script>
+ 
   </body>
 </html>
