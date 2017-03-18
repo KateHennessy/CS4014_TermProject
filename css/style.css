@@ -413,7 +413,11 @@ input[type=text], select, textarea {
     margin-top: 10px;
 
 
+<<<<<<< HEAD
+}
+=======
 }*/
+>>>>>>> 700f78c912d358b9c1e24bc7b7bba7fe44e9345b
 /*conflict<<<<<<< HEAD*/
 
 
@@ -468,3 +472,8 @@ body {
 /*conflict
 =======
 >>>>>>> 3d63574b84cb8a7bcd949eeb8f3ff6fcf2f6174e*/
+
+#Success {
+  display: none;
+  visibility: hidden;
+}

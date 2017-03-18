@@ -68,8 +68,6 @@ class DatabaseQueries{
        return $result;
 
     }
-
-
   }
 
 ?>

@@ -10,7 +10,8 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
-
+    <script src="./js/successMessage.js">
+    </script>
 
     <!-- ONLINE BOOTSTRAP FILES -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -53,7 +54,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                <form>
+                <form method="post" action="./logout.php">
                     <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -65,7 +66,7 @@
                                 <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
                                     <!-- <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
-                                    <button type="submit" class="btn btn-primary btn-block" onclick="location.href='logout.php';">Log Out</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
                                 </div>
 
                             </ul>
