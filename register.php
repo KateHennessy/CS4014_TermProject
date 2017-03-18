@@ -11,6 +11,9 @@
 
 
       if (isset($_POST) && count ($_POST) > 0) {
+
+        if(isset($POST["signup_button"])){
+
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
           $email = trim(strtolower($_POST["email"]));
@@ -18,13 +21,11 @@
           $passTwo = $_POST["pass_two"];
           $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
-
           //check wheter user/email alerady exists
           if ($passOne != $passTwo) { //in case Javascript is disabled.
               printf("<h2> Passwords do not match. </h2>");
           }else if(count($tags) < 1 || count($tags) > 4){
             printf("<h2> Incorrect number of tags entered. </h2>");
-// <<<<<<< HEAD
           $user = new User();
           $userDao = new UserDAO();
           $user = $userDao->getUserByEmail($email);
@@ -64,9 +65,24 @@
                   }else{
                     echo("null");
                   }
-                  }
-              // }
-          // }
+              }
+         }else if(isset($_POST["login_button"])){
+           $email = trim(strtolower($_POST["email"]));
+           $password = $_POST["password"];
+           $user = new User();
+           $user = UserDAO::login($email, $password);
+
+           if(!is_null($user)){
+             $_SESSION["user_id"] = $user->get_id();
+            header("location:./profilepage.php");
+           }else{
+             header("location:./register.php");
+           }
+
+         }else{
+           echo("nothing");
+         }
+
       }
             if (!isset($_POST) || count($_POST) == 0) {
                 require_once __DIR__.'/templates/header.template.php';?>
@@ -184,7 +200,7 @@
 
               </div>
             </div>
-            <button type="submit" class="btn btn-lg btn-success">Submit
+            <button type="submit" name="signup_button" class="btn btn-lg btn-success">Submit
             </button>
           </form>
             <?php } ?>

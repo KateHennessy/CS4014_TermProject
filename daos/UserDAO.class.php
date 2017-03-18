@@ -24,7 +24,6 @@ class UserDAO{
           $result = PDOAccess::returnSQLquery($query);
           if ($result) {
 						$row = $result -> fetch(PDO::FETCH_ASSOC);
-						// print_r("<br />id: " .$row['user_id'] ."<br />");
               $user = ModelFactory::buildModel("User", $row);
           }
       }
@@ -39,7 +38,7 @@ class UserDAO{
         return $user;
     }
 	private static function insert(&$user) {
-		// First insert user into Database
+		// First - insert user into Database
 		date_default_timezone_set('Europe/Dublin');
 		$date = date('Y-m-d H:i:s', time());
 		$query = "INSERT INTO `user` (`user_id`, `f_name`,
@@ -49,6 +48,7 @@ class UserDAO{
 			 .PDOAccess::prepareString($user->get_password()) ."," .PDOAccess::prepareString($user->get_discipline()->get_id())
 			 .",'0','" .$date ."');";
 			 $result = PDOAccess::insertSQLquery($query);
+       //Next - add users tags to the user_tag table
         if ($result) {
 					  $tags = array();
 						$tags = $user->get_tags();
@@ -66,15 +66,17 @@ class UserDAO{
         }
     }
 		public static function login($email, $password) {
-		 		$user = self::getUser("null",$email);
+		 		$user = self::getUserByEmail($email);
 		 		if (!is_null($user)) {
 		 			$id = $user->get_id();
 		 			$passwordHash = $user->get_password();
-		 			$siteSalt  = "ulbuynsell";
+		 			$siteSalt  = "hPxmjz6hJc";
 		 			$saltedHash = hash('sha256', $password.$siteSalt);
 		 			if ($passwordHash == $saltedHash) {
+
 		 				return $user;
 		 			}
+          echo("not the same");
 		         return null;
 		 		}
 		 	}

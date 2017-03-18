@@ -67,24 +67,24 @@
 
             <?php
 
-              if (isset($_POST["e"]) && isset($_POST["p"])
-                && trim($_POST["e"]) !='' && trim($_POST["p"]) != ''  ){
-                    try {
-                        $email = trim(strtolower($_POST["e"]));
-                        $password = $_POST["p"];
-                        $userDao = new UserDAO();
-                        $user = $userDao->login($email, $password);
-
-                        if (!is_null($user)) {
-                            $_SESSION['user_id'] = $user->get_id();
-                            header("Location:./index.php");
-                        } else {
-                            printf("<h2> Password incorrect or account not found. </h2>");
-                        }
-                    } catch (Exception $exception) {
-                        printf("Connection error: %s", $exception->getMessage());
-                    }
-                }
+              // if (isset($_POST["e"]) && isset($_POST["p"])
+              //   && trim($_POST["e"]) !='' && trim($_POST["p"]) != ''  ){
+              //       try {
+              //           $email = trim(strtolower($_POST["e"]));
+              //           $password = $_POST["p"];
+              //           $userDao = new UserDAO();
+              //           $user = $userDao->login($email, $password);
+              //
+              //           if (!is_null($user)) {
+              //               $_SESSION['user_id'] = $user->get_id();
+              //               header("Location:./index.php");
+              //           } else {
+              //               printf("<h2> Password incorrect or account not found. </h2>");
+              //           }
+              //       } catch (Exception $exception) {
+              //           printf("Connection error: %s", $exception->getMessage());
+              //       }
+              //   }
               ?>
 
             <li class="dropdown">
@@ -98,7 +98,7 @@
                 <li>
                   <div class="row">
                     <div class="col-md-12">
-                      <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                      <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
                         <div class="form-group">
                           <label class="sr-only" for="exampleInputEmail2">Email address
                           </label>
@@ -113,7 +113,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <button type="submit" class="btn btn-primary btn-block">Sign in
+                          <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
                           </button>
                         </div>
                         <div class="checkbox">
