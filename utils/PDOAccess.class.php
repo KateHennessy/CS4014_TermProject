@@ -51,7 +51,7 @@ class PDOAccess {
         return $ret;
 	}
 
-  function insertSQLquery($query){
+  public static function insertSQLquery($query){
     $db = self::getInstance();
     $conn = $db->connection;
     $result = $conn -> prepare($query);
@@ -70,7 +70,7 @@ class PDOAccess {
 
   }
 
-  function returnSQLquery($query){
+  public static function returnSQLquery($query){
     $db = PDOAccess::getInstance();
     $conn = $db->connection;
 
