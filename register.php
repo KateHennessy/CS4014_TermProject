@@ -1,12 +1,14 @@
-<?php
-     session_start();
 
+<?php
+    session_start();
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/models/Discipline.class.php';
     require_once __DIR__.'/daos/DisciplineDAO.class.php';
     require_once __DIR__.'/daos/TagDAO.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
+
+
 
       if (isset($_POST) && count ($_POST) > 0) {
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
@@ -22,6 +24,7 @@
               printf("<h2> Passwords do not match. </h2>");
           }else if(count($tags) < 1 || count($tags) > 4){
             printf("<h2> Incorrect number of tags entered. </h2>");
+// <<<<<<< HEAD
           $user = new User();
           $userDao = new UserDAO();
           $user = $userDao->getUserByEmail($email);
@@ -43,7 +46,13 @@
                   $saltedHash = hash('sha256', $passOne.$siteSalt);
 
                   $user = new User();
-                  // $dbquery = new DatabaseQueries();
+// <<<<<<< HEAD
+//                   // $dbquery = new DatabaseQueries();
+// =======
+//                   $dbquery = new DatabaseQueries();
+//
+// >>>>>>> 3fe80a3c6e21ad4e6efa9bc1ff2f85b8b3df2a4d
+
                   $user->set_first_name($firstName);
                   $user->set_last_name($lastName);
                   $user->set_email($email);
@@ -68,12 +77,8 @@
               // }
           // }
       }
-
-
             if (!isset($_POST) || count($_POST) == 0) {
-              require_once __DIR__.'/templates/header.template.php';?>
-
-
+                require_once __DIR__.'/templates/header.template.php';?>
 
     <!-- Main PAGE -->
     <div class="container-fluid">
@@ -81,7 +86,7 @@
         <div class="row">
           <h1 class="">Sign Up</h1>
           <br>
-          <form method="POST" action="index.php" onsubmit="return Validate()" name="vform">
+          <form method="post">
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-6 form-group">
@@ -90,7 +95,6 @@
                   <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
-					<div id="name_error" class="val_error"></div>
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -99,7 +103,6 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                     <input type="text" placeholder="Enter Last Name Here.." id="lastName" name="last_name" class="form-control">
-					<div id="name_error" class="val_error"></div>
                   </div>
                 </div>
               </div>
@@ -111,7 +114,6 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                     <input type="email" placeholder="Enter UL Email Here.." id="emailForm" name="email"
                            class="form-control">
-						   <div id="email_error" class="val_error"></div>
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -120,7 +122,6 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <input type="text" placeholder="Enter Discipline Here.." name = "discipline" id="discipline" class="form-control">
-					<div id="name_error" class="val_error"></div>
                   </div>
                 </div>
               </div>
@@ -131,7 +132,6 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control">
-					
                   </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -140,7 +140,6 @@
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control">
-					<div id="password_error" class="val_error"></div>
                   </div>
                 </div>
               </div>
@@ -195,13 +194,12 @@
             </button>
           </form>
             <?php } ?>
-			
-			
-
         </div>
       </div>
     </div>
+
     <script>
+      $(document).ready(function(){
 
         $('.selectpicker').on('change', function () {
           var count = $(this).find("option:selected").length;
@@ -211,20 +209,25 @@
             failInput(this);
           }
         });
+
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
+
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
         $('form input').blur(function(){
           //GETS THE ID OF ELEMENT JUST BLURRED
           id = $(this).attr("id");
+
           // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
           if(id.indexOf("email") != -1){
             validateEmail(this);
           }
+
           // IF WE ARE IN ONE OF THE PASSWORD FIELDS
           else if(id.indexOf("pass") != -1){
             // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
               if(id.indexOf("pass1") != -1){
+
                 if( $('#pass1Form').val().length >= 7){
                   successInput(this);
                   return true;
@@ -249,7 +252,9 @@
               failInput(this);
             }
             }
+
             else{
+
             }
           }
           // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
@@ -258,6 +263,7 @@
           }
         });
         // END OF ONBLUR CHECKING OF FORM
+
         function validateTags(element){
           id = element.id;
           var options =(element).val();
@@ -276,6 +282,7 @@
             return false;
           }
           else {
+
               successInput(element);
               return true;
           }
@@ -301,6 +308,7 @@
           div.addClass("has-error has-feedback");
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
         }
+
         function successInput(element){
           id = element.id;
           var div = $("#" + id).closest("div");
@@ -310,99 +318,11 @@
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
       });
-/*conflict<<<<<<< HEAD*/
-	  
-	  <!--validation-->
-	  <script type ="text/javascript">
-	  //GETTING ALL INPUT TEXT OBJECTS
-	  var firstname = document.forms["vform"]["firstname"]
-	   var lastname = document.forms["vform"]["lastname"]
-	    var email = document.forms["vform"]["email"]
-		 var password = document.forms["vform"]["password"]
-		  var password_confirmation = document.forms["vform"]["password_confirmation"];
-		  
-		  //GETTING ALL ERROR DISPLAY OBJECTS
-		  var name_error = document.getElementById("name_error");
-		   var email_error = document.getElementById("email_error");
-		    var password_error = document.getElementById("password_error");
-			 
-			 //SETTING ALL EVENT LISTENERS
-			 firstname.addEventListener("blur", nameVerify, true);
-			 lastname.addEventListener("blur", nameVerify, true);
-			 email.addEventListener("blur", emailVerify, true);
-			 password.addEventListener("blur", passwordVerify, true);
-			 
-			 //validation function
-			 function Validate(){
-				 //name validation
-				 if (firstname.value == ""){
-					 firstname.style.border = "1px solid red";
-					 name_error.textContent = "Name is required";
-					 firstname.focus();
-					 return false;
-				 }
-				 
-				 if (lastname.value == ""){
-					 lastname.style.border = "1px solid red";
-					 name_error.textContent = "Name is required";
-					 lastname.focus();
-					 return false;
-				 }
-				 
-				 //email validation
-				 if (email.value == ""){
-					 email.style.border = "1px solid red";
-					 email_error.textContent = "Name is required";
-					 email.focus();
-					 return false;
-				 }
-				 //password validation
-				  if (password.value == ""){
-					 password.style.border = "1px solid red";
-					 password_error.textContent = "Name is required";
-					 password.focus();
-					 return false;
-				 }
-				 
-			 }
-			 
-			 //event handler functions
-			 function nameVerify(){
-				 if(firstname.value!=""){
-					 firstname.style.border= "1px solid #ccc";
-					 firstname_error.innerHTML = "";
-					 return true;
-				 }
-			 }
-			 
-			 function emailVerify(){
-				 if(email.value!=""){
-					 email.style.border= "1px solid #ccc";
-					 email_error.innerHTML = "";
-					 return true;
-				 }
-			 }
-			 
-			 function passwordVerify(){
-				 if(password.value!=""){
-					 password.style.border= "1px solid #ccc";
-					 password_error.innerHTML = ""; 
-					 return true;
-				 }
-			 }
-		  
-	  
-  
-	  
-	  
-	     </script>
-
-
-	   
-	  <script src="scripts/validation.js"></script>
-     
-
-
     </script>
+
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
+
   </body>
 </html>
