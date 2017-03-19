@@ -2,7 +2,54 @@
     require_once __DIR__.'/templates/header.template.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
-    ?>
+    require_once __DIR__."/database/DatabaseQueries.php";
+    require_once __DIR__."/daos/UserDAO.class.php";
+ ?>
+
+<?php
+if(isset($POST["submit"])){
+  $email = $_POST['email'];
+  $submit = $_POST['submit'];
+
+//set up db connection
+  $dbquery = new DatabaseQueries();
+
+  if($submit) {
+
+  //check email exists
+    $email_check = $dbquery -> returnSQLquery ("SELECT count(*) FROM user WHERE email= '".$email ."'");
+
+  if($email_check != 0) {
+//generate a new password
+    $random = rand('123456789', 'abcdefghijklmnopqrstuvwxyz');
+    $new_password = $random;
+
+//create a copy of new Password
+  $email_password = $new_password;
+
+//encrypt new Password
+  $siteSalt  = "hPxmjz6hJc";
+  $saltedHash = hash('sha256', $email_password.$siteSalt);
+
+//update db
+  $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE email = '".$email ."'");
+
+//email new password to user
+  $subject = "ReviUL: Login Information";
+  $message = "Your password has been reset to $saltedHash";
+  $from = "From: orlabonar@gmail.com";
+
+  mail ($email, $subject, $message, $from);
+  echo "Your new password has been sent to your email address";
+  }
+  } else {
+    echo "This email address does not exist";
+  }
+}
+
+ ?>
+
+
 
     <!-- Main PAGE -->
     <div class="container-fluid">
@@ -11,16 +58,16 @@
                 <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
                 <div class="col-xs-10">
                   <p> We'll send a new password to your email address </p>
-                    <form>
+                    <form action = "" method = "POST">
                         <div class="row">
                             <div class="col-sm-12 form-group">
                                 <label>Email Address</label>
-                                <div><input type="email" onblur="validateEmail()" id="contactEmail" placeholder="Enter Email Address Here.." class="form-control"></div>
+                                <div><input type="text" name ="email" placeholder="Enter Email Address Here.." class="form-control"></div>
                             </div>
-						</div>
-                    <button type="button" class="btn btn-lg btn-success">Send me a new Password</button>
+						            </div>
+                    <button type="submit" name="submit" class="btn btn-lg btn-success">Send me a new Password</button>
                 </form>
-				</div>
+				        </div>
                 </div>
             </div>
         </div>

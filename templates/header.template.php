@@ -109,7 +109,7 @@
                           </label>
                           <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
                           <div class="help-block text-right">
-                            <a href="<?php echo 'profilepage.php'; ?>">Forget your password ?</a>
+                            <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
                           </div>
                         </div>
                         <div class="form-group">
