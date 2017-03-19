@@ -67,7 +67,7 @@ require_once __DIR__.'/templates/usersidebar.php';
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-lg btn-success" id="Success">Submit</button>
+            <button type="submit" class="btn btn-lg btn-success">Submit</button>
             <div id = "success" style="visibility: hidden;"><p> Your password has been successfully reset </p></div>
 
           </form>
