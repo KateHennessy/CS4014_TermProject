@@ -7,9 +7,9 @@
  ?>
 
 <?php
-if(isset($POST["submit"])){
+if(isset($POST["submit_pass"])){
   $email = $_POST['email'];
-  $submit = $_POST['submit'];
+  $submit = $_POST['submit_pass'];
 
 //set up db connection
   $dbquery = new DatabaseQueries();
@@ -24,12 +24,9 @@ if(isset($POST["submit"])){
     $random = rand('123456789', 'abcdefghijklmnopqrstuvwxyz');
     $new_password = $random;
 
-//create a copy of new Password
-  $email_password = $new_password;
-
 //encrypt new Password
   $siteSalt  = "hPxmjz6hJc";
-  $saltedHash = hash('sha256', $email_password.$siteSalt);
+  $saltedHash = hash('sha256', $new_password.$siteSalt);
 
 //update db
   $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE email = '".$email ."'");
@@ -57,7 +54,7 @@ if(isset($POST["submit"])){
             <div class="row">
                 <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
                 <div class="col-xs-10">
-                  <p> We'll send a new password to your email address </p>
+                  <p> We'll send a new password to your registered email address </p>
                     <form action = "" method = "POST">
                         <div class="row">
                             <div class="col-sm-12 form-group">
@@ -65,7 +62,7 @@ if(isset($POST["submit"])){
                                 <div><input type="text" name ="email" placeholder="Enter Email Address Here.." class="form-control"></div>
                             </div>
 						            </div>
-                    <button type="submit" name="submit" class="btn btn-lg btn-success">Send me a new Password</button>
+                    <button type="submit_pass" name="submit_pass" class="btn btn-lg btn-success">Send me a new Password</button>
                 </form>
 				        </div>
                 </div>

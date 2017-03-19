@@ -111,6 +111,9 @@
                           <div class="help-block text-right">
                             <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
                           </div>
+                          <div class="help-block text-right">
+                            <a href="<?php echo 'register.php'; ?>">Sign Up</a>
+                          </div>
                         </div>
                         <div class="form-group">
                           <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
