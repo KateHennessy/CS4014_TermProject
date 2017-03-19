@@ -22,7 +22,22 @@ class TagDAO {
     public static function getUserTags($user_id) {
         $tags = array();
         if (!is_null($user_id)) {
-            $query = "SELECT tag.tag_id, tag_name FROM user_tag NATURAL JOIN tag WHERE user_tag.user_id =" .$user_id;
+            $query = "SELECT tag.tag_id, tag_name FROM user_tag NATURAL JOIN tag WHERE user_tag.user_id =" .$user_id .";";
+            $result = PDOAccess::returnSQLquery($query);
+
+            if ($result) {
+              foreach($result as $row){
+                $tags[] = ModelFactory::buildModel("Tag",$row);
+              }
+            }
+        }
+        return $tags;
+    }
+
+    public static function getTaskTags($task_id) {
+        $tags = array();
+        if (!is_null($task_id)) {
+            $query = "SELECT tag.tag_id, tag_name FROM task_tag NATURAL JOIN tag WHERE task_tag.task_id =" .$task_id .";";
             $result = PDOAccess::returnSQLquery($query);
 
             if ($result) {
@@ -37,7 +52,15 @@ class TagDAO {
     public static function insertUserTag($user_id, $tag_id){
        $query = "INSERT INTO `user_tag` (`user_id`, `tag_id`, `clicks`) VALUES ("
        .PDOAccess::prepareString($user_id) .", " .PDOAccess::prepareString($tag_id) .", '0');";
-       echo($query);
+      //  echo($query);
+       return PDOAccess::insertSQLquery($query);
+
+    }
+
+    public static function insertTaskTag($task_id, $tag_id){
+       $query = "INSERT INTO `task_tag` (`task_id`, `tag_id`) VALUES ("
+       .PDOAccess::prepareString($task_id) .", " .PDOAccess::prepareString($tag_id) .");";
+      //  echo($query);
        return PDOAccess::insertSQLquery($query);
 
     }

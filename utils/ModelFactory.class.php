@@ -17,10 +17,15 @@ class ModelFactory {
                 $ret = self::generateTag($modelData);
                 break;
             case "Task":
+              $ret = self::generateTask($modelData);
                 break;
             case "Discipline":
                 $ret = self::generateDiscipline($modelData);
                 break;
+            case "Status":
+                $ret = self::generateStatus($modelData);
+                break;
+
 			      default:
                 echo "Unable to build model $modelName";
 		}
@@ -65,6 +70,60 @@ class ModelFactory {
 
 	}
 
+  private static function generateTask($modelData) {
+		$ret = new Task();
+
+		if (isset($modelData['task_id'])) {
+			$ret ->set_id($modelData["task_id"]);
+      $tags = array();
+      $tags = TagDAO::getTaskTags($modelData["task_id"]); //calling TagDAO which calls Model Factory generateTag
+      $ret ->set_tags($tags);
+		}
+
+		if (isset($modelData['creator_id'])) {
+			$ret ->set_creator_id($modelData["creator_id"]);
+		}
+
+		if (isset($modelData['task_title'])) {
+			$ret ->set_title($modelData["task_title"]);
+		}
+
+		if (isset($modelData['task_type'])) {
+			$ret ->set_type($modelData["task_type"]);
+		}
+
+		if (isset($modelData['description'])) {
+			$ret ->set_description($modelData["description"]);
+		}
+
+    if(isset($modelData['claim_deadline'])){
+      $ret ->set_claim_deadline($modelData["claim_deadline"]);
+    }
+
+    if(isset($modelData['completion_deadline'])){
+      $ret ->set_completion_deadline($modelData["completion_deadline"]);
+    }
+
+    if(isset($modelData['no_pages'])){
+      $ret ->set_no_pages($modelData["no_pages"]);
+    }
+
+    if(isset($modelData['no_words'])){
+      $ret ->set_no_words($modelData["no_words"]);
+    }
+
+    if(isset($modelData['format'])){
+      $ret ->set_format($modelData["format"]);
+    }
+
+    if(isset($modelData['storage_address'])){
+      $ret ->set_storage_address($modelData["storage_address"]);
+    }
+
+		return $ret;
+
+	}
+
 
   private static function generateTag($modelData) {
 		$ret = new Tag();
@@ -84,6 +143,16 @@ class ModelFactory {
       $ret->set_id($modelData['discipline_id']);
     }if(isset($modelData['discipline_name'])){
       $ret->set_name($modelData['discipline_name']);
+    }
+    return $ret;
+  }
+
+  private static function generateStatus($modelData){
+    $ret = new Status();
+    if(isset($modelData['status_id'])){
+      $ret->set_id($modelData['status_id']);
+    }if(isset($modelData['status_name'])){
+      $ret->set_name($modelData['status_name']);
     }
     return $ret;
   }

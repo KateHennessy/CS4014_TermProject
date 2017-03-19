@@ -1,5 +1,5 @@
 <?php
-class Discipline {
+class Status {
 
   private $id;
   private $name;

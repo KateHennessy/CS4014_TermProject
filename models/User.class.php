@@ -1,6 +1,5 @@
 <!--Based on UL-BuynSell example -->
 <?php
-require_once __DIR__."/../database/DatabaseQueries.php";
 class User {
     /*http://www.kjetil-hartveit.com/blog/1/setter-and-getter-generator-for-php-javascript-c%2B%2B-and-csharp*/
 

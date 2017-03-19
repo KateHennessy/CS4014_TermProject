@@ -54,14 +54,14 @@ class UserDAO{
 						$tags = $user->get_tags();
 						$user = self::getUserByEmail($user->get_email());
 						$user_id = $user->get_id();
-						echo(count($tags) ." tags <br />");
+						// echo(count($tags) ." tags <br />");
 						for($i = 0; $i < count($tags); $i++){
 							$tagdao = new TagDAO();
 								$tagdao->insertUserTag($user_id, $tags[$i]->get_id());
 						}
-						echo("user: " .$user->get_id());
+						// echo("user: " .$user->get_id());
         } else {
-					echo("Null");
+					// echo("Null");
             $user = null;
         }
     }
