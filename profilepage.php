@@ -2,6 +2,7 @@
     session_start();
     require_once __DIR__."/models/User.class.php";
     require_once __DIR__."/daos/UserDAO.class.php";
+    require_once __DIR__."/daos/TaskDAO.class.php";
 
 
 
@@ -10,6 +11,8 @@
               $user = new User();
               $userDao = new UserDAO();
               $user = $userDao->getUserByID($id);
+              $uploadedTasks = TaskDAO::find_user_uploaded_tasks($user);
+              // print_r($uploadedTasks);
               // echo("ID: " .$id);
             } else {
               // echo("In else " .$_SESSION["user_id"]);
@@ -42,6 +45,7 @@
                     <div class="col-xs-12"> -->
 
                         <div class="row">
+
                             <div class="col-xs-12">
                                 <h2> My Tasks Overview</h2>
                                 <p>A snippet of information on tasks I have uploaded</p>
@@ -50,6 +54,17 @@
                         <br />
                                     <!-- <div class="row"> -->
                                     <!-- Begin Task1-->
+                                    <div class="row">
+
+                                      <?php
+                                      if(count($uploadedTasks) == 0) { ?>
+                                        <h5 class="col-sm-6 text-primary"> No tasks uploaded. To create one <a href="uploadtask.php"> <em>Click here </em></a></h5>
+                                      <?php }
+
+                                      foreach($uploadedTasks as $task){ ?>
+
+
+
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
                                             <div class="panel-heading fixed">
@@ -58,29 +73,53 @@
                                                         <a class="pull-left"  href="<?php echo 'detailedtask.php'; ?>" target="_parent">
 
                                                             <!-- </a> -->
-                                                            <h4><div class="glyphicon glyphicon-edit"></div>The Study of Monkeys</h4></a>
+                                                            <h4><div class="glyphicon glyphicon-edit"></div><?php echo$task->get_title() ?></h4></a>
                                                     </div>
                                                     <div class="pull-right hidden-xs col-sm-4">
-                                                        <h4><small class="pull-right">Assignment</small></h4>
+                                                        <h4><small class="pull-right"><?php echo$task->get_type() ?></small></h4>
                                                     </div>
                                                 </div>
                                                 <ul class="list-inline">
-                                                    <li>PDF</li>
+                                                    <li><?php echo $task->get_format() ?></li>
                                                     <li style="list-style: none">|</li>
-                                                    <li>5 Pages</li>
+                                                    <li><?php echo$task->get_no_pages() ?> Pages</li>
                                                     <li style="list-style: none">|</li>
-                                                    <li>2000 Words</li>
+                                                    <li><?php echo$task->get_no_words() ?> Words</li>
                                                 </ul>
-                                                <p class="hidden-xs fixedBody">A study on the native habibtat and behvaiour of monkeys. </p>
-                                                <div><label for="danger" class="btn btn-danger">Not Claimed</label></div>
+                                                <p class="hidden-xs fixedBody"><?php echo$task->get_description() ?>. </p>
+                                                <?php $status = StatusDAO::find_most_recent_status($task);
+                                                switch($status->get_name()){
+                                                  case "unclaimed":
+                                                  echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
+                                                  break;
+                                                  case "in progress":
+                                                  echo '<div><label for="warning" class="btn btn-warning">In Progress</label></div>';
+                                                  break;
+                                                  case "expired":
+                                                  echo '<div><label for="danger" class="btn btn-danger">Expired</label></div>';
+                                                  break;
+                                                  case "cancelled":
+                                                  echo '<div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
+                                                  break;
+                                                  case "unfinished":
+                                                  echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                                                  break;
+                                                  default:
+                                                  echo '';
+                                                  break;
+                                                }
+                                                ?>
+
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> <?php } ?>
+
+                                  </div>
                                     <!-- End Task1-->
 
                                     <!-- Begin Task2-->
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="panel panel-default">
+                                    <!-- <div class="col-sm-6 col-lg-4"> -->
+                                        <!-- <div class="panel panel-default">
                                             <div class="panel-heading fixed">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-8">
@@ -104,13 +143,13 @@
                                                 <br />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- End Task2-->
 
 
                                     <!-- Begin Task3-->
-                                    <div class="col-sm-6 col-lg-4">
+                                    <!-- <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
                                             <div class="panel-heading fixed">
                                                 <div class="row">
@@ -134,13 +173,13 @@
                                                 <div><label for="Success" class="btn btn-success">Completed</label></div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- </div> -->
                                     <!-- End Task3-->
 
                                     <!-- Begin Task4-->
                                     <!-- <div class="row"> -->
-                                    <div class="col-sm-6 col-lg-4">
+                                    <!-- <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
                                             <div class="panel-heading fixed">
                                                 <div class="row">
@@ -164,7 +203,7 @@
                                                 <div><label for="danger" class="btn btn-danger">Not Claimed</label></div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <br />
 
@@ -197,7 +236,7 @@
                                                     <li style="list-style: none">|</li>
                                                     <li>7000 Words</li>
                                                 </ul>
-                                                <p class="hidden-xs fixedBody">A study on the groweing habitats of pineapples </p>
+                                                <p class="hidden-xs fixedBody">A study on the growing habitats of pineapples </p>
                                                 <div><label for="Success" class="btn btn-success">Completed</label></div>
                                             </div>
                                         </div>

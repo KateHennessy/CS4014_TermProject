@@ -73,6 +73,22 @@ class TaskDAO{
     return $task;
   }
 
+  public static function find_user_uploaded_tasks($user){
+    $uploadedTasks = NULL;
+    if(!is_null($user)){
+      $id = $user->get_id();
+      $uploadedTasks = array();
+      $query = "SELECT * FROM task WHERE creator_id = " .$id .";";
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $uploadedTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+      return $uploadedTasks;
+
+    }
+
+  }
+
   public static function find_available_tasks($creator_id){
     $availableTasks = NULL;
     if(!is_null($creator_id)){

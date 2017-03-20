@@ -333,7 +333,7 @@ body {
 
 .fixedBody{
   height:30%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /*A smaller fixed area than stardard fixed which is 300px*/
