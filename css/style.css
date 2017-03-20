@@ -86,14 +86,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
 }
 
 /*END OF LOGIN PROPERTIES*/
-
+/*
 /*.ui-autocomplete {
   position: relative;
   /*top: 85%;
   left: 35%;*/
-  z-index: 1000;
+  /*z-index: 1000;
   display: none;
-  /*float: left;*/
+
   min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
@@ -140,7 +140,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
 }*/
 
 
-
 /***
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
@@ -149,6 +148,7 @@ Licensed under MIT
 
 body {
   background: #F1F3FA;
+
 }
 
 /* Profile container */
@@ -254,7 +254,22 @@ body {
   background: #fff;
   min-height: 460px;
 }
+
+.tags label.info{
+  color:#FFF;
+  background-color:#5BC0DE;
+  border-color:#46B8DA
+  font-size: 20px;
+  font-weight: 600;
+  padding: 15px 15px;
+  width: 40%;
+  text-align: center;
+}
+
+
+
 /*upload task */
+
 /* layout.css Style */
 .upload-drop-zone {
   height: 200px;
@@ -290,7 +305,7 @@ body {
 
 }
 
-  
+
  /* @media only screen and (max-width: 480px) {
 
 
@@ -334,6 +349,8 @@ body {
 
 /*     END OF TASK PANEL CLASSES    */
 
+
+
 /*SCROLLBAR CLASS*/
 .scroll{
   overflow-y: auto;
@@ -353,12 +370,10 @@ body {
 }
 
 /*multiple upload*/
-
-
-.entry:not(:first-of-type)
+/*.entry:not(:first-of-type)
 {
     margin-top: 10px;
-}
+}*/
 
 
 /*textarea*/
@@ -374,9 +389,8 @@ input[type=text], select, textarea {
 }
 
 
-
+/*TOOLTIP CLASSES*/
 /*Circular button*/
-
 .btn-circle {
   width: 20px;
   height: 20px;
@@ -394,9 +408,72 @@ input[type=text], select, textarea {
 
 /*UPLOAD A TASK CSS FOR UPLOAD FILE*/
 
-.entry:not(:first-of-type)
+/*.entry:not(:first-of-type)
 {
     margin-top: 10px;
 
 
+<<<<<<< HEAD
+}
+=======
+}*/
+>>>>>>> 700f78c912d358b9c1e24bc7b7bba7fe44e9345b
+/*conflict<<<<<<< HEAD*/
+
+
+/*FOOTER CSS FOR ALL PAGES */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+/*UNSURE IF BELOW CODE IS BEING USED*/
+/*#footer {
+  position: absolute;
+  bottom: 0;
+  width: 90%;*/
+  /* Set the fixed height of the footer here */
+  /*height: 180px;
+  background:*/
+  /* color overlay */
+    /*linear-gradient(
+      rgba(240, 212, 0, 0.45),
+      rgba(0, 0, 0, 0.45)*/
+    ),
+    /* image to overlay */
+    /*url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);*/
+}
+
+
+/* Custom footer CSS
+-------------------------------------------------- */
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+.footertext {
+  color: #ffffff;
+}
+
+
+/*validation error mess*/
+
+.val_error{
+	color:#FF1F1F;
+}
+/*conflict
+=======
+>>>>>>> 3d63574b84cb8a7bcd949eeb8f3ff6fcf2f6174e*/
+
+#Success {
+  display: none;
+  visibility: hidden;
 }

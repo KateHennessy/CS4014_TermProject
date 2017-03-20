@@ -29,7 +29,10 @@
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/typeahead.css">
+
   </head>
+
+
   <body>
     <!-- NAV BAR -->
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -51,15 +54,39 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <!--   <li class="active"> - used to highlight current tab in menu bar -->
-            <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
-          </ul>
+
+
+
+
+
           <ul class="nav navbar-nav navbar-right">
             <li>
               <p class="navbar-text">Already have an account?
               </p>
             </li>
+
+            <?php
+
+              // if (isset($_POST["e"]) && isset($_POST["p"])
+              //   && trim($_POST["e"]) !='' && trim($_POST["p"]) != ''  ){
+              //       try {
+              //           $email = trim(strtolower($_POST["e"]));
+              //           $password = $_POST["p"];
+              //           $userDao = new UserDAO();
+              //           $user = $userDao->login($email, $password);
+              //
+              //           if (!is_null($user)) {
+              //               $_SESSION['user_id'] = $user->get_id();
+              //               header("Location:./index.php");
+              //           } else {
+              //               printf("<h2> Password incorrect or account not found. </h2>");
+              //           }
+              //       } catch (Exception $exception) {
+              //           printf("Connection error: %s", $exception->getMessage());
+              //       }
+              //   }
+              ?>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <b>Login
@@ -71,22 +98,25 @@
                 <li>
                   <div class="row">
                     <div class="col-md-12">
-                      <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                      <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
                         <div class="form-group">
                           <label class="sr-only" for="exampleInputEmail2">Email address
                           </label>
-                          <input type="email" class="form-control" id="emailLogin" placeholder="Email address" required>
+                          <input type="email" name ="email" class="form-control" id="emailLogin" placeholder="Email address" required>
                         </div>
                         <div class="form-group">
                           <label class="sr-only" for="exampleInputPassword2">Password
                           </label>
-                          <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                          <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
                           <div class="help-block text-right">
-                            <a href="<?php echo 'profilepage.php'; ?>">Forget your password ?</a>
+                            <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
+                          </div>
+                          <div class="help-block text-right">
+                            <a href="<?php echo 'register.php'; ?>">Sign Up</a>
                           </div>
                         </div>
                         <div class="form-group">
-                          <button type="submit" class="btn btn-primary btn-block">Sign in
+                          <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
                           </button>
                         </div>
                         <div class="checkbox">

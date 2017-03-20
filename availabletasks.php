@@ -1,58 +1,23 @@
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+    session_start();
+
+    if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
+      $id = $_SESSION["user_id"];
+      // echo("ID: " .$id);
+    } else {
+      // echo("In else " .$_SESSION["user_id"]);
+        header("location:./register.php");
+    }
+?>
+
+<?php
+    require_once __DIR__.'/templates/loggedinuser.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
+    require_once __DIR__.'/templates/usersidebar.php';
     ?>
 
 
-    <!-- User Side Bar -->
-    <div class="container-fluid">
-        <div class="col-xs-12 well">
-            <!-- <div class="row profile"> -->
-                <div class="col-md-3 adapt">
-                    <div class="profile-sidebar">
-
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">Marcus Doe</div>
-                            <div class="profile-usertitle-job">General User</div>
-                        </div>
-
-                        <!-- END SIDEBAR USER TITLE -->
-
-                        <!-- USER REPUTATION -->
-
-                        <div class="text text-center">
-                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><var>21</var> Reputation Score</label>
-                        </div>
-
-                        <!-- END USER REPUTATION -->
-
-                        <!-- Start User Tags -->
-
-
-                        <div class="text text-center">
-
-                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <var>4</var> Total Number of Tasks Uploaded</label>
-                        </div>
-
-
-
-
-                        <!-- SIDEBAR MENU -->
-                        <div class="profile-usermenu">
-                            <ul class="nav">
-                                <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
-                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
-                                <li class="active"><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
-                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
-                            </ul>
-                        </div>
-
-                        <!-- END MENU -->
-                    </div>
-                </div>
               <!-- </div> -->
 
               <!-- <div class="row profile"> -->
@@ -177,6 +142,10 @@
         <br>
         <br>
     </div>
+
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
 
 </body>
 

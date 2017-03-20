@@ -1,38 +1,24 @@
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+    session_start();
+
+    if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
+      $id = $_SESSION["user_id"];
+      // echo("ID: " .$id);
+    } else {
+      // echo("In else " .$_SESSION["user_id"]);
+        header("location:./register.php");
+    }
+?>
+
+
+<?php
+    require_once __DIR__.'/templates/loggedinuser.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
+    require_once __DIR__.'/templates/usersidebar.php';
     ?>
 
-    <!-- User Side Bar -->
-    <div class="container-fluid">
-        <div class="col-xs-12 well">
-          <!--  <div class="row profile"> -->
-                <div class="col-md-3 adapt">
-                    <div class="profile-sidebar">
 
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">Marcus Doe</div>
-                            <div class="profile-usertitle-job">General User</div>
-                        </div>
-
-                        <!-- END SIDEBAR USER TITLE -->
-
-                        <!-- SIDEBAR MENU -->
-                        <div class="profile-usermenu">
-                            <ul class="nav">
-                                <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
-                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
-                                <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
-                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
-                            </ul>
-                        </div>
-
-                        <!--end menu-->
-                    </div>
-                </div>
 
                 <div class="col-md-9 profile-content">
                     <div class="" id="overview">
@@ -49,28 +35,6 @@
                                         </div>
                                     </div>
                                     <br />
-
-                                    <!--detailed task starts -->
-                                    <!--<div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Methods in Empirical Pyschology</h3>
-            </div>
-            <div class="panel-body">
-              <div class="row"> -->
-
-
-                                    <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
                                     <div class=" col-sm-6 col-md-12 ">
                                         <table class="table table-user-information">
                                             <tbody>
@@ -129,12 +93,12 @@
                                 <!--</div> -->
 
                                 <!-- Contact Me Section -->
-                                <div>
+                                <!-- <div>
                                     <h2>Message To Claim Task</h2>
-                                </div>
+                                </div> -->
 
                                 <!-- <div class="container"> -->
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-md-12">
                                         <div class="well well-sm">
                                             <form>
@@ -161,17 +125,24 @@
 
                                                     <div class="col-md-12">
                                                         <!--<button type="submit" class="btn  pull-right" id="btnContactUs"> Send Message</button> -->
-                                                        <a data-original-title="Submit" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-envelope"></i>Send Message</a>
+                                                        <!-- <a data-original-title="Submit" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-envelope"></i>Send Message</a>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
 
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+            <?php
+            require_once __DIR__.'/templates/footer.php';
+            ?>
+
+          </body>
+          </html>

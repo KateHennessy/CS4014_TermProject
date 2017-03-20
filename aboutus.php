@@ -8,14 +8,20 @@
         <div class="col-xs-11 col-sm-8 well">
             <div class="row">
                 <h1 class="">About Us</h1><br>
-                <h2>Orla Bonar</h2>
-                  <p>
-                    Orla is currently studying for her Higher Diploma in Software Development. She has a Masters in Psychology and a Bachelor of Arts Degree in Sociological & Political Studies and Psychologcal Studies.
-                  </p>
-                <h2>Kate Hennessy</h2>
-                <!-- add content here -->
-                <h2>Mary Annie Vijula Ashok Kumar</h2>
-                <!-- add content here -->
+                <p>
+                  We are a group of student's completing our Higher Diploma in Software Development in the University of Limerick.
+                </p>
+                <p>
+                  We value the time students and lecturers alike put into assignments and are hoping that this website will help ye along the way!
+                </p>
+              </div>
+          </div>
+      </div>
+
+                <?php
+                require_once __DIR__.'/templates/footer.php';
+                ?>
+
 
 </body>
 </html>

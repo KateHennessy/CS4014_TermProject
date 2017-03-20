@@ -10,7 +10,8 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
-
+    <script src="./js/successMessage.js">
+    </script>
 
     <!-- ONLINE BOOTSTRAP FILES -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,7 +29,6 @@
 
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/typeahead.css">
   </head>
   <body>
     <!-- NAV BAR -->
@@ -52,12 +52,8 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <!--   <li class="active"> - used to highlight current tab in menu bar -->
-                    <li><a href="<?php echo 'aboutus.php'; ?>">About Us</a></li>
 
-                </ul>
-                <form>
+                <form method="post" action="./logout.php">
                     <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -72,9 +68,6 @@
                                     <button type="submit" class="btn btn-primary btn-block">Log Out</button>
                                 </div>
 
-                                <!-- <div class="bottom text-center">
-                                        New here ? <a href="#"><b>Join Us</b></a>
-                                    </div> Not neccessary here-->
                             </ul>
                         </li>
                     </ul>

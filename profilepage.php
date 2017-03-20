@@ -1,10 +1,15 @@
 <?php
     session_start();
+    require_once __DIR__."/models/User.class.php";
+    require_once __DIR__."/daos/UserDAO.class.php";
 
 
 
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $id = $_SESSION["user_id"];
+              $user = new User();
+              $userDao = new UserDAO();
+              $user = $userDao->getUserByID($id);
               // echo("ID: " .$id);
             } else {
               // echo("In else " .$_SESSION["user_id"]);
@@ -14,114 +19,31 @@
 
 
 <?php
-    require_once __DIR__.'/templates/header.template.php';
+    require_once __DIR__.'/templates/loggedinuser.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__."/utils/Settings.class.php";
     require_once __DIR__."/database/DatabaseQueries.php";
+    require_once __DIR__.'/templates/usersidebar.php';
     ?>
 
+    <div class="col-md-9 profile-content">
+        <div class="" id="overview">
+            <div class="">
 
-    <!-- User Side Bar -->
-    <div class="container-fluid">
-        <div class="col-xs-12 well">
-          <!--  <div class="row profile"> -->
-                <div class="col-md-3 adapt">
-                    <div class="profile-sidebar">
+    <!-- <div class="col-md-9">
+        <div class="profile-content" id="overview">
+            <div class="profile-content">
+                <div class="container-fluid" style="background-color:#e8e8e8">
+                    <div class="col-xs-12"> -->
 
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle">
-
-                          <!--Output User Name -->
-                          <?php
-                          $dbquery = new DatabaseQueries();
-                          $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '".$id ."'");
-                          $row = $result -> fetch(PDO::FETCH_ASSOC);
-                          echo("<label class=\"text-muted\">" .$row ['f_name']." ".$row ['l_name']."</label><br/>");
-
-                          $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
-                          $result -> execute();
-                          $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            if($row['reputation'] >= 40) {
-                              echo("<label class=\"text-muted\">Moderator</label>");
-                            } else {
-                              echo("<label class=\"text-muted\">General User</label>");
-                            }
-                          ?>
-
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2> My Tasks Overview</h2>
+                                <p>A snippet of information on tasks I have uploaded</p>
+                            </div>
                         </div>
-
-                        <!-- END SIDEBAR USER TITLE -->
-
-                        <!-- USER REPUTATION -->
-
-                        <div class="text text-center">
-                            <label class="text-muted"><i class="glyphicon glyphicon-star"></i><!--<var>21</var> Reputation Score</label> -->
-
-                            <!--PHP to bring reputation score from database -->
-                            <?php
-                            $dbquery = new DatabaseQueries();
-                            $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
-                            $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            echo $row ['reputation']." Reputation Score"."<br/>";
-                            ?>
-
-                        </div>
-
-                        <!-- END USER REPUTATION -->
-
-                        <!-- Start User Tasks -->
-
-
-                        <div class="text text-center">
-                            <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <!-- <var>4</var> Total Number of Tasks Uploaded</label> -->
-                            <!--php for counting number of tasks the user has uploaded -->
-                            <?php
-                            $dbquery = new DatabaseQueries();
-                            $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '".$id ."'");
-                            $row = $result -> fetch(PDO::FETCH_ASSOC);
-                            echo $row ['count(task_id)']." Tasks Uploaded"."<br/>";
-                            ?>
-                        </div>
-
-
-
-
-                        <!-- SIDEBAR MENU -->
-                        <div class="profile-usermenu">
-                            <ul class="nav">
-                                <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
-                                <li><a href="<?php echo 'uploadedtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
-                                <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
-                                <li><a href="<?php echo 'information.php'; ?>"><i class="glyphicon glyphicon-flag"></i> Information </a></li>
-                            </ul>
-                        </div>
-                        <!-- END MENU -->
-
-                    </div>
-                </div>
-
-
-
-                <div class="col-md-9 profile-content">
-                    <div class="" id="overview">
-                        <div class="">
-
-                <!-- <div class="col-md-9">
-                    <div class="profile-content" id="overview">
-                        <div class="profile-content">
-                            <div class="container-fluid" style="background-color:#e8e8e8">
-                                <div class="col-xs-12"> -->
-
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <h2> My Tasks Overview</h2>
-                                            <p>A snippet of information on tasks I have uploaded</p>
-                                        </div>
-                                    </div>
-                                    <br />
-
+                        <br />
                                     <!-- <div class="row"> -->
                                     <!-- Begin Task1-->
                                     <div class="col-sm-6 col-lg-4">
@@ -239,77 +161,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- </div> -->
-
-                                    <!-- End Task4-->
-
 
                                     <br />
 
-                                    <!-- Reputation Section-->
-                                    <!-- <div class="row">
-                                        <div class="col-sm-4 pull-left">
-                                            <div class="hero-widget well well-sm">
-                                                <div class="icon">
-                                                    <i class="glyphicon glyphicon-star"></i>
-                                                </div>
-                                                <div class="text">
-                                                    <var>21</var>
-                                                    <label class="text-muted">Reputation Score</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    <!-- <div class="col-sm-4 pull-right">
-                                            <div class="hero-widget well well-sm">
-                                                <div class="icon">
-                                                    <i class="glyphicon glyphicon-tags"></i>
-                                                </div>
-                                                <div class="text">
-                                                    <var>4</var>
-                                                    <label class="text-muted">Total Number of Tasks Uploaded</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-                                    <!-- Contact Me Section -->
-                                    <!--  <div>
-                                <h2>Contact Me</h2>
-                            </div> -->
-
-                                    <!-- <div class="container"> -->
-                                    <!--   <div class="row">
-                                <div class="col-md-12">
-                                    <div class="well well-sm">
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" class="form-control" id="name" placeholder="Enter name" required="required" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="email">My Email Address</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                                            <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="name">Message</label>
-                                                        <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Send Message</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                      </div>-->
-
-                                    <!--Claimed Tasks -->
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
                                             <h2> My  Claimed Tasks Overview</h2>
@@ -388,43 +242,19 @@
                                     <div>
                                         <div class="row">
                                             <div>
-                                                <div>
-                                                    <button class="btn btn-info btn-lg btn-block">
+                                                  <div class="tags col-md-12">
+
                                                       <!--php to get tag names from database -->
                                                       <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
+                                                      foreach($user->get_tags() as $atag){
+                                                        echo('
+                                                              
+                                                          <label class="info">'.$atag->get_name() .'<br />
+                                                            </label>');
+                                                      }
                                                       ?>
-                                                    </button>
-                                                    <button class="btn btn-info btn-lg btn-block">
-                                                      <!--php to get tag names from database -->
-                                                      <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
-                                                      ?>
-                                                    </button>
-                                                    <button class="btn btn-info btn-lg btn-block">
-                                                      <!--php to get tag names from database -->
-                                                      <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
-                                                      ?>
-                                                    </button>
-                                                    <button class="btn btn-info btn-lg btn-block">
-                                                      <!--php to get tag names from database -->
-                                                      <?php
-                                                      $dbquery = new DatabaseQueries();
-                                                      $result = $dbquery -> returnSQLquery ("SELECT tag_name FROM user_tag JOIN tag on user_tag.tag_id = tag.tag_id WHERE user_id = '".$id ."'");
-                                                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                                                      echo $row ['tag_name']."<br/>";
-                                                      ?>
-                                                    </button>
+
+
                                                 </div>
                                                 <br />
                                             </div>
@@ -451,9 +281,13 @@
         <!-- <center>
         <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
     </center> -->
-        <br>
-        <br>
+
     </div>
+
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
+
 
 </body>
 
