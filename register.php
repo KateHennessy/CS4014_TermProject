@@ -58,7 +58,7 @@
                   }
                   $user->set_tags($tagArray);
                   $user = UserDAO::save($user);
-
+                  echo("id: " .$user->get_id());
                   if(!is_null($user->get_id())){
                     $_SESSION["user_id"] = $user->get_id();
                     header("location:./profilepage.php");
@@ -339,9 +339,11 @@
       });
     </script>
 
+
     <?php
     require_once __DIR__.'/templates/footer.php';
     ?>
+
 
   </body>
 </html>
