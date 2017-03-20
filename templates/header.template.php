@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>ReviUL
-    </title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="images/icon.ico">
@@ -49,7 +45,7 @@
             <span class="icon-bar">
             </span>
           </button>
-          <a class="navbar-brand" href="#">RevIUL
+          <a class="navbar-brand" href="index.php">RevIUL
           </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->

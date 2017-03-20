@@ -1,5 +1,5 @@
 <?php
-    session_start();
+  session_start();
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
@@ -7,10 +7,14 @@
       // echo("ID: " .$id);
     } else {
       // echo("In else " .$_SESSION["user_id"]);
-       require_once __DIR__.'/templates/header.template.php';
+         require_once __DIR__.'/templates/header.template.php';
     }
-?>
-
+	?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReviUL-Information
+    </title>
 <?php
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
@@ -18,17 +22,10 @@
 
 
 
-        <div class="col-md-9 profile-content">
-            <div class="" id="overview">
-                <div class="">
-        <!--<div class="col-md-9">
-        <div class="profile-content">
-        <div class="container-fluid" style="background-color:#e8e8e8">
-        <div class="col-xs-12" id="property-listings">-->
-
-        <div class="row">
-        <div class="col-sm-6 col-md-12">
-                <h2>Information</h2>
+    <div class="container-fluid">
+        <div class="col-xs-11 col-sm-8 well">
+            <div class="row">
+                <h1 class="">General Information</h1><br>
                 <h3>User Information</h3>
                   <p>
                     Students and staff at the University of Limerick can join ReviUL to avail of a free and easy proof reading service. User's must be a member of the University of Limerick with a valid UL email.
@@ -66,8 +63,7 @@
     </div>
   </div>
 </div>
-</div>
-</div>
+
 
 
         <?php
