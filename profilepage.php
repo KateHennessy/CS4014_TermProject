@@ -248,7 +248,7 @@
                                                       <?php
                                                       foreach($user->get_tags() as $atag){
                                                         echo('
-                                                              
+
                                                           <label class="info">'.$atag->get_name() .'<br />
                                                             </label>');
                                                       }
