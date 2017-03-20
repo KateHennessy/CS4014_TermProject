@@ -46,33 +46,25 @@
             <span class="icon-bar">
             </span>
           </button>
-          <a class="navbar-brand" href="#">RevIUL
+          <a class="navbar-brand" href="index.php">RevIUL
           </a>
         </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form method="post" action="./logout.php">
+                 <!--Menu bar on right hand side of nav bar -->
+             <ul class="nav navbar-nav navbar-right">                 
+				<li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+				<li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+				<li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
+				<li><button type="submit" class="btn btn-primary btn-lg btn-block">Log Out</button>
 
-                <form method="post" action="./logout.php">
-                    <!--Menu bar on right hand side of nav bar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Menu</b> <span class="caret"></span></a>
-                            <ul id="login-dp" class="dropdown-menu">
-
-                                <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
-                                <li><a href="<?php echo 'information.php'; ?>">Information</a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
-                                <div class="form-group">
-                                    <!-- <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
-                                </div>
-
-                            </ul>
-                        </li>
+                            <!--</ul>-->
+                       
                     </ul>
-                </form>
-            </div>
+         </form>
+         </div>
         </div>
         <!-- /.navbar-collapse -->
 
