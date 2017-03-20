@@ -10,7 +10,11 @@
          require_once __DIR__.'/templates/header.template.php';
     }
 	?>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReviUL-About Us
+    </title>
 <?php
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
