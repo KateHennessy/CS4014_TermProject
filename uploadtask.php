@@ -4,7 +4,16 @@ $feedback = "";
 if (isset($_SESSION[ "user_id"]) &&
 $_SESSION[ "user_id"] !='' ){
    $id = $_SESSION[ "user_id"];
-   echo('<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />');
+   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
+   
+   
+   <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReviUL-Upload Task
+    </title>
+   
+   <?php
     require_once __DIR__ . '/templates/loggedinuser.php'; require_once __DIR__ . '/models/User.class.php';
    require_once __DIR__ . '/models/Tag.class.php';
    require_once __DIR__. '/templates/usersidebar.php';

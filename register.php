@@ -1,4 +1,8 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReviUL-Register
+    </title>
 <?php
     session_start();
     require_once __DIR__.'/models/User.class.php';
