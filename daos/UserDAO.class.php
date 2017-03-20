@@ -80,6 +80,16 @@ class UserDAO{
 		         return null;
 		 		}
 		 	}
+
+      public static function change_password($user, $new_password){
+        if(!is_null($user)){
+          return PDOAccess::insertSQLquery("UPDATE user SET pass = " .PDOAccess::prepareString($new_password)  ."WHERE email = ".PDOAccess::prepareString($email) .";");
+
+        }else{
+          return false;
+        }
+
+      }
 public static function logout() {
 		/*http://php.net/manual/en/function.session-unset.php*/
 		if (!isset ($_SESSION)) {
