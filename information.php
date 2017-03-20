@@ -3,18 +3,17 @@
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
+	   require_once __DIR__.'/templates/loggedinuser.php';
       // echo("ID: " .$id);
     } else {
       // echo("In else " .$_SESSION["user_id"]);
-        header("location:./register.php");
+       require_once __DIR__.'/templates/header.template.php';
     }
 ?>
 
 <?php
-    require_once __DIR__.'/templates/loggedinuser.php';
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
-    require_once __DIR__.'/templates/usersidebar.php';
     ?>
 
 
@@ -66,6 +65,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 </div>
 

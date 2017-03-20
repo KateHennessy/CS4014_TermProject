@@ -56,12 +56,27 @@
                  <!--Menu bar on right hand side of nav bar -->
              <ul class="nav navbar-nav navbar-right">                 
 				<li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
-				<li><a href="<?php echo 'information.php'; ?>">Information</a></li>
+
 				<li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
 				<li><button type="submit" class="btn btn-primary btn-lg btn-block">Log Out</button>
 
-                            <!--</ul>-->
-                       
+                <form method="post" action="./logout.php">
+                    <!--Menu bar on right hand side of nav bar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+
+                            <ul id="login-dp" class="dropdown-menu">
+
+                                <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
+                                <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
+                                <div class="form-group">
+                                    <!-- <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
+                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
+                                </div>
+
+                            </ul>
+                        </li>
+
                     </ul>
          </form>
          </div>

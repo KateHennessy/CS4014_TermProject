@@ -42,7 +42,7 @@
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <!-- </a> -->
                                                             <h4><div class="glyphicon glyphicon-edit"></div>The Study of Monkeys</h4></a>
                                                     </div>
@@ -78,7 +78,7 @@
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <a class="pull-left" href="detailedtask.html" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
                                                             <!-- </a> -->
                                                             <h4><div class="glyphicon glyphicon-edit"></div>Methods in Empirical Psychology</h4></a>
                                                     </div>
