@@ -73,6 +73,20 @@ class TaskDAO{
     return $task;
   }
 
+  public static function find_available_tasks($creator_id){
+    $availableTasks = NULL;
+    if(!is_null($creator_id)){
+      $availableTasks = array();
+      $query = "SELECT * FROM task WHERE creator_id != " .$creator_id ." AND task_id IN(
+        SELECT task_id FROM task_status JOIN status USING(status_id)WHERE status_name = 'unclaimed');";
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $availableTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $availableTasks;
+  }
+
 
 
 }
