@@ -12,7 +12,7 @@
 
       if (isset($_POST) && count ($_POST) > 0) {
 
-        if(isset($POST["signup_button"])){
+        if(isset($_POST["signup_button"])){
 
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
@@ -339,9 +339,9 @@
       });
     </script>
 
-  //  <?php
-    //require_once __DIR__.'/templates/footer.php';
-  //  ?>
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
 
   </body>
 </html>
