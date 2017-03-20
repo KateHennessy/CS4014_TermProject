@@ -6,7 +6,4 @@
       <a class="col-md-3 text-muted " href="information.php">Information</a>
         <p class="pull-right">  © Copyright 2017 </p>
 
-
-
-
     </div>

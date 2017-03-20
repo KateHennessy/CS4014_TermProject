@@ -36,23 +36,25 @@ require_once __DIR__.'/templates/usersidebar.php';
                   $saltedHash = hash('sha256', $newPass.$siteSalt);
                   $dbquery = new DatabaseQueries();
                   $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE user_id = '".$id ."'");
-                  echo '<script type="text/javascript">',
-                          'successMessage();',
-                        '</script>';
+                  // echo '<script type="text/javascript">',
+                  //         'successMessage();',
+                  //       '</script>';
                   }
                   }
 
             ?>
 
     <!-- Main PAGE -->
-    <div class="container-fluid">
-      <div class="col-xs-11 col-sm-8 well">
-        <div class="row">
+    <!-- <div class="container-fluid"> -->
+      <div class="col-md-9 profile-content">
+
           <h1 class="">Change your password</h1>
-          <br>
+          <br><br>
+
+
           <form method="post">
-            <div class="col-sm-12">
-              <div class="row">
+            <!-- <div class="col-sm-12"> -->
+              <!-- <div class="row"> -->
                 <div class="col-sm-6 form-group">
                   <label>Enter New Password <em class="text-danger"> *</em>
                   </label>
@@ -69,18 +71,17 @@ require_once __DIR__.'/templates/usersidebar.php';
                     <input type="password" placeholder="Re-enter Password Here..." name="confirmPass" id="pass2Form" class="form-control" required="">
                   </div>
                 </div>
-              </div>
-            </div>
+
+
             <button type="submit" class="btn btn-lg btn-success">Submit</button>
             <div id = "success" style="visibility: hidden;"><p> Your password has been successfully reset </p></div>
 
           </form>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
 </div>
 </div>
-
 
 
         <?php
