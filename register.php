@@ -12,8 +12,7 @@
 
       if (isset($_POST) && count ($_POST) > 0) {
 
-        if(isset($POST["signup_button"])){
-
+        if(isset($_POST["signup_button"])){
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
           $email = trim(strtolower($_POST["email"]));
@@ -58,7 +57,7 @@
                   }
                   $user->set_tags($tagArray);
                   $user = UserDAO::save($user);
-
+                  echo("id: " .$user->get_id());
                   if(!is_null($user->get_id())){
                     $_SESSION["user_id"] = $user->get_id();
                     header("location:./profilepage.php");
@@ -339,8 +338,8 @@
       });
     </script>
 
-  //  <?php
-    //require_once __DIR__.'/templates/footer.php';
+   <?php
+    // require_once __DIR__.'/templates/footer.php';
   //  ?>
 
   </body>
