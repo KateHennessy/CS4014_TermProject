@@ -450,7 +450,10 @@ body {
 
 /* Custom footer CSS
 -------------------------------------------------- */
-
+/*.footer{
+  background: rgb(51,51,51);
+  bottom:0;
+}
 .container {
   width: auto;
   max-width: 680px;
@@ -461,7 +464,7 @@ body {
 }
 .footertext {
   color: #ffffff;
-}
+}*/
 
 
 /*validation error mess*/
@@ -479,3 +482,18 @@ body {
 }
 
 /*Footer */
+
+.footer{
+
+    line-height: 80px;
+    position: relative;
+    background: rgb(16,16,16);
+    color:rgb(230,230,230);
+    bottom:0px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    height: 90px;
+    text-align: center;
+
+}
