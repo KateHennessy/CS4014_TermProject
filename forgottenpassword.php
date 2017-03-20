@@ -3,8 +3,10 @@
 <?php
 require_once __DIR__.'/templates/header.template.php';
 require_once __DIR__.'/models/User.class.php';
+require_once __DIR__.'/daos/UserDAO.class.php';
 require_once __DIR__."/utils/Settings.class.php";
 require_once __DIR__."/database/DatabaseQueries.php";
+require_once __DIR__."/utils/PDOAccess.class.php";
 
 $feedback = "";
 
@@ -16,35 +18,45 @@ $feedback = "";
           $email = $_POST["email"];
           $email = trim(strtolower($_POST["email"]));
 
-
- //set up db connection
-          $dbquery = new DatabaseQueries();
-
  //check email exists
-          $email_check = $dbquery -> returnSQLquery ("SELECT count(*) FROM user WHERE email= '".$email ."'");
-          $row = $email_check -> fetch(PDO::FETCH_ASSOC);
+        $user = UserDAO::getUserByEmail($email);
+        if(!is_null($user->get_id())){
+          ///generate a new password
+                   $validCharacters = "ABCDEFGHIJKLMNPQRSTUXYVWZ123456789";
+                   $validCharNumber = strlen($validCharacters);
+                   $result ="";
+                   for ($i = 0; $i < 10; $i++) {
+                       $index = mt_rand(0, $validCharNumber - 1);
+                       $result .= $validCharacters[$index];
 
-          if(count($row) == 1) {
- //generate a new password
-          $validCharacters = "ABCDEFGHIJKLMNPQRSTUXYVWZ123456789";
-          $validCharNumber = strlen($validCharacters);
-          $result ="";
-          for ($i = 0; $i < 10; $i++) {
-              $index = mt_rand(0, $validCharNumber - 1);
-              $result .= $validCharacters[$index];
-              $random_password = $result;
+                   // }
+                  //  $random_password = $result;
+                 }
+                 $random_password = $result;
+
+         //encrypt new Password
+                   $siteSalt  = "hPxmjz6hJc";
+                   $saltedHash = hash('sha256', $random_password.$siteSalt);
+                   echo($saltedHash);
+          if(UserDAO::change_password($user, $saltedHash)){
+            $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
+
+
           }
+        }
 
-//encrypt new Password
-          $siteSalt  = "hPxmjz6hJc";
-          $saltedHash = hash('sha256', $random_password.$siteSalt);
+
+          //$email_check = PDOAccess::returnSQLquery('SELECT count(*) FROM user WHERE email= '.PDOAccess::prepareString($email) .');');
+          //if($email_check){
+          //$row = $email_check -> fetch(PDO::FETCH_ASSOC);
+
+          // if(count($row) == 1) {
+
           //$user->set_password($saltedHash);
 
  //update db
-          $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE email = '".$email ."'");
-          $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
-
-//email new password to user
+          // $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE email = '".$email ."'");
+        //email new password to user
 
 
         //$subject = "ReviUL: Login Information";
@@ -63,7 +75,7 @@ $feedback = "";
             //echo "Message sent successfully...";
           //} else {
             //echo "Message could not be sent...";
-         }
+        //  }
        }else{ $feedback = '
          <form method="post">
            <div class="col-sm-12">
