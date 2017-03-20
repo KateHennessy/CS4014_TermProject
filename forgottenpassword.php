@@ -37,45 +37,13 @@ $feedback = "";
          //encrypt new Password
                    $siteSalt  = "hPxmjz6hJc";
                    $saltedHash = hash('sha256', $random_password.$siteSalt);
-                   echo($saltedHash);
+                   //echo($saltedHash);
           if(UserDAO::change_password($user, $saltedHash)){
             $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
 
 
           }
-        }
 
-
-          //$email_check = PDOAccess::returnSQLquery('SELECT count(*) FROM user WHERE email= '.PDOAccess::prepareString($email) .');');
-          //if($email_check){
-          //$row = $email_check -> fetch(PDO::FETCH_ASSOC);
-
-          // if(count($row) == 1) {
-
-          //$user->set_password($saltedHash);
-
- //update db
-          // $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE email = '".$email ."'");
-        //email new password to user
-
-
-        //$subject = "ReviUL: Login Information";
-        //$message = "Your password has been reset to $saltedHash";
-        //$from = "From: orlabonar@gmail.com";
-      //  $to = $email;
-      //  $headers = "From:" .$from;
-
-      //  ini_set("SMTP","ssl://smtp.gmail.com");
-      //  ini_set("smtp_port","25");
-      //  ini_set("sendmail_from","orlabonar@gmail.com");
-      //  ini_set("sendmail_path", "C:\wamp64\www\CS4014_TermProject\send mail\sendmail.ini -t");
-
-        //$retval = mail($to,$subject,$message,$headers);
-          //if( $retval == true )   {
-            //echo "Message sent successfully...";
-          //} else {
-            //echo "Message could not be sent...";
-        //  }
        }else{ $feedback = '
          <form method="post">
            <div class="col-sm-12">
@@ -95,8 +63,27 @@ $feedback = "";
 
          </form>';
        }
+     }
 
-  ?>
+     if(isset($_POST["login_button"])){
+       $email = trim(strtolower($_POST["email"]));
+       $password = $_POST["password"];
+       $user = new User();
+       $user = UserDAO::login($email, $password);
+
+       if(!is_null($user)){
+         $_SESSION["user_id"] = $user->get_id();
+        header("location:./profilepage.php");
+       }else{
+         header("location:./register.php");
+       }
+     }
+
+     if (!isset($_POST) || count($_POST) == 0) {
+         require_once __DIR__.'/templates/header.template.php';
+       }
+
+?>
 
     <!-- Main PAGE -->
     <div class="container-fluid">

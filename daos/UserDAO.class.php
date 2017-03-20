@@ -6,12 +6,12 @@ class UserDAO{
     public static function getUserByEmail($email) {
         $user = null;
         if (!is_null($email)) {
-					echo(PDOAccess::prepareString($email) .'<br />');
+					// echo(PDOAccess::prepareString($email) .'<br />');
 					$query = "SELECT * FROM user WHERE email =" .PDOAccess::prepareString($email) .";";
             $result = PDOAccess::returnSQLquery($query);
             if ($result) {
 							$row = $result -> fetch(PDO::FETCH_ASSOC);
-							print_r("<br />id: " .$row['user_id'] ."<br />");
+							// print_r("<br />id: " .$row['user_id'] ."<br />");
                 $user = ModelFactory::buildModel("User", $row);
             }
         }
@@ -76,14 +76,14 @@ class UserDAO{
 
 		 				return $user;
 		 			}
-          echo("not the same");
+          //echo("not the same");
 		         return null;
 		 		}
 		 	}
 
       public static function change_password($user, $new_password){
         if(!is_null($user)){
-          return PDOAccess::insertSQLquery("UPDATE user SET pass = " .PDOAccess::prepareString($new_password)  ."WHERE email = ".PDOAccess::prepareString($email) .";");
+          return PDOAccess::insertSQLquery("UPDATE user SET pass = " .PDOAccess::prepareString($new_password)  ."WHERE email = ".PDOAccess::prepareString($user->get_email()) .";");
 
         }else{
           return false;

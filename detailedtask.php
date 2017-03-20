@@ -35,28 +35,6 @@
                                         </div>
                                     </div>
                                     <br />
-
-                                    <!--detailed task starts -->
-                                    <!--<div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Methods in Empirical Pyschology</h3>
-            </div>
-            <div class="panel-body">
-              <div class="row"> -->
-
-
-                                    <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
                                     <div class=" col-sm-6 col-md-12 ">
                                         <table class="table table-user-information">
                                             <tbody>
@@ -115,12 +93,12 @@
                                 <!--</div> -->
 
                                 <!-- Contact Me Section -->
-                                <div>
+                                <!-- <div>
                                     <h2>Message To Claim Task</h2>
-                                </div>
+                                </div> -->
 
                                 <!-- <div class="container"> -->
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-md-12">
                                         <div class="well well-sm">
                                             <form>
@@ -147,13 +125,13 @@
 
                                                     <div class="col-md-12">
                                                         <!--<button type="submit" class="btn  pull-right" id="btnContactUs"> Send Message</button> -->
-                                                        <a data-original-title="Submit" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-envelope"></i>Send Message</a>
+                                                        <!-- <a data-original-title="Submit" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-envelope"></i>Send Message</a>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
 
