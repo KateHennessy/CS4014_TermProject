@@ -50,10 +50,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <form method="post" action="./logout.php">
                  <!--Menu bar on right hand side of nav bar -->
-             <ul class="nav navbar-nav navbar-right">                 
+             <ul class="nav navbar-nav navbar-right">
 				<li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
 
-				<li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
+				<li><a href="<?php echo 'accountsettings.php'; ?>">Account Settings</a></li>
 				<li><button type="submit" class="btn btn-primary btn-lg btn-block">Log Out</button>
 
                 <form method="post" action="./logout.php">

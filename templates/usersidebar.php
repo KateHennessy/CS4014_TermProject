@@ -67,17 +67,13 @@
                     <div class="profile-usermenu">
                         <ul class="nav">
                             <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                            <li><a href="<?php echo 'changepassword.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+                            <li><a href="<?php echo 'accountsettings.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
                             <li><a href="<?php echo 'uploadtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
                             <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
-     
+
                         </ul>
                     </div>
                     <!-- END MENU -->
 
                 </div>
             </div>
-
-
-
-            
