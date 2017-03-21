@@ -59,6 +59,19 @@ class TaskDAO{
         return $task;
   }
 
+  public static function find_task_by_id($id){
+    $task = null;
+    if(!is_null($id)){
+      $query = 'SELECT * FROM `task` WHERE task_id =' .$id .';';
+      $result = PDOAccess::returnSQLquery($query);
+      if ($result) {
+        $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $task = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $task;
+  }
+
   public static function find_task($creator_id, $title){ //imposing limit of specific title only allowed once per creator
     $task = null;
     if (!is_null($creator_id)) {
@@ -72,6 +85,8 @@ class TaskDAO{
     }
     return $task;
   }
+
+
 
   public static function find_user_uploaded_tasks($user){
     $uploadedTasks = NULL;

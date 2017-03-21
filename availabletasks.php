@@ -3,6 +3,9 @@
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
+      $user = new User();
+      $userDao = new UserDAO();
+      $user = $userDao->getUserByID($id);
       // echo("ID: " .$id);
     } else {
       // echo("In else " .$_SESSION["user_id"]);
@@ -53,7 +56,7 @@
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
+                                                        <a class="pull-left" href="<?php echo 'detailedtask.php?id=' .$task->get_id(); ?>" target="_parent">
                                                             <!-- </a> -->
                                                             <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
                                                     </div>
