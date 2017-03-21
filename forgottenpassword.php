@@ -14,6 +14,7 @@ require_once __DIR__."/utils/PDOAccess.class.php";
 require_once __DIR__."/scripts/validateemail.php";
 
 $feedback = "";
+$random_password = "";
  //Run if form was used
       if (isset($_POST) && count($_POST) > 0 && isset($_POST["reset_email"])) {
  //Get and format email

@@ -1,7 +1,14 @@
-function validEmail($email) {
+<?php
+class validate_email {
+
+
+public static function validEmail($email) {
     $validDomain = 'ul.ie';
     $parts = explode('@',$email);
-    $domain = $parts[1];
-    if(!($domain,$invalidDomains)) return true;
+    $domain = $this -> get_domain(trim($email));
+    if(!($domain) && !($validDomain)) return true;
     return false;
 }
+
+}
+?>
