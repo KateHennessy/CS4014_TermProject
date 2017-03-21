@@ -19,15 +19,15 @@ class StatusDAO{
   }
 
 
-  public static function find_most_recent_status($task){
+  public static function find_most_recent_status($task_id){
     $status = NULL;
-    if(!is_null($task)){
+    if(!is_null($task_id)){
       $query = "SELECT *
       FROM status
       WHERE status_id IN (
         SELECT status_id
         FROM task_status t1
-        WHERE task_id = " .$task->get_id() ." AND timestamp =(
+        WHERE task_id = " .$task_id ." AND timestamp =(
           SELECT MAX(timestamp)
           FROM task_status t2
           WHERE t1.task_id = t2.task_id

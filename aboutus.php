@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>ReviUL-About Us
-    </title>
+
 
     <?php
       session_start();
@@ -29,8 +25,13 @@
        if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
          $id = $_SESSION["user_id"];
          ?>
-          <div class="container-fluid">
-         <div class="col-xs-12 well">
+          <!-- <div class="container-fluid">
+         <div class="col-xs-12 well"> -->
+         <!DOCTYPE html>
+         <html lang="en">
+           <head>
+             <title>ReviUL-About Us
+             </title>
 
                <?php
         require_once __DIR__.'/templates/loggedinuser.php';

@@ -321,29 +321,34 @@ body {
   .fixed{
     height:300px;
   }
-  .fixedHead{
+  /*.fixedHead{
     height:40%;
-  }
+  }*/
 }
-@media(max-width:991px){
+
+/*@media(max-width:991px){ commented out...
   .col-md-3.adapt{
     padding:0;
   }
-}
+}*/
 
 .fixedBody{
-  height:30%;
+  height:40%;
   overflow-y: auto;
 }
+
 
 /*A smaller fixed area than stardard fixed which is 300px*/
 .smallfixed{
   height:100px;
 }
 /*larger area for text*/
-.fixedBodyLarge{
+/*.fixedBodyLarge{
   height:80%;
+}*/
 
+.fixedHead{
+  height:20%;
 }
 
 

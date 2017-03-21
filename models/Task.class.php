@@ -3,6 +3,7 @@ class Task{
   /*http://www.kjetil-hartveit.com/blog/1/setter-and-getter-generator-for-php-javascript-c%2B%2B-and-csharp*/
   private $id;
   private $creator_id;
+  private $claimer_id;
   private $title;
   private $type;
   private $description;
@@ -13,11 +14,15 @@ class Task{
   private $format;
   private $storage_address;
   private $tags;
+  private $status;
+  private $score;
 
   function set_id($id) { $this->id = $id; }
   function get_id() { return $this->id; }
   function set_creator_id($creator_id) { $this->creator_id = $creator_id; }
   function get_creator_id() { return $this->creator_id; }
+  function set_claimer_id($claimer_id) { $this->claimer_id = $claimer_id; }
+  function get_claimer_id() { return $this->claimer_id; }
   function set_title($title) { $this->title = $title; }
   function get_title() { return $this->title; }
   function set_type($type) { $this->type = $type; }
@@ -38,6 +43,10 @@ class Task{
   function get_storage_address() { return $this->storage_address;}
   function set_tags($tags){$this->tags = $tags;}
   function get_tags(){return $this->tags;}
+  function set_status($status){$this->status = $status;}
+  function get_status(){return $this->status;}
+  function set_score($score){$this->score = $score;}
+  function get_score(){return $this->score;}
 
 
 
