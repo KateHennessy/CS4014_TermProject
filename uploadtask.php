@@ -19,6 +19,11 @@ $_SESSION[ "user_id"] !='' ){
    <?php
     require_once __DIR__ . '/templates/loggedinuser.php'; require_once __DIR__ . '/models/User.class.php';
    require_once __DIR__ . '/models/Tag.class.php';
+   ?>
+    <div class="container-fluid">
+   <div class="col-xs-12 well">
+
+         <?php
    require_once __DIR__. '/templates/usersidebar.php';
 
 
@@ -104,8 +109,8 @@ $_SESSION[ "user_id"] !='' ){
 <!-- </div> -->
 
 <div class="col-md-9 profile-content">
-    <div class="" id="overview">
-        <div class="">
+    <div id="overview">
+        <div>
 
 
             <!-- upload -->

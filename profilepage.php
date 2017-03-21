@@ -31,6 +31,11 @@
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__."/utils/Settings.class.php";
     require_once __DIR__."/database/DatabaseQueries.php";
+    ?>
+     <div class="container-fluid">
+    <div class="col-xs-12 well">
+
+          <?php
     require_once __DIR__.'/templates/usersidebar.php';
     ?>
 

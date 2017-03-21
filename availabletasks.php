@@ -1,5 +1,10 @@
 <?php
     session_start();
+    require_once __DIR__.'/models/User.class.php';
+    require_once __DIR__.'/models/Tag.class.php';
+    require_once __DIR__."/models/Task.class.php";
+    require_once __DIR__."/daos/TaskDAO.class.php";
+    require_once __DIR__."/daos/UserDAO.class.php";
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
@@ -19,11 +24,12 @@
     </title>
 <?php
     require_once __DIR__.'/templates/loggedinuser.php';
-    require_once __DIR__.'/models/User.class.php';
-    require_once __DIR__.'/models/Tag.class.php';
-    require_once __DIR__."/models/Task.class.php";
+    ?>
+     <div class="container-fluid">
+    <div class="col-xs-12 well">
+
+          <?php
     require_once __DIR__.'/templates/usersidebar.php';
-    require_once __DIR__."/daos/TaskDAO.class.php";
 
     $tasks = array();
     $tasks = TaskDAO::find_available_tasks($id);

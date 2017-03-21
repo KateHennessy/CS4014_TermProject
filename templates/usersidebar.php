@@ -1,6 +1,6 @@
 <!-- User Side Bar -->
-<div class="container-fluid">
-    <div class="col-xs-12 well">
+<!-- <div class="container-fluid">
+    <div class="col-xs-12 well"> -->
       <!--  <div class="row profile"> -->
             <div class="col-md-3 adapt">
                 <div class="profile-sidebar">

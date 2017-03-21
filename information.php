@@ -29,10 +29,20 @@
 
    if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
      $id = $_SESSION["user_id"];
+     ?>
+      <div class="container-fluid">
+     <div class="col-xs-12 well">
+
+           <?php
     require_once __DIR__.'/templates/loggedinuser.php';
      // echo("ID: " .$id);
    } else {
      // echo("In else " .$_SESSION["user_id"]);
+     ?>
+      <div class="container-fluid">
+     <div class="col-xs-12 well">
+
+           <?php
         require_once __DIR__.'/templates/header.template.php';
    }
     ?>

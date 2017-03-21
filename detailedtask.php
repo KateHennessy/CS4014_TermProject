@@ -32,21 +32,28 @@
     </title>
 <?php
     require_once __DIR__.'/templates/loggedinuser.php';
+    ?>
+     <div class="container-fluid">
+    <div class="col-xs-12 well">
+
+          <?php
     require_once __DIR__.'/templates/usersidebar.php';
 
     ?>
 
           <div class="col-md-9 profile-content">
-              <div class="" id="overview">
-                  <div class="">
-                              <div class="row">
+              <div class="" id="detailedTask">
+
+
                                 <?php   if(!is_null($task->get_id())){ ?>
-                                  <div class="col-sm-6 col-md-12">
+                                    <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                  <div class="">
                                       <h2><?php echo $task->get_title(); ?></h2>
                                   </div>
                               </div>
                               <br />
-                              <div class=" col-sm-6 col-md-12 ">
+                              <div class="panel-body">
                                   <table class="table table-user-information">
                                       <tbody>
                                           <tr>
@@ -87,22 +94,27 @@
                                   </table>
 
                               </div>
-                          </div> <?php }else{ ?>
-                            <div class="col-sm-6 col-md-8"> <h3 class="text-danger"> Task Not Found </h3></div>
-                            <?php } ?>
-                      </div>
+
+
                       <div class="panel-footer">
                         <span class="pull-right">
                           <a data-original-title="Claim" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</a>
                           <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</a>
                       </span>
-                  <br/>
+                  <br/><br>
+                      </div>
+                      </div>
+                      <?php }else{ ?>
+                        <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
+                          <p class="small text-center"> This task is not available. Please find another task.</p>
+                        </div>
+                      </div></div></div>
+                        <?php } ?>
                       </div>
 
-
                   </div>
-              <!-- </div>
-          </div> -->
+              </div>
+          </div>
 
 
       <?php
