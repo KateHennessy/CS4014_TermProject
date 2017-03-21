@@ -11,6 +11,7 @@ require_once __DIR__.'/daos/UserDAO.class.php';
 require_once __DIR__."/utils/Settings.class.php";
 require_once __DIR__."/database/DatabaseQueries.php";
 require_once __DIR__."/utils/PDOAccess.class.php";
+require_once __DIR__."/scripts/validateemail.php";
 
 $feedback = "";
  //Run if form was used
@@ -19,6 +20,7 @@ $feedback = "";
           $email = $_POST["reset_email"];
           $email = trim(strtolower($_POST["reset_email"]));
  //check email exists
+  if(validEmail($email)){
         $user = UserDAO::getUserByEmail($email);
         if(!is_null($user->get_id())){
           ///generate a new password
@@ -40,7 +42,11 @@ $feedback = "";
             $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
           }
         }
-       }else if(isset($_POST["login_button"])){
+       }else {
+      $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
+      }
+       }
+        if(isset($_POST["login_button"])){
          $email = trim(strtolower($_POST["email"]));
          $password = $_POST["password"];
          $user = new User();
@@ -88,6 +94,10 @@ require_once __DIR__.'/templates/header.template.php';
 </div>
 </div>
 
+
+        <?php
+        require_once __DIR__.'/templates/footer.php';
+        ?>
 
 
 

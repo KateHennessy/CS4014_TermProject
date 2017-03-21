@@ -42,7 +42,7 @@
     <div class="container-fluid">
         <div class="col-xs-11 col-sm-8 well">
             <div class="profile-content">
-                <h1 class="">General Information</h1><br>
+                <h1><div class="glyphicon glyphicon-info-sign"></div>General Information</h1><br>
                 <h3>User Information</h3>
                   <p>
                     Students and staff at the University of Limerick can join ReviUL to avail of a free and easy proof reading service. User's must be a member of the University of Limerick with a valid UL email.

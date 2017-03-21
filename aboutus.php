@@ -39,7 +39,7 @@
     <div class="container-fluid">
         <div class="col-xs-11 col-sm-8 well">
             <div class="profile-content">
-                <h1 class="">About Us</h1><br>
+                <h1><div class="glyphicon glyphicon-user"></div>About Us</h1><br>
                 <p>
                   We are a group of student's completing our Higher Diploma in Software Development in the University of Limerick.
                 </p>
