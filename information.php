@@ -24,7 +24,7 @@
 
     <div class="container-fluid">
         <div class="col-xs-11 col-sm-8 well">
-            <div class="row">
+            <div class="profile-content">
                 <h1 class="">General Information</h1><br>
                 <h3>User Information</h3>
                   <p>
