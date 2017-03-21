@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,8 +10,6 @@ require_once __DIR__.'/daos/UserDAO.class.php';
 require_once __DIR__."/utils/Settings.class.php";
 require_once __DIR__."/database/DatabaseQueries.php";
 require_once __DIR__."/utils/PDOAccess.class.php";
-require_once __DIR__."/scripts/validateemail.php";
-
 $feedback = "";
  //Run if form was used
       if (isset($_POST) && count($_POST) > 0 && isset($_POST["reset_email"])) {
@@ -20,7 +17,6 @@ $feedback = "";
           $email = $_POST["reset_email"];
           $email = trim(strtolower($_POST["reset_email"]));
  //check email exists
-  if(validEmail($email)){
         $user = UserDAO::getUserByEmail($email);
         if(!is_null($user->get_id())){
           ///generate a new password
@@ -42,16 +38,11 @@ $feedback = "";
             $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
           }
         }
-       }else {
-      $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
-      }
-       }
-        if(isset($_POST["login_button"])){
+       }else if(isset($_POST["login_button"])){
          $email = trim(strtolower($_POST["email"]));
          $password = $_POST["password"];
          $user = new User();
          $user = UserDAO::login($email, $password);
-
          if(!is_null($user)){
            $_SESSION["user_id"] = $user->get_id();
           header("location:./profilepage.php");
@@ -75,9 +66,6 @@ $feedback = "";
            <button type="submit" class="btn btn-lg btn-success">Submit</button>
          </form>';
        }
-
-
-
 require_once __DIR__.'/templates/header.template.php';
   ?>
 
@@ -94,10 +82,6 @@ require_once __DIR__.'/templates/header.template.php';
 </div>
 </div>
 
-
-        <?php
-        require_once __DIR__.'/templates/footer.php';
-        ?>
 
 
 
