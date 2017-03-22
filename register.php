@@ -3,6 +3,12 @@
   <head>
     <title>ReviUL-Register
     </title>
+	
+	<head>
+
+
+</head>
+
 <?php
     session_start();
     require_once __DIR__.'/models/User.class.php';
@@ -97,7 +103,8 @@
         <div class="row">
           <h1 class="">Sign Up</h1>
           <br>
-          <form method="post">
+		  
+          <form method="post" id="reg_form">
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-6 form-group">
@@ -108,6 +115,8 @@
                     <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
                   </div>
                 </div>
+								
+				
                 <div class="col-sm-6 form-group">
                   <label>Last Name <em class="text-danger"> *</em>
                   </label>
@@ -117,16 +126,19 @@
                   </div>
                 </div>
               </div>
+			  
               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Email Address <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                    <input type="email" placeholder="Enter UL Email Here.." id="emailForm" name="email"
+                    <input type="text" placeholder="Enter UL Email Here.." id="emailForm" name="email"
                            class="form-control">
                   </div>
                 </div>
+				
+								
                 <div class="col-sm-6 form-group">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
@@ -140,24 +152,40 @@
                   </div>
                 </div>
               </div>
+			  
+						  
+			  
+			  
               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Password <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control">
+                    <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control"
+					  name="password" data-minLength="5" data-error="some error" required/>
+					  <span class="glyphicon form-control-feedback"></span>
+						<span class="help-block with-errors"></span>
                   </div>
                 </div>
-                <div class="col-sm-6 form-group">
+				
+				
+			      <div class="col-sm-6 form-group">
                   <label>Confirm Password <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control">
-                  </div>
+                    <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control {$borderColor}"
+					  name="confirmPassword" data-match="#confirmPassword" data-minLength="5" data-match-error="some error 2" required/>
+						<span class="glyphicon form-control-feedback"></span>
+						<span class="help-block with-errors"></span>
+				  </div>
                 </div>
               </div>
+			    
+			  
+				  		  
+			  
               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Tags <em class="text-danger"> *</em>
@@ -180,7 +208,7 @@
                         <option>Biosystems & Computational Biology</option>
                         <option>Human-Computer Interaction</option>
                         <option>Operating Systems & Networking</option>
-                        <option>Programming Systems</option>
+                        <option>Programming Systems</option> 
                         <option>Scientific Computing</option>
                         <option>Security</option>
                         <option>Theory</option>
@@ -197,8 +225,6 @@
                       <option>Experimental Psychology</option>
                     </optgroup>
                   </select>
-
-
                   </div>
                 </div>
 
@@ -235,7 +261,8 @@
 
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
-
+		 
+		 
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
         $('form input').blur(function(){
           //GETS THE ID OF ELEMENT JUST BLURRED
@@ -243,16 +270,16 @@
 
           // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
           if(id.indexOf("email") != -1){
-            validateEmail(this);
+           validateEmail(this);
           }
 
           // IF WE ARE IN ONE OF THE PASSWORD FIELDS
-          else if(id.indexOf("pass") != -1){
+           else if(id.indexOf("pass") != -1){
             // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
               if(id.indexOf("pass1") != -1){
 
-                if( $('#pass1Form').val().length >= 7){
-                  successInput(this);
+               if( $('#pass1Form').val().length >= 7){
+                 successInput(this);
                   return true;
                 }else{
                   failInput(this);
@@ -279,12 +306,13 @@
             else{
 
             }
-          }
+          }      
           // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
           else{
             validateInput(this);
           }
-        });
+        });  
+		
         // END OF ONBLUR CHECKING OF FORM
 
         function validateTags(element){
@@ -297,7 +325,8 @@
           }
           return false;
         }
-        // VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
+		
+        //VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
         function validateInput(element){
           id = element.id;
           if(!$(element).val()){
@@ -310,6 +339,7 @@
               return true;
           }
         }
+		
         function validateEmail(element){
           id = element.id;
           var email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g;
@@ -341,13 +371,89 @@
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
       });
-    </script>
+    
+	
+	$(document).ready(function() {
+			console.log("test");
+    $('#reg_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            first_name: {
+                validators: {
+                        stringLength: {
+                        min: 5,
+                    },
+                        notEmpty: {
+                        message: 'Please enter your first name'
+                    }
+                }
+            },
+			
+             last_name: {
+                validators: {
+                     stringLength: {
+                        min: 5,
+                    },
+                    notEmpty: {
+                        message: 'Please enter your last name'
+                    }
+                }
+            },
+                  
+		
+	 email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your UL email address'
+                    },
+                    emailAddress: {
+                        message: 'Please enter your UL address'
+                    }
+                }
+            },
+					
+		
+            
+            }
+        })
+		
+		 	
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#reg_form').data('bootstrapValidator').resetForm();
 
+            // Prevent form submission
+            e.preventDefault(); 
 
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+
+ </script>
+	
+	
     <?php
     require_once __DIR__.'/templates/footer.php';
     ?>
+	 
 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+
+   
 
   </body>
 </html>
