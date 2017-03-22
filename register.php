@@ -11,12 +11,16 @@
 
 <?php
     session_start();
+    if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
+        header("location:./profilepage.php");
+    }
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__.'/models/Discipline.class.php';
     require_once __DIR__.'/daos/DisciplineDAO.class.php';
     require_once __DIR__.'/daos/TagDAO.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
+
 
 
 

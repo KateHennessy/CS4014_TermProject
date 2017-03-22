@@ -20,6 +20,45 @@ class TaskDAO{
     //     self::update($user);
     // } //Needed for updating statuses linked to tasks
 
+    public static function find_score_from_task_id($task_id){
+      $score = null;
+      if(!is_null($task_id)){
+        $query = 'SELECT `score` FROM claimed_task WHERE task_id='.$task_id .';';
+        $result = PDOAccess::returnSQLquery($query);
+        if ($result) {
+          $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $score = $row['score'];
+        }
+      }
+      return $score;
+    }
+
+    public static function find_claimer_id_from_task_id($task_id){
+      $claimer_id = null;
+      if(!is_null($task_id)){
+        $query = 'SELECT `claimer_id` FROM claimed_task WHERE task_id='.$task_id .';';
+        $result = PDOAccess::returnSQLquery($query);
+        if ($result) {
+          $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $claimer_id = $row['claimer_id'];
+        }
+      }
+      return $claimer_id;
+    }
+
+    public static function find_task_in_flagged($task_id){ //NEED TO TEST THIS
+      $task = NULL;
+      if(!is_null($task_id)){
+        $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
+        $result = PDOAccess::returnSQLquery($query);
+        $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $task = ModelFactory::buildModel("Task", $row);
+    }
+      return $task;
+    }
+
+
+
 
 
   public static function insert($task){
@@ -59,6 +98,19 @@ class TaskDAO{
         return $task;
   }
 
+  public static function find_task_by_id($id){
+    $task = null;
+    if(!is_null($id)){
+      $query = 'SELECT * FROM `task` WHERE task_id =' .$id .';';
+      $result = PDOAccess::returnSQLquery($query);
+      if ($result) {
+        $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $task = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $task;
+  }
+
   public static function find_task($creator_id, $title){ //imposing limit of specific title only allowed once per creator
     $task = null;
     if (!is_null($creator_id)) {
@@ -72,6 +124,48 @@ class TaskDAO{
     }
     return $task;
   }
+
+
+
+  public static function find_user_uploaded_tasks($user){
+    $uploadedTasks = NULL;
+    if(!is_null($user)){
+      $id = $user->get_id();
+      $uploadedTasks = array();
+      $query = "SELECT * FROM task WHERE creator_id = " .$id .";";
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $uploadedTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+      return $uploadedTasks;
+    }
+  }
+
+
+
+  public static function find_available_tasks($creator_id){
+    $availableTasks = NULL;
+    if(!is_null($creator_id)){
+      $availableTasks = array();
+      // $query = "SELECT * FROM task WHERE creator_id != " .$creator_id ." AND task_id IN(
+      //   SELECT task_id FROM task_status JOIN status USING(status_id)WHERE status_name = 'unclaimed');";
+      $query = 'SELECT * FROM task WHERE creator_id !='. $creator_id .' AND task_id IN
+                (SELECT task_id FROM task_status t1 WHERE status_id =
+                	(SELECT status_id FROM status WHERE status_name=' ."'unclaimed'" .') AND timestamp =
+                	(SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY task_id
+                    )
+                 GROUP BY task_id
+                ) ORDER BY claim_deadline ASC;'
+      ;
+        //  echo($query);
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $availableTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $availableTasks;
+  }
+
 
 
 

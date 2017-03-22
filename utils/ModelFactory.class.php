@@ -78,6 +78,12 @@ class ModelFactory {
       $tags = array();
       $tags = TagDAO::getTaskTags($modelData["task_id"]); //calling TagDAO which calls Model Factory generateTag
       $ret ->set_tags($tags);
+      $status = StatusDAO::find_most_recent_status($modelData["task_id"]);
+      $ret ->set_status($status);
+      $claimer_id = TaskDAO::find_claimer_id_from_task_id($modelData["task_id"]);
+      $ret->set_claimer_id($claimer_id);
+      $score = TaskDAO::find_score_from_task_id($modelData["task_id"]);
+      $ret->set_score($score);
 		}
 
 		if (isset($modelData['creator_id'])) {

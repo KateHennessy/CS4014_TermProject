@@ -2,6 +2,7 @@
 require_once __DIR__."/../models/Status.class.php";
 require_once __DIR__."/../utils/ModelFactory.class.php";
 require_once __DIR__."/../utils/PDOAccess.class.php";
+require_once __DIR__."/../models/Task.class.php";
 
 class StatusDAO{
   public static function find_status_by_name($status_name){
@@ -15,6 +16,32 @@ class StatusDAO{
           }
       }
         return $status;
+  }
+
+
+  public static function find_most_recent_status($task_id){
+    $status = NULL;
+    if(!is_null($task_id)){
+      $query = "SELECT *
+      FROM status
+      WHERE status_id IN (
+        SELECT status_id
+        FROM task_status t1
+        WHERE task_id = " .$task_id ." AND timestamp =(
+          SELECT MAX(timestamp)
+          FROM task_status t2
+          WHERE t1.task_id = t2.task_id
+          GROUP BY task_id)
+        GROUP BY task_id);";
+        $result = PDOAccess::returnSQLquery($query);
+        if ($result) {
+          $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $status = ModelFactory::buildModel("Status",$row);
+        }
+    }
+
+    return $status;
+
   }
 
   public static function update_task_status($status_name, $task_id){

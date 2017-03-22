@@ -321,29 +321,34 @@ body {
   .fixed{
     height:300px;
   }
-  .fixedHead{
+  /*.fixedHead{
     height:40%;
-  }
+  }*/
 }
-@media(max-width:991px){
+
+/*@media(max-width:991px){ commented out...
   .col-md-3.adapt{
     padding:0;
   }
-}
+}*/
 
 .fixedBody{
-  height:30%;
-  overflow-y: scroll;
+  height:40%;
+  overflow-y: auto;
 }
+
 
 /*A smaller fixed area than stardard fixed which is 300px*/
 .smallfixed{
   height:100px;
 }
 /*larger area for text*/
-.fixedBodyLarge{
+/*.fixedBodyLarge{
   height:80%;
+}*/
 
+.fixedHead{
+  height:20%;
 }
 
 
@@ -450,7 +455,10 @@ body {
 
 /* Custom footer CSS
 -------------------------------------------------- */
-
+/*.footer{
+  background: rgb(51,51,51);
+  bottom:0;
+}
 .container {
   width: auto;
   max-width: 680px;
@@ -461,7 +469,7 @@ body {
 }
 .footertext {
   color: #ffffff;
-}
+}*/
 
 
 /*validation error mess*/
@@ -483,3 +491,18 @@ body {
 #success_message{ display: none;}
 }
 /*Footer */
+
+.footer{
+
+    line-height: 80px;
+    position: relative;
+    background: rgb(16,16,16);
+    color:rgb(230,230,230);
+    bottom:0px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    height: 90px;
+    text-align: center;
+
+}
