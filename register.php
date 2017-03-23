@@ -3,11 +3,7 @@
   <head>
     <title>ReviUL-Register
     </title>
-	
-	<head>
 
-
-</head>
 
 <?php
     session_start();
@@ -20,9 +16,6 @@
     require_once __DIR__.'/daos/DisciplineDAO.class.php';
     require_once __DIR__.'/daos/TagDAO.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
-
-
-
 
       if (isset($_POST) && count ($_POST) > 0) {
 
@@ -107,7 +100,7 @@
         <div class="row">
           <h1 class="">Sign Up</h1>
           <br>
-		  
+
           <form method="post" id="reg_form">
             <div class="col-sm-12">
               <div class="row">
@@ -119,8 +112,8 @@
                     <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
                   </div>
                 </div>
-								
-				
+
+
                 <div class="col-sm-6 form-group">
                   <label>Last Name <em class="text-danger"> *</em>
                   </label>
@@ -130,7 +123,7 @@
                   </div>
                 </div>
               </div>
-			  
+
               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Email Address <em class="text-danger"> *</em>
@@ -141,8 +134,8 @@
                            class="form-control">
                   </div>
                 </div>
-				
-								
+
+
                 <div class="col-sm-6 form-group">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
@@ -156,10 +149,10 @@
                   </div>
                 </div>
               </div>
-			  
-						  
-			  
-			  
+
+
+
+
               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Password <em class="text-danger"> *</em>
@@ -172,8 +165,8 @@
 						<span class="help-block with-errors"></span>
                   </div>
                 </div>
-				
-				
+
+
 			      <div class="col-sm-6 form-group">
                   <label>Confirm Password <em class="text-danger"> *</em>
                   </label>
@@ -186,10 +179,10 @@
 				  </div>
                 </div>
               </div>
-			    
-			  
-				  		  
-			  
+
+
+
+
               <div class="row">
                 <div class="col-sm-6 form-group">
                   <label>Tags <em class="text-danger"> *</em>
@@ -212,7 +205,7 @@
                         <option>Biosystems & Computational Biology</option>
                         <option>Human-Computer Interaction</option>
                         <option>Operating Systems & Networking</option>
-                        <option>Programming Systems</option> 
+                        <option>Programming Systems</option>
                         <option>Scientific Computing</option>
                         <option>Security</option>
                         <option>Theory</option>
@@ -237,10 +230,15 @@
             <button type="submit" name="signup_button" class="btn btn-lg btn-success">Submit
             </button>
           </form>
-            <?php } ?>
+
         </div>
       </div>
     </div>
+    <?php } ?>
+
+    <?php
+    require_once __DIR__.'/templates/footer.php';
+    ?>
 
     <script>
       $(document).ready(function(){
@@ -265,8 +263,8 @@
 
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
-		 
-		 
+
+
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
         $('form input').blur(function(){
           //GETS THE ID OF ELEMENT JUST BLURRED
@@ -310,13 +308,13 @@
             else{
 
             }
-          }      
+          }
           // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
           else{
             validateInput(this);
           }
-        });  
-		
+        });
+
         // END OF ONBLUR CHECKING OF FORM
 
         function validateTags(element){
@@ -329,7 +327,7 @@
           }
           return false;
         }
-		
+
         //VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
         function validateInput(element){
           id = element.id;
@@ -343,7 +341,7 @@
               return true;
           }
         }
-		
+
         function validateEmail(element){
           id = element.id;
           var email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g;
@@ -374,10 +372,7 @@
           div.addClass("has-success has-feedback");
           div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
         }
-      });
-    
-	
-	$(document).ready(function() {
+
 			console.log("test");
     $('#reg_form').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
@@ -397,7 +392,7 @@
                     }
                 }
             },
-			
+
              last_name: {
                 validators: {
                      stringLength: {
@@ -408,8 +403,8 @@
                     }
                 }
             },
-                  
-		
+
+
 	 email: {
                 validators: {
                     notEmpty: {
@@ -420,19 +415,19 @@
                     }
                 }
             },
-					
-		
-            
+
+
+
             }
         })
-		
-		 	
+
+
         .on('success.form.bv', function(e) {
             $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
                 $('#reg_form').data('bootstrapValidator').resetForm();
 
             // Prevent form submission
-            e.preventDefault(); 
+            e.preventDefault();
 
             // Get the form instance
             var $form = $(e.target);
@@ -448,16 +443,14 @@
 });
 
  </script>
-	
-	
-    <?php
-    require_once __DIR__.'/templates/footer.php';
-    ?>
-	 
+
+
+
+
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 
-   
+
 
   </body>
 </html>
