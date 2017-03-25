@@ -45,7 +45,7 @@
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <i class="glyphicon glyphicon-alert"></i> Incorrect number of tags entered. </h3> <br /><br />';
 
-        } else if(isset($user)){
+        } else if(!is_null($user->get_email())){
             // require_once __DIR__.'/templates/header.template.php';
             $feedback = '  <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -90,7 +90,7 @@
             //  header("location:./register.php");
             $feedback = ' <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> Cannot find user under this email for login. </h3> <br /><br />';
+            <i class="glyphicon glyphicon-alert"></i> Incorrect email or password. </h3> <br /><br />';
            }
 
          }else{
