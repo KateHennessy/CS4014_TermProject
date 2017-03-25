@@ -207,7 +207,7 @@
 
 
               <div class="row">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-6 form-group has-feedback">
                   <label>Tags <em class="text-danger"> *</em>
                   </label>
                   <button id="tooltip1" type="button" class="btn btn-primary btn-circle"
