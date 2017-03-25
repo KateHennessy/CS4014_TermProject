@@ -7,6 +7,7 @@
 
 <?php
     session_start();
+    $feedback = ""; //this is the variable going to be used for feedback from db on user input
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
         header("location:./profilepage.php");
     }
@@ -21,33 +22,35 @@
 
         if(isset($_POST["signup_button"])){
 
+
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
-          $email = trim(strtolower($_POST["email"]));
+          $email = trim(strtolower($_POST["signup_email"]));
           $passOne = $_POST["pass_one"];
           $passTwo = $_POST["pass_two"];
           $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
           //check wheter user/email alerady exists
-          if ($passOne != $passTwo) { //in case Javascript is disabled.
-              printf("<h2> Passwords do not match. </h2>");
-          }else if(count($tags) < 1 || count($tags) > 4){
-            printf("<h2> Incorrect number of tags entered. </h2>");
-          $user = new User();
-          $userDao = new UserDAO();
-          $user = $userDao->getUserByEmail($email);
-        } else if(isset($user)){
-            require_once __DIR__.'/templates/header.template.php';
-            echo('<div class="container-fluid">
-                    <div class="col-xs-11 col-sm-8 well">
-                      <h2> A user already exists with this email</h2>
-                      <br />
-                      Please login or click back to try register again. <br /><br />
-                        <a href = "logout.php"><button class="btn btn-success"> Back </button></a>
-                    </div>
-                  </div>
+          $user = null;
+        //  $userDao = new UserDAO();
+          $user = UserDAO::getUserByEmail($email);
 
-                  </div>');
+          if ($passOne != $passTwo) { //in case Javascript is disabled.
+            $feedback = '  <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> Passwords are not the same. </h3> <br /><br />';
+
+          }else if(count($tags) < 1 || count($tags) > 4){
+            $feedback = '  <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> Incorrect number of tags entered. </h3> <br /><br />';
+
+        } else if(isset($user)){
+            // require_once __DIR__.'/templates/header.template.php';
+            $feedback = '  <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> A user already exists with this email. </h3> <br /><br />';
+
           }else{
 
                   $siteSalt  = "hPxmjz6hJc";
@@ -65,8 +68,9 @@
                   }
                   $user->set_tags($tagArray);
                   $user = UserDAO::save($user);
-                  echo("id: " .$user->get_id());
+                  // echo("id: " .$user->get_id());
                   if(!is_null($user->get_id())){
+
                     $_SESSION["user_id"] = $user->get_id();
                     header("location:./profilepage.php");
                   }else{
@@ -83,16 +87,20 @@
              $_SESSION["user_id"] = $user->get_id();
             header("location:./profilepage.php");
            }else{
-             header("location:./register.php");
+            //  header("location:./register.php");
+            $feedback = ' <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> Cannot find user under this email for login. </h3> <br /><br />';
            }
 
          }else{
-           echo("nothing");
+          //  echo("nothing");
          }
 
       }
-            if (!isset($_POST) || count($_POST) == 0) {
-                require_once __DIR__.'/templates/header.template.php';?>
+      // if (!isset($_POST) || count($_POST) == 0) {
+          require_once __DIR__.'/templates/header.template.php';?>
+          <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script> have put this in logged out header page as needed for login-->
 
     <!-- Main PAGE -->
     <div class="container-fluid">
@@ -101,82 +109,97 @@
           <h1 class="">Sign Up</h1>
           <br>
 
-          <form method="post" id="reg_form">
+          <form method="post" role="form" data-toggle="validator">
             <div class="col-sm-12">
+              <?php echo $feedback; ?>
               <div class="row">
-                <div class="col-sm-6 form-group">
-                  <label>First Name <em class="text-danger"> *</em>
+                <div class="col-sm-6 form-group has-feedback">
+                  <label for="first_name" class="">First Name <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" placeholder="Enter First Name Here.." id="firstName" name="first_name" class="form-control">
+                    <input type="text" placeholder="Enter First Name Here.." maxlength="15" required id="firstName" name="first_name" class="form-control" >
+                    <span class="glyphicon form-control-feedback"></span>
                   </div>
+                    <span class="help-block with-errors"></span>
                 </div>
 
 
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-6 form-group has-feedback">
                   <label>Last Name <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" placeholder="Enter Last Name Here.." id="lastName" name="last_name" class="form-control">
+                    <input type="text" placeholder="Enter Last Name Here.." maxlength="30" required id="lastName" name="last_name" class="form-control">
+                    <span class="glyphicon form-control-feedback"></span>
                   </div>
+                    <span class="help-block with-errors"></span>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-6 form-group has-feedback">
                   <label>Email Address <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                    <input type="text" placeholder="Enter UL Email Here.." id="emailForm" name="email"
+                    <input type="email" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" placeholder="Enter UL Email Here.." required id="emailForm" name="signup_email"
                            class="form-control">
+                  <span class="glyphicon form-control-feedback"></span>
                   </div>
+                  <span class="help-block with-errors"></span>
                 </div>
 
 
-                <div class="col-sm-6 form-group">
+                <!-- /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g -->
+
+
+                <div class="col-sm-6 form-group has-feedback">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <select class="selectpicker" name="discipline" id="single-select" multiple data-max-options="1"
-                    required="required" data-width="75%">
+                    required="required" data-error="Please choose a discipline" data-width="75%">
                       <option>Computer Science</option>
                       <option>Psychology</option>
                     </select>
+
                   </div>
+                  <span class="help-block with-errors"></span>
                 </div>
+
               </div>
 
 
 
 
               <div class="row">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-6 form-group has-feedback">
                   <label>Password <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     <input type="password" placeholder="Enter Password Here.." name="pass_one" id="pass1Form" class="form-control"
-					  name="password" data-minLength="5" data-error="some error" required/>
-					  <span class="glyphicon form-control-feedback"></span>
-						<span class="help-block with-errors"></span>
+					               data-minLength="5" data-error="" required/>
+					         <span class="glyphicon form-control-feedback"></span>
+
                   </div>
+                  <span class="help-block with-errors"></span>
                 </div>
 
 
-			      <div class="col-sm-6 form-group">
+			      <div class="col-sm-6 form-group has-feedback">
                   <label>Confirm Password <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" placeholder="Reenter Password Here..." name="pass_two" id="pass2Form" class="form-control {$borderColor}"
-					  name="confirmPassword" data-match="#confirmPassword" data-minLength="5" data-match-error="some error 2" required/>
-						<span class="glyphicon form-control-feedback"></span>
-						<span class="help-block with-errors"></span>
+                    <input type="password" placeholder="Reenter Password Here..." data-match="#pass1Form" name="pass_two" id="pass2Form" class="form-control"
+					               data-minLength="5" required/>
+						       <span class="glyphicon form-control-feedback"></span>
+
 				  </div>
+          <span class="help-block with-errors"></span>
                 </div>
               </div>
 
@@ -223,6 +246,7 @@
                     </optgroup>
                   </select>
                   </div>
+                  <span class="help-block with-errors"></span>
                 </div>
 
               </div>
@@ -234,7 +258,7 @@
         </div>
       </div>
     </div>
-    <?php } ?>
+    <?php  ?>
 
     <?php
     require_once __DIR__.'/templates/footer.php';
@@ -243,212 +267,208 @@
     <script>
       $(document).ready(function(){
 
-        $('#multi-select').on('change', function () {
-          var count = $(this).find("option:selected").length;
-          if(count > 0 && count <= 4){
-            successInput(this);
-          }else{
-            failInput(this);
-          }
-        });
-
-        $('#single-select').on('change', function () {
-          var count = $(this).find("option:selected").length;
-          if(count == 1){
-            successInput(this);
-          }else{
-            failInput(this);
-          }
-        });
+        // $('#multi-select').on('change', function () {
+        //   var count = $(this).find("option:selected").length;
+        //   if(count > 0 && count <= 4){
+        //     successInput(this);
+        //   }else{
+        //     failInput(this);
+        //   }
+        // });
+        //
+        // $('#single-select').on('change', function () {
+        //   var count = $(this).find("option:selected").length;
+        //   if(count == 1){
+        //     successInput(this);
+        //   }else{
+        //     failInput(this);
+        //   }
+        // });
 
         // TOOLTIP FOR TAGS
          $('#tooltip1').tooltip();
 
 
           //CHECKS ALL INPUTS (WHEN BLURRED) WITHIN FORM ELEMENTS ON PAGE
-        $('form input').blur(function(){
-          //GETS THE ID OF ELEMENT JUST BLURRED
-          id = $(this).attr("id");
-
-          // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
-          if(id.indexOf("email") != -1){
-           validateEmail(this);
-          }
-
-          // IF WE ARE IN ONE OF THE PASSWORD FIELDS
-           else if(id.indexOf("pass") != -1){
-            // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
-              if(id.indexOf("pass1") != -1){
-
-               if( $('#pass1Form').val().length >= 7){
-                 successInput(this);
-                  return true;
-                }else{
-                  failInput(this);
-                  return false;
-                }
-              }
-              if(id.indexOf("pass2") != -1){
-                if(validateInput(this)){
-                var pass = $('#pass1Form').val();
-                var repass = $('#pass2Form').val();
-                // passwords are not equal
-              if(pass == repass){
-                successInput(this);
-                return false;
-              }else{
-                failInput(this);
-                return true;
-              }
-            }else{
-              failInput(this);
-            }
-            }
-
-            else{
-
-            }
-          }
-          // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
-          else{
-            validateInput(this);
-          }
-        });
+        // $('form input').blur(function(){
+        //   //GETS THE ID OF ELEMENT JUST BLURRED
+        //   id = $(this).attr("id");
+        //
+        //   // IF IT IS ONE OF TE EMAIL ELEMENTS put it through validate email function
+        //   if(id.indexOf("email") != -1){
+        //    validateEmail(this);
+        //   }
+        //
+        //   // IF WE ARE IN ONE OF THE PASSWORD FIELDS
+        //    else if(id.indexOf("pass") != -1){
+        //     // IF ITS THE FIRST, CHECK THAT IT MEETS MINIMUM PASSWORD REQUIREMENTS
+        //       if(id.indexOf("pass1") != -1){
+        //
+        //        if( $('#pass1Form').val().length >= 7){
+        //          successInput(this);
+        //           return true;
+        //         }else{
+        //           failInput(this);
+        //           return false;
+        //         }
+        //       }
+        //       if(id.indexOf("pass2") != -1){
+        //         if(validateInput(this)){
+        //         var pass = $('#pass1Form').val();
+        //         var repass = $('#pass2Form').val();
+        //         // passwords are not equal
+        //       if(pass == repass){
+        //         successInput(this);
+        //         return false;
+        //       }else{
+        //         failInput(this);
+        //         return true;
+        //       }
+        //     }else{
+        //       failInput(this);
+        //     }
+        //     }
+        //
+        //     else{
+        //
+        //     }
+        //   }
+        //   // IF ITS NOT A TAG OR PASSWORD OR EMAIL WE NEED TO CHECK IF IT IS ENTERED
+        //   else{
+        //     validateInput(this);
+        //   }
+        // });
 
         // END OF ONBLUR CHECKING OF FORM
+        //
+        // function validateTags(element){
+        //   id = element.id;
+        //   var options =(element).val();
+        //   alert(options);
+        //   if((options != null && options.length >= 2 && options.length <= 4)){
+        //     successInput(element);
+        //     return true;
+        //   }
+        //   return false;
+        // }
+        //
+        // //VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
+        // function validateInput(element){
+        //   id = element.id;
+        //   if(!$(element).val()){
+        //     failInput(element);
+        //     return false;
+        //   }
+        //   else {
+        //
+        //       successInput(element);
+        //       return true;
+        //   }
+        // }
+        //
+        // function validateEmail(element){
+        //   id = element.id;
+        //   var email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g;
+        //   //ul.ie domain
+        //   if (!email_regex.test($("#" + id).val())) {
+        //     failInput(element);
+        //     return false;
+        //   }
+        //   else {
+        //     successInput(element);
+        //     return true;
+        //   }
+        // }
+        // function failInput(element){
+        //   id = element.id;
+        //   var div = $("#" + id).closest("div");
+        //   div.removeClass("has-success");
+        //   $("#glypcn" + id).remove();
+        //   div.addClass("has-error has-feedback");
+        //   div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+        // }
+        //
+        // function successInput(element){
+        //   id = element.id;
+        //   var div = $("#" + id).closest("div");
+        //   div.removeClass("has-error");
+        //   $("#glypcn" + id).remove();
+        //   div.addClass("has-success has-feedback");
+        //   div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+        // }
 
-        function validateTags(element){
-          id = element.id;
-          var options =(element).val();
-          alert(options);
-          if((options != null && options.length >= 2 && options.length <= 4)){
-            successInput(element);
-            return true;
-          }
-          return false;
-        }
-
-        //VERIFYING THAT THERE iS TEXT INPUT IN INPUTS
-        function validateInput(element){
-          id = element.id;
-          if(!$(element).val()){
-            failInput(element);
-            return false;
-          }
-          else {
-
-              successInput(element);
-              return true;
-          }
-        }
-
-        function validateEmail(element){
-          id = element.id;
-          var email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g;
-          //ul.ie domain
-          if (!email_regex.test($("#" + id).val())) {
-            failInput(element);
-            return false;
-          }
-          else {
-            successInput(element);
-            return true;
-          }
-        }
-        function failInput(element){
-          id = element.id;
-          var div = $("#" + id).closest("div");
-          div.removeClass("has-success");
-          $("#glypcn" + id).remove();
-          div.addClass("has-error has-feedback");
-          div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-remove form-control-feedback"></span>');
-        }
-
-        function successInput(element){
-          id = element.id;
-          var div = $("#" + id).closest("div");
-          div.removeClass("has-error");
-          $("#glypcn" + id).remove();
-          div.addClass("has-success has-feedback");
-          div.append('<span id="glypcn' + id + '" class="glyphicon glyphicon-ok form-control-feedback"></span>');
-        }
-
-			console.log("test");
-    $('#reg_form').bootstrapValidator({
-        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            first_name: {
-                validators: {
-                        stringLength: {
-                        min: 5,
-                    },
-                        notEmpty: {
-                        message: 'Please enter your first name'
-                    }
-                }
-            },
-
-             last_name: {
-                validators: {
-                     stringLength: {
-                        min: 5,
-                    },
-                    notEmpty: {
-                        message: 'Please enter your last name'
-                    }
-                }
-            },
-
-
-	 email: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please enter your UL email address'
-                    },
-                    emailAddress: {
-                        message: 'Please enter your UL address'
-                    }
-                }
-            },
-
-
-
-            }
-        })
-
-
-        .on('success.form.bv', function(e) {
-            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-                $('#reg_form').data('bootstrapValidator').resetForm();
-
-            // Prevent form submission
-            e.preventDefault();
-
-            // Get the form instance
-            var $form = $(e.target);
-
-            // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
-
-            // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function(result) {
-                console.log(result);
-            }, 'json');
-        });
+	// 		console.log("test");
+  //   $('#reg_form').bootstrapValidator({
+  //       // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+  //       feedbackIcons: {
+  //           valid: 'glyphicon glyphicon-ok',
+  //           invalid: 'glyphicon glyphicon-remove',
+  //           validating: 'glyphicon glyphicon-refresh'
+  //       },
+  //       fields: {
+  //           first_name: {
+  //               validators: {
+  //                       stringLength: {
+  //                       min: 5,
+  //                   },
+  //                       notEmpty: {
+  //                       message: 'Please enter your first name'
+  //                   }
+  //               }
+  //           },
+   //
+  //            last_name: {
+  //               validators: {
+  //                    stringLength: {
+  //                       min: 5,
+  //                   },
+  //                   notEmpty: {
+  //                       message: 'Please enter your last name'
+  //                   }
+  //               }
+  //           },
+   //
+   //
+	//  email: {
+  //               validators: {
+  //                   notEmpty: {
+  //                       message: 'Please enter your UL email address'
+  //                   },
+  //                   emailAddress: {
+  //                       message: 'Please enter your UL address'
+  //                   }
+  //               }
+  //           },
+   //
+   //
+   //
+  //           }
+  //       })
+   //
+   //
+  //       .on('success.form.bv', function(e) {
+  //           $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+  //               $('#reg_form').data('bootstrapValidator').resetForm();
+   //
+  //           // Prevent form submission
+  //           e.preventDefault();
+   //
+  //           // Get the form instance
+  //           var $form = $(e.target);
+   //
+  //           // Get the BootstrapValidator instance
+  //           var bv = $form.data('bootstrapValidator');
+   //
+  //           // Use Ajax to submit form data
+  //           $.post($form.attr('action'), $form.serialize(), function(result) {
+  //               console.log(result);
+  //           }, 'json');
+  //       });
 });
 
  </script>
 
 
-
-
-
-<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 
 
 

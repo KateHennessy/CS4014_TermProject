@@ -24,7 +24,9 @@
 
     <!-- Custom CSS FILES -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/typeahead.css">
+    <!-- <link rel="stylesheet" href="css/typeahead.css"> -->
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 
   </head>
 
@@ -94,20 +96,26 @@
                 <li>
                   <div class="row">
                     <div class="col-md-12">
-                      <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
-                        <div class="form-group">
-                          <label class="sr-only" for="exampleInputEmail2">Email address
+                      <form class="form" role="form" method="post" data-toggle="validator" accept-charset="UTF-8" id="login-nav">
+                        <div class="form-group has-feedback">
+                          <label class="sr-only" for="email">Email address
                           </label>
-                          <input type="email" name ="email" class="form-control" id="emailLogin" placeholder="Email address" required>
+                          <input type="email" name ="email" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" id="emailLogin" placeholder="Email address" required>
+                          <span class="glyphicon form-control-feedback"></span>
+                          <span class="help-block with-errors"></span>
                         </div>
-                        <div class="form-group">
-                          <label class="sr-only" for="exampleInputPassword2">Password
+
+                        <div class="form-group has-feedback">
+                          <label class="sr-only" for="password">Password
                           </label>
-                          <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                          <div class="help-block text-right">
+                          <input type="password" name="password" class="form-control" id="passwordLogin" placeholder="Password" required>
+                          <span class="glyphicon form-control-feedback"></span>
+                            <span class="help-block with-errors"></span>
+
+                          <div class="small text-right">
                             <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
                           </div>
-                          <div class="help-block text-right">
+                          <div class="small text-right">
                             <a href="<?php echo 'register.php'; ?>">Sign Up</a>
                           </div>
                         </div>

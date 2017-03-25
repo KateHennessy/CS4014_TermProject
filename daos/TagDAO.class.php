@@ -49,8 +49,8 @@ class TagDAO {
         return $tags;
     }
 
-    public static function insertUserTag($user_id, $tag_id){      //UPDATED THIS  
-      if(count(self::getTaskTags($task_id)) < 4){
+    public static function insertUserTag($user_id, $tag_id){      //UPDATED THIS
+      if(count(self::getTaskTags($tag_id)) < 4){
        $query = "INSERT INTO `user_tag` (`user_id`, `tag_id`, `clicks`) VALUES ("
        .PDOAccess::prepareString($user_id) .", " .PDOAccess::prepareString($tag_id) .", '0');";
       //  echo($query);
