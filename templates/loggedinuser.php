@@ -6,7 +6,7 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
-    <script src="./js/successMessage.js">
+    <!-- <script src="./js/successMessage.js"> -->
     </script>
 
     <!-- ONLINE BOOTSTRAP FILES -->

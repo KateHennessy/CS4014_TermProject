@@ -20,13 +20,15 @@ $_SESSION[ "user_id"] !='' ){
     require_once __DIR__ . '/templates/loggedinuser.php'; require_once __DIR__ . '/models/User.class.php';
    require_once __DIR__ . '/models/Tag.class.php';
    ?>
+   <!-- CONTAINER START -->
     <div class="container-fluid">
    <div class="col-xs-12 well">
 
          <?php
    require_once __DIR__. '/templates/usersidebar.php';
+   require_once __DIR__. '/scripts/phpvalidation.php';
 
-
+   $uploadFormOK = true;
    if(isset($_POST["uploadsubmit"])) {
      $creator_id = $id;
      $title = htmlspecialchars(ucfirst($_POST["task_title"]));
@@ -35,12 +37,46 @@ $_SESSION[ "user_id"] !='' ){
      $no_pages = htmlspecialchars(ucfirst(trim($_POST["no_pages"])));
      $no_words = htmlspecialchars(ucfirst(trim($_POST["no_words"])));
      $tags = $_POST["tags"];
-     $claim_deadline = date('Y-m-d H:i:s',strtotime($_POST["claim_deadline"]));
-     $completion_deadline = date('Y-m-d H:i:s',strtotime($_POST["completion_deadline"]));
-     if($claim_deadline > date('Y-m-d H:i:s', time())){
+     if(!phpvalidation::isValidDate($_POST["claim_deadline"]) || !phpvalidation::isValidDate($_POST["completion_deadline"])){
+       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
+       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+       <i class="glyphicon glyphicon-remove"></i>
+       Date entered in invalid format.</h3>';
+       $uploadFormOK = false;
+     }
+     if(!is_numeric($no_pages)){
+       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
+       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+       <i class="glyphicon glyphicon-remove"></i>
+       Please enter a number for Number of Pages.</h3>';
+       $uploadFormOK = false;
+     }
+
+     $claim_deadline = date('Y-m-d H:i:s',strtotime($_POST["claim_deadline"]." 23:59:00"));
+     $completion_deadline = date('Y-m-d H:i:s',strtotime($_POST["completion_deadline"]." 23:59:00"));
+
+     if($claim_deadline < date('Y-m-d H:i:s', time())){
+       $uploadFormOK = false;
+       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
+       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+       <i class="glyphicon glyphicon-remove"></i>
+       You have entered a past date for your Claim Deadline.</h3>';
+       $claim_deadline = "";
+     }
+     if($completion_deadline < $claim_deadline){
+       $uploadFormOK = false;
+       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
+       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+       <i class="glyphicon glyphicon-remove"></i>
+       You have entered a Due Date that is closer than your Claim Deadline.</h3>';
+     }
 
      require_once __DIR__.'/scripts/upload_file.php'; // first checking if file uploaded is ok before progressing with rest of task upload
-     if($uploadOk == 1){
+    //  if($uploadOk == 1){
+      if($uploadOk != 1){
+        $uploadFormOK = false;
+      }
+      if($uploadFormOK){
 
        require_once __DIR__."/models/Task.class.php";
        require_once __DIR__."/daos/TaskDAO.class.php";
@@ -79,15 +115,10 @@ $_SESSION[ "user_id"] !='' ){
         $no_pages = "";
         $no_words = "";
       }
+    }
 
-  }
-   }else{
-     $feedback.= '<h3 class="alert alert-warning alert-dismissable">
-     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-     <i class="glyphicon glyphicon-remove"></i>
-     You have entered a past date for your Claim Deadline.</h3>';
-     $claim_deadline = "";
-   }
+  // }
+
 
  }else{ //setting these to empty if not submitted - empty form
    $title = "";
@@ -103,202 +134,143 @@ $_SESSION[ "user_id"] !='' ){
    header( "location:./register.php");
  } ?>
 
-
-
-
-<!-- </div> -->
-
 <div class="col-md-9 profile-content">
     <div id="overview">
-        <div>
-
-
-            <!-- upload -->
-            <div class="container">
-                <div class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <h2><strong>Upload</strong><i> your task</i></h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2><strong>Upload</strong><i> your task</i></h2>
+                </div>
+                <div class="panel-body">
+                    <?php echo($feedback); //Any errors found with input in php
+                        ?>
+                    <br>
+                    <br>
+                    <!-- Form Start -->
+                    <legend>Fill in the form:</legend>
+                    <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="File Type">Task Name</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <input id="task_title" value="<?php echo($title) ?>" required name="task_title" type="text" placeholder="" class="form-control input-md">
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <?php echo($feedback);
-                            ?>
 
-
-
-
-                        <br>
-                        <br>
-                        <!-- Form Name -->
-                        <legend>Fill in the form:</legend>
-
-                        <form method="post" enctype="multipart/form-data">
-
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="File Type">Task Name</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                                <input id="task_title" value="<?php echo($title) ?>" required name="task_title" type="text" placeholder="" class="form-control input-md">
-
-                            </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Task Type">Task Type
+                            <button id="tooltip1" type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" data-original-title="This is the type of document you are putting up for review. Examples include Master's Assignment, Undergraduate Project, PHD Thesis, etc."> ?</span>
+                            </button>
+                        </label>
+                        <div class="col-md-8 input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                            <input id="task_type" value="<?php echo($type) ?>" name="task_type" type="text" required class="form-control input-md">
                         </div>
+                    </div>
 
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="Task Type">Task Type
-                                <button id="tooltip1" type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" data-original-title="This is the type of document you are putting up for review. Examples include Master's Assignment, Undergraduate Project, PHD Thesis, etc."> ?</span>
-                                </button>
-                            </label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-                                <input id="task_type" value="<?php echo($type) ?>" name="task_type" type="text" required class="form-control input-md">
-
-                            </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Brief Description Of The Task</label>
+                        <div class="col-md-8">
+                            <textarea id="description" value="<?php echo($description) ?>" name="description" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll"></textarea>
+                            </textarea>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
-                            <div class="col-md-8">
-                                <textarea id="description" value="<?php echo($description) ?>" name="description" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll"></textarea>
-                                </textarea>
-                            </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Tags <em class="text-danger"> *</em>
+                            <button id="tooltip2" type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" data-original-title="These tags will help people find your tasks. Please use tags close to your task's area.">
+                                <span class="text-white"> ?</span>
+                            </button>
+                        </label>
+                        <div class="col-md-8 input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
+                              <select class="selectpicker" data-width="75%" id="tags" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
+                                <optgroup label="Computer Science">
+                                    <option>Graphics</option>
+                                    <option>Artificial Intelligence</option>
+                                    <option>Computer Architecture & Engineering</option>
+                                    <option>Biosystems & Computational Biology</option>
+                                    <option>Human-Computer Interaction</option>
+                                    <option>Operating Systems & Networking</option>
+                                    <option>Programming Systems</option>
+                                    <option>Scientific Computing</option>
+                                    <option>Security</option>
+                                    <option>Theory</option>
+                                </optgroup>
+                                <optgroup label="Psychology">
+                                    <option>Abnormal Psychology</option>
+                                    <option>Behavioral Psychology</option>
+                                    <option>Biopsychology</option>
+                                    <option>Cognitive Psychology</option>
+                                    <option>Comparative Psychology</option>
+                                    <option>Cross-Cultural Psychology</option>
+                                    <option>Developmental Psychology</option>
+                                    <option>Educational Psychology</option>
+                                    <option>Experimental Psychology</option>
+                                </optgroup>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Tags <em class="text-danger"> *</em>
-                                <button id="tooltip2" type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" data-original-title="These tags will help people find your tasks. Please use tags close to your task's area.">
-                                    <span class="text-white"> ?</span>
-                                </button>
-                            </label>
-                            <div class="col-md-8 input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-                                  <select class="selectpicker" data-width="75%" id="tags" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
-                                    <optgroup label="Computer Science">
-                                        <option>Graphics</option>
-                                        <option>Artificial Intelligence</option>
-                                        <option>Computer Architecture & Engineering</option>
-                                        <option>Biosystems & Computational Biology</option>
-                                        <option>Human-Computer Interaction</option>
-                                        <option>Operating Systems & Networking</option>
-                                        <option>Programming Systems</option>
-                                        <option>Scientific Computing</option>
-                                        <option>Security</option>
-                                        <option>Theory</option>
-                                    </optgroup>
-                                    <optgroup label="Psychology">
-                                        <option>Abnormal Psychology</option>
-                                        <option>Behavioral Psychology</option>
-                                        <option>Biopsychology</option>
-                                        <option>Cognitive Psychology</option>
-                                        <option>Comparative Psychology</option>
-                                        <option>Cross-Cultural Psychology</option>
-                                        <option>Developmental Psychology</option>
-                                        <option>Educational Psychology</option>
-                                        <option>Experimental Psychology</option>
-                                    </optgroup>
-                                </select>
-
-
-                            </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Claim Deadline</label>
+                        <div class="col-md-8 input-group" >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <input type="text" required value="<?php echo($claim_deadline) ?>" id="datetimepicker1" placeholder="yyyy-mm-dd" name="claim_deadline" class="form-control input-md" />
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="due_date">Due Date</label>
+                        <div class="col-md-8 input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" ></span></span>
+                            <input type="text" value="<?php echo($completion_deadline) ?>" id="datetimepicker2" placeholder="yyyy-mm-dd" name="completion_deadline" class="form-control input-md" />
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="claim_deadline">Claim Deadline</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                <input type="text" required value="<?php echo($claim_deadline) ?>" id="datetimepicker1" name="claim_deadline" class="form-control input-md" />
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Decision Timeframe">Page Count</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-duplicate"></span></span>
+                            <input id="no_pages" value="<?php echo($no_pages) ?>" name="no_pages" type="text" placeholder="" class="form-control input-md">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Decision Timeframe">Word Count</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-stats"></span></span>
+                            <input id="no_words" value="<?php echo($no_words) ?>" name="no_words" type="text" placeholder="" class="form-control input-md">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="control-group">
+                                <label class="control-label">
+                                    Upload a sample
+                                </label>
                                 <br>
-                                <br>
-                            </div>
+                          </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="due_date">Due Date</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                <input type="text" value="<?php echo($completion_deadline) ?>" id="datetimepicker2" name="completion_deadline" class="form-control input-md" />
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-
-
-                        <!-- <div class="row"> -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="Decision Timeframe">Page Count</label>
-                                <div class="input-group">
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-duplicate"></span></span>
-                                    <input id="no_pages" value="<?php echo($no_pages) ?>" name="no_pages" type="text" placeholder="" class="form-control input-md">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="Decision Timeframe">Word Count</label>
-                                <div class="input-group">
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-stats"></span></span>
-                                    <input id="no_words" value="<?php echo($no_words) ?>" name="no_words" type="text" placeholder="" class="form-control input-md">
-                                </div>
-                            </div>
-                        <!-- </div> -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="control-group">
-                                    <label class="control-label">
-                                        Upload a sample
-                                    </label>
-                                    <br>
-                                  </div>
-                                </div>
-                                    <!-- <div class="controls"> -->
-
-                                        <div class="col-md-8">
-                                            <input class="btn btn-primary"  id="document" value="Upload Image"name="document" type="file">
-                                            <span class="small">**Maximum file size is 8mb</span>
-                                        </div>
-
-                                    <!-- </div> -->
-
-
-
-
+                          <div class="col-md-8">
+                              <input class="btn btn-primary"  id="document" value="Upload Image"name="document" type="file">
+                              <span class="small">**Maximum file size is 8mb</span>
+                          </div>
                     </div><br />
 
-
-
-
-                <div class="row">
-                    <div class="col-xs-2">
-                      <!-- Need to validate that file size < 8mb -->
-                        <input type="submit" id="uploadsubmit" onclick="" name="uploadsubmit" class="btn btn-primary"></input>
+                    <div class="row">
+                        <div class="col-xs-2">
+                          <!-- Need to validate that file size < 8mb -->
+                            <input type="submit" id="uploadsubmit" onclick="" name="uploadsubmit" class="btn btn-primary"></input>
+                        </div>
                     </div>
-                </div>
-              </form>
-            </div>
+                </form>
+              </div>
+          </div>
         </div>
-
-
-        </fieldset>
-        </form>
-
-    </div>
-
-
-
-
-
-    <!-- Progress Bar -->
-
+      </div>
+  </div>
 </div>
-</div>
-</div>
-<!-- /container -->
+  <!--^^ CONTAINER END ^^ -->
 
-</div>
-
-</div>
-
-
-<br />
 
 <!--JS-->
 <script src="js/jquery.datetimepicker.full.js"></script>
@@ -306,7 +278,10 @@ $_SESSION[ "user_id"] !='' ){
     $(document).ready(function() {
 
         // $('#datetimepicker').datetimepicker();
-        $("[id^='datetimepicker']").datetimepicker();
+        $("[id^='datetimepicker']").datetimepicker({
+          timepicker:false,
+          format:'Y-m-d'
+        });
 
         // Tooltip function
         $("[id^='tooltip']").tooltip();
@@ -368,8 +343,6 @@ $_SESSION[ "user_id"] !='' ){
 <!-- <center>
         <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
     </center> -->
-<br>
-<br>
 
 <?php require_once __DIR__. '/templates/footer.php'; ?>
 

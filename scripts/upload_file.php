@@ -1,3 +1,4 @@
+<!-- Customized from w3schools https://www.w3schools.com/php/php_file_upload.asp -->
 <?php
   $target_dir = "./uploads/";
   $target_file = $target_dir . basename($_FILES["document"]["name"]);
@@ -45,14 +46,13 @@
     $uploadOk = 0;
   }
 
-
   // Check if $uploadOk is set to 0 by an error
   if ($uploadOk == 0) {
     $feedback.= "Sorry, your file was not uploaded. Please try again.";
   // if everything is ok, try to upload file
   } else {
     if (move_uploaded_file($_FILES["document"]["tmp_name"], $target_file)) {
-        $feedback.= "The file ". basename( $_FILES["document"]["name"]). " has been uploaded.";
+        // $feedback.= "The file ". basename( $_FILES["document"]["name"]). " has been uploaded.";
     } else {
         $feedback.= "Sorry, there was an error uploading your file.";
     }

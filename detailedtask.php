@@ -60,17 +60,28 @@
                                       <tbody>
                                           <tr>
                                               <td>Task Type:</td>
-                                              <td><?php echo $task->get_type(); ?> .</td>
+                                              <td><?php echo $task->get_type(); ?> </td>
                                           </tr>
                                           <tr>
                                               <td>Brief Description:</td>
-                                              <td><?php echo $task->get_description(); ?>.</td>
+                                              <td><?php echo $task->get_description(); ?></td>
                                           </tr>
                                           <tr>
                                               <td>Tags:</td>
                                               <td><?php foreach($task->get_tags() as $aTag){
                                                 echo '<span class="label label-primary">'.$aTag->get_name() .'</span> ';
                                               }  ?></td>
+                                          </tr>
+                                          <tr>
+                                              <td>Claim by Date:</td>
+
+                                              <td><?php echo $task->get_claim_deadline()->format('D d/m/y'); ?></td>
+
+                                          </tr>
+                                          <tr>
+                                              <td>Due Date:</td>
+                                              <td><?php echo $task->get_completion_deadline()->format('D d/m/y'); ?></td>
+
                                           </tr>
 
                                           <tr>

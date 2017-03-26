@@ -103,11 +103,11 @@ class ModelFactory {
 		}
 
     if(isset($modelData['claim_deadline'])){
-      $ret ->set_claim_deadline($modelData["claim_deadline"]);
+      $ret ->set_claim_deadline(date_create($modelData["claim_deadline"]));
     }
 
     if(isset($modelData['completion_deadline'])){
-      $ret ->set_completion_deadline($modelData["completion_deadline"]);
+      $ret ->set_completion_deadline(date_create($modelData["completion_deadline"]));
     }
 
     if(isset($modelData['no_pages'])){

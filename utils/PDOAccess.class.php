@@ -62,31 +62,22 @@ class PDOAccess {
       echo("issue with insert");
       return NULL;
     }
-
-    // return $result-> execute();
-    // $result -> execute();
-
-      // return $result -> execute();
-
   }
+
+	public static function returnNoColumns($query){
+		$db = PDOAccess::getInstance();
+		$conn = $db->connection;
+		$result = $conn->query($query)->rowCount();
+			return $result;
+	}
 
   public static function returnSQLquery($query){
     $db = PDOAccess::getInstance();
     $conn = $db->connection;
-
       $result = $conn->query($query);
-      // print_r("Result: " .$result);
+
       return $result;
-  // if($result){
-  //     foreach ($result as $row) {
-  //             $data[] = $row;
-  //         }
-  //         print_r($data);
-  //         return $data;
-  //   }else{
-  //     echo("noResult");
-  //     return false;
-  //   }
+
   }
 
 

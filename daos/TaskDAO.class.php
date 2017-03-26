@@ -166,6 +166,46 @@ class TaskDAO{
     return $availableTasks;
   }
 
+  public static function find_available_tasks_offset($creator_id, $limit, $offset){
+    $availableTasks = NULL;
+    if(!is_null($creator_id)){
+      $availableTasks = array();
+      // $query = "SELECT * FROM task WHERE creator_id != " .$creator_id ." AND task_id IN(
+      //   SELECT task_id FROM task_status JOIN status USING(status_id)WHERE status_name = 'unclaimed');";
+      $query = 'SELECT * FROM task WHERE creator_id !='. $creator_id .' AND task_id IN
+                (SELECT task_id FROM task_status t1 WHERE status_id =
+                	(SELECT status_id FROM status WHERE status_name=' ."'unclaimed'" .') AND timestamp =
+                	(SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY task_id
+                    )
+                 GROUP BY task_id
+                ) ORDER BY claim_deadline ASC
+                 LIMIT '. $offset .', ' .$limit .';';
+      ;
+        //  echo($query);
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $availableTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $availableTasks;
+  }
+
+  public static function find_no_available_tasks($creator_id){
+    $noAvailableTasks = NULL;
+    if(!is_null($creator_id)){
+      $query = 'SELECT * FROM task WHERE creator_id !='. $creator_id .' AND task_id IN
+                (SELECT task_id FROM task_status t1 WHERE status_id =
+                  (SELECT status_id FROM status WHERE status_name=' ."'unclaimed'" .') AND timestamp =
+                  (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY task_id
+                    )
+                 GROUP BY task_id
+                ) ORDER BY claim_deadline ASC;';
+        //  echo($query);
+      $noAvailableTasks = PDOAccess::returnNoColumns($query);
+    }
+    return $noAvailableTasks;
+  }
+
 
 
 

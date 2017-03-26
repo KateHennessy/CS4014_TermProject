@@ -1,3 +1,4 @@
+<!-- Some pagination info and code taken from this question on stack overflow http://stackoverflow.com/questions/3705318/simple-php-pagination-script -->
 <?php
     session_start();
     require_once __DIR__.'/models/User.class.php';
@@ -11,9 +12,7 @@
       $user = new User();
       $userDao = new UserDAO();
       $user = $userDao->getUserByID($id);
-      // echo("ID: " .$id);
     } else {
-      // echo("In else " .$_SESSION["user_id"]);
         header("location:./register.php");
     }
 ?>
@@ -32,27 +31,44 @@
     require_once __DIR__.'/templates/usersidebar.php';
 
     $tasks = array();
-    $tasks = TaskDAO::find_available_tasks($id);
+    $totalnoAvailable = TaskDAO::find_no_available_tasks($id);
+    $limit = 7;
+    $pages = ceil($totalnoAvailable / $limit);
+
+    $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+        'options' => array(
+            'default'   => 1,
+            'min_range' => 1,
+        ),
+    )));
+
+    // Calculate the offset for the query
+   $offset = ($page - 1)  * $limit;
+   // Some information to display to the user
+ $start = $offset + 1;
+ $end = min(($offset + $limit), $totalnoAvailable);
+ $prevlink = ($page > 1) ? '<li><a href="availableTasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=1" title="First page">Previous</a></li>';
+
+$nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
+
+ // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
+
+    $tasks = TaskDAO::find_available_tasks_offset($id, $limit, $offset);
+
+
+
     ?>
-
-
-              <!-- </div> -->
-
-              <!-- <div class="row profile"> -->
                 <div class="col-md-9 profile-content">
                     <div class="" id="overview">
                         <div class="">
-                            <!-- <div class="container-fluid" >
-                                <div class="col-xs-12"> -->
-
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <h2>Available Tasks</h2>
-                                            <p>These tasks were chosen based on your
-                                                <a href="ProfilePage.php#mytags">selected tags.</a></p>
-                                        </div>
-                                    </div>
-                                    <br />
+                          <div class="row">
+                              <div class="col-xs-12">
+                                  <h2>Available Tasks</h2>
+                                  <p>These tasks were chosen based on your
+                                      <a href="ProfilePage.php#mytags">selected tags.</a></p>
+                              </div>
+                          </div>
+                          <br />
 
 
                                   <?php
@@ -73,9 +89,9 @@
                                                         <i class="glyphicon glyphicon-file pull-left text-primary"></i>
                                                         <p class="text-muted"><small class="pull-left">Type: <span class="text-primary"><?php echo $task->get_type(); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-calendar pull-left text-primary"></i>
-                                                            <small class="pull-left"> Claim Before: <span class="text-primary"><?php echo $task->get_claim_deadline(); ?></span></small><br>
+                                                            <small class="pull-left"> Claim Before: <span class="text-primary"><?php echo $task->get_claim_deadline()->format('d/m/Y'); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-hourglass pull-left text-primary"></i>
-                                                            <small class="pull-left">  Due Date: <span class="text-primary"> <?php echo $task->get_completion_deadline(); ?></span></small><br>
+                                                            <small class="pull-left">  Due Date: <span class="text-primary"> <?php echo $task->get_completion_deadline()->format('d/m/Y'); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-duplicate pull-left text-primary"></i>
                                                             <small class="pull-left">Page Count: <span class="text-primary"><?php echo $task->get_no_pages(); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-stats pull-left text-primary"></i>
@@ -90,61 +106,29 @@
                                         </div>
 
                                     </div>
-                                <?php  } ?>
-                                    <!-- End Task1-->
+                                <?php  }
 
-                                    <!-- Begin Task2-->
-                                    <!-- <div class="col-xs-12 fixedMax">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <a class="pull-left" href="" target="_parent">
+                                echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
+                                ' .$prevlink);
+                                for($i = 1; $i <= $pages; $i++){
+                                  $class="";
+                                  if($i == $page){
+                                    $class= "page-item active";
+                                  }
+                                  echo('<li class="' .$class .'"><a href=availableTasks.php?page=' .$i .">" .$i ."</a></li>");
+                                }
+                                echo($nextlink);
+                                ?>
 
-                                                            <h4><div class="glyphicon glyphicon-edit"></div>Methods in Empirical Psychology</h4></a>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="pull-left col-sm-6">
 
-                                                        <i class="glyphicon glyphicon-file pull-left text-primary"></i>
-                                                        <p class="text-muted"><small class="pull-left">Type: <span class="text-primary">PhD Thesis</span></small><br>
-                                                            <i class="glyphicon glyphicon-calendar pull-left text-primary"></i>
-                                                            <small class="pull-left"> Claim Before: <span class="text-primary">10/03/2017</span></small><br>
-                                                            <i class="glyphicon glyphicon-hourglass pull-left text-primary"></i>
-                                                            <small class="pull-left">  Due Date: <span class="text-primary"> 01/04/2017</span></small><br>
-                                                            <i class="glyphicon glyphicon-duplicate pull-left text-primary"></i>
-                                                            <small class="pull-left">Page Count: <span class="text-primary">35</span></small><br>
-                                                            <i class="glyphicon glyphicon-stats pull-left text-primary"></i>
-                                                            <small class="pull-left">Word Count: <span class="text-primary">18000</span></small><br></p>
-                                                    </div>
-
-                                                        <div class="divider pull-right hidden-xs col-sm-6 smallfixed">
-
-                                                            <p class="hidden-xs fixedBodyLarge scroll">A study investigating the best methods for carrying out psychological research by testing both qualitative and quantative approaches. A study investigating the best methods for carrying out psychological
-                                                                research by testing both qualitative and quantative approaches. A study investigating the best methods for carrying out psychological research by testing both qualitative and quantative approaches.</p>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div> -->
-                                    <!-- End Task2-->
-
-                                    <ul class="pagination">
+                                    <!-- <ul class="pagination">
                                         <li><a href="#">1</a></li>
                                         <li><a href="#">2</a></li>
                                         <li><a href="#">3</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
-                                    </ul>
+                                    </ul> -->
 
-
-
-
-                                <!-- </div>
-                            </div> -->
                         </div>
 
 
