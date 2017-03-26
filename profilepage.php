@@ -35,8 +35,13 @@
      <div class="container-fluid">
     <div class="col-xs-12 well">
 
-          <?php
+  <?php
+    $user = UserDAO::generate_sidebar($id);
+    if($user >= '40') {
+    require_once __DIR__.'/templates/moderatorsidebar.php';
+    }else{
     require_once __DIR__.'/templates/usersidebar.php';
+    }
     ?>
 
     <div class="col-md-9 profile-content">
