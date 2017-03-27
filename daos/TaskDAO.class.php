@@ -58,12 +58,20 @@ class TaskDAO{
     }
 
 
-public static function claim_task($user_id){
+public static function claim_task($user_id, $task_id){
   $claimed = false;
-
   if(!is_null($user_id)){
-      $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
+      $query = 'INSERT INTO `claimed_task` (`claimer_id`, `task_id`, `score`) VALUES (' .PDOAccess::prepareString($user_id) .', '
+      .PDOAccess::prepareString($task_id) .', '."'0'" .');';
+      $result = PDOAccess::insertSQLquery($query);
+        if ($result) {
+          // $task = self::find_task_by_id($task_id);
+          StatusDAO::update_task_status("in progress", $task_id);
+          $claimed = true;
+        }
   }
+
+  return $claimed;
 }
 
 

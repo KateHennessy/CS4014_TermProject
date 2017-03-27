@@ -6,7 +6,7 @@
     require_once __DIR__.'/models/Task.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
     require_once __DIR__.'/daos/TaskDAO.class.php';
-
+      $feedback = "";
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
@@ -24,11 +24,19 @@
       // echo("In else " .$_SESSION["user_id"]);
         header("location:./register.php");
     }
-    if(isset($_SESSION["claim_task_button"])){
-      if(UserDAO::claim_task($user->get_id())){
-        
+
+    if(isset($_POST["claimTask"])){
+      // echo("<h1> IN CLAIMED TASK </h1>");
+      if(TaskDAO::claim_task($user->get_id(), $task->get_id())){
+        $feedback = '<h3 class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> Task Claimed Successfully</h3>';
+      }else{
+
       }
 
+    }else{
+      echo("NOT IN CLAIMED TASK");
     }
 ?>
 
@@ -51,8 +59,9 @@
           <div class="col-md-9 profile-content">
               <div class="" id="detailedTask">
 
-
-                                <?php   if(!is_null($task->get_id())){
+                                <?php
+                                    echo($feedback);
+                                    if(!is_null($task->get_id())){
                                           if($task->get_status()->get_name() != 'expired'){?>
                                     <div class="panel panel-default">
                                   <div class="panel-heading">
@@ -147,21 +156,25 @@
             </div>
 <?php
                 } //END OF CREATOR VIEWING THEIR OWN TASK
-                else if(is_null($task->get_claimer_id())){ // CLAIMER IS NULL - TWO POSSIBILITIES - MODERATOR OR POTENTIAL CLAIMER
+                else if(is_null($task->get_claimer_id())){ // CLAIMER IS NULL - TWO POSSIBILITIES - MODERATOR LOOKING AT FLAGGED TASK OR POTENTIAL CLAIMER
 
-                  if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())->get_id()) && $user->get_reputation() >=40){
+                  if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())->get_id()) && $user->get_reputation() >=40){ //MODERATOR LOOKING AT FLAGGED TASK
                     echo '<div class="panel-footer">
                                     <span class="pull-right">
-                                      <a data-original-title="removeFlag" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Remove from Flagged Tasks</a>
-                                      <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Ban User</a>
+                                    <form method="post">
+                                      <button data-original-title="removeFlag" data-toggle="tooltip" type="submit" name="remove_flag" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Remove from Flagged Tasks</button>
+                                      <button data-original-title="Remove this user" data-toggle="tooltip" type="submit" name="ban_user" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Ban User</button>
+                                    </form>
                                   </span>
                               <br/><br>
                             </div>';
                   }else if($task->get_status()->get_name()=='unclaimed'){ //POTENTIAL CLAIMER
                     echo '<div class="panel-footer">
                                     <span class="pull-right">
-                                      <a data-original-title="Claim" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</a>
-                                      <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</a>
+                                    <form method="post" role="form">
+                                      <button type="submit" name="claimTask" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</button>
+                                      <button type="submit" name="flag_task" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</button>
+                                    </form>
                                   </span>
                               <br/><br>
                             </div>';

@@ -142,37 +142,49 @@
                                     </div>
                                     <br />
 
-                                    <?php
-                                    if(count($claimedTasks) == 0) { ?>
-                                      <h5 class="col-sm-6 text-primary"> No tasks uploaded. To create one <a href="<?php echo 'detailedtask.php?id='.$task->get_id()?>"> <em>Click here </em></a></h5>
-                                    <?php }
+                                    <div class="row">
 
-                                    foreach($claimedTasks as $task){ ?>
+                                      <?php
+                                      if(count($claimedTasks) == 0) { ?>
+                                        <h5 class="col-sm-6 text-primary"> No claimed Tasks. To find tasks view the  <a href="availabletasks.php"> <em> Available Tasks Stream</em></a></h5>
+                                      <?php }
 
-                                    <!-- Begin Task1-->
+                                      foreach($claimedTasks as $task){ ?>
+
+
+
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
                                             <div class="panel-heading fixed">
-                                                <div class="row">
+                                                <div class="row fixedHead">
                                                     <div class="col-sm-8 col-xs-12">
-                                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
+                                                        <a class="pull-left"  href="<?php echo 'detailedtask.php?id='.$task->get_id()?>" target="_parent">
 
                                                             <!-- </a> -->
-                                                            <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
+                                                            <h4 class="ellipsis"><div class="glyphicon glyphicon-edit"></div><?php
+                                                            $fullTitle = $task->get_title();
+                                                            $out = strlen($fullTitle) > 35 ? substr($fullTitle,0,35)."..." : $fullTitle;
+                                                            echo $out ?></h4></a>
                                                     </div>
                                                     <div class="pull-right hidden-xs col-sm-4">
-                                                        <h4><small class="pull-right"><?php echo $task->get_type(); ?></small></h4>
+                                                        <h4><small class="pull-right"><?php echo$task->get_type() ?></small></h4>
                                                     </div>
                                                 </div>
+
+                                                <div class="row">
+                                                <div class="col-xs-12">
                                                 <ul class="list-inline">
-                                                    <li><?php echo $task->get_format(); ?></li>
-                                                    <li style="list-style: none">|</li>
-                                                    <li><?php echo $task->get_no_pages(); ?> Pages</li>
-                                                    <li style="list-style: none">|</li>
-                                                    <li><?php echo $task->get_no_words(); ?> Words</li>
+                                                    <li><?php echo $task->get_format() ?> </li>
+
+                                                    <li><?php echo$task->get_no_pages() ?> Pages</li>
+
+                                                    <li><?php echo$task->get_no_words() ?> Words</li>
                                                 </ul>
-                                                <p class="hidden-xs fixedBody"><?php echo $task->get_description(); ?> </p>
+                                              </div>
+                                              </div>
+                                                <p class="hidden-xs fixedBody"><?php echo$task->get_description() ?>. </p>
                                                 <?php
+                                                // $status = StatusDAO::find_most_recent_status($task_id);
                                                 switch($task->get_status()->get_name()){
                                                   case "unclaimed":
                                                   echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
@@ -194,10 +206,12 @@
                                                   break;
                                                 }
                                                 ?>
+
                                             </div>
                                         </div>
-                                    </div><?php } ?>
-                                    <!-- End Task1-->
+                                    </div> <?php } ?>
+
+                                  </div>
 
 
                                     <!--End Claimed Tasks-->
