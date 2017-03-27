@@ -85,56 +85,68 @@
                       <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5>
                     <?php }
 
-                    foreach($claimedTasks as $task){ ?>
+                    foreach($uploadedTasks as $task){ ?>
 
-                    <!-- Begin Task1-->
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading fixed">
-                                <div class="row">
-                                    <div class="col-sm-8 col-xs-12">
-                                        <a class="pull-left" href="<?php echo 'detailedtask.php'; ?>" target="_parent">
 
-                                            <!-- </a> -->
-                                            <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
-                                    </div>
-                                    <div class="pull-right hidden-xs col-sm-4">
-                                        <h4><small class="pull-right"><?php echo $task->get_type(); ?></small></h4>
-                                    </div>
-                                </div>
-                                <ul class="list-inline">
-                                    <li><?php echo $task->get_format(); ?></li>
-                                    <li style="list-style: none">|</li>
-                                    <li><?php echo $task->get_no_pages(); ?> Pages</li>
-                                    <li style="list-style: none">|</li>
-                                    <li><?php echo $task->get_no_words(); ?> Words</li>
-                                </ul>
-                                <p class="hidden-xs fixedBody"><?php echo $task->get_description(); ?> </p>
-                                <?php
-                                switch($task->get_status()->get_name()){
-                                  case "unclaimed":
-                                  echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
-                                  break;
-                                  case "in progress":
-                                  echo '<div><label for="warning" class="btn btn-warning">In Progress</label></div>';
-                                  break;
-                                  case "expired":
-                                  echo '<div><label for="danger" class="btn btn-danger">Expired</label></div>';
-                                  break;
-                                  case "cancelled":
-                                  echo '<div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
-                                  break;
-                                  case "unfinished":
-                                  echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
-                                  break;
-                                  default:
-                                  echo '';
-                                  break;
-                                }
-                                ?>
+
+                  <div class="col-sm-6 col-lg-4">
+                      <div class="panel panel-default">
+                          <div class="panel-heading fixed">
+                              <div class="row fixedHead">
+                                  <div class="col-sm-8 col-xs-12">
+                                      <a class="pull-left"  href="<?php echo 'detailedtask.php?id='.$task->get_id()?>" target="_parent">
+
+                                          <!-- </a> -->
+                                          <h4 class="ellipsis"><div class="glyphicon glyphicon-edit"></div><?php
+                                          $fullTitle = $task->get_title();
+                                          $out = strlen($fullTitle) > 35 ? substr($fullTitle,0,35)."..." : $fullTitle;
+                                          echo $out ?></h4></a>
+                                  </div>
+                                  <div class="pull-right hidden-xs col-sm-4">
+                                      <h4><small class="pull-right"><?php echo$task->get_type() ?></small></h4>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                              <div class="col-xs-12">
+                              <ul class="list-inline">
+                                  <li><?php echo $task->get_format() ?> </li>
+
+                                  <li><?php echo$task->get_no_pages() ?> Pages</li>
+
+                                  <li><?php echo$task->get_no_words() ?> Words</li>
+                              </ul>
                             </div>
-                        </div>
-                    </div> <?php } ?>
+                            </div>
+                              <p class="hidden-xs fixedBody"><?php echo$task->get_description() ?>. </p>
+                              <?php
+                              // $status = StatusDAO::find_most_recent_status($task_id);
+                              switch($task->get_status()->get_name()){
+                                case "unclaimed":
+                                echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
+                                break;
+                                case "in progress":
+                                echo '<div><label for="warning" class="btn btn-warning">In Progress</label></div>';
+                                break;
+                                case "expired":
+                                echo '<div><label for="danger" class="btn btn-danger">Expired</label></div>';
+                                break;
+                                case "cancelled":
+                                echo '<div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
+                                break;
+                                case "unfinished":
+                                echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                                break;
+                                default:
+                                echo '';
+                                break;
+                              }
+                              ?>
+
+                          </div>
+                      </div>
+                  </div> <?php } ?>
+
                   </div>
 
                     <div class ="row">
