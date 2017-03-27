@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ReviUL-Available Tasks
+    <title>ReviUL-Flagged Tasks
     </title>
 <?php
     require_once __DIR__.'/templates/loggedinuser.php';
