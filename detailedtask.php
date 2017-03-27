@@ -24,6 +24,12 @@
       // echo("In else " .$_SESSION["user_id"]);
         header("location:./register.php");
     }
+    if(isset($_SESSION["claim_task_button"])){
+      if(UserDAO::claim_task($user->get_id())){
+        
+      }
+
+    }
 ?>
 
 <!DOCTYPE html>

@@ -9,9 +9,8 @@
       $id = $_SESSION["user_id"];
       $user = new User();
       $user = UserDAO::getUserByID($id);
-      // echo("ID: " .$id);
+
     } else {
-      // echo("In else " .$_SESSION["user_id"]);
         header("location:./register.php");
     }
 ?>

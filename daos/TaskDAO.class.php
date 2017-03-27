@@ -58,6 +58,13 @@ class TaskDAO{
     }
 
 
+public static function claim_task($user_id){
+  $claimed = false;
+
+  if(!is_null($user_id)){
+      $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
+  }
+}
 
 
 
@@ -139,6 +146,21 @@ class TaskDAO{
       }
       return $uploadedTasks;
     }
+  }
+
+  public static function find_user_claimed_tasks($user_id){
+    $claimedTasks = NULL;
+    if(!is_null($user_id)){
+
+      $claimedTasks = array();
+      $query = "SELECT * FROM task WHERE task_id IN
+      (SELECT task_id FROM claimed_task WHERE claimer_id = " .$user_id .");";
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $claimedTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $claimedTasks;
   }
 
 
