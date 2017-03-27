@@ -33,6 +33,7 @@ class TaskDAO{
       return $score;
     }
 
+
     public static function find_claimer_id_from_task_id($task_id){
       $claimer_id = null;
       if(!is_null($task_id)){
@@ -46,16 +47,7 @@ class TaskDAO{
       return $claimer_id;
     }
 
-    public static function find_task_in_flagged($task_id){ //NEED TO TEST THIS
-      $task = NULL;
-      if(!is_null($task_id)){
-        $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
-        $result = PDOAccess::returnSQLquery($query);
-        $row = $result -> fetch(PDO::FETCH_ASSOC);
-          $task = ModelFactory::buildModel("Task", $row);
-    }
-      return $task;
-    }
+
 
 
 public static function claim_task($user_id, $task_id){
@@ -145,7 +137,7 @@ public static function find_no_user_uploaded_tasks($user_id){
   if(!is_null($user_id)){
     $uploadedTasks = array();
     $query = "SELECT * FROM task WHERE creator_id = " .$user_id .";";
-    $noUploadedTasks = PDOAccess::returnNoColumns($query);
+    $noUploadedTasks = PDOAccess::returnNoRows($query);
   }
   return $noUploadedTasks;
 }
@@ -198,7 +190,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
     if(!is_null($user_id)){
       $query = "SELECT * FROM task WHERE task_id IN
       (SELECT task_id FROM claimed_task WHERE claimer_id = " .$user_id .");";
-      $noClaimedTasks = PDOAccess::returnNoColumns($query);
+      $noClaimedTasks = PDOAccess::returnNoRows($query);
     }
     return $noClaimedTasks;
   }
@@ -278,18 +270,35 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
                  GROUP BY task_id
                 ) ORDER BY claim_deadline ASC;';
         //  echo($query);
-      $noAvailableTasks = PDOAccess::returnNoColumns($query);
+      $noAvailableTasks = PDOAccess::returnNoRows($query);
     }
     return $noAvailableTasks;
   }
 
+  public static function flag_task($task_id, $flagger_id){
+    $taskFlagged = false;
+    if(!is_null($task_id)){
+        $task = self::find_task_by_id($task_id);
+        if(!is_null(self::find_task_in_flagged($task->get_id()))){ // check whether the task has already been flagged
+          $taskFlagged = true;
+        }else{
+          date_default_timezone_set('Europe/Dublin');
+         $date = date('Y-m-d H:i:s', time());
+          $query =  'INSERT INTO `flagged_task` (`task_id`, `flagger_id`, `timestamp`) VALUES ('
+          .PDOAccess::prepareString($task->get_id()) .', ' .PDOAccess::prepareString($flagger_id) .', ' .PDOAccess::prepareString($date) .');';
+          $taskFlagged = PDOAccess::insertSQLquery($query);
+
+        }
+      }
+    return $taskFlagged;
+  }
 
   public static function find_no_flagged_tasks(){
     $flaggedTasks = 0;
       $query = 'SELECT * FROM task WHERE task_id IN
       (SELECT task_id FROM flagged_task);';
 
-      $flaggedTasks = PDOAccess::returnNoColumns($query);
+      $flaggedTasks = PDOAccess::returnNoRows($query);
       return $flaggedTasks;
   }
 
@@ -305,8 +314,33 @@ public static function find_flagged_tasks_offset($limit, $offset){
   return $flaggedTasks;
 }
 
+public static function find_task_in_flagged($task_id){ //NEED TO TEST THIS
+  $task = NULL;
+  if(!is_null($task_id)){
+    $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
+    // echo($query);
+    $result = PDOAccess::returnSQLquery($query);
+    if($result->rowCount() > 0){
+      // print_r($result);
+        $row = $result -> fetch(PDO::FETCH_ASSOC);
+        $task = ModelFactory::buildModel("Task", $row);
+    }
+  }
+  return $task;
+}
 
+public static function deflag_task($task_id){
+  $deflagged = false;
+  if(!is_null($task_id)){
+      if(!is_null(self::find_task_in_flagged($task_id))){
+        $query = 'DELETE FROM `flagged_task` WHERE `task_id` = ' .$task_id .';';
+        $result = PDOAccess::deleteSQLquery($query);
+        $deflagged = $result;
+      }
 
+  }
+  return $deflagged;
+}
 
 
 }

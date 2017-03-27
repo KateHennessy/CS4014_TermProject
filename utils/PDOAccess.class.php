@@ -64,7 +64,21 @@ class PDOAccess {
     }
   }
 
-	public static function returnNoColumns($query){
+	public static function deleteSQLquery($query){
+		$db = self::getInstance();
+    $conn = $db->connection;
+    $result = $conn -> prepare($query);
+    if($result){
+        $result-> execute();
+				return true;
+    }else{
+      echo("issue with delete");
+      return NULL;
+    }
+	}
+
+
+	public static function returnNoRows($query){
 		$db = PDOAccess::getInstance();
 		$conn = $db->connection;
 		$result = $conn->query($query)->rowCount();

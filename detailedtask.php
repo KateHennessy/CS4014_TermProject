@@ -36,8 +36,41 @@
 
       }
 
-    }else{
-      //echo("NOT IN CLAIMED TASK");
+    }
+    if(isset($_POST["flagTask"])){
+      if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
+        $feedback = '<h3 class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> Task Has Been Flagged</h3>';
+      }else{
+        $feedback = '<h3 class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
+      }
+    }
+
+    if(isset($_POST["removeFlag"])){
+      if(TaskDAO::deflag_task($task->get_id())){
+        $feedback = '<h3 class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> Task Has Been De-Flagged</h3>';
+      }else{
+        $feedback = '<h3 class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
+      }
+    }
+
+    if(isset($_POST["banUser"])){
+      if(UserDAO::ban_user($task->get_creator_id())){
+        $feedback = '<h3 class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> User has been banned.</h3>';
+      }else{
+        $feedback = '<h3 class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
+      }
     }
 ?>
 
@@ -61,6 +94,7 @@
               <div class="" id="detailedTask">
 
                                 <?php
+                                // echo($task->get_creator_id());
                                     echo($feedback);
                                     if(!is_null($task->get_id())){
                                           if($task->get_status()->get_name() != 'expired'){?>
@@ -127,7 +161,7 @@
 <?php
 
 
-                if($id == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
+                if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
                   ?>
                   <div class="panel-footer">
                     <span class="pull-right">
@@ -157,14 +191,21 @@
             </div>
 <?php
                 } //END OF CREATOR VIEWING THEIR OWN TASK
+
+                else if(UserDAO::find_user_in_banned($task->get_creator_id())){
+
+                    echo '<div class="panel-footer">
+                    <h3 class="text-danger text-center"> <i class="glyphicon glyphicon-flag"> </i>This user has been banned. This is task is no longer valid. </h3>
+                    </div>';
+                }
                 else if(is_null($task->get_claimer_id())){ // CLAIMER IS NULL - TWO POSSIBILITIES - MODERATOR LOOKING AT FLAGGED TASK OR POTENTIAL CLAIMER
 
-                  if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())->get_id()) && $user->get_reputation() >=40){ //MODERATOR LOOKING AT FLAGGED TASK
+                  if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())) && $user->get_reputation() >=40){ //MODERATOR LOOKING AT FLAGGED TASK
                     echo '<div class="panel-footer">
                                     <span class="pull-right">
                                     <form method="post">
-                                      <button data-original-title="removeFlag" data-toggle="tooltip" type="submit" name="remove_flag" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Remove from Flagged Tasks</button>
-                                      <button data-original-title="Remove this user" data-toggle="tooltip" type="submit" name="ban_user" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Ban User</button>
+                                      <button  type="submit" name="removeFlag" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Remove from Flagged Tasks</button>
+                                      <button  type="submit" name="banUser" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Ban User</button>
                                     </form>
                                   </span>
                               <br/><br>
@@ -174,7 +215,7 @@
                                     <span class="pull-right">
                                     <form method="post" role="form">
                                       <button type="submit" name="claimTask" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</button>
-                                      <button type="submit" name="flag_task" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</button>
+                                      <button type="submit" name="flagTask" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</button>
                                     </form>
                                   </span>
                               <br/><br>

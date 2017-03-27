@@ -31,13 +31,43 @@ class UserDAO{
       }
       return $user;
 		}
-				public static function save($user) {
-        if (is_null($user->get_id())) {
-            self::insert($user);
-        }/*else {
-            self::update($user);
-        }*/
-        return $user;
+    public static function find_all_banned_users(){
+      $bannedUsers = array();
+      $query = "SELECT * FROM user WHERE user_id  IN
+      (SELECT user_id FROM banned_users);";
+      $result = PDOAccess::returnSQLquery($query);
+      if ($result) {
+        foreach($result as $row){
+          $user = ModelFactory::buildModel("User", $row);
+        }
+      }
+      return $bannedUsers;
+
+    }
+
+
+    public static function find_user_in_banned($user_id){
+      $bannedUser = NULL;
+      $query = "SELECT * FROM user WHERE user_id  IN
+      (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .');';
+      $result = PDOAccess::returnSQLquery($query);
+
+      if($result){
+        return true;
+      }else{
+
+        return false;
+      }
+    }
+
+
+		public static function save($user) {
+      if (is_null($user->get_id())) {
+          self::insert($user);
+      }/*else {
+          self::update($user);
+      }*/
+      return $user;
     }
 	private static function insert(&$user) {
 		// First - insert user into Database
@@ -82,6 +112,33 @@ class UserDAO{
 		         return null;
 		 		}
 		 	}
+
+      public static function ban_user($user_id){
+          $banned = false; // boolean to be used if exists in banned users
+        if(!is_null($user_id)){
+
+          $bannedUsers = self::find_all_banned_users();
+          foreach($bannedUsers as $bannedUser){
+            if($bannedUser->get_id() == $user_id){
+              $banned = true;
+            }
+          }
+          if(!$banned){
+            date_default_timezone_set('Europe/Dublin');
+           $date = date('Y-m-d H:i:s', time());
+            $query = 'INSERT INTO `banned_user` (`user_id`, `timestamp`) VALUES ('
+            .PDOAccess::prepareString($user_id) .', ' .PDOAccess::prepareString($date) .' );';
+            echo($query);
+
+             $result = PDOAccess::insertSQLquery($query);
+             if($result){
+               $banned = true;
+
+             }
+          }
+        }
+        return $banned;
+      }
 
       public static function change_password($user, $new_password){
         if(!is_null($user)){
