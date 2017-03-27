@@ -11,8 +11,8 @@
               $user = new User();
               $userDao = new UserDAO();
               $user = $userDao->getUserByID($id);
-              $uploadedTasks = TaskDAO::find_user_uploaded_tasks($user);
-              $claimedTasks = TASKDAO::find_user_claimed_tasks($user->get_id());
+              $uploadedTasks = TaskDAO::find_user_uploaded_tasks_offset($user->get_id(), 4, 0);
+              $claimedTasks = TASKDAO::find_user_claimed_tasks_offset($user->get_id(), 4, 0);
               // print_r($claimedTasks);
 
             } else {

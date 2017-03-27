@@ -140,21 +140,42 @@ public static function claim_task($user_id, $task_id){
     return $task;
   }
 
-
-
-  public static function find_user_uploaded_tasks($user){
-    $uploadedTasks = NULL;
-    if(!is_null($user)){
-      $id = $user->get_id();
-      $uploadedTasks = array();
-      $query = "SELECT * FROM task WHERE creator_id = " .$id .";";
-      $result = PDOAccess::returnSQLquery($query);
-      foreach($result as $row){
-        $uploadedTasks[] = ModelFactory::buildModel("Task", $row);
-      }
-      return $uploadedTasks;
-    }
+public static function find_no_user_uploaded_tasks($user_id){
+  $noUploadedTasks = 0;
+  if(!is_null($user_id)){
+    $uploadedTasks = array();
+    $query = "SELECT * FROM task WHERE creator_id = " .$user_id .";";
+    $noUploadedTasks = PDOAccess::returnNoColumns($query);
   }
+  return $noUploadedTasks;
+}
+
+public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset){
+  $uploadedTasks = NULL;
+  if(!is_null($user_id)){
+    $uploadedTasks = array();
+    $query = "SELECT * FROM task WHERE creator_id = " .$user_id .' ORDER BY task_id DESC LIMIT '. $offset .', ' .$limit .';';
+    $result = PDOAccess::returnSQLquery($query);
+    foreach($result as $row){
+      $uploadedTasks[] = ModelFactory::buildModel("Task", $row);
+    }
+    return $uploadedTasks;
+  }
+}
+
+  // public static function find_user_uploaded_tasks($user){
+  //   $uploadedTasks = NULL;
+  //   if(!is_null($user)){
+  //     $id = $user->get_id();
+  //     $uploadedTasks = array();
+  //     $query = "SELECT * FROM task WHERE creator_id = " .$id .";";
+  //     $result = PDOAccess::returnSQLquery($query);
+  //     foreach($result as $row){
+  //       $uploadedTasks[] = ModelFactory::buildModel("Task", $row);
+  //     }
+  //     return $uploadedTasks;
+  //   }
+  // }
 
 
   public static function find_user_claimed_tasks($user_id){
@@ -172,7 +193,29 @@ public static function claim_task($user_id, $task_id){
     return $claimedTasks;
   }
 
+  public static function find_no_claimed_tasks($user_id){
+    $noClaimedTasks = 0;
+    if(!is_null($user_id)){
+      $query = "SELECT * FROM task WHERE task_id IN
+      (SELECT task_id FROM claimed_task WHERE claimer_id = " .$user_id .");";
+      $noClaimedTasks = PDOAccess::returnNoColumns($query);
+    }
+    return $noClaimedTasks;
+  }
+
   public static function find_user_claimed_tasks_offset($user_id, $limit, $offset){
+    $claimedTasks = NULL;
+    if(!is_null($user_id)){
+
+      $claimedTasks = array();
+      $query = 'SELECT * FROM task WHERE task_id IN
+      (SELECT task_id FROM claimed_task WHERE claimer_id = ' .$user_id .') ORDER BY task_id DESC LIMIT '. $offset .', ' .$limit .';';
+      $result = PDOAccess::returnSQLquery($query);
+      foreach($result as $row){
+        $claimedTasks[] = ModelFactory::buildModel("Task", $row);
+      }
+    }
+    return $claimedTasks;
 
   }
 
