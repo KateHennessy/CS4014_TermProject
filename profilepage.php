@@ -144,7 +144,7 @@
 
                                     <?php
                                     if(count($claimedTasks) == 0) { ?>
-                                      <h5 class="col-sm-6 text-primary"> No tasks uploaded. To create one <a href="<?php echo 'detailedtask.php?id='.$task->get_id()?>"> <em>Click here </em></a></h5>
+                                      <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5>
                                     <?php }
 
                                     foreach($claimedTasks as $task){ ?>
