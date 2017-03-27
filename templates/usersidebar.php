@@ -71,6 +71,11 @@
                             <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Claimed Tasks </a> </li>
                             <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
                             <li><a href="<?php echo 'uploadtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+                            <?php
+                              if($user->get_reputation() >= '40') {
+                              echo '<li><a href="availabletasks.php"><i class="glyphicon glyphicon-flag"></i> Flagged Tasks</a> </li>';
+                            }
+                            ?>
                             <li><a href="<?php echo 'accountsettings.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
 
                         </ul>
