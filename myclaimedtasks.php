@@ -37,10 +37,36 @@
      <div class="container-fluid">
     <div class="col-xs-12 well">
 
-  <?php
+      <?php
     require_once __DIR__.'/templates/usersidebar.php';
 
-    ?>
+    $tasks = array();
+    $totalnoAvailable = TaskDAO::find_no_available_tasks($id);
+    $limit = 7;
+    $pages = ceil($totalnoAvailable / $limit);
+
+    $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+    'options' => array(
+        'default'   => 1,
+        'min_range' => 1,
+    ),
+    )));
+
+    // Calculate the offset for the query
+    $offset = ($page - 1)  * $limit;
+    // Some information to display to the user
+    $start = $offset + 1;
+    $end = min(($offset + $limit), $totalnoAvailable);
+    $prevlink = ($page > 1) ? '<li><a href="availableTasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=1" title="First page">Previous</a></li>';
+
+    $nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
+
+    // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
+
+    $tasks = TaskDAO::find_available_tasks_offset($id, $limit, $offset);
+
+
+        ?>
 
     <div class="col-md-9 profile-content">
         <div class="" id="overview">
@@ -62,7 +88,7 @@
 
                     <?php
                     if(count($claimedTasks) == 0) { ?>
-                      <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5> 
+                      <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5>
                     <?php }
 
                     foreach($claimedTasks as $task){ ?>
@@ -114,14 +140,34 @@
                                 ?>
                             </div>
                         </div>
-                    </div><?php } ?>
+                    </div>
+                  </div>
+                </div>
+
+                    <div class ="row">
+                      <div class="col-sm-6 col-md-12">
+
+                    <?php  }
+
+                    echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
+                    ' .$prevlink);
+                    for($i = 1; $i <= $pages; $i++){
+                      $class="";
+                      if($i == $page){
+                        $class= "page-item active";
+                      }
+                      echo('<li class="' .$class .'"><a href=availableTasks.php?page=' .$i .">" .$i ."</a></li>");
+                    }
+                    echo($nextlink);
+                    ?>
                     <!-- End Task1-->
+                  </div>
+                </div>
 
 
                     <!--End Claimed Tasks-->
 
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
