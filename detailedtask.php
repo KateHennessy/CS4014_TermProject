@@ -28,6 +28,7 @@
     if(isset($_POST["claimTask"])){
       // echo("<h1> IN CLAIMED TASK </h1>");
       if(TaskDAO::claim_task($user->get_id(), $task->get_id())){
+        $task = TaskDAO::find_task_by_id($task_id);
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> Task Claimed Successfully</h3>';

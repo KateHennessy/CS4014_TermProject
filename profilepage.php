@@ -152,7 +152,6 @@
 
                                       foreach($claimedTasks as $task){ ?>
 
-
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="panel panel-default">
                                             <div class="panel-heading fixed">

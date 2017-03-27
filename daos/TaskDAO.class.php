@@ -156,6 +156,7 @@ public static function claim_task($user_id, $task_id){
     }
   }
 
+
   public static function find_user_claimed_tasks($user_id){
     $claimedTasks = NULL;
     if(!is_null($user_id)){
@@ -171,6 +172,9 @@ public static function claim_task($user_id, $task_id){
     return $claimedTasks;
   }
 
+  public static function find_user_claimed_tasks_offset($user_id, $limit, $offset){
+
+  }
 
 
   public static function find_available_tasks($creator_id){

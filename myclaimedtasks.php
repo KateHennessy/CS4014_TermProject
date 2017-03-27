@@ -37,7 +37,7 @@
     require_once __DIR__."/database/DatabaseQueries.php";
     ?>
      <div class="container-fluid">
-    <div class="col-xs-12 well">
+       <div class="col-xs-12 well">
 
       <?php
     require_once __DIR__.'/templates/usersidebar.php';
@@ -70,24 +70,16 @@
 
         ?>
 
-    <div class="col-md-9 profile-content">
-        <div class="" id="overview">
-            <div class="">
-
-    <!-- <div class="col-md-9">
-        <div class="profile-content" id="overview">
-            <div class="profile-content">
-                <div class="container-fluid" style="background-color:#e8e8e8">
-                    <div class="col-xs-12"> -->
-
-                    <div class="row">
-                        <div class="col-sm-6 col-md-12">
-                            <h2> My  Claimed Tasks </h2>
-                            <p>Tasks that I have claimed</p>
-                        </div>
-                    </div>
-                    <br />
-
+      <div class="col-md-9 profile-content">
+          <div class="" id="overview">
+              <div class="row">
+                  <div class="col-sm-6 col-md-12">
+                      <h2> My  Claimed Tasks </h2>
+                      <p>Tasks that I have claimed</p>
+                  </div>
+              </div>
+                <br />
+                <div class="row">
                     <?php
                     if(count($claimedTasks) == 0) { ?>
                       <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5>
@@ -142,14 +134,13 @@
                                 ?>
                             </div>
                         </div>
-                    </div>
+                    </div> <?php } ?>
                   </div>
-                </div>
 
                     <div class ="row">
                       <div class="col-sm-6 col-md-12">
 
-                    <?php  }
+                    <?php
 
                     echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
                     ' .$prevlink);
@@ -173,6 +164,7 @@
               </div>
             </div>
           </div>
+        </div>
 
                     <!--End Claimed Tasks-->
 

@@ -157,7 +157,10 @@ $tasks = TaskDAO::find_available_tasks_offset($id, $limit, $offset);
                                         </div>
                                     </div>
 
-                                    <?php  }
+
+                                    <?php  } ?>
+                                      </div>
+                                    <?php
 
                                     echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
                                     ' .$prevlink);
