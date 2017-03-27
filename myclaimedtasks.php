@@ -1,3 +1,5 @@
+<!-- Some pagination info and code taken from this question on stack overflow http://stackoverflow.com/questions/3705318/simple-php-pagination-script -->
+
 <?php
     session_start();
     require_once __DIR__."/models/User.class.php";
