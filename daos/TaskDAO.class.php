@@ -283,16 +283,27 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
     return $noAvailableTasks;
   }
 
-  public static function find_flagged_tasks($creator_id){
-    $flaggedTasks = NULL;
-    if(!is_null($creator_id)){
-      $query = 'SELECT * FROM task JOIN flagged_task on task.task_id = flagged_task.task_id
-                WHERE flagger_id != '. $creator_id .';';
-        //  echo($query);
+
+  public static function find_no_flagged_tasks(){
+    $flaggedTasks = 0;
+      $query = 'SELECT * FROM task WHERE task_id IN
+      (SELECT task_id FROM flagged_task);';
+
       $flaggedTasks = PDOAccess::returnNoColumns($query);
-    }
-    return $flaggedTasks;
+      return $flaggedTasks;
   }
+
+public static function find_flagged_tasks_offset($limit, $offset){
+  $flaggedTasks = array();
+  $query = 'SELECT * FROM task WHERE task_id IN
+  (SELECT task_id FROM flagged_task) LIMIT ' .$offset .',' .$limit .';';
+
+  $result = PDOAccess::returnSQLquery($query);
+  foreach($result as $row){
+    $flaggedTasks[] = ModelFactory::buildModel("Task", $row);
+  }
+  return $flaggedTasks;
+}
 
 
 

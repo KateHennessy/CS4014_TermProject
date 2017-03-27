@@ -11,14 +11,33 @@
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $id = $_SESSION["user_id"];
               $user = new User();
-              $userDao = new UserDAO();
-              $user = $userDao->getUserByID($id);
-              $uploadedTasks = TaskDAO::find_user_uploaded_tasks($user);
-              $claimedTasks = TASKDAO::find_user_claimed_tasks($user->get_id());
-              // print_r($uploadedTasks);
+              $user = UserDAO::getUserByID($id);
+
+              $totalnoAvailable = TaskDAO::find_no_claimed_tasks($id);
+
+
+              $limit = 6;
+              $pages = ceil($totalnoAvailable / $limit);
+
+              $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+              'options' => array(
+                  'default'   => 1,
+                  'min_range' => 1,
+              ),
+              )));
+
+              // Calculate the offset for the query
+              $offset = ($page - 1)  * $limit;
+              // Some information to display to the user
+              $start = $offset + 1;
+              $end = min(($offset + $limit), $totalnoAvailable);
+              $prevlink = ($page > 1) ? '<li><a href="myclaimedytasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="myclaimedtasks.php?page=1" title="First page">Previous</a></li>';
+              $nextlink = ($page < $pages) ? '<li><a href="myclaimedtasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="myclaimedtasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
+
+              $claimedTasks = TaskDAO::find_user_claimed_tasks_offset($id, $limit, $offset);
+
 
             } else {
-              // echo("In else " .$_SESSION["user_id"]);
                 header("location:./register.php");
             }
 		  ?>
@@ -42,30 +61,7 @@
       <?php
     require_once __DIR__.'/templates/usersidebar.php';
 
-    $tasks = array();
-    $totalnoAvailable = TaskDAO::find_no_available_tasks($id);
-    $limit = 7;
-    $pages = ceil($totalnoAvailable / $limit);
 
-    $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
-    'options' => array(
-        'default'   => 1,
-        'min_range' => 1,
-    ),
-    )));
-
-    // Calculate the offset for the query
-    $offset = ($page - 1)  * $limit;
-    // Some information to display to the user
-    $start = $offset + 1;
-    $end = min(($offset + $limit), $totalnoAvailable);
-    $prevlink = ($page > 1) ? '<li><a href="availableTasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=1" title="First page">Previous</a></li>';
-
-    $nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
-
-    // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
-
-    $tasks = TaskDAO::find_available_tasks_offset($id, $limit, $offset);
 
 
         ?>
@@ -161,7 +157,7 @@
                       if($i == $page){
                         $class= "page-item active";
                       }
-                      echo('<li class="' .$class .'"><a href=availableTasks.php?page=' .$i .">" .$i ."</a></li>");
+                      echo('<li class="' .$class .'"><a href=myclaimedtasks.php?page=' .$i .">" .$i ."</a></li>");
                     }
                     echo($nextlink);
                     ?>

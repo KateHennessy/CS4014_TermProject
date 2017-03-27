@@ -31,7 +31,7 @@
     require_once __DIR__.'/templates/usersidebar.php';
 
     $tasks = array();
-    $totalnoAvailable = TaskDAO::find_flagged_tasks($id);
+    $totalnoAvailable = TaskDAO::find_no_flagged_tasks();
     $limit = 7;
     $pages = ceil($totalnoAvailable / $limit);
 
@@ -53,7 +53,7 @@
 
  // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
 
-    $tasks = TaskDAO::find_available_tasks_offset($id, $limit, $offset);
+    $tasks = TaskDAO::find_flagged_tasks_offset($limit, $offset);
 
 
 
@@ -115,7 +115,7 @@
                                   if($i == $page){
                                     $class= "page-item active";
                                   }
-                                  echo('<li class="' .$class .'"><a href=availableTasks.php?page=' .$i .">" .$i ."</a></li>");
+                                  echo('<li class="' .$class .'"><a href=flaggedtasks.php?page=' .$i .">" .$i ."</a></li>");
                                 }
                                 echo($nextlink);
                                 ?>
