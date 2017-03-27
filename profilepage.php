@@ -142,6 +142,7 @@
                                     </div>
                                     <br />
 
+
                                     <div class="row">
 
                                       <?php
@@ -150,7 +151,6 @@
                                       <?php }
 
                                       foreach($claimedTasks as $task){ ?>
-
 
 
                                     <div class="col-sm-6 col-lg-4">
