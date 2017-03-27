@@ -85,7 +85,7 @@
                       <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5>
                     <?php }
 
-                    foreach($uploadedTasks as $task){ ?>
+                    foreach($claimedTasks as $task){ ?>
 
 
 
