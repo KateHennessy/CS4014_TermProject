@@ -92,18 +92,18 @@ class UserDAO{
         }
       }
 
-      public static function generate_sidebar($user){
-        $user = null;
-        if(!is_null($user)){
-          $query = 'SELECT `reputation` FROM user WHERE user_id='.$user_id .';';
-          $result = PDOAccess::returnSQLquery($query);
-          if ($result) {
-            $row = $result -> fetch(PDO::FETCH_ASSOC);
-            $user = $row['reputation'];
-          }
-        }
-        return $user;
-      }
+      // public static function generate_sidebar($user){
+      //   $user = null;
+      //   if(!is_null($user)){
+      //     $query = 'SELECT `reputation` FROM user WHERE user_id='.$user_id .';';
+      //     $result = PDOAccess::returnSQLquery($query);
+      //     if ($result) {
+      //       $row = $result -> fetch(PDO::FETCH_ASSOC);
+      //       $user = $row['reputation'];
+      //     }
+      //   }
+      //   return $user;
+      // }
 
 
     public static function logout() {

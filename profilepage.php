@@ -13,7 +13,7 @@
               $user = $userDao->getUserByID($id);
               $uploadedTasks = TaskDAO::find_user_uploaded_tasks($user);
               // print_r($uploadedTasks);
-              // echo("ID: " .$id);
+
             } else {
               // echo("In else " .$_SESSION["user_id"]);
                 header("location:./register.php");
@@ -36,8 +36,8 @@
     <div class="col-xs-12 well">
 
   <?php
-    $user = UserDAO::generate_sidebar($id);
-    if($user >= '40') {
+
+    if($user->get_reputation() >= '40') {
     require_once __DIR__.'/templates/moderatorsidebar.php';
     }else{
     require_once __DIR__.'/templates/usersidebar.php';
@@ -310,7 +310,6 @@
                                                       <?php
                                                       foreach($user->get_tags() as $atag){
                                                         echo('
-
                                                           <label class="info">'.$atag->get_name() .'<br />
                                                             </label>');
                                                       }
