@@ -1,24 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <title>ReviUL-Upload Task
- </title>
- <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
-
-<?php session_start();
+<?php
+session_start();
+    require_once __DIR__."/models/User.class.php";
+    require_once __DIR__ . '/models/Tag.class.php';
+    require_once __DIR__. '/scripts/phpvalidation.php';
+    require_once __DIR__."/daos/UserDAO.class.php";
 $feedback = "";
 
 if (isset($_SESSION[ "user_id"]) &&
 $_SESSION[ "user_id"] !='' ){
    $id = $_SESSION[ "user_id"];
+   $user = new User();
+   $user = UserDAO::getUserByID($id);
 
   ?>
-
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+   <title>ReviUL-Upload Task
+   </title>
+   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
 
 
    <?php
-    require_once __DIR__ . '/templates/loggedinuser.php'; require_once __DIR__ . '/models/User.class.php';
-   require_once __DIR__ . '/models/Tag.class.php';
+    require_once __DIR__ . '/templates/loggedinuser.php';
+
    ?>
    <!-- CONTAINER START -->
     <div class="container-fluid">
@@ -26,7 +31,6 @@ $_SESSION[ "user_id"] !='' ){
 
          <?php
    require_once __DIR__. '/templates/usersidebar.php';
-   require_once __DIR__. '/scripts/phpvalidation.php';
 
    $uploadFormOK = true;
    if(isset($_POST["uploadsubmit"])) {

@@ -1,8 +1,14 @@
 <?php
     session_start();
+    require_once __DIR__."/models/User.class.php";
+    require_once __DIR__ . '/models/Tag.class.php';
+    require_once __DIR__. '/scripts/phpvalidation.php';
+    require_once __DIR__."/daos/UserDAO.class.php";
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
+      $user = new User();
+      $user = UserDAO::getUserByID($id);
       // echo("ID: " .$id);
     } else {
       // echo("In else " .$_SESSION["user_id"]);
