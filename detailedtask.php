@@ -37,7 +37,7 @@
       }
 
     }else{
-      echo("NOT IN CLAIMED TASK");
+      //echo("NOT IN CLAIMED TASK");
     }
 ?>
 

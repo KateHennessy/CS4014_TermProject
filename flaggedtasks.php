@@ -31,7 +31,7 @@
     require_once __DIR__.'/templates/usersidebar.php';
 
     $tasks = array();
-    $totalnoAvailable = TaskDAO::find_no_available_tasks($id);
+    $totalnoAvailable = TaskDAO::find_flagged_tasks($id);
     $limit = 7;
     $pages = ceil($totalnoAvailable / $limit);
 

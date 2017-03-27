@@ -240,6 +240,17 @@ public static function claim_task($user_id, $task_id){
     return $noAvailableTasks;
   }
 
+  public static function find_flagged_tasks($creator_id){
+    $flaggedTasks = NULL;
+    if(!is_null($creator_id)){
+      $query = 'SELECT * FROM task JOIN flagged_task on task.task_id = flagged_task.task_id
+                WHERE flagger_id != '. $creator_id .';';
+        //  echo($query);
+      $flaggedTasks = PDOAccess::returnNoColumns($query);
+    }
+    return $flaggedTasks;
+  }
+
 
 
 
