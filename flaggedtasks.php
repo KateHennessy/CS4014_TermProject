@@ -47,9 +47,9 @@
    // Some information to display to the user
  $start = $offset + 1;
  $end = min(($offset + $limit), $totalnoAvailable);
- $prevlink = ($page > 1) ? '<li><a href="availableTasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=1" title="First page">Previous</a></li>';
+ $prevlink = ($page > 1) ? '<li><a href="flaggedtasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="flaggedtasks.php?page=1" title="First page">Previous</a></li>';
 
-$nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
+ $nextlink = ($page < $pages) ? '<li><a href="flaggedtasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="flaggedtasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
 
  // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
 
@@ -64,8 +64,8 @@ $nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page 
                           <div class="row">
                               <div class="col-xs-12">
                                   <h2>Flagged Tasks</h2>
-                                  <p>These tasks were flagged by other users as inappropriate. Please review these flagged tasks
-                                  and either ban the user or "de-flag" the task.</a></p>
+                                  <p>These tasks were flagged by other users as inappropriate. Please review these flagged tasks.
+                                    You can then ban the user or "de-flag" the task.</a></p>
                               </div>
                           </div>
                           <br />
