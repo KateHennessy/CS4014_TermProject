@@ -148,9 +148,12 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
     $uploadedTasks = array();
     $query = "SELECT * FROM task WHERE creator_id = " .$user_id .' ORDER BY task_id DESC LIMIT '. $offset .', ' .$limit .';';
     $result = PDOAccess::returnSQLquery($query);
-    foreach($result as $row){
-      $uploadedTasks[] = ModelFactory::buildModel("Task", $row);
-    }
+	if($result){
+		foreach($result as $row){
+			$uploadedTasks[] = ModelFactory::buildModel("Task", $row);
+		}
+	}
+    
     return $uploadedTasks;
   }
 }
@@ -203,9 +206,11 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
       $query = 'SELECT * FROM task WHERE task_id IN
       (SELECT task_id FROM claimed_task WHERE claimer_id = ' .$user_id .') ORDER BY task_id DESC LIMIT '. $offset .', ' .$limit .';';
       $result = PDOAccess::returnSQLquery($query);
-      foreach($result as $row){
-        $claimedTasks[] = ModelFactory::buildModel("Task", $row);
-      }
+	  if($result){
+		  foreach($result as $row){
+			$claimedTasks[] = ModelFactory::buildModel("Task", $row);
+		  }
+		}
     }
     return $claimedTasks;
 
@@ -252,9 +257,12 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
       ;
         //  echo($query);
       $result = PDOAccess::returnSQLquery($query);
-      foreach($result as $row){
-        $availableTasks[] = ModelFactory::buildModel("Task", $row);
-      }
+	  if($result){
+		foreach($result as $row){
+			$availableTasks[] = ModelFactory::buildModel("Task", $row);
+		}
+	  }
+      
     }
     return $availableTasks;
   }
@@ -308,9 +316,11 @@ public static function find_flagged_tasks_offset($limit, $offset){
   (SELECT task_id FROM flagged_task) LIMIT ' .$offset .',' .$limit .';';
 
   $result = PDOAccess::returnSQLquery($query);
-  foreach($result as $row){
-    $flaggedTasks[] = ModelFactory::buildModel("Task", $row);
-  }
+  if($result){
+	  foreach($result as $row){
+		$flaggedTasks[] = ModelFactory::buildModel("Task", $row);
+	  }
+	}
   return $flaggedTasks;
 }
 
