@@ -34,7 +34,7 @@
 
     $tasks = array();
     $totalnoAvailable = TaskDAO::find_no_available_tasks($id);
-    $limit = 7;
+    $limit = 3;
     $pages = ceil($totalnoAvailable / $limit);
 
     $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
@@ -49,13 +49,13 @@
    // Some information to display to the user
  $start = $offset + 1;
  $end = min(($offset + $limit), $totalnoAvailable);
- $prevlink = ($page > 1) ? '<li><a href="availableTasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=1" title="First page">Previous</a></li>';
+ $prevlink = ($page > 1) ? '<li><a href="availabletasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availabletasks.php?page=1" title="First page">Previous</a></li>';
 
-$nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="availableTasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
+$nextlink = ($page < $pages) ? '<li><a href="availabletasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="availabletasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';
 
  // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
 
-    $tasks = TaskDAO::find_available_tasks_offset($id, $limit, $offset);
+    $tasks = TaskDAO::find_available_tasks_offset($user, $limit, $offset);
 
 
 
@@ -117,7 +117,7 @@ $nextlink = ($page < $pages) ? '<li><a href="availableTasks.php?page=' . ($page 
                                   if($i == $page){
                                     $class= "page-item active";
                                   }
-                                  echo('<li class="' .$class .'"><a href=availableTasks.php?page=' .$i .">" .$i ."</a></li>");
+                                  echo('<li class="' .$class .'"><a href=availabletasks.php?page=' .$i .">" .$i ."</a></li>");
                                 }
                                 echo($nextlink);
                                 ?>

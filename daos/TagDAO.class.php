@@ -22,12 +22,12 @@ class TagDAO {
     public static function getUserTags($user_id) {
         $tags = array();
         if (!is_null($user_id)) {
-            $query = "SELECT tag.tag_id, tag_name FROM user_tag NATURAL JOIN tag WHERE user_tag.user_id =" .$user_id .";";
+            $query = "SELECT tag.tag_id, tag_name, clicks FROM user_tag NATURAL JOIN tag WHERE user_tag.user_id =" .$user_id .";";
             $result = PDOAccess::returnSQLquery($query);
 
             if ($result) {
               foreach($result as $row){
-                $tags[] = ModelFactory::buildModel("Tag",$row);
+                $tags[] = ModelFactory::buildModel("UserTag",$row);
               }
             }
         }
