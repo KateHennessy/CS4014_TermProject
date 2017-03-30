@@ -247,20 +247,18 @@
                         } //END OF CLAIMER IS NULL
 
                 else if($task->get_claimer_id() == $user->get_id()){  //CURRENT VIEWER IS THE CLAIMER OF THE TASK
-                  echo '<div class="panel-footer">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Change Task Status
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Completed</a>
-                      <a class="dropdown-item" href="#">Cancelled</a>
 
+                  echo '<div class="panel-footer">
+                  <form method="post">
+                  <div class="row">
+                    <div class="col-sm-12 pull-left">
+                      <button  type="submit" name="taskComplete" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-check"></i>Mark Task as Complete</button>
+                      <button  type="submit" name="taskCancelled" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i> Mark Task as Cancelled</button>
+                      </div>
                     </div>
-                  </div>
-                            <br/><br>
-                          </div>
-                    ';
+                  </form>
+
+                        </div>';
                 }
 
 
@@ -288,7 +286,8 @@
                         <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
                           <p class="small text-center"> This task is not available. Please find another task.</p>
                         </div>
-                      </div></div></div>
+                      </div>
+                    </div></div>
                         <?php } ?>
                       </div>
 

@@ -36,7 +36,7 @@ class UserDAO{
       $query = "SELECT * FROM user WHERE user_id  IN
       (SELECT user_id FROM banned_users);";
       $result = PDOAccess::returnSQLquery($query);
-      if ($result) {
+      if ($result->fetchColumn()) {
         foreach($result as $row){
           $user = ModelFactory::buildModel("User", $row);
         }
@@ -52,11 +52,12 @@ class UserDAO{
       (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .');';
       $result = PDOAccess::returnSQLquery($query);
 
-      if($result){
+      if($result->fetchColumn()){
         return true;
-      }else{
 
+      }else{
         return false;
+
       }
     }
 
