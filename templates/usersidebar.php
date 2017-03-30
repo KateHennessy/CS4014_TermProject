@@ -9,16 +9,11 @@
                     <div class="profile-usertitle">
 
                       <!--Output User Name -->
+                      <label class="text-muted"><?php echo $user->get_first_name() ?>
+                      <?php echo $user->get_last_name() ?> </label>
+                      <br />
                       <?php
-                      $dbquery = new DatabaseQueries();
-                      $result = $dbquery -> returnSQLquery ("SELECT f_name, l_name FROM user WHERE user_id = '".$id ."'");
-                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                      echo("<label class=\"text-muted\">" .$row ['f_name']." ".$row ['l_name']."</label><br/>");
-
-                      $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
-                      $result -> execute();
-                      $row = $result -> fetch(PDO::FETCH_ASSOC);
-                        if($row['reputation'] >= 40) {
+                      if($user->get_reputation() >= '40') {
                           echo("<label class=\"text-muted\">Moderator</label>");
                         } else {
                           echo("<label class=\"text-muted\">General User</label>");
@@ -35,12 +30,10 @@
                         <label class="text-muted"><i class="glyphicon glyphicon-star"></i><!--<var>21</var> Reputation Score</label> -->
 
                         <!--PHP to bring reputation score from database -->
-                        <?php
-                        $dbquery = new DatabaseQueries();
-                        $result = $dbquery -> returnSQLquery ("SELECT reputation FROM user WHERE user_id = '".$id ."'");
-                        $row = $result -> fetch(PDO::FETCH_ASSOC);
-                        echo $row ['reputation']." Reputation Score"."<br/>";
-                        ?>
+
+                        <label class="text-muted"><?php echo $user->get_reputation() ?> Reputation Score </label>
+
+
 
                     </div>
 
@@ -52,12 +45,7 @@
                     <div class="text text-center">
                         <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <!-- <var>4</var> Total Number of Tasks Uploaded</label> -->
                         <!--php for counting number of tasks the user has uploaded -->
-                        <?php
-                        $dbquery = new DatabaseQueries();
-                        $result = $dbquery -> returnSQLquery ("SELECT count(task_id) FROM user JOIN task on user.user_id = task.creator_id WHERE user_id = '".$id ."'");
-                        $row = $result -> fetch(PDO::FETCH_ASSOC);
-                        echo $row ['count(task_id)']." Tasks Uploaded"."<br/>";
-                        ?>
+                        <label class="text-muted"><?php echo $count_tasks ?> Tasks Uploaded </label>
                     </div>
 
 

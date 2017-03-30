@@ -41,6 +41,8 @@
               // echo("In else " .$_SESSION["user_id"]);
                 header("location:./register.php");
             }
+
+              $count_tasks = TaskDAO::count_tasks($user->get_id());
 		  ?>
 
 <!DOCTYPE html>
@@ -175,7 +177,7 @@ require_once __DIR__.'/templates/usersidebar.php';
                                     }
                                     echo($nextlink);
 									}
-                                    
+
                                     ?>
 
                                   </div>

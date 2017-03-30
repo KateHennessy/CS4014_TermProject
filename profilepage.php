@@ -9,10 +9,10 @@
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $id = $_SESSION["user_id"];
               $user = new User();
-              $userDao = new UserDAO();
-              $user = $userDao->getUserByID($id);
+              $user = UserDAO::getUserByID($id);
               $uploadedTasks = TaskDAO::find_user_uploaded_tasks_offset($user->get_id(), 4, 0);
               $claimedTasks = TASKDAO::find_user_claimed_tasks_offset($user->get_id(), 4, 0);
+              $count_tasks = TaskDAO::count_tasks($user->get_id());
               // print_r($claimedTasks);
 
             } else {

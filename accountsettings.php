@@ -26,6 +26,9 @@ require_once __DIR__.'/templates/loggedinuser.php';
 require_once __DIR__.'/models/User.class.php';
 require_once __DIR__."/utils/Settings.class.php";
 require_once __DIR__."/database/DatabaseQueries.php";
+require_once __DIR__."/daos/TaskDAO.class.php";
+
+$count_tasks = TaskDAO::count_tasks($user->get_id());
 ?>
  <div class="container-fluid">
 <div class="col-xs-12 well">
