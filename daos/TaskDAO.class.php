@@ -153,7 +153,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
 			$uploadedTasks[] = ModelFactory::buildModel("Task", $row);
 		}
 	}
-    
+
     return $uploadedTasks;
   }
 }
@@ -262,7 +262,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
 			$availableTasks[] = ModelFactory::buildModel("Task", $row);
 		}
 	  }
-      
+
     }
     return $availableTasks;
   }
@@ -351,6 +351,20 @@ public static function deflag_task($task_id){
   }
   return $deflagged;
 }
+
+public static function count_tasks($creator_id){
+  $count_tasks = NULL;
+  if(!is_null($creator_id)){
+        $query = 'SELECT * FROM  task  WHERE creator_id = ' .PDOAccess::prepareString($creator_id) .';';
+        $result = PDOAccess::returnNoRows($query);
+
+        $count_tasks = $result;
+      }
+
+  return $count_tasks;
+}
+
+
 
 
 }
