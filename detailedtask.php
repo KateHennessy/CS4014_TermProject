@@ -126,58 +126,104 @@
                               </div>
                               <br />
                               <div class="panel-body">
-                                  <table class="table table-user-information">
-                                      <tbody>
-                                          <tr>
-                                              <td>Task Type:</td>
-                                              <td><?php echo $task->get_type(); ?> </td>
-                                          </tr>
-                                          <tr>
-                                              <td>Brief Description:</td>
-                                              <td><?php echo $task->get_description(); ?></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Tags:</td>
-                                              <td><?php foreach($task->get_tags() as $aTag){
-                                                echo '<span class="label label-primary">'.$aTag->get_name() .'</span> ';
-                                              }  ?></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Claim by Date:</td>
+                                  <!-- <table class="table table-user-information"> -->
+                                      <!-- <tbody> -->
+                                      <div class = "row">
+                                          <div class="form-group">
+                                            <label class="col-md-3 control-label" for="Task Type">Task Type: </label>
+                                              <div class="col-md-9">
+                                                  <div><?php echo $task->get_type(); ?> </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <hr />
 
-                                              <td><?php echo $task->get_claim_deadline()->format('D d/m/y'); ?></td>
+                                        <div class = "row">
+                                          <div class="form-group">
+                                                <label class="col-md-3 control-label">Brief Description Of The Task:</label>
+                                                  <div class="col-md-9">
+                                                    <div><?php echo $task->get_description(); ?></div>
+                                                  </div>
+                                          </div>
+                                        </div>
+                                        <hr />
 
-                                          </tr>
-                                          <tr>
-                                              <td>Due Date:</td>
-                                              <td><?php echo $task->get_completion_deadline()->format('D d/m/y'); ?></td>
+                                        <div class = "row">
+                                          <div class="form-group">
+                                              <label class="col-md-3 control-label">Tags: </label>
+                                              <div class="col-md-9">
+                                              <div><?php foreach($task->get_tags() as $aTag){
+                                                echo '<h4><span class="label label-primary">'.$aTag->get_name() .'</span></h4> ';
+                                              }  ?></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <hr />
 
-                                          </tr>
+                                        <div class = "row">
+                                          <div class="form-group">
+                                              <label class="col-md-3 control-label">Claim By Date: </label>
+                                              <div class="col-md-9">
+                                              <div><?php echo $task->get_claim_deadline()->format('D d/m/y'); ?></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <hr />
 
-                                          <tr>
-                                              <tr>
-                                                  <td>Number of Pages:</td>
-                                                  <td><?php echo $task->get_no_pages(); ?></td>
-                                              </tr>
-                                              <tr>
-                                                  <td>Number of Words:</td>
-                                                  <td><?php echo $task->get_no_words(); ?></td>
-                                              </tr>
-                                              <tr>
-                                                  <td>Document Type:</td>
-                                                  <td><?php echo $task->get_format(); ?></td>
-                                              </tr>
-                                              <tr>
+                                        <div class = "row">
+                                          <div class="form-group">
+                                            <label class="col-md-3 control-label">Due Date: </label>
+                                                <div class="col-md-9">
+                                                  <div><?php echo $task->get_completion_deadline()->format('D d/m/y'); ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class = "row">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Number of Pages: </label>
+                                                  <div class="col-md-9">
+                                                    <div><?php echo $task->get_no_pages(); ?></div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            <hr />
+
+                                              <div class = "row">
+                                              <div class="form-group">
+                                                  <label class="col-md-3 control-label">Number of Words: </label>
+                                                  <div class="col-md-9">
+                                                    <div><?php echo $task->get_no_words(); ?></div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            <hr />
+
+                                            <div class = "row">
+                                              <div class="form-group">
+                                                  <label class="col-md-3 control-label">Document Type: </label>
+                                                    <div class="col-md-9">
+                                                      <div><?php echo $task->get_format(); ?></div>
+                                                    </div>
+                                              </div>
+                                            </div>
+                                            <hr />
+
+                                            <div class = "row">
+                                              <div class="form-group">
                                                 <form method="post">
-                                                  <td>Preview</td>
+                                                  <label class="col-md-3 control-label">Preview: </label>
+                                                    <div class="col-md-9">
+                                                      <div><button name="download" class="btn btn-primary"> Click Here For Preview</button></div>
+                                                    </div>
+                                                  </form>
+                                              </div>
+                                          </div>
 
-                                                  <td><button name="download" class="btn btn-primary"> Click Here For Preview</button></td>
-                                                </form>
-                                              </tr>
-                                          </tr>
-
+<!--
                                       </tbody>
-                                  </table>
+                                  </table> -->
 
                               </div>
 
