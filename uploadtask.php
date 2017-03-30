@@ -6,6 +6,8 @@ session_start();
     require_once __DIR__."/daos/UserDAO.class.php";
 $feedback = "";
 
+
+
 if (isset($_SESSION[ "user_id"]) &&
 $_SESSION[ "user_id"] !='' ){
    $id = $_SESSION[ "user_id"];
@@ -23,7 +25,9 @@ $_SESSION[ "user_id"] !='' ){
 
    <?php
     require_once __DIR__ . '/templates/loggedinuser.php';
+    require_once __DIR__."/daos/TaskDAO.class.php";
 
+    $count_tasks = TaskDAO::count_tasks($user->get_id());
    ?>
    <!-- CONTAINER START -->
     <div class="container-fluid">

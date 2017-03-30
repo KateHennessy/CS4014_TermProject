@@ -14,6 +14,7 @@
               $user = UserDAO::getUserByID($id);
 
               $totalnoAvailable = TaskDAO::find_no_claimed_tasks($id);
+              $count_tasks = TaskDAO::count_tasks($user->get_id());
 
 
               $limit = 6;
