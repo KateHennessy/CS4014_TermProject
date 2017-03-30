@@ -64,19 +64,19 @@
 
 
                     <!-- SIDEBAR MENU -->
-                    <div class="profile-usermenu">
+                    <div class="profile-usermenu" id="profile">
                         <ul class="nav">
-                            <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
-                            <li><a href="<?php echo 'mytasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Tasks </a> </li>
-                            <li><a href="<?php echo 'myclaimedtasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Claimed Tasks </a> </li>
-                            <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
-                            <li><a href="<?php echo 'uploadtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
+                            <li id="profile_overview"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+                            <li id="my_tasks"><a href="<?php echo 'mytasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Tasks </a> </li>
+                            <li id="my_claimed_tasks"><a href="<?php echo 'myclaimedtasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Claimed Tasks </a> </li>
+                            <li id="available_tasks"><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
+                            <li id="upload_task"><a href="<?php echo 'uploadtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li>
                             <?php
                               if($user->get_reputation() >= '40') {
-                              echo '<li><a href="flaggedtasks.php"><i class="glyphicon glyphicon-flag"></i> Flagged Tasks</a> </li>';
+                              echo '<li id="flagged_tasks"><a href="flaggedtasks.php"><i class="glyphicon glyphicon-flag"></i> Flagged Tasks</a> </li>';
                             }
                             ?>
-                            <li><a href="<?php echo 'accountsettings.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
+                            <li  id="accountsettings"><a href="<?php echo 'accountsettings.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li>
 
                         </ul>
                     </div>
@@ -84,3 +84,67 @@
 
                 </div>
             </div>
+
+            <script>
+            $(document).ready(function(){
+
+
+            // document.getElementById("profile").innerHTML = window.location.pathname;
+            //  var pathname = window.location.pathname;
+            var pathname = document.location.href.match(/[^\/]+$/)[0];
+              switch(pathname){
+                case "profilepage.php":
+                id = $('#profile_overview');
+                break;
+                case "mytasks.php":
+                id = $('#my_tasks');
+                break;
+                case "myclaimedtasks.php":
+                id = $('#my_claimed_tasks');
+                break;
+                case "availabletasks.php":
+                id = $('#available_tasks');
+                break;
+                case "uploadtask.php":
+                id = $('#upload_task');
+                break;
+                case "flaggedtasks.php":
+                id = $('#flagged_tasks');
+                break;
+                case "accountsettings.php":
+                id = $('#accountsettings');
+                break;
+
+
+
+
+              }
+               id.addClass("active");
+                // switch(pathname) {
+                //   case "profilepage.php" :
+                //         return "help";
+                //        return <li class = "active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li> ;
+                //        break;
+                //   case "/mytasks.php" :
+                //        return <li class = "active"><a href="<?php echo 'mytasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Tasks </a> </li> ;
+                //        break;
+                //   case "/myclaimedtasks.php" :
+                //        return <li class = "active"><a href="<?php echo 'myclaimedtasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Claimed Tasks </a> </li> ;
+                //        break;
+                //   case "/availabletasks.php" :
+                //        return <li class "active"><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li> ;
+                //        break;
+                //   case "/uploadtask.php" :
+                //        return <li class = "active"><a href="<?php echo 'uploadtask.php'; ?>"><i class="glyphicon glyphicon-share"></i> Upload a Task</a> </li> ;
+                //        break;
+                //   case "/flaggedtasks.php" :
+                //        return <li class = "active"><a href="flaggedtasks.php"><i class="glyphicon glyphicon-flag"></i> Flagged Tasks</a> </li> ;
+                //        break;
+                //   case "/accountsettings.php" :
+                //        return <li class = "active"><a href="<?php echo 'accountsettings.php'; ?>"><i class="glyphicon glyphicon-user"></i> Account Settings </a></li> ;
+                //        break;
+                // }
+              });
+
+
+            </script>

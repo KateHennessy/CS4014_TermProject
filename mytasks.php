@@ -27,6 +27,7 @@
               $offset = ($page - 1)  * $limit;
               // Some information to display to the user
               $start = $offset + 1;
+			  if($start < 0){ $start = 0;}
               $end = min(($offset + $limit), $totalnoAvailable);
               $prevlink = ($page > 1) ? '<li><a href="mytasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="mytasks.php?page=1" title="First page">Previous</a></li>';
 
@@ -162,8 +163,8 @@ require_once __DIR__.'/templates/usersidebar.php';
                                     <?php  } ?>
                                       </div>
                                     <?php
-
-                                    echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
+									if($pages > 0){
+										echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
                                     ' .$prevlink);
                                     for($i = 1; $i <= $pages; $i++){
                                       $class="";
@@ -173,6 +174,8 @@ require_once __DIR__.'/templates/usersidebar.php';
                                       echo('<li class="' .$class .'"><a href=mytasks.php?page=' .$i .">" .$i ."</a></li>");
                                     }
                                     echo($nextlink);
+									}
+                                    
                                     ?>
 
                                   </div>
