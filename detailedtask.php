@@ -153,7 +153,7 @@
                                               <label class="col-md-3 control-label">Tags: </label>
                                               <div class="col-md-9">
                                               <div><?php foreach($task->get_tags() as $aTag){
-                                                echo '<span class="label label-primary">'.$aTag->get_name() .'</span> ';
+                                                echo '<h4><span class="label label-primary">'.$aTag->get_name() .'</span></h4> ';
                                               }  ?></div>
                                             </div>
                                           </div>
