@@ -57,7 +57,7 @@
 
 
                             <div>
-                              <img class="img-circle img-responsive" src="images/help.jpg" alt="">
+                              <img class="img-circle img-responsive" src="images/orla_b.jpg" alt="">
                             </div>
                             <div>
                               <div>
