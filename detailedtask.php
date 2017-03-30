@@ -19,6 +19,13 @@
         $task_id = $_GET["id"];
       $task = new Task();
       $task = TaskDAO::find_task_by_id($task_id);
+      foreach($task->get_tags() as $taskTag){
+        foreach($user->get_tags() as $userTag){
+          if($taskTag->get_id() == $userTag->get_id()){
+             TagDAO::incrementUserTag($userTag, $user->get_id());
+          }
+        }
+      }
       $count_tasks = TaskDAO::count_tasks($user->get_id());
       }
       // echo("ID: " .$id);

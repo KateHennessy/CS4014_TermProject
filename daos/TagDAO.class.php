@@ -34,6 +34,7 @@ class TagDAO {
         return $tags;
     }
 
+
     public static function getTaskTags($task_id) {
         $tags = array();
         if (!is_null($task_id)) {
@@ -66,6 +67,17 @@ class TagDAO {
        .PDOAccess::prepareString($task_id) .", " .PDOAccess::prepareString($tag_id) .");";
       //  echo($query);
        return PDOAccess::insertSQLquery($query);
+
+    }
+
+    public static function incrementUserTag(&$tag, $user_id){
+      if(!is_null($tag) && !is_null($user_id)){
+        $tag->set_clicks($tag->get_clicks() + 1);
+        $query = 'UPDATE `user_tag` SET `clicks` = ' .$tag->get_clicks() .' WHERE `user_tag`.`user_id` = '.$user_id .' AND `user_tag`.`tag_id` = '. $tag->get_id() .';';
+        return PDOAccess::insertSQLquery($query);
+    }else{
+      return false;
+    }
 
     }
 
