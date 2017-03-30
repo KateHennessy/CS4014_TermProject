@@ -6,6 +6,7 @@
     require_once __DIR__.'/models/Task.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
     require_once __DIR__.'/daos/TaskDAO.class.php';
+
       $feedback = "";
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
@@ -37,6 +38,24 @@
       }
 
     }
+    if(isset($_POST["download"])){
+      $absolutePath = $task->get_storage_address();
+      $pathParts = pathinfo($absolutePath);
+      $fileName = $pathParts['basename'];
+      $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+      $fileType = finfo_file($fileInfo, $absolutePath);
+      finfo_close($fileInfo);
+      $fileSize = filesize($absolutePath);
+      header('Content-Length: ' .$fileSize);
+      header('Content-Type: ' .$fileType);
+      header('Content-Disposition: attachment;filename=' .$fileName);
+      ob_clean();
+      flush();
+      readfile($absolutePath);
+      exit;
+
+  }
+
     if(isset($_POST["flagTask"])){
       if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
         $feedback = '<h3 class="alert alert-success alert-dismissable">
@@ -148,8 +167,11 @@
                                                   <td><?php echo $task->get_format(); ?></td>
                                               </tr>
                                               <tr>
+                                                <form method="post">
                                                   <td>Preview</td>
-                                                  <td><a href="">Click Here For Preview</a></td>
+
+                                                  <td><button name="download" class="btn btn-primary"> Click Here For Preview</button></td>
+                                                </form>
                                               </tr>
                                           </tr>
 
