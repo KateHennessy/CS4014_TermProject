@@ -64,9 +64,9 @@
 
 
                     <!-- SIDEBAR MENU -->
-                    <div class="profile-usermenu">
+                    <div class="profile-usermenu" id="profile">
                         <ul class="nav">
-                            <li class="active"><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
+                            <li><a href="<?php echo 'profilepage.php'; ?>"><i class="glyphicon glyphicon-home"></i> Overview </a></li>
                             <li><a href="<?php echo 'mytasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Tasks </a> </li>
                             <li><a href="<?php echo 'myclaimedtasks.php'; ?>"><i class="glyphicon glyphicon-tasks"></i>My Claimed Tasks </a> </li>
                             <li><a href="<?php echo 'availabletasks.php'; ?>"><i class="glyphicon glyphicon-search"></i>Available Tasks </a> </li>
@@ -84,3 +84,25 @@
 
                 </div>
             </div>
+
+            <script>
+            function activeSideBar (element) {
+            id = profile;
+            if ( document.URL.contains("profilepage.php") ) {
+              return class = "active";
+            } else if ( document.URL.contains("mytasks.php") ) {
+              return class = "active";
+            } else if ( document.URL.contains("myclaimedtasks.php") ) {
+              return class = "active";
+            } else if ( document.URL.contains("availabletasks.php") ) {
+              return class = "active";
+            } else if ( document.URL.contains("uploadtask.php") ) {
+              return class = "active";
+            } else if ( document.URL.contains("flaggedtasks.php") ) {
+              return class = "active";
+            } else if ( document.URL.contains("accountsettings.php") ) {
+              return class = "active";
+            }
+          }
+
+            </script>
