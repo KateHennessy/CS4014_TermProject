@@ -41,7 +41,7 @@ $feedback = "";
           if(!preg_match('/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/', $email)){
     				$feedback = '  <h3 class="alert alert-danger alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <i class="glyphicon glyphicon-alert"></i> Email is required. </h3> <br /><br />';
+                <i class="glyphicon glyphicon-alert"></i> UL Email is required. </h3> <br /><br />';
     			$uploadFormOK = false;
 
     			}
@@ -69,7 +69,7 @@ $feedback = "";
 
                  <div class="input-group">
                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                   <input type="text" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" placeholder="Enter email address" name="reset_email" id="emailForm" class="form-control" required="">
+                   <input type="email" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" placeholder="Enter email address" name="reset_email" id="emailForm" class="form-control" required="">
 				   <span class="glyphicon form-control-feedback"></span>
                  </div>
 				 <span class="help-block with-errors"></span>
