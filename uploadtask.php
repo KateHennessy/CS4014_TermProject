@@ -79,7 +79,7 @@ $_SESSION[ "user_id"] !='' ){
        You have entered a Due Date that is closer than your Claim Deadline.</h3>';
      }
 	 
-	 if(strlen($title)< 16 || strlen($title) > 1){
+	 if(strlen($title) > 16 || strlen($title) < 1){
        $feedback.= '<h3 class="alert alert-warning alert-dismissable">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
        <i class="glyphicon glyphicon-remove"></i>
@@ -87,7 +87,7 @@ $_SESSION[ "user_id"] !='' ){
        $uploadFormOK = false;
      }
 	 
-	  if(strlen($type)< 16 || strlen($type) > 1){
+	  if(strlen($type) > 16 || strlen($type) < 1){
        $feedback.= '<h3 class="alert alert-warning alert-dismissable">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
        <i class="glyphicon glyphicon-remove"></i>
@@ -95,7 +95,7 @@ $_SESSION[ "user_id"] !='' ){
        $uploadFormOK = false;
      }
 	 
-	 if(strlen($description)< 25 || strlen($description) > 1){
+	 if(strlen($description)> 25 || strlen($description) < 1){
        $feedback.= '<h3 class="alert alert-warning alert-dismissable">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
        <i class="glyphicon glyphicon-remove"></i>
@@ -358,7 +358,7 @@ $_SESSION[ "user_id"] !='' ){
                                     <!-- <div class="controls"> -->
 
                                         <div class="col-md-8">
-                                            <input class="btn btn-primary"  id="fileupload" value="Upload document" name="fileupload" type="file">
+                                            <input class="btn btn-primary"  id="document" value="Upload document" name="document" type="file">
                                             <span class="small">**Maximum file size is 8mb</span>
 										</div>
 										<div class="col-sm-9"> <a class="btn btn-danger pull-right" id="removeFile">Remove</a>
@@ -414,7 +414,10 @@ $_SESSION[ "user_id"] !='' ){
     $(document).ready(function() {
 		
 		 // $('#datetimepicker').datetimepicker();
-        $("[id^='datetimepicker']").datetimepicker();
+                $("[id^='datetimepicker']").datetimepicker({
+          timepicker:false,
+          format:'Y-m-d'
+        });
         // Tooltip function
         $("[id^='tooltip']").tooltip();
 		$('#test').bootstrapValidator({
@@ -425,7 +428,7 @@ $_SESSION[ "user_id"] !='' ){
 				validating:'glyphicon glyphicon-refresh'
 			},
 			fields:{
-				fileupload:{
+				document:{
 					validators:{
 						file:{
 							extension: 'doc,docx,pdf',
@@ -441,11 +444,11 @@ $_SESSION[ "user_id"] !='' ){
 	
 		
 		$('#removeFile').on('click', function(){
-			document.getElementById('fileupload').value = "";
-			$('#test').bootstrapValidator('revalidateField','fileupload');
+			document.getElementById('document').value = "";
+			$('#test').bootstrapValidator('revalidateField','document');
 		});
 	
-       
+				
         // TAG selection function + validation
        //$('.selectpicker').on('change', function() {
         //    var count = $(this).find("option:selected").length;
