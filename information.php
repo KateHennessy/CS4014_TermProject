@@ -74,17 +74,46 @@
                     User's can upload tasks they wish to have proof read by another user. These tasks can include a thesis or assignment. These tasks can also be across a range of disciplines.
                   </p>
                   <p>
-                    When uploading a task, users must provide relevant information on their task. This information can include document type, word count, page count, title of task and a snippet of the content in the task.s
+                    When uploading a task, users must provide relevant information on their task. This information can include document type, word count, page count, title of task and a snippet of the content in the task.
                   </p>
                   <p>
-                    Users can search for tasks they wish to claim to proof read for other user. Once a user has found a task they wish to proof read, they can message the user who uploaded that task on their profile page. In this message, a user can sttae what task they wish to claim and also include their email address so the user can reply backw with the tassk in question.
+                    Users can search for tasks they wish to claim to proof read for other user. Once a user has found a task they wish to proof read, they can message the user who uploaded that task on their profile page. In this message, a user can state what task they wish to claim and also include their email address so the user can reply back with the task in question.
                   </p>
+                  <p>
+                    When uploading a sample of your task, please ensure it is not the entire document. There are file size resitrictions in place.
+                  </p>
+                  <p>
+                    Your profile page will contain a snippet of information on tasks you have uploaded. It will not show every task you have ever uploaded or claimed. To see such tasks please go ton the "My Tasks" or "My Claimed Tasks" in the side bar.
+                  </p>
+                <h3>Claiming a Task</h3>
+                <p>
+                  You can claim a task by clicking on the task title. Once you do this you will be brought to a detailed task page with a claim button on the bottom of the screen.
+                </p>
+                <p>
+                  Once the claim button has been clicked you have claimed the task. The user who upladed the task will be notified of your email address to send you a full copy of their document.
+                </p>
+                <p>
+                  The date the task in question must be completed by is in the detailed task view. You can see this date before claiming the task. Therefore, all users are aware of the timeline in which the task must be proof read by.
+                </p>
+                <h3>Updating Task Status</h3>
+                <p>
+                  Updating the status of a task is important once you have claimed it. You can update the status to cancelled or completed.
+                </p>
+                <p>
+                  Once you have updated the status of the task, the user will be notified. Once you claim a task it will automatically be set to in progress. You can then update it to cancelled or completed. Please note the user you uploaded the task will be notified when it is completed, and if not done so they can state as such on the rating system.
+                </p>
+                <p>
+                  It is important to update your status on claimed tasks, as this could affect your reputation score.
+                </p>
                 <h3>Banning of Users</h3>
                   <p>
                     If a user uploads content which is deemed inappropriate by another user, other users have the option to flag that task.
                   </p>
                   <p>
                     Once a task is flagged, it will be reviewed. After the reviewal, if the result is that it is inappropriate, the task will be taken down, the users account will be deactivated and the user will be banned from registering from ReviUL in future.
+                  </p>
+                  <p>
+                    Once a user has been banned, they cannot use the website. They will be unable to log in or register for the website.
                   </p>
         </div>
         </div>

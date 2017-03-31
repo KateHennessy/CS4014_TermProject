@@ -16,6 +16,9 @@ class ModelFactory {
             case "Tag":
                 $ret = self::generateTag($modelData);
                 break;
+            case "UserTag":
+                $ret = self::generateUserTag($modelData);
+                break;
             case "Task":
               $ret = self::generateTask($modelData);
                 break;
@@ -39,7 +42,8 @@ class ModelFactory {
 		if (isset($modelData['user_id'])) {
 			$ret ->set_id($modelData["user_id"]);
       $tags = array();
-      $tags = TagDAO::getUserTags($modelData["user_id"]); //calling TagDAO which calls Model Factory generateTag
+      $tags = TagDAO::getUserTags($modelData["user_id"]); //calling TagDAO which calls Model Factory generateUserTag
+
       $ret ->set_tags($tags);
 		}
 
@@ -140,6 +144,17 @@ class ModelFactory {
 		if (isset($modelData['tag_name'])) {
 			$ret ->set_name($modelData["tag_name"]);
 		}
+    return $ret;
+  }
+
+  private static function generateUserTag($modelData){
+    $ret = new UserTag();
+    $tag =  self::generateTag($modelData);
+    $ret->set_id($tag->get_id());
+    $ret->set_name($tag->get_name());
+    if (isset($modelData['clicks'])) {
+      $ret ->set_clicks($modelData["clicks"]);
+    }
     return $ret;
   }
 

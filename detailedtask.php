@@ -19,6 +19,13 @@
         $task_id = $_GET["id"];
       $task = new Task();
       $task = TaskDAO::find_task_by_id($task_id);
+      foreach($task->get_tags() as $taskTag){
+        foreach($user->get_tags() as $userTag){
+          if($taskTag->get_id() == $userTag->get_id()){
+             TagDAO::incrementUserTag($userTag, $user->get_id());
+          }
+        }
+      }
       $count_tasks = TaskDAO::count_tasks($user->get_id());
       }
       // echo("ID: " .$id);
@@ -83,6 +90,7 @@
 
     if(isset($_POST["banUser"])){
       if(UserDAO::ban_user($task->get_creator_id())){
+          TaskDAO::remove_all_user_tasks($task->get_creator_id());
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> User has been banned.</h3>';
