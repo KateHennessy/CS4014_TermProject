@@ -48,6 +48,7 @@
    $offset = ($page - 1)  * $limit;
    // Some information to display to the user
  $start = $offset + 1;
+ if($start < 0){ $start = 0;}
  $end = min(($offset + $limit), $totalnoAvailable);
  $prevlink = ($page > 1) ? '<li><a href="availabletasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="availabletasks.php?page=1" title="First page">Previous</a></li>';
 

@@ -81,8 +81,13 @@ class PDOAccess {
 	public static function returnNoRows($query){
 		$db = PDOAccess::getInstance();
 		$conn = $db->connection;
-		$result = $conn->query($query)->rowCount();
-			return $result;
+		$result = $conn->query($query);
+		if($result){
+	        return $result-> rowCount();
+		}else{
+			return 0;
+		}
+
 	}
 
   public static function returnSQLquery($query){
