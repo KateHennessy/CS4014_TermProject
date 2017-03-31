@@ -3,7 +3,7 @@
   <head>
     <title>ReviUL-Forgotten Password
     </title>
-	
+
 <?php
   session_start();
 require_once __DIR__.'/models/User.class.php';
@@ -38,6 +38,14 @@ $feedback = "";
           if(UserDAO::change_password($user, $saltedHash)){
             $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
           }
+          if(!preg_match('/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/', $email)){
+    				$feedback = '  <h3 class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <i class="glyphicon glyphicon-alert"></i> UL Email is required. </h3> <br /><br />';
+    			$uploadFormOK = false;
+
+    			}
+
         }
        }else if(isset($_POST["login_button"])){
          $email = trim(strtolower($_POST["email"]));
@@ -58,10 +66,10 @@ $feedback = "";
                <div class="col-sm-10 form-group has-feedback">
                  <label>Enter your email address<em class="text-danger"> *</em>
                  </label>
-				 
+
                  <div class="input-group">
                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                   <input type="text" placeholder="Enter email address" name="reset_email" id="emailForm" class="form-control" required="">
+                   <input type="email" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" placeholder="Enter email address" name="reset_email" id="emailForm" class="form-control" required="">
 				   <span class="glyphicon form-control-feedback"></span>
                  </div>
 				 <span class="help-block with-errors"></span>
@@ -72,7 +80,7 @@ $feedback = "";
        }
 require_once __DIR__.'/templates/header.template.php';
   ?>
-  
+
 
     <!-- Main PAGE -->
     <div class="container-fluid">
@@ -80,7 +88,7 @@ require_once __DIR__.'/templates/header.template.php';
         <div class="row">
 		   <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
 		   <?php echo $feedback; ?>
-		 
+
 
         </div>
       </div>
