@@ -21,7 +21,7 @@
       if (isset($_POST) && count ($_POST) > 0) {
 
         if(isset($_POST["signup_button"])){
-
+			$uploadFormOK = true;
 
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
@@ -30,31 +30,64 @@
           $passTwo = $_POST["pass_two"];
           $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
-          //check wheter user/email alerady exists
-          $user = null;
-        //  $userDao = new UserDAO();
-          $user = UserDAO::getUserByEmail($email);
 
           if ($passOne != $passTwo) { //in case Javascript is disabled.
             $feedback = '  <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <i class="glyphicon glyphicon-alert"></i> Passwords are not the same. </h3> <br /><br />';
+			 $uploadFormOK = false;
+		  }
 
-          }else if(count($tags) < 1 || count($tags) > 4){
+           if(count($tags) < 1 || count($tags) > 4){
             $feedback = '  <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <i class="glyphicon glyphicon-alert"></i> Incorrect number of tags entered. </h3> <br /><br />';
+			 $uploadFormOK = false;
+		   }
+		   
+		   //check wheter user/email already exists
+          $user = null;
+        //  $userDao = new UserDAO();
+          $user = UserDAO::getUserByEmail($email);
 
-        } else if(!is_null($user->get_email())){
+         if(!is_null($user->get_email())){
             // require_once __DIR__.'/templates/header.template.php';
             $feedback = '  <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <i class="glyphicon glyphicon-alert"></i> A user already exists with this email. </h3> <br /><br />';
+			 $uploadFormOK = false;
+		 }
+			
+           if(strlen($firstName > 25) || strlen($firstName) == 0 ){
+			  $feedback = '  <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> First Name is required. </h3> <br /><br />';
+			$uploadFormOK = false;
 
-          }else{
+			}
+			if(strlen($lastName > 25) || strlen( $lastName) == 0 ){
+			  $feedback = '  <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> Last Name is required. </h3> <br /><br />';
+			$uploadFormOK = false;
+
+			}
+			if(!preg_match('/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/', $email)){
+				$feedback = '  <h3 class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <i class="glyphicon glyphicon-alert"></i> Email is required. </h3> <br /><br />';
+			$uploadFormOK = false;
+		
+			}
+			
+			
+			
+		  
+		  
+				if($uploadFormOK == true){
 
                   $siteSalt  = "hPxmjz6hJc";
-                  $saltedHash = hash('sha256', $passOne.$siteSalt);
+                  $saltedHash = hash('sha256', $passOne.$siteSalt); 
 
                   $user = new User();
                   $user->set_first_name($firstName);
@@ -68,7 +101,6 @@
                   }
                   $user->set_tags($tagArray);
                   $user = UserDAO::save($user);
-                  // echo("id: " .$user->get_id());
                   if(!is_null($user->get_id())){
 
                     $_SESSION["user_id"] = $user->get_id();

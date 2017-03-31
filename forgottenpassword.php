@@ -3,6 +3,7 @@
   <head>
     <title>ReviUL-Forgotten Password
     </title>
+	
 <?php
   session_start();
 require_once __DIR__.'/models/User.class.php';
@@ -50,17 +51,20 @@ $feedback = "";
            header("location:./register.php");
          }
        }else{ $feedback = '
-         <form method="post">
+         <form method="post" data-toggle="validator" >
            <div class="col-sm-12">
              <div class="row">
                <?php echo $feedback; ?>
-               <div class="col-sm-10 form-group">
+               <div class="col-sm-10 form-group has-feedback">
                  <label>Enter your email address<em class="text-danger"> *</em>
                  </label>
+				 
                  <div class="input-group">
                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                    <input type="text" placeholder="Enter email address" name="reset_email" id="emailForm" class="form-control" required="">
+				   <span class="glyphicon form-control-feedback"></span>
                  </div>
+				 <span class="help-block with-errors"></span>
                </div>
            </div>
            <button type="submit" class="btn btn-lg btn-success">Submit</button>
@@ -68,13 +72,15 @@ $feedback = "";
        }
 require_once __DIR__.'/templates/header.template.php';
   ?>
+  
 
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
         <div class="row">
-          <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
-          <?php echo $feedback; ?>
+		   <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
+		   <?php echo $feedback; ?>
+		 
 
         </div>
       </div>
