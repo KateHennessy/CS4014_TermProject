@@ -74,11 +74,9 @@ class TagDAO {
       if(!is_null($tag) && !is_null($user_id)){
         $tag->set_clicks($tag->get_clicks() + 1);
         $query = 'UPDATE `user_tag` SET `clicks` = ' .$tag->get_clicks() .' WHERE `user_tag`.`user_id` = '.$user_id .' AND `user_tag`.`tag_id` = '. $tag->get_id() .';';
-        echo("IN UPDATE");
         return PDOAccess::insertSQLquery($query);
 
     }else{
-        echo("IN FALSE");
       return false;
     }
 
