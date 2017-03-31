@@ -90,6 +90,7 @@
 
     if(isset($_POST["banUser"])){
       if(UserDAO::ban_user($task->get_creator_id())){
+          TaskDAO::remove_all_user_tasks($task->get_creator_id());
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> User has been banned.</h3>';

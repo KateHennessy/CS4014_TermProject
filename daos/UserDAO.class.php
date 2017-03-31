@@ -36,7 +36,8 @@ class UserDAO{
       $query = "SELECT * FROM user WHERE user_id  IN
       (SELECT user_id FROM banned_users);";
       $result = PDOAccess::returnSQLquery($query);
-      if ($result->fetchColumn()) {
+      // if ($result->fetchColumn()) {
+        if ($result) {
         foreach($result as $row){
           $user = ModelFactory::buildModel("User", $row);
         }
@@ -51,8 +52,7 @@ class UserDAO{
       $query = "SELECT * FROM user WHERE user_id  IN
       (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .');';
       $result = PDOAccess::returnSQLquery($query);
-
-      if($result->fetchColumn()){
+      if($result ->rowCount() > 0){
         return true;
 
       }else{
@@ -129,7 +129,7 @@ class UserDAO{
            $date = date('Y-m-d H:i:s', time());
             $query = 'INSERT INTO `banned_user` (`user_id`, `timestamp`) VALUES ('
             .PDOAccess::prepareString($user_id) .', ' .PDOAccess::prepareString($date) .' );';
-            echo($query);
+            // echo($query);
 
              $result = PDOAccess::insertSQLquery($query);
              if($result){

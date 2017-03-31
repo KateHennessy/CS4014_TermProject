@@ -143,6 +143,7 @@ public static function find_no_user_uploaded_tasks($user_id){
   return $noUploadedTasks;
 }
 
+
 public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset){
   $uploadedTasks = NULL;
   if(!is_null($user_id)){
@@ -174,20 +175,20 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
   // }
 
 
-  public static function find_user_claimed_tasks($user_id){
-    $claimedTasks = NULL;
-    if(!is_null($user_id)){
-
-      $claimedTasks = array();
-      $query = "SELECT * FROM task WHERE task_id IN
-      (SELECT task_id FROM claimed_task WHERE claimer_id = " .$user_id .");";
-      $result = PDOAccess::returnSQLquery($query);
-      foreach($result as $row){
-        $claimedTasks[] = ModelFactory::buildModel("Task", $row);
-      }
-    }
-    return $claimedTasks;
-  }
+  // public static function find_user_claimed_tasks($user_id){
+  //   $claimedTasks = NULL;
+  //   if(!is_null($user_id)){
+  //
+  //     $claimedTasks = array();
+  //     $query = "SELECT * FROM task WHERE task_id IN
+  //     (SELECT task_id FROM claimed_task WHERE claimer_id = " .$user_id .");";
+  //     $result = PDOAccess::returnSQLquery($query);
+  //     foreach($result as $row){
+  //       $claimedTasks[] = ModelFactory::buildModel("Task", $row);
+  //     }
+  //   }
+  //   return $claimedTasks;
+  // }
 
   public static function find_no_claimed_tasks($user_id){
     $noClaimedTasks = 0;
@@ -218,28 +219,28 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
   }
 
 
-  public static function find_available_tasks($creator_id){
-    $availableTasks = NULL;
-    if(!is_null($creator_id)){
-      $availableTasks = array();
-      // $query = "SELECT * FROM task WHERE creator_id != " .$creator_id ." AND task_id IN(
-      //   SELECT task_id FROM task_status JOIN status USING(status_id)WHERE status_name = 'unclaimed');";
-      $query = 'SELECT * FROM task WHERE creator_id !='. $creator_id .' AND task_id IN
-                (SELECT task_id FROM task_status t1 WHERE status_id =
-                	(SELECT status_id FROM status WHERE status_name=' ."'unclaimed'" .') AND timestamp =
-                	(SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY task_id
-                    )
-                 GROUP BY task_id
-                ) ORDER BY claim_deadline ASC;'
-      ;
-        //  echo($query);
-      $result = PDOAccess::returnSQLquery($query);
-      foreach($result as $row){
-        $availableTasks[] = ModelFactory::buildModel("Task", $row);
-      }
-    }
-    return $availableTasks;
-  }
+  // public static function find_available_tasks($creator_id){
+  //   $availableTasks = NULL;
+  //   if(!is_null($creator_id)){
+  //     $availableTasks = array();
+  //     // $query = "SELECT * FROM task WHERE creator_id != " .$creator_id ." AND task_id IN(
+  //     //   SELECT task_id FROM task_status JOIN status USING(status_id)WHERE status_name = 'unclaimed');";
+  //     $query = 'SELECT * FROM task WHERE creator_id !='. $creator_id .' AND task_id IN
+  //               (SELECT task_id FROM task_status t1 WHERE status_id =
+  //               	(SELECT status_id FROM status WHERE status_name=' ."'unclaimed'" .') AND timestamp =
+  //               	(SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY task_id
+  //                   )
+  //                GROUP BY task_id
+  //               ) ORDER BY claim_deadline ASC;'
+  //     ;
+  //       //  echo($query);
+  //     $result = PDOAccess::returnSQLquery($query);
+  //     foreach($result as $row){
+  //       $availableTasks[] = ModelFactory::buildModel("Task", $row);
+  //     }
+  //   }
+  //   return $availableTasks;
+  // }
 
   public static function find_available_tasks_offset($creator, $limit, $offset){
     $availableTasks = NULL;
@@ -257,19 +258,28 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
 
 
 
-      $query = 'SELECT sum(clicks) AS clicks, task.task_id AS task_id, task.creator_id AS creator_id , task.task_title AS task_title,
-      task.task_type AS task_type, task.description AS task_description, task.claim_deadline AS claim_deadline,
-      task.completion_deadline AS completion_deadline, task.no_pages AS no_pages, task.no_words AS no_words,
-      task.format AS format, task.storage_address as storage_address FROM
-        task_tag LEFT JOIN task ON task_tag.task_id = task.task_id JOIN user_tag USING(tag_id)
-          WHERE creator_id !=' .$creator_id .' AND user_tag.user_id = ' .$creator_id .'
-          AND task.task_id IN
-          (SELECT t1.task_id FROM task_status t1 WHERE status_id =
-              (SELECT status_id FROM status WHERE status_name= ' ."'unclaimed'" .')
-            AND timestamp =
-              (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY t1.task_id )
-            GROUP BY task.task_id
-          ) GROUP BY task.task_id ORDER BY sum(clicks) DESC LIMIT '. $offset .', ' .$limit .';';
+      // $query = 'SELECT sum(clicks) AS clicks, task.task_id AS task_id, task.creator_id AS creator_id , task.task_title AS task_title,
+      // task.task_type AS task_type, task.description AS task_description, task.claim_deadline AS claim_deadline,
+      // task.completion_deadline AS completion_deadline, task.no_pages AS no_pages, task.no_words AS no_words,
+      // task.format AS format, task.storage_address as storage_address FROM
+      //   task_tag LEFT JOIN task ON task_tag.task_id = task.task_id JOIN user_tag USING(tag_id)
+      //     WHERE creator_id !=' .$creator_id .' AND user_tag.user_id = ' .$creator_id .'
+      //     AND task.task_id IN
+      //     (SELECT t1.task_id FROM task_status t1 WHERE status_id =
+      //         (SELECT status_id FROM status WHERE status_name= ' ."'unclaimed'" .')
+      //       AND timestamp =
+      //         (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY t1.task_id )
+      //       GROUP BY task.task_id
+      //     ) GROUP BY task.task_id ORDER BY sum(clicks) DESC LIMIT '. $offset .', ' .$limit .';';
+
+      $query = 'SELECT* FROM task_tag LEFT JOIN task ON task_tag.task_id = task.task_id
+      LEFT JOIN (SELECT * FROM user_tag WHERE user_tag.user_id = ' .$creator_id
+      .') AS user_tag ON task_tag.tag_id = user_tag.tag_id WHERE creator_id !='
+      .$creator_id
+      .' AND task.task_id IN (SELECT t1.task_id FROM task_status t1 WHERE status_id =
+        (SELECT status_id FROM status WHERE status_name= ' ."'unclaimed'" .') AND timestamp =
+        (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY t1.task_id )
+         GROUP BY task.task_id ) GROUP BY task.task_id ORDER BY sum(clicks) DESC LIMIT '. $offset .', ' .$limit .';';
 
 
       $result = PDOAccess::returnSQLquery($query);
@@ -328,19 +338,27 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
       //            GROUP BY task_id
       //           ) ORDER BY claim_deadline ASC;';
 
-      $query = 'SELECT sum(clicks) AS clicks, task.task_id AS task_id, task.creator_id AS creator_id , task.task_title AS task_title,
-      task.task_type AS task_type, task.description AS task_description, task.claim_deadline AS claim_deadline,
-      task.completion_deadline AS completion_deadline, task.no_pages AS no_pages, task.no_words AS no_words,
-      task.format AS format, task.storage_address as storage_address FROM
-        task_tag LEFT JOIN task ON task_tag.task_id = task.task_id JOIN user_tag USING(tag_id)
-          WHERE creator_id !=' .$creator_id .' AND user_tag.user_id = ' .$creator_id .'
-          AND task.task_id IN
-          (SELECT t1.task_id FROM task_status t1 WHERE status_id =
-              (SELECT status_id FROM status WHERE status_name= ' ."'unclaimed'" .')
-            AND timestamp =
-              (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY t1.task_id )
-            GROUP BY task.task_id
-          ) GROUP BY task.task_id ORDER BY sum(clicks) DESC;';
+      // $query = 'SELECT sum(clicks) AS clicks, task.task_id AS task_id, task.creator_id AS creator_id , task.task_title AS task_title,
+      // task.task_type AS task_type, task.description AS task_description, task.claim_deadline AS claim_deadline,
+      // task.completion_deadline AS completion_deadline, task.no_pages AS no_pages, task.no_words AS no_words,
+      // task.format AS format, task.storage_address AS storage_address FROM
+      //   task_tag LEFT JOIN task ON task_tag.task_id = task.task_id JOIN user_tag USING(tag_id)
+      //     WHERE creator_id !=' .$creator_id .' AND user_tag.user_id = ' .$creator_id .'
+      //     AND task.task_id IN
+      //     (SELECT t1.task_id FROM task_status t1 WHERE status_id =
+      //         (SELECT status_id FROM status WHERE status_name= ' ."'unclaimed'" .')
+      //       AND timestamp =
+      //         (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY t1.task_id )
+      //       GROUP BY task.task_id
+      //     ) GROUP BY task.task_id ORDER BY sum(clicks) DESC;';
+      $query = 'SELECT * FROM task_tag LEFT JOIN task ON task_tag.task_id = task.task_id
+      LEFT JOIN (SELECT * FROM user_tag WHERE user_tag.user_id = ' .$creator_id
+      .') AS user_tag ON task_tag.tag_id = user_tag.tag_id WHERE creator_id !='
+      .$creator_id
+      .' AND task.task_id IN (SELECT t1.task_id FROM task_status t1 WHERE status_id =
+        (SELECT status_id FROM status WHERE status_name= ' ."'unclaimed'" .') AND timestamp =
+        (SELECT MAX(timestamp) FROM task_status t2 WHERE t1.task_id = t2.task_id GROUP BY t1.task_id )
+         GROUP BY task.task_id ) GROUP BY task.task_id ORDER BY sum(clicks) DESC';
 
       $noAvailableTasks = PDOAccess::returnNoRows($query);
     }
@@ -415,6 +433,15 @@ public static function deflag_task($task_id){
 
   }
   return $deflagged;
+}
+
+public static function remove_all_user_tasks($creator_id){
+  if(!is_null($creator_id)){
+    $query = 'DELETE FROM `task` WHERE `task`.`creator_id` = ' .$creator_id .' AND `task_id` NOT IN (SELECT `task_id` FROM claimed_task);';
+    return PDOAccess::deleteSQLquery($query);
+  }else{
+    return false;
+  }
 }
 
 public static function count_tasks($creator_id){
