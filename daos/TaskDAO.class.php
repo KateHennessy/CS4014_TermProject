@@ -327,7 +327,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
   }
 
   public static function find_no_available_tasks($creator_id){
-    $noAvailableTasks = NULL;
+    $noAvailableTasks = 0;
     if(!is_null($creator_id)){
 
       // $query = 'SELECT * FROM task WHERE creator_id !='. $creator_id .' AND task_id IN
