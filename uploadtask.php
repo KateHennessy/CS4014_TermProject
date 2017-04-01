@@ -95,13 +95,13 @@ $_SESSION[ "user_id"] !='' ){
        $uploadFormOK = false;
      }
 	 
-	 if(strlen($description)> 25 || strlen($description) < 1){
+	 if($description == ""){
        $feedback.= '<h3 class="alert alert-warning alert-dismissable">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
        <i class="glyphicon glyphicon-remove"></i>
        Please enter the description.</h3>';
        $uploadFormOK = false;
-     }
+     } 
 	 
 	  if(count($no_pages) < 0 || count($no_pages)  > 11){
        $feedback.= '<h3 class="alert alert-warning alert-dismissable">
@@ -118,6 +118,8 @@ $_SESSION[ "user_id"] !='' ){
        Please enter the no. of words.</h3>';
        $uploadFormOK = false;
      }
+	 
+	 
 	 
 
      require_once __DIR__.'/scripts/upload_file.php'; // first checking if file uploaded is ok before progressing with rest of task upload
@@ -245,7 +247,7 @@ $_SESSION[ "user_id"] !='' ){
                         <div class="form-group has-feedback">
                             <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
                             <div class="col-md-8">
-                                <textarea id="description" value="<?php echo($description) ?>" name="description" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll"></textarea>
+                                <textarea id="description" value="<?php echo($description) ?>" name="description" maxlength="200" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll"></textarea>
                                 <span class="glyphicon form-control-feedback"></span> 
                             </div>
 							<span class="help-block with-errors"></span>
@@ -361,8 +363,7 @@ $_SESSION[ "user_id"] !='' ){
                                             <input class="btn btn-primary"  id="document" value="Upload document" name="document" type="file">
                                             <span class="small">**Maximum file size is 8mb</span>
 										</div>
-										<div class="col-sm-9"> <a class="btn btn-danger pull-right" id="removeFile">Remove</a>
-										</div>
+										
 
                                     
 
@@ -420,33 +421,7 @@ $_SESSION[ "user_id"] !='' ){
         });
         // Tooltip function
         $("[id^='tooltip']").tooltip();
-		$('#test').bootstrapValidator({
-			live:'enable',
-			feedbackIcons:{
-				valid:'glyphicon glyphicon-ok',
-				invalid:'glyphicon glyphicon-remove',
-				validating:'glyphicon glyphicon-refresh'
-			},
-			fields:{
-				document:{
-					validators:{
-						file:{
-							extension: 'doc,docx,pdf',
-							type:
-							'application/pdf,application/msword,officedocument.wordprocessingml.document',
-							maxSize: 8*1024*1024,//8 MB
-							message:'The selected file is not valid, it should be (doc,docx,pdf) and 8 MB at maximum.'
-						}
-					}
-				}
-			}
-		});
-	
 		
-		$('#removeFile').on('click', function(){
-			document.getElementById('document').value = "";
-			$('#test').bootstrapValidator('revalidateField','document');
-		});
 	
 				
         // TAG selection function + validation

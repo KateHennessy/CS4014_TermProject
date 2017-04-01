@@ -74,26 +74,35 @@ $feedback ="";
           <h1><div class="glyphicon glyphicon-lock"></div>Change your password</h1>
           <br><br>
   <?php echo $feedback; ?>
-
-  <form method="post">
-        <div class="col-sm-6 form-group">
+ 
+  <form method="post" role="form" data-toggle="validator">
+		<div class="row">
+        <div class="col-sm-6 form-group has-feedback">
           <label>Enter New Password <em class="text-danger"> *</em>
           </label>
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-            <input type="password" placeholder="Enter Password Here.." name="newPass" id="pass1Form" class="form-control" required="">
-          </div>
-        </div>
-        <div class="col-sm-6 form-group">
+            <input type="password" placeholder="Enter Password Here.." name="newPass" id="pass1Form" class="form-control" data-minLength="5" data-error="" required="">
+			<span class="glyphicon form-control-feedback"></span>
+			</div>
+			<span class="help-block with-errors"></span>
+		   </div>
+		
+        <div class="col-sm-6 form-group has-feedback">
           <label>Confirm New Password <em class="text-danger"> *</em>
           </label>
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-            <input type="password" placeholder="Re-enter Password Here..." name="confirmPass" id="pass2Form" class="form-control" required="">
+            <input type="password" placeholder="Re-enter Password Here..." data-match="#pass1Form"  name="confirmPass" id="pass2Form" class="form-control" data-minLength="5" required="">
+			<span class="glyphicon form-control-feedback"></span>
           </div>
+		   <span class="help-block with-errors"></span>
         </div>
+		</div>
+		
         <button type="submit" class="btn btn-lg btn-success">Submit</button>
       </form>
+	  
 
 
 
