@@ -70,6 +70,7 @@ class UserDAO{
       }*/
       return $user;
     }
+
 	private static function insert(&$user) {
 		// First - insert user into Database
 		date_default_timezone_set('Europe/Dublin');
@@ -98,6 +99,7 @@ class UserDAO{
             $user = null;
         }
     }
+
 		public static function login($email, $password) {
 		 		$user = self::getUserByEmail($email);
 		 		if (!is_null($user)) {
@@ -150,6 +152,19 @@ class UserDAO{
         }
       }
 
+      public static function change_user_reputation(&$user, $points){
+        if(!is_null($user)){
+          $currentPoints = $user->get_reputation();
+          $newPoints = $currentPoints + $points;
+          $query = 'UPDATE user SET reputation = ' .$newPoints .' WHERE email = ' .PDOAccess::prepareString($user->get_email()) .';';
+          $result = PDOAccess::insertSQLquery($query);
+          $user = self::getUserById($user->get_id());
+          return $result;
+        }else{
+          return false;
+        }
+      }
+
 
     public static function logout() {
     		/*http://php.net/manual/en/function.session-unset.php*/
@@ -162,4 +177,5 @@ class UserDAO{
     		session_regenerate_id(true);
     	}
     }
+
 ?>

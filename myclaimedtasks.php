@@ -20,6 +20,7 @@
               $limit = 6;
               $pages = ceil($totalnoAvailable / $limit);
 
+
               $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
               'options' => array(
                   'default'   => 1,
@@ -27,10 +28,13 @@
               ),
               )));
 
+
+
               // Calculate the offset for the query
               $offset = ($page - 1)  * $limit;
               // Some information to display to the user
               $start = $offset + 1;
+               if($start < 0){ $start = 0;}
               $end = min(($offset + $limit), $totalnoAvailable);
               $prevlink = ($page > 1) ? '<li><a href="myclaimedytasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="myclaimedtasks.php?page=1" title="First page">Previous</a></li>';
               $nextlink = ($page < $pages) ? '<li><a href="myclaimedtasks.php?page=' . ($page + 1) . '" title="Next page">Next Page</a></li>' : '<li class="disabled"><a href="myclaimedtasks.php?page=' .$pages .'" title="Next page">Next Page</a></li>';

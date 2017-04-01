@@ -272,7 +272,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
       //       GROUP BY task.task_id
       //     ) GROUP BY task.task_id ORDER BY sum(clicks) DESC LIMIT '. $offset .', ' .$limit .';';
 
-      $query = 'SELECT * FROM task_tag LEFT JOIN task ON task_tag.task_id = task.task_id
+      $query = 'SELECT * , sum(clicks) AS clicks FROM task_tag LEFT JOIN task ON task_tag.task_id = task.task_id
       LEFT JOIN (SELECT * FROM user_tag WHERE user_tag.user_id = ' .$creator_id
       .') AS user_tag ON task_tag.tag_id = user_tag.tag_id WHERE creator_id !='
       .$creator_id
