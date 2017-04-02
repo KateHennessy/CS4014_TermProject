@@ -102,6 +102,7 @@ $_SESSION[ "user_id"] !='' ){
        Please enter the task type.</h3>';
        $uploadFormOK = false;
      }
+
      if(strlen($type) > 128){
         $feedback.= '<h3 class="alert alert-danger alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -111,11 +112,12 @@ $_SESSION[ "user_id"] !='' ){
       }
 
 	 if(strlen($description) < 1){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
+       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
        <i class="glyphicon glyphicon-remove"></i>
        Please enter the description.</h3>';
        $uploadFormOK = false;
+
      }
      if(strlen($description)> 200){
          $feedback.= '<h3 class="alert alert-danger alert-dismissable">
@@ -126,7 +128,7 @@ $_SESSION[ "user_id"] !='' ){
        }
 
 	  if(!is_numeric($no_pages)){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
+       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
        <i class="glyphicon glyphicon-remove"></i>
        Please enter the number of pages.</h3>';
@@ -140,6 +142,7 @@ $_SESSION[ "user_id"] !='' ){
        Please enter the number of words.</h3>';
        $uploadFormOK = false;
      }
+
 
       if($uploadFormOK){
          require_once __DIR__.'/scripts/upload_file.php'; // first checking if file uploaded is ok before progressing with rest of task upload
@@ -249,7 +252,7 @@ $_SESSION[ "user_id"] !='' ){
                     <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
                         <div class="col-md-8">
-                            <textarea id="description"  name="description" maxlength="500" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll"></textarea>
+                            <textarea id="description"  name="description" maxlength="200" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll; padding-box"></textarea>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                         <span class="help-block with-errors"></span>
@@ -337,7 +340,7 @@ $_SESSION[ "user_id"] !='' ){
                   <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="uploaded_document">Preview Document</label>
                         <div class="col-md-8 input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-stats"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
                             <!-- <input id="no_words"  required name="no_words" type="text" maxlength="15"  placeholder="" class="form-control input-md"> -->
                             <label class="input-group-btn" value="">
                                 <span class="btn btn-primary" style="z-index:3; margin-right:-5px;">
@@ -352,7 +355,6 @@ $_SESSION[ "user_id"] !='' ){
                       </div>
                       <span class="help-block with-errors"></span>
                 </div>
-
 
                         <div class="row">
                             <div class="col-xs-2">
@@ -372,6 +374,7 @@ $_SESSION[ "user_id"] !='' ){
 </div>
 
 
+
 <br />
 
 <!--JS-->
@@ -379,15 +382,13 @@ $_SESSION[ "user_id"] !='' ){
 <script>
     $(document).ready(function() {
 
-      console.log("In ready");
+  //    console.log("In ready");
      $("#uploadForm").validator({
           custom: {
             filecheck: function ($el){
-              // alert("in file check");
               var maxKilobytes = 8 * 1024 * 1024;
               var acceptableTypes = "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document".split(',');
               if($el[0].files.length > 0){
-                // alert($el[0].files[0].size);
                 if ($.inArray($el[0].files[0].type, acceptableTypes) == -1) {
                   return "Invalid File Type"
                 }
@@ -395,38 +396,23 @@ $_SESSION[ "user_id"] !='' ){
                   return "Please upload a file smaller than 8MB."
                 }
                 }else{
-              //  return "Please upload a preview file";
               }
             }
           }
         });
 
-
+          //bootstrap input-group button modified from https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3
       //We can attach the `fileselect` event to all file inputs on the page
        $(document).on('change', ':file', function() {
          var input = $(this),
              numFiles = input.get(0).files ? input.get(0).files.length : 1,
              label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            //  label = label.substr(0, 20) + "..";
          input.trigger('fileselect', [numFiles, label]);
        });
        // We can watch for our custom `fileselect` event like this
        $(':file').on('fileselect', function(event, numFiles, label) {
-
-          //var input = $(this).parents('.input-group').find('text');
-
-
-
-
                 $("#fileName").text(label);
-          //  }
-          //else {
-          //      if( log ) alert(log);
-          //  }
-
        });
-
-
 
       $("[id^='datetimepicker']").datetimepicker({
           timepicker:false,
@@ -436,15 +422,9 @@ $_SESSION[ "user_id"] !='' ){
         // Tooltip function
         $("[id^='tooltip']").tooltip();
 
-          // $("#uploaded_document").on('click', function () {
-          //     this.value = null;
-          // });
-
-
-
-
-
     });
+
+
 </script>
 
 
