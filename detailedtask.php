@@ -292,13 +292,19 @@
                               <br/><br>
                             </div>';
                   }else if($task->get_status()->get_name()=='unclaimed'){ //POTENTIAL CLAIMER
-                    echo '<div class="panel-footer">
-                                    <span class="pull-right">
+                    echo '<div class="panel-footer col-sm-12">
+
+                                <span class="pull-left">
+                                   <a class="btn btn-default" href="availabletasks.php"><span class="small">Back </span> <span class="small hidden-xs"> to Available Tasks</span></a>
+                                 </span>
+
+                                  <span class="pull-right">
                                     <form method="post" role="form">
                                       <button type="submit" name="claimTask" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</button>
                                       <button type="submit" name="flagTask" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</button>
                                     </form>
                                   </span>
+                              
                               <br/><br>
                             </div>';
                           }

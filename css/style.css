@@ -360,12 +360,6 @@ body {
 	width: auto;
 }
 
-/*multiple upload*/
-/*.entry:not(:first-of-type)
-{
-    margin-top: 10px;
-}*/
-
 
 /*textarea*/
 input[type=text], select, textarea {
@@ -397,19 +391,6 @@ input[type=text], select, textarea {
 
 
 
-/*UPLOAD A TASK CSS FOR UPLOAD FILE*/
-
-/*.entry:not(:first-of-type)
-{
-    margin-top: 10px;
-<<<<<<< HEAD
-}
-=======
-}*/
->>>>>>> 700f78c912d358b9c1e24bc7b7bba7fe44e9345b
-/*conflict<<<<<<< HEAD*/
-
-
 /*FOOTER CSS FOR ALL PAGES */
 html {
   position: relative;
@@ -419,41 +400,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 40px;
 }
-/*UNSURE IF BELOW CODE IS BEING USED*/
-/*#footer {
-  position: absolute;
-  bottom: 0;
-  width: 90%;*/
-  /* Set the fixed height of the footer here */
-  /*height: 180px;
-  background:*/
-  /* color overlay */
-    /*linear-gradient(
-      rgba(240, 212, 0, 0.45),
-      rgba(0, 0, 0, 0.45)*/
-    ),
-    /* image to overlay */
-    /*url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);*/
-}
 
-
-/* Custom footer CSS
--------------------------------------------------- */
-/*.footer{
-  background: rgb(51,51,51);
-  bottom:0;
-}
-.container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
-}
-.container .text-muted {
-  margin: 20px 0;
-}
-.footertext {
-  color: #ffffff;
-}*/
 
 
 /*validation error mess*/
@@ -461,9 +408,7 @@ body {
 .val_error{
 	color:#FF1F1F;
 }
-/*conflict
-=======
->>>>>>> 3d63574b84cb8a7bcd949eeb8f3ff6fcf2f6174e*/
+
 
 #Success {
   display: none;
@@ -484,5 +429,4 @@ body {
     margin-right: 0;
     height: 90px;
     text-align: center;
-
 }
