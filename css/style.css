@@ -370,14 +370,14 @@ body {
 
 .footer{
 
-    line-height: 80px;
-    position: relative;
+    line-height: 60px;
+    position: fixed;
     background: rgb(16,16,16);
     color:rgb(230,230,230);
     bottom:0px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    height: 90px;
+    height: 60px;
     text-align: center;
 }
