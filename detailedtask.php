@@ -41,6 +41,7 @@
       // echo("<h1> IN CLAIMED TASK </h1>");
       if(TaskDAO::claim_task($user->get_id(), $task->get_id())){
         $task = TaskDAO::find_task_by_id($task_id);
+        UserDAO::change_user_reputation($user, 10);
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> Task Claimed Successfully</h3>';
@@ -69,14 +70,14 @@
 
     if(isset($_POST["flagTask"])){
       if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
-        UserDAO::change_user_reputation($user, 3);
+        UserDAO::change_user_reputation($user, 2);
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> Task Has Been Flagged</h3>';
       }else{
         $feedback = '<h3 class="alert alert-danger alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
+        <i class="glyphicon glyphicon-ok"></i> There was an issue flagging this task. If the problem persists please contact the site administrator.</h3>';
       }
     }
 
@@ -88,7 +89,7 @@
       }else{
         $feedback = '<h3 class="alert alert-danger alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
+        <i class="glyphicon glyphicon-ok"></i> There was an issue deflagging this task. If the problem persists please contact the site administrator. </h3>';
       }
     }
 
@@ -103,6 +104,43 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
       }
+    }
+    if(isset($_POST["taskComplete"])){
+      STATUSDAO::update_task_status("complete", $task->get_id());
+      $task = TASKDAO:: find_task_by_id($task->get_id());
+      $feedback = '<h3 class="alert alert-success alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <i class="glyphicon glyphicon-ok"></i>Task has been set as Completed.</h3>';
+    }
+    if(isset($_POST["reviewHappy"])){
+      if(TaskDAO::set_score_for_task(5, $task->get_id())){
+        $creator = UserDAO::getUserByID($task->get_claimer_id());
+        UserDAO::change_user_reputation($creator, 5);
+        $feedback = '<h3 class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i>You have given this task a happy score :) </h3>';
+      }else{
+        $feedback = '<h3 class="alert alert-warning alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i>There was an error updating </h3>';
+      }
+    }
+
+    if(isset($_POST["taskCancelled"])){
+      if(STATUSDAO::update_task_status("cancelled", $task->get_id())){
+        $task = TASKDAO:: find_task_by_id($task->get_id());
+        UserDAO::change_user_reputation($user, -15);
+        $feedback = '<h3 class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i>You have marked this task as cancelled. 15 points have been removed from your reputation score.</h3>';
+
+      }else{
+        $feedback = '<h3 class="alert alert-warning alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <i class="glyphicon glyphicon-ok"></i>There was an error updating </h3>';
+      }
+
+
     }
 ?>
 
@@ -245,30 +283,49 @@
                 if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
                   ?>
                   <div class="panel-footer">
-                    <span class="pull-right">
+                    <!-- <span class="pull-right"> -->
 
                     <?php switch($task->get_status()->get_name()){
                       case "unclaimed":
-                      echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
+                      echo '<span class="pull-right"><div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
                       break;
+
                       case "in progress":
-                      echo '<div><label for="warning" class="btn btn-warning">In Progress</label></div>';
+                      echo '<span class="pull-right"><div class="row"><label for="warning" class="btn btn-warning">In Progress</label></div>
+                            <div class="row">Contact the claimer at: <span class="text-info">'.UserDAO::getUserByID($task->get_claimer_id())->get_email() .' </span></div>';
                       break;
                       case "expired":
-                      echo '<div><label for="danger" class="btn btn-danger">Expired</label></div>';
+                      echo '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Expired</label></div>';
                       break;
                       case "cancelled":
-                      echo '<div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
+                      echo '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
                       break;
                       case "unfinished":
-                      echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                      echo '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                      break;
+                      case "complete":
+                        echo '<div class="row">';
+                        echo '<span class=""><div class="col-sm-6"><br><label class="btn btn-success">Complete</label></div></span>';
+                      if($task->get_score() == 0){
+                        echo '<div class="col-sm-6">
+                               <form method="post">
+                                  <span class="">
+                                    <div class="">Review the task claimer</div>
+                                      <button  type="submit" name="reviewHappy" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-thumbs-up"></i>Happy</button>
+                                      <button  type="submit" name="reviewNotHappy" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i> Not Happy</button>
+                                    </div>
+                                    </form>';
+                      }
+                      echo '</div>';
+
+
                       break;
                       default:
                       echo '';
                       break;
                     } ?>
                   </span>
-              <br/><br>
+              <br/><br><br>
             </div>
 <?php
                 } //END OF CREATOR VIEWING THEIR OWN TASK
@@ -304,7 +361,7 @@
                                       <button type="submit" name="flagTask" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</button>
                                     </form>
                                   </span>
-                              
+
                               <br/><br>
                             </div>';
                           }
@@ -313,17 +370,43 @@
 
                 else if($task->get_claimer_id() == $user->get_id()){  //CURRENT VIEWER IS THE CLAIMER OF THE TASK
 
-                  echo '<div class="panel-footer">
-                  <form method="post">
-                  <div class="row">
-                    <div class="col-sm-12 pull-left">
-                      <button  type="submit" name="taskComplete" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-check"></i>Mark Task as Complete</button>
-                      <button  type="submit" name="taskCancelled" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i> Mark Task as Cancelled</button>
+                  if($task->get_status()->get_name() == "complete"){
+                    echo '<div class="panel-footer">
+                    <form method="post">
+                    <div class="row">
+                        <div class="col-sm-6 pull-left">
+                            <div><label class="btn btn-success">Complete</label></div>
+                       </div>
+                        <div class="col-sm-6 pull-right">
+                           <div><label class="btn btn-primary">Review: ';
+                           if($task->get_score()==0){
+                             echo ("Not Yet Reviewed");
+                           }else if ($task->get_score()==-5){
+                              echo "Not Happy";
+                            }else if($task->get_score()==5){
+                              echo "Happy";
+                            } else{
+                              echo "UNKNOWN";
+                            }
+                            echo '</label></div>
                       </div>
-                    </div>
-                  </form>
+                  </div>
+                    </form>
 
-                        </div>';
+                          </div>';
+                  }else{
+                      echo '<div class="panel-footer">
+                      <form method="post">
+                      <div class="row">
+                        <div class="col-sm-12 pull-left">
+                          <button  type="submit" name="taskComplete" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-check"></i>Mark Task as Complete</button>
+                          <button  type="submit" name="taskCancelled" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i> Mark Task as Cancelled</button>
+                          </div>
+                        </div>
+                      </form>
+
+                            </div>';
+                      }
                 }
 
 

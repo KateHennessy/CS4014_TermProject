@@ -120,6 +120,9 @@
                                                   case "unfinished":
                                                   echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
                                                   break;
+                                                  case "complete":
+                                                  echo '<div><label for="danger" class="btn btn-primary">Complete</label></div>';
+                                                  break;
                                                   default:
                                                   echo '';
                                                   break;
@@ -199,6 +202,9 @@
                                                   break;
                                                   case "unfinished":
                                                   echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                                                  break;
+                                                  case "complete":
+                                                  echo '<div><label for="danger" class="btn btn-success">Complete</label></div>';
                                                   break;
                                                   default:
                                                   echo '';

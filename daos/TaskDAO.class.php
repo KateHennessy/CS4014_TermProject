@@ -17,12 +17,10 @@ class TaskDAO{
     }
   }
 
-    // }else {
-    //     self::update($user);
-    // } //Needed for updating statuses linked to tasks
+
 
     public static function find_score_from_task_id($task_id){
-      $score = null;
+      $score = 0;
       if(!is_null($task_id)){
         $query = 'SELECT `score` FROM claimed_task WHERE task_id='.$task_id .';';
         $result = PDOAccess::returnSQLquery($query);
@@ -32,6 +30,19 @@ class TaskDAO{
         }
       }
       return $score;
+    }
+
+    public static function set_score_for_task($score, $task_id){
+      $changedScore = false;
+
+      if(!is_null($task_id)){
+        $query = 'UPDATE `claimed_task` SET `score` = '. PDOAccess::prepareString($score) .' WHERE `claimed_task`.`task_id` = '. $task_id .';';
+        $result = PDOAccess::insertSQLquery($query);
+          if ($result) {
+            $changedScore = true;
+          }
+      }
+      return $changedScore;
     }
 
 
@@ -237,7 +248,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
     $noAvailableTasks = 0;
     if(!is_null($creator_id)){
 
-  
+
       $query = 'SELECT * FROM task_tag LEFT JOIN task ON task_tag.task_id = task.task_id
       LEFT JOIN (SELECT * FROM user_tag WHERE user_tag.user_id = ' .$creator_id
       .') AS user_tag ON task_tag.tag_id = user_tag.tag_id WHERE creator_id !='
