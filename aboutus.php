@@ -27,7 +27,7 @@
          ?>
           <!-- <div class="container-fluid">
          <div class="col-xs-12 well"> -->
-  
+
 
                <?php
         require_once __DIR__.'/templates/loggedinuser.php';
@@ -56,6 +56,19 @@
                       <div class="col-lg-12">
 
 
+                            <div>
+                              <img class="img-circle img-responsive" src="images/kate_h.jpg" alt="">
+                            </div>
+                            <div>
+                              <div>
+                                <h4>Kate Hennessy</h4>
+                              </div>
+                              <div>
+                                <p class="text-muted">
+                                    Kate is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
+                                </p>
+                              </div>
+                            </div>
 
                             <div>
                               <img class="img-circle img-responsive" src="images/orla_b.jpg" alt="">
@@ -69,20 +82,6 @@
                                   Orla is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
                                   She has a Bachelor of Arts Degree from the National University of Ireland, Galway and a masters in Psychology
                                   from the University of Limerick.
-                                </p>
-                              </div>
-                            </div>
-
-                            <div>
-                              <img class="img-circle img-responsive" src="images/kate_h.jpg" alt="">
-                            </div>
-                            <div>
-                              <div>
-                                <h4>Kate Hennessy</h4>
-                              </div>
-                              <div>
-                                <p class="text-muted">
-                                    Kate is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
                                 </p>
                               </div>
                             </div>
