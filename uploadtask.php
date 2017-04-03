@@ -349,7 +349,7 @@ $_SESSION[ "user_id"] !='' ){
                         <!-- </div> -->
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="control-group" id="test">
+                                <div class="form-group has-feedback">
                                     <label class="control-label">
                                         Upload a sample
                                     </label>
