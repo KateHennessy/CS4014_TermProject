@@ -44,7 +44,7 @@
             <i class="glyphicon glyphicon-alert"></i> Incorrect number of tags entered. </h3> <br /><br />';
 			 $uploadFormOK = false;
 		   }
-		   
+
 		   //check wheter user/email already exists
           $user = null;
         //  $userDao = new UserDAO();
@@ -57,7 +57,7 @@
             <i class="glyphicon glyphicon-alert"></i> A user already exists with this email. </h3> <br /><br />';
 			 $uploadFormOK = false;
 		 }
-			
+
            if(strlen($firstName > 25) || strlen($firstName) == 0 ){
 			  $feedback = '  <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -77,17 +77,17 @@
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <i class="glyphicon glyphicon-alert"></i> Email is required. </h3> <br /><br />';
 			$uploadFormOK = false;
-		
+
 			}
-			
-			
-			
-		  
-		  
+
+
+
+
+
 				if($uploadFormOK == true){
 
                   $siteSalt  = "hPxmjz6hJc";
-                  $saltedHash = hash('sha256', $passOne.$siteSalt); 
+                  $saltedHash = hash('sha256', $passOne.$siteSalt);
 
                   $user = new User();
                   $user->set_first_name($firstName);
@@ -115,15 +115,29 @@
            $user = new User();
            $user = UserDAO::login($email, $password);
 
+
            if(!is_null($user)){
-             $_SESSION["user_id"] = $user->get_id();
-            header("location:./profilepage.php");
+             $banned = UserDAO::find_user_in_banned($user -> get_id());
+                 //if(!is_null($banned)){
+                 if($banned){
+                   $feedback = ' <h3 class="alert alert-danger alert-dismissable">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                   <img class="center-block" src= "http://i3.kym-cdn.com/entries/icons/facebook/000/006/725/desk_flip.jpg" style = "width: 180px; height: 180px;" /><br /> <br />
+                   <i class="glyphicon glyphicon-alert"></i> You have been banned for inappropriate content.
+                   Contact administration with any issues. </h3> <br /><br />';
+                 }else{
+                   $_SESSION["user_id"] = $user->get_id();
+
+                  header("location:./profilepage.php");
+                }
            }else{
             //  header("location:./register.php");
             $feedback = ' <h3 class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <i class="glyphicon glyphicon-alert"></i> Incorrect email or password. </h3> <br /><br />';
            }
+
+
 
          }else{
           //  echo("nothing");

@@ -38,7 +38,7 @@
    } else {
      // echo("In else " .$_SESSION["user_id"]);
      ?>
-     
+
 
            <?php
         require_once __DIR__.'/templates/header.template.php';
@@ -48,7 +48,7 @@
 <div class="container-fluid">
     <div class="col-xs-11 col-sm-8 well">
         <div class="profile-content">
-            <h1><div class="glyphicon glyphicon-user"></div> Contact Us</h1><br>
+            <h1><div class="glyphicon glyphicon-send"></div> Contact Us</h1><br>
             <p>
               If you encounter any issues, please contact the administration as listed below.
             </p>
