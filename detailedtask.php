@@ -7,7 +7,7 @@
     require_once __DIR__.'/daos/UserDAO.class.php';
     require_once __DIR__.'/daos/TaskDAO.class.php';
 
-      $feedback = "";
+      $feedback = "";  //This will be used to add php feedback.
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
@@ -31,14 +31,11 @@
     
 
     }
-      // echo("ID: " .$id);
     } else {
-      // echo("In else " .$_SESSION["user_id"]);
         header("location:./register.php");
     }
 
     if(isset($_POST["claimTask"])){
-      // echo("<h1> IN CLAIMED TASK </h1>");
       if(TaskDAO::claim_task($user->get_id(), $task->get_id())){
         $task = TaskDAO::find_task_by_id($task_id);
         UserDAO::change_user_reputation($user, 10);
@@ -71,6 +68,7 @@
     if(isset($_POST["flagTask"])){
       if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
         UserDAO::change_user_reputation($user, 2);
+
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> Task Has Been Flagged</h3>';
@@ -118,7 +116,7 @@
         UserDAO::change_user_reputation($creator, 5);
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i>You have given this task a happy score :) </h3>';
+        <i class="glyphicon glyphicon-ok"></i>You have given this task a happy score ☺ </h3>';
       }else{
         $feedback = '<h3 class="alert alert-warning alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>

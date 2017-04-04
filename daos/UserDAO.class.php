@@ -56,7 +56,7 @@ class UserDAO{
       if($result->rowCount() > 0){
         return true;
       }else{
-          echo "NO RESULT";
+          
         return false;
       }
     }
