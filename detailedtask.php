@@ -28,7 +28,7 @@
         }
       }
     }
-    
+
 
     }
     } else {
@@ -64,19 +64,28 @@
       exit;
 
   }
-
-    if(isset($_POST["flagTask"])){
+  if(isset($_POST["flagTask"])){
+      $url = 'detailedtask.php?id=' .$task->get_id() .'&ok=';
       if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
         UserDAO::change_user_reputation($user, 2);
-
-        $feedback = '<h3 class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> Task Has Been Flagged</h3>';
+        $url .= '1';
       }else{
-        $feedback = '<h3 class="alert alert-danger alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> There was an issue flagging this task. If the problem persists please contact the site administrator.</h3>';
+          $url.= '0';
       }
+      // echo($url);
+       header("Location: " .$url);
+    }
+    if(isset($_GET['ok'])){
+      	if($_GET['ok'] == 1){
+          $feedback = '<h3 class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          <i class="glyphicon glyphicon-ok"></i> Task Has Been Flagged</h3>';
+        }else{
+          $feedback = '<h3 class="alert alert-danger alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          <i class="glyphicon glyphicon-ok"></i> There was an issue flagging this task. If the problem persists please contact the site administrator.</h3>';
+        }
+
     }
 
     if(isset($_POST["removeFlag"])){
