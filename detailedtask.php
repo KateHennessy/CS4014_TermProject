@@ -28,7 +28,7 @@
         }
       }
     }
-      $count_tasks = TaskDAO::count_tasks($user->get_id());
+    
 
     }
       // echo("ID: " .$id);

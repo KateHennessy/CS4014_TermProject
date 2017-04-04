@@ -27,7 +27,7 @@ $_SESSION[ "user_id"] !='' ){
     require_once __DIR__ . '/templates/loggedinuser.php';
     require_once __DIR__."/daos/TaskDAO.class.php";
 
-    $count_tasks = TaskDAO::count_tasks($user->get_id());
+   
    ?>
    <!-- CONTAINER START -->
           <div class="container-fluid">
@@ -119,7 +119,7 @@ $_SESSION[ "user_id"] !='' ){
        $uploadFormOK = false;
 
      }
-     if(strlen($description)> 200){
+     if(strlen($description)> 600){
          $feedback.= '<h3 class="alert alert-danger alert-dismissable">
          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
          <i class="glyphicon glyphicon-remove"></i>
@@ -252,7 +252,7 @@ $_SESSION[ "user_id"] !='' ){
                     <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
                         <div class="col-md-8">
-                            <textarea id="description"  name="description" maxlength="200" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll; padding-box"></textarea>
+                            <textarea id="description"  name="description" maxlength="600" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll; padding-box"></textarea>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                         <span class="help-block with-errors"></span>

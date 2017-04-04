@@ -45,7 +45,8 @@
                     <div class="text text-center">
                         <label class="text-muted">  <i class="glyphicon glyphicon-tags"></i>  <!-- <var>4</var> Total Number of Tasks Uploaded</label> -->
                         <!--php for counting number of tasks the user has uploaded -->
-                        <label class="text-muted"><?php echo $count_tasks ?> Tasks Uploaded </label>
+                        <label class="text-muted"><?php
+												echo TaskDAO::count_tasks($user->get_id()) ?> Tasks Uploaded </label>
                     </div>
 
 
