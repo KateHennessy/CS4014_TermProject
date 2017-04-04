@@ -1,125 +1,337 @@
-CREATE DATABASE sample; 
+-- phpMyAdmin SQL Dump
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Apr 04, 2017 at 12:57 PM
+-- Server version: 10.1.20-MariaDB
+-- PHP Version: 5.6.29
 
-CREATE TABLE IF NOT EXISTS `discipline`(
-`discipline_id` INT(11) unsigned NOT NULL AUTO_INCREMENT, 
-`discipline_name` VARCHAR(128) NOT NULL,
-PRIMARY KEY(`discipline_id`),
-UNIQUE(`discipline_name`)
-);
-
-
-CREATE TABLE IF NOT EXISTS  `user`(
-`user_id` INT(11) unsigned NOT NULL AUTO_INCREMENT, 
-`f_name` VARCHAR(100) NOT NULL,
-`l_name` VARCHAR(100) NOT NULL,
-`email` VARCHAR(128) NOT NULL,
-`pass` CHAR(64) NOT NULL,
-`discipline_id` INT(11) unsigned NOT NULL,
-`reputation` INT(11) NOT NULL,
-`signup_date` DATETIME NOT NULL,
-PRIMARY KEY(`user_id`),
-FOREIGN KEY(`discipline_id`) REFERENCES discipline(`discipline_id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-UNIQUE(`email`)
-);
-
-CREATE TABLE IF NOT EXISTS `banned_user`(
-`user_id` INT(11) unsigned NOT NULL,
-`timestamp` DATETIME, 
-PRIMARY KEY(`user_id`),
-FOREIGN KEY(`user_id`) REFERENCES user(`user_id`) 
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS `task`(
-`task_id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT,
-`creator_id` INT(11) unsigned NOT NULL,
-`task_title` VARCHAR(128) NOT NULL,
-`task_type` VARCHAR(128) NOT NULL,
-`description` VARCHAR(200) NOT NULL,
-`claim_deadline` DATETIME NOT NULL,
-`completion_deadline` DATETIME NOT NULL,
-`no_pages` INT(11) NOT NULL,
-`no_words` INT(11) NOT NULL,
-`format` VARCHAR(5) NOT NULL,
-`storage_address` VARCHAR(200) NOT NULL,
-PRIMARY KEY(`task_id`),
-FOREIGN KEY (`creator_id`) REFERENCES user(`user_id`) 
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS `flagged_task`(
-`task_id` BIGINT(20) unsigned NOT NULL,
-`flagger_id` INT(11) unsigned NOT NULL, 
-`timestamp` DATETIME NOT NULL,
-PRIMARY KEY(`task_id`),
-FOREIGN KEY(`task_id`) REFERENCES task(`task_id`) 
-    ON DELETE CASCADE ON UPDATE CASCADE, 
-FOREIGN KEY(`flagger_id`) REFERENCES user(`user_id`) 
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS `status`(
-`status_id` INT(11) unsigned NOT NULL AUTO_INCREMENT, 
-`status_name` VARCHAR(40) NOT NULL, 
-PRIMARY KEY(`status_id`),
-UNIQUE(`status_name`)
-);
-
-CREATE TABLE IF NOT EXISTS `task_status`(
-`task_id` BIGINT(20) unsigned NOT NULL,
-`status_id` INT(11) unsigned NOT NULL, 
-`timestamp` DATETIME,
-PRIMARY KEY(`task_id`,`status_id`,`timestamp`),
-FOREIGN KEY(`task_id`) REFERENCES task(`task_id`) 
-
-ON DELETE CASCADE ON UPDATE CASCADE, 
-FOREIGN KEY(`status_id`) REFERENCES status(`status_id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
-CREATE TABLE IF NOT EXISTS `claimed_task`(
-`claimer_id` INT(11) unsigned NOT NULL,
-`task_id` BIGINT(20) unsigned NOT NULL,
-`score` INT(11) unsigned NOT NULL DEFAULT 0,
-PRIMARY KEY(`task_id`),
-FOREIGN KEY (`claimer_id`) REFERENCES user (`user_id`) ON DELETE CASCADE  ON UPDATE CASCADE,
-FOREIGN KEY(`task_id`) REFERENCES task(`task_id`)  ON DELETE CASCADE ON UPDATE CASCADE
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE IF NOT EXISTS `tag`(
-`tag_id` INT(11) unsigned NOT NULL AUTO_INCREMENT,
-`tag_name` VARCHAR(128) NOT NULL,
-PRIMARY KEY(`tag_id`),
-UNIQUE(`tag_name`)
-);
+--
+-- Database: `group10`
+--
+CREATE DATABASE IF NOT EXISTS `group10` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `group10`;
 
-CREATE TABLE IF NOT EXISTS `user_tag`(
-`user_id` INT(11) unsigned NOT NULL,
-`tag_id` INT(11) unsigned NOT NULL,
-`clicks` INT(11) unsigned NOT NULL DEFAULT 0,
-PRIMARY KEY(`user_id`, `tag_id`),
-FOREIGN KEY(`user_id`) REFERENCES user(`user_id`) 
+-- --------------------------------------------------------
 
-ON DELETE CASCADE  ON UPDATE CASCADE,
-FOREIGN KEY(`tag_id`) REFERENCES tag(`tag_id`) ON 
+--
+-- Table structure for table `banned_user`
+--
 
-DELETE CASCADE ON UPDATE CASCADE
-);
+CREATE TABLE `banned_user` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `timestamp` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `task_tag`(
-`task_id` BIGINT(20) unsigned NOT NULL,
-`tag_id` INT(11) unsigned NOT NULL,
-PRIMARY KEY(`task_id`, `tag_id`),
-FOREIGN KEY(`task_id`) REFERENCES task(`task_id`) 
+-- --------------------------------------------------------
 
-ON DELETE CASCADE  ON UPDATE CASCADE,
-FOREIGN KEY(`tag_id`) REFERENCES tag(`tag_id`) ON 
+--
+-- Table structure for table `claimed_task`
+--
 
-DELETE CASCADE ON UPDATE CASCADE
-);
+CREATE TABLE `claimed_task` (
+  `claimer_id` int(11) UNSIGNED NOT NULL,
+  `task_id` bigint(20) UNSIGNED NOT NULL,
+  `score` int(11) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `discipline`
+--
+
+CREATE TABLE `discipline` (
+  `discipline_id` int(11) UNSIGNED NOT NULL,
+  `discipline_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flagged_task`
+--
+
+CREATE TABLE `flagged_task` (
+  `task_id` bigint(20) UNSIGNED NOT NULL,
+  `flagger_id` int(11) UNSIGNED NOT NULL,
+  `timestamp` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `status_id` int(11) UNSIGNED NOT NULL,
+  `status_name` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag`
+--
+
+CREATE TABLE `tag` (
+  `tag_id` int(11) UNSIGNED NOT NULL,
+  `tag_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task`
+--
+
+CREATE TABLE `task` (
+  `task_id` bigint(20) UNSIGNED NOT NULL,
+  `creator_id` int(11) UNSIGNED NOT NULL,
+  `task_title` varchar(128) NOT NULL,
+  `task_type` varchar(128) NOT NULL,
+  `description` varchar(600) NOT NULL,
+  `claim_deadline` datetime NOT NULL,
+  `completion_deadline` datetime NOT NULL,
+  `no_pages` int(11) NOT NULL,
+  `no_words` int(11) NOT NULL,
+  `format` varchar(5) NOT NULL,
+  `storage_address` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task_status`
+--
+
+CREATE TABLE `task_status` (
+  `task_id` bigint(20) UNSIGNED NOT NULL,
+  `status_id` int(11) UNSIGNED NOT NULL,
+  `timestamp` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task_tag`
+--
+
+CREATE TABLE `task_tag` (
+  `task_id` bigint(20) UNSIGNED NOT NULL,
+  `tag_id` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `f_name` varchar(100) NOT NULL,
+  `l_name` varchar(100) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `pass` char(64) NOT NULL,
+  `discipline_id` int(11) UNSIGNED NOT NULL,
+  `reputation` int(11) NOT NULL,
+  `signup_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_tag`
+--
+
+CREATE TABLE `user_tag` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `tag_id` int(11) UNSIGNED NOT NULL,
+  `clicks` int(11) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `banned_user`
+--
+ALTER TABLE `banned_user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `claimed_task`
+--
+ALTER TABLE `claimed_task`
+  ADD PRIMARY KEY (`task_id`),
+  ADD KEY `claimer_id` (`claimer_id`);
+
+--
+-- Indexes for table `discipline`
+--
+ALTER TABLE `discipline`
+  ADD PRIMARY KEY (`discipline_id`),
+  ADD UNIQUE KEY `discipline_name` (`discipline_name`);
+
+--
+-- Indexes for table `flagged_task`
+--
+ALTER TABLE `flagged_task`
+  ADD PRIMARY KEY (`task_id`),
+  ADD KEY `flagger_id` (`flagger_id`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`status_id`),
+  ADD UNIQUE KEY `status_name` (`status_name`);
+
+--
+-- Indexes for table `tag`
+--
+ALTER TABLE `tag`
+  ADD PRIMARY KEY (`tag_id`),
+  ADD UNIQUE KEY `tag_name` (`tag_name`);
+
+--
+-- Indexes for table `task`
+--
+ALTER TABLE `task`
+  ADD PRIMARY KEY (`creator_id`, `task_title`),
+  ADD UNIQUE KEY `task_id` (`task_id`),
+  ADD KEY `creator_id` (`creator_id`);
+
+--
+-- Indexes for table `task_status`
+--
+ALTER TABLE `task_status`
+  ADD PRIMARY KEY (`task_id`,`status_id`,`timestamp`),
+  ADD KEY `status_id` (`status_id`);
+
+--
+-- Indexes for table `task_tag`
+--
+ALTER TABLE `task_tag`
+  ADD PRIMARY KEY (`task_id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `discipline_id` (`discipline_id`);
+
+--
+-- Indexes for table `user_tag`
+--
+ALTER TABLE `user_tag`
+  ADD PRIMARY KEY (`user_id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `discipline`
+--
+ALTER TABLE `discipline`
+  MODIFY `discipline_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `status_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tag`
+--
+ALTER TABLE `tag`
+  MODIFY `tag_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `task`
+--
+ALTER TABLE `task`
+  MODIFY `task_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `banned_user`
+--
+ALTER TABLE `banned_user`
+  ADD CONSTRAINT `banned_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `claimed_task`
+--
+ALTER TABLE `claimed_task`
+  ADD CONSTRAINT `claimed_task_ibfk_1` FOREIGN KEY (`claimer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `claimed_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flagged_task`
+--
+ALTER TABLE `flagged_task`
+  ADD CONSTRAINT `flagged_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `flagged_task_ibfk_2` FOREIGN KEY (`flagger_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `task`
+--
+ALTER TABLE `task`
+  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `task_status`
+--
+ALTER TABLE `task_status`
+  ADD CONSTRAINT `task_status_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_status_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `task_tag`
+--
+ALTER TABLE `task_tag`
+  ADD CONSTRAINT `task_tag_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`discipline_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_tag`
+--
+ALTER TABLE `user_tag`
+  ADD CONSTRAINT `user_tag_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+  
+  
 
 INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES (NULL, 'Graphics');
 INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES (NULL, 'Artificial Intelligence');
@@ -152,5 +364,13 @@ INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'in progress');
 INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'expired');
 INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'complete');
 INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'cancelled');
+
+
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
 
 
