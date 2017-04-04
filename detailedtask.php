@@ -190,7 +190,7 @@
                                           <div class="form-group">
                                                 <label class="col-md-3 control-label">Brief Description Of The Task:</label>
                                                   <div class="col-md-9">
-                                                    <div><?php echo $task->get_description(); ?></div>
+                                                    <div><p class="text-justify"><?php echo $task->get_description(); ?></p></div>
                                                   </div>
                                           </div>
                                         </div>

@@ -94,9 +94,7 @@
                                                 <div class="col-xs-12">
                                                 <ul class="list-inline">
                                                     <li><?php echo $task->get_format() ?> </li>
-
                                                     <li><?php echo$task->get_no_pages() ?> Pages</li>
-
                                                     <li><?php echo$task->get_no_words() ?> Words</li>
                                                 </ul>
                                               </div>
@@ -121,7 +119,7 @@
                                                   echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
                                                   break;
                                                   case "complete":
-                                                  echo '<div><label for="danger" class="btn btn-primary">Complete</label></div>';
+                                                  echo '<div><label for="danger" class="btn btn-success">Complete</label></div>';
                                                   break;
                                                   default:
                                                   echo '';

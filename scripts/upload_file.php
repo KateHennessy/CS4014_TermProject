@@ -7,6 +7,7 @@
   $target_file = $target_dir .round(microtime(true)) . '.' .$extension;
   $uploadOk = 1;
   $file_type = $_FILES["uploaded_document"]["type"];
+  
 
   switch($file_type){
   case "application/pdf":
@@ -22,10 +23,9 @@
   $uploadOk = 1;
   break;
   default:
-  $feedback.=  '<h3 class="alert alert-danger alert-dismissable">
+  $feedback.=  '<div class="alert alert-danger alert-dismissable">
    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-   <i class="glyphicon glyphicon-remove"></i>
-   Unsupported File Type.</h3>';;
+   <h3><i class="glyphicon glyphicon-remove"></i> Unsupported File Type.</h3> If you have uploaded a correct file type there may be an issue with your file.</div>';;
   $uploadOk = 0;
   break;
 
