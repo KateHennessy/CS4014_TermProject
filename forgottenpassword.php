@@ -9,7 +9,6 @@
 require_once __DIR__.'/models/User.class.php';
 require_once __DIR__.'/daos/UserDAO.class.php';
 require_once __DIR__."/utils/Settings.class.php";
-require_once __DIR__."/database/DatabaseQueries.php";
 require_once __DIR__."/utils/PDOAccess.class.php";
 $feedback = "";
  //Run if form was used

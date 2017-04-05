@@ -137,3 +137,16 @@
 
 
             </script>
+
+    <!-- <center>
+        <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
+    </center> -->
+
+    <!--User Profile Sidebar by @keenthemes
+    A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+    Licensed under MIT
+    -->
+<!-- Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security
+ Download Formatting took: 157 ms PHP Formatter made by Spark Labs
+Copyright Gerben van Veenendaal -->

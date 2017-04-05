@@ -6,6 +6,7 @@
     require_once __DIR__.'/models/Task.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
     require_once __DIR__.'/daos/TaskDAO.class.php';
+    require_once __DIR__.'/scripts/phpvalidation.php';
 
       $feedback = "";  //This will be used to add php feedback.
 
@@ -19,6 +20,7 @@
         $task_id = $_GET["id"];
       $task = new Task();
       $task = TaskDAO::find_task_by_id($task_id);
+      $flagged = TaskDAO::find_Task_in_flagged($task_id);
       if(!is_null($task->get_id())){
         foreach($task->get_tags() as $taskTag){
         foreach($user->get_tags() as $userTag){
@@ -39,115 +41,154 @@
       if(TaskDAO::claim_task($user->get_id(), $task->get_id())){
         $task = TaskDAO::find_task_by_id($task_id);
         UserDAO::change_user_reputation($user, 10);
-        $feedback = '<h3 class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> Task Claimed Successfully</h3>';
+        $feedback = phpvalidation::displaySuccess("Task Claimed Successfully");
       }else{
 
       }
 
     }
     if(isset($_POST["download"])){
-      $absolutePath = $task->get_storage_address();
-      $pathParts = pathinfo($absolutePath);
-      $fileName = $pathParts['basename'];
-      $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-      $fileType = finfo_file($fileInfo, $absolutePath);
-      finfo_close($fileInfo);
-      $fileSize = filesize($absolutePath);
-      header('Content-Length: ' .$fileSize);
-      header('Content-Type: ' .$fileType);
-      header('Content-Disposition: attachment;filename=' .$fileName);
-      ob_clean();
-      flush();
-      readfile($absolutePath);
+      require __DIR__.'/scripts/download_file.php';
       exit;
 
   }
   if(isset($_POST["flagTask"])){
-      $url = 'detailedtask.php?id=' .$task->get_id() .'&ok=';
-      if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
+      $url = 'detailedtask.php?id=' .$task->get_id() .'&flagOK=';
+      if(!is_null($flagged)){
+        $url .='2';
+      }
+      else if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
         UserDAO::change_user_reputation($user, 2);
         $url .= '1';
       }else{
           $url.= '0';
       }
-      // echo($url);
+
        header("Location: " .$url);
     }
-    if(isset($_GET['ok'])){
-      	if($_GET['ok'] == 1){
-          $feedback = '<h3 class="alert alert-success alert-dismissable">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-          <i class="glyphicon glyphicon-ok"></i> Task Has Been Flagged</h3>';
+    if(isset($_GET['flagOK'])){
+      if($_GET['flagOK'] == 2){
+        $feedback = phpvalidation::displayWarning("Task Has Already Been Flagged");
+      }
+      	else if($_GET['flagOK'] == 1){
+          $feedback = phpvalidation::displaySuccess("Task Has Been Flagged");
         }else{
-          $feedback = '<h3 class="alert alert-danger alert-dismissable">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-          <i class="glyphicon glyphicon-ok"></i> There was an issue flagging this task. If the problem persists please contact the site administrator.</h3>';
+          $feedback = phpvalidation::displayFailureSubtext("There was an issue flagging this task.", "If the problem persists please contact the site administrator.");
         }
-
     }
 
     if(isset($_POST["removeFlag"])){
+      $url = 'detailedtask.php?id=' .$task->get_id() .'&removeflagOK=';
       if(TaskDAO::deflag_task($task->get_id())){
-        $feedback = '<h3 class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> Task Has Been De-Flagged</h3>';
+        $url .="1";
       }else{
-        $feedback = '<h3 class="alert alert-danger alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> There was an issue deflagging this task. If the problem persists please contact the site administrator. </h3>';
+        $url .="0";
+      }
+      header("Location: " .$url);
+    }
+
+    if(isset($_GET['removeflagOK'])){
+      if($_GET['removeflagOK'] == 1){
+          $feedback = phpvalidation::displaySuccess("Task Has Been De-Flagged");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an issue deflagging this task. "," If the problem persists please contact the site administrator.");
       }
     }
 
+
     if(isset($_POST["banUser"])){
+        $url = 'detailedtask.php?id=' .$task->get_id() .'&banOK=';
       if(UserDAO::ban_user($task->get_creator_id())){
           TaskDAO::remove_all_user_tasks($task->get_creator_id());
-        $feedback = '<h3 class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> User has been banned.</h3>';
+            $url .="1";
       }else{
-        $feedback = '<h3 class="alert alert-danger alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> PROBLEMS</h3>';
+        $url .= "0";
+      }
+       header("Location: " .$url);
+    }
+
+    if(isset($_GET['banOK'])){
+      if($_GET['banOK'] == 1){
+          $feedback = phpvalidation::displaySuccess("User has been banned.");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an issue banning this user. "," If the problem persists please contact the site administrator.");
       }
     }
+
     if(isset($_POST["taskComplete"])){
+      $url = 'detailedtask.php?id=' .$task->get_id() .'&completeOK=';
       STATUSDAO::update_task_status("complete", $task->get_id());
       $task = TASKDAO:: find_task_by_id($task->get_id());
-      $feedback = '<h3 class="alert alert-success alert-dismissable">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <i class="glyphicon glyphicon-ok"></i>Task has been set as Completed.</h3>';
+      $url .="1";
+       header("Location: " .$url);
     }
+
+    if(isset($_GET["completeOK"])){
+      if($_GET["completeOK"] == 1){
+        $feedback = phpvalidation::displaySuccess("Task has been set as Completed.");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an issue marking this task as complete.", "If the problem persists please contac the site administrator");
+      }
+    }
+
     if(isset($_POST["reviewHappy"])){
+        $url = 'detailedtask.php?id=' .$task->get_id() .'&happyOK=';
       if(TaskDAO::set_score_for_task(5, $task->get_id())){
         $creator = UserDAO::getUserByID($task->get_claimer_id());
         UserDAO::change_user_reputation($creator, 5);
-        $feedback = '<h3 class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i>You have given this task a happy score ☺ </h3>';
+        $url .= "1";
       }else{
-        $feedback = '<h3 class="alert alert-warning alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i>There was an error updating </h3>';
+        $url .= "2";
+      }
+       header("Location: " .$url);
+    }
+
+    if(isset($_GET["happyOK"])){
+      if($_GET["happyOK"] == 1){
+        $feedback = phpvalidation::displaySuccess("You have given this task a happy score ☺");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an issue reviewing this task." , "If the problem persists please contact the site administrator");
+      }
+    }
+
+    if(isset($_POST["reviewUnHappy"])){
+        $url = 'detailedtask.php?id=' .$task->get_id() .'&unhappyOK=';
+      if(TaskDAO::set_score_for_task(5, $task->get_id())){
+        $creator = UserDAO::getUserByID($task->get_claimer_id());
+        UserDAO::change_user_reputation($creator, 5);
+        $url .= "1";
+      }else{
+        $url .= "2";
+      }
+       header("Location: " .$url);
+    }
+
+    if(isset($_GET["unhappyOK"])){
+      if($_GET["unhappyOK"] == 1){
+        $feedback = phpvalidation::displaySuccess("You have given this task an unhappy score");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an issue reviewing this task." , "If the problem persists please contact the site administrator");
       }
     }
 
     if(isset($_POST["taskCancelled"])){
+      $url = 'detailedtask.php?id=' .$task->get_id() .'&taskcancelledOK=';
       if(STATUSDAO::update_task_status("cancelled", $task->get_id())){
         $task = TASKDAO:: find_task_by_id($task->get_id());
         UserDAO::change_user_reputation($user, -15);
-        $feedback = '<h3 class="alert alert-danger alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i>You have marked this task as cancelled. 15 points have been removed from your reputation score.</h3>';
-
+          $url .= "1";
       }else{
-        $feedback = '<h3 class="alert alert-warning alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i>There was an error updating </h3>';
+        $url .= "0";
       }
+       header("Location: " .$url);
+    }
 
-
+    if(isset($_GET["taskcancelledOK"])){
+      if($_GET["taskcancelledOK"]){
+        $feedback = phpvalidation::displayWarning("You have marked this task as cancelled. 15 points have been removed from your reputation score.");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an error updating the task status", "If the problem persists please contact the site administrator");
+      }
     }
 ?>
 
@@ -319,7 +360,7 @@
                                   <span class="">
                                     <div class="">Review the task claimer</div>
                                       <button  type="submit" name="reviewHappy" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-thumbs-up"></i>Happy</button>
-                                      <button  type="submit" name="reviewNotHappy" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i> Not Happy</button>
+                                      <button  type="submit" name="reviewUnHappy" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i> Not Happy</button>
                                     </div>
                                     </form>';
                       }

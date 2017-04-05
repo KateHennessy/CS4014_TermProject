@@ -12,7 +12,7 @@
               $user = UserDAO::getUserByID($id);
               $uploadedTasks = TaskDAO::find_user_uploaded_tasks_offset($user->get_id(), 4, 0);
               $claimedTasks = TASKDAO::find_user_claimed_tasks_offset($user->get_id(), 4, 0);
-              
+
               // print_r($claimedTasks);
 
             } else {
@@ -31,7 +31,6 @@
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__."/utils/Settings.class.php";
-    require_once __DIR__."/database/DatabaseQueries.php";
     ?>
      <div class="container-fluid">
     <div class="col-xs-12 well">

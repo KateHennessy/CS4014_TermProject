@@ -11,8 +11,11 @@
 
     <script>
 
+
+
     // Window load event used just in case window height is dependant upon images
-$(window).bind("load", function() {
+    //Some code taken from stackoverflow below as text fields in form were overlappiing on the footer http://stackoverflow.com/questions/33735000/webpage-doesnt-adjust-to-any-screen-height-automatically
+    $(window).bind("load", function() {
 
      var footerHeight = 0,
          footerTop = 0,

@@ -4,6 +4,7 @@ session_start();
     require_once __DIR__ . '/models/Tag.class.php';
     require_once __DIR__. '/scripts/phpvalidation.php';
     require_once __DIR__."/daos/UserDAO.class.php";
+    require_once __DIR__."/daos/TaskDAO.class.php";
 $feedback = "";
 
 
@@ -25,9 +26,8 @@ $_SESSION[ "user_id"] !='' ){
 
    <?php
     require_once __DIR__ . '/templates/loggedinuser.php';
-    require_once __DIR__."/daos/TaskDAO.class.php";
 
-   
+
    ?>
    <!-- CONTAINER START -->
           <div class="container-fluid">
@@ -46,11 +46,12 @@ $_SESSION[ "user_id"] !='' ){
      $no_pages = htmlspecialchars(ucfirst(trim($_POST["no_pages"])));
      $no_words = htmlspecialchars(ucfirst(trim($_POST["no_words"])));
      $tags = $_POST["tags"];
+     if(!is_null(TaskDAO::find_task($creator_id, $title)->get_id())){
+       $feedback .= phpvalidation::displayFailure("You have already created a task with this title");
+       $uploadFormOK = false;
+     }
      if(!phpvalidation::isValidDate($_POST["claim_deadline"]) || !phpvalidation::isValidDate($_POST["completion_deadline"])){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Date entered in invalid format.</h3>';
+       $feedback.= phpvalidation::displayFailure('Date entered in invalid format.');
        $uploadFormOK = false;
      }
      if(!is_numeric($no_pages)){
@@ -223,7 +224,10 @@ $_SESSION[ "user_id"] !='' ){
                 <!-- data-toggle="validator"> -->
         					<!-- <div class="row"> -->
                       <div class="form-group has-feedback">
-                        <label class="col-md-4 control-label" for="File Type">Task Name</label>
+                        <label class="col-md-4 control-label" for="File Type">Task Name
+                                        <button id="tooltip1" type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" data-original-title="Please note, this name must be unique and you must have not previously uploaded a task of the same name."> ?</span>
+                                        </button>
+                        </label>
                           <div class="input-group">
                               <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                               <input id="task_title" required name="task_title" type="text" maxlength="128"  placeholder="" class="form-control input-md">
@@ -301,7 +305,7 @@ $_SESSION[ "user_id"] !='' ){
                       <label class="col-md-4 control-label" for=" ">Claim Deadline</label>
                       <div class="input-group">
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                          <input type="text" required  id="datetimepicker1" name="claim_deadline" class="form-control input-md" />
+                          <input type="text" required  id="datetimepicker1" name="claim_deadline" dateCheck="1" class="form-control input-md" />
                       </div>
                   </div>
         	 <!-- </div> -->
@@ -311,7 +315,7 @@ $_SESSION[ "user_id"] !='' ){
                         <label class="col-md-4 control-label" for=" ">Due Date</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <input type="text" required id="datetimepicker2" name="completion_deadline"  class="form-control input-md" />
+                            <input type="text" required id="datetimepicker2" name="completion_deadline"  dateCheck="1" class="form-control input-md" />
                         </div>
                     </div>
 
@@ -359,7 +363,7 @@ $_SESSION[ "user_id"] !='' ){
                         <div class="row">
                             <div class="col-xs-2">
                               <!-- Need to validate that file size < 8mb -->
-                                <input type="submit" id="uploadsubmit"  name="uploadsubmit" class="btn btn-primary"></input>
+                                <input type="submit" id="uploadsubmit"  name="uploadsubmit" class="btn btn-lg btn-success"></input>
                             </div>
                         </div>
                       </form>
@@ -382,7 +386,6 @@ $_SESSION[ "user_id"] !='' ){
 <script>
     $(document).ready(function() {
 
-  //    console.log("In ready");
      $("#uploadForm").validator({
           custom: {
             filecheck: function ($el){
@@ -397,7 +400,18 @@ $_SESSION[ "user_id"] !='' ){
                 }
                 }else{
               }
-            }
+            },
+            dateCheck: function($el){
+              var today =  Date();
+              console.log(today);
+              var inputed = $el.val();
+              console.log(inputed);
+              var parts =inputed.split('-');
+              var mydate = new Date(parts[0],parts[0]-1,parts[1]);
+              if(mydate < today){
+                return "cannot enter past date"
+              }
+            },
           }
         });
 
@@ -426,12 +440,6 @@ $_SESSION[ "user_id"] !='' ){
 
 
 </script>
-
-
-
-<!-- <center>
-        <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
-    </center> -->
 <br>
 <br>
 
@@ -440,7 +448,3 @@ $_SESSION[ "user_id"] !='' ){
 </body>
 
 </html>
-
-<!--User Profile Sidebar by @keenthemes
-    A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
-    Licensed under MIT

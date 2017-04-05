@@ -25,7 +25,6 @@
 require_once __DIR__.'/templates/loggedinuser.php';
 require_once __DIR__.'/models/User.class.php';
 require_once __DIR__."/utils/Settings.class.php";
-require_once __DIR__."/database/DatabaseQueries.php";
 require_once __DIR__."/daos/TaskDAO.class.php";
 
 
@@ -51,8 +50,8 @@ $feedback ="";
           } else if($newPass == $confirmPass){
                   $siteSalt  = "hPxmjz6hJc";
                   $saltedHash = hash('sha256', $newPass.$siteSalt);
-                  $dbquery = new DatabaseQueries();
-                  $result = $dbquery -> insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE user_id = '".$id ."'");
+
+                  $result = PDOAccess::insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE user_id = '".$id ."'");
                   // echo '<script type="text/javascript">',
                   //         'successMessage();',
                   //       '</script>';
@@ -74,7 +73,7 @@ $feedback ="";
           <h1><div class="glyphicon glyphicon-lock"></div>Change your password</h1>
           <br><br>
   <?php echo $feedback; ?>
- 
+
   <form method="post" role="form" data-toggle="validator">
 		<div class="row">
         <div class="col-sm-6 form-group has-feedback">
@@ -87,7 +86,7 @@ $feedback ="";
 			</div>
 			<span class="help-block with-errors"></span>
 		   </div>
-		
+
         <div class="col-sm-6 form-group has-feedback">
           <label>Confirm New Password <em class="text-danger"> *</em>
           </label>
@@ -99,10 +98,10 @@ $feedback ="";
 		   <span class="help-block with-errors"></span>
         </div>
 		</div>
-		
+
         <button type="submit" class="btn btn-lg btn-success">Submit</button>
       </form>
-	  
+
 
 
 

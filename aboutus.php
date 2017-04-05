@@ -5,7 +5,6 @@
         require_once __DIR__.'/models/User.class.php';
         require_once __DIR__.'/daos/UserDAO.class.php';
         require_once __DIR__."/utils/Settings.class.php";
-        require_once __DIR__."/database/DatabaseQueries.php";
         require_once __DIR__."/utils/PDOAccess.class.php";
 
         if(isset($_POST["login_button"])){
@@ -64,7 +63,7 @@
                                 <h4>Kate Hennessy</h4>
                               </div>
                               <div>
-                                <p class="text-muted">
+                                <p class="text-muted" align = "justify">
                                     Kate is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
                                 </p>
                               </div>
@@ -78,7 +77,7 @@
                                 <h4>Orla Bonar</h4>
                               </div>
                               <div>
-                                <p class="text-muted">
+                                <p class="text-muted" align = "justify">
                                   Orla is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
                                   She has a Bachelor of Arts Degree from the National University of Ireland, Galway and a masters in Psychology
                                   from the University of Limerick.
@@ -94,7 +93,7 @@
                                 <h4>Mary Annie Vijula Ashok Kumar</h4>
                               </div>
                               <div>
-                                <p class="text-muted">
+                                <p class="text-muted" align = "justify">
                                     Annie is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
                                 </p>
                               </div>

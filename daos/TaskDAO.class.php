@@ -234,9 +234,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
           }
           // CAN USER NEXT LINE TO TEST SUM OF CLICKS
           $task->set_title($task->get_title() .'  (Sum of Clicks: ' .$sum .')');
-
             $availableTasks[] = $task;
-
   	  }
 
     }
@@ -305,16 +303,15 @@ public static function find_flagged_tasks_offset($limit, $offset){
   return $flaggedTasks;
 }
 
-public static function find_task_in_flagged($task_id){ //NEED TO TEST THIS
+public static function find_task_in_flagged($task_id){
   $task = NULL;
   if(!is_null($task_id)){
     $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
-    // echo($query);
     $result = PDOAccess::returnSQLquery($query);
     if($result->rowCount() > 0){
-      // print_r($result);
         $row = $result -> fetch(PDO::FETCH_ASSOC);
         $task = ModelFactory::buildModel("Task", $row);
+    }else{
     }
   }
   return $task;
@@ -328,7 +325,6 @@ public static function deflag_task($task_id){
         $result = PDOAccess::deleteSQLquery($query);
         $deflagged = $result;
       }
-
   }
   return $deflagged;
 }
