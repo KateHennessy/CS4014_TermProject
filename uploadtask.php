@@ -274,7 +274,7 @@ $_SESSION[ "user_id"] !='' ){
                                 <select class="selectpicker" data-width="75%" id="tags" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
                                   <?php
                                   //$allDisciplines = array();
-                                  echo("Hello");
+
                                   $allDisciplines = DisciplineDAO::find_all_disciplines();
 
                                   print_r($allDisciplines);

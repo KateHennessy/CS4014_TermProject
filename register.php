@@ -207,8 +207,12 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <select class="selectpicker" name="discipline" id="single-select" multiple data-max-options="1"
                     required="required" data-error="Please choose a discipline" data-width="75%">
-                      <option>Computer Science</option>
-                      <option>Psychology</option>
+                    <?php $allDisciplines = DisciplineDAO::find_all_disciplines();
+                      foreach($allDisciplines as $aDisc){
+                        echo '<option>' .$aDisc->get_name() .'</option>';
+                      } ?>
+                       <!-- <option>Computer Science</option>
+                       <option>Psychology</option> -->
                     </select>
 
                   </div>
@@ -267,7 +271,26 @@
                     <select class="selectpicker" id="multi-select" name="tags[]" data-width="75%" multiple
                     data-selected-text-format="count > 1" data-max-options="4"
                     required="required">
-                      <optgroup label="Computer Science">
+                    <?php
+                    //$allDisciplines = array();
+
+                    $allDisciplines = DisciplineDAO::find_all_disciplines();
+
+                    print_r($allDisciplines);
+
+                    foreach($allDisciplines as $aDisc){
+                      echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                      // echo ('<optgroup label="Computer Science">');
+                        $availTags = array();
+                        $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                        foreach($availTags as $aTag){
+                          echo'<option>' .$aTag->get_name() .'</option>';
+                          // echo '  <option>Graphics</option>';
+                        }
+
+                      echo '</optgroup>';
+                    }  ?>
+                      <!-- <optgroup label="Computer Science">
                         <option>Graphics</option>
                         <option>Artificial Intelligence</option>
                         <option>Computer Architecture & Engineering</option>
@@ -289,7 +312,7 @@
                       <option>Developmental Psychology</option>
                       <option>Educational Psychology</option>
                       <option>Experimental Psychology</option>
-                    </optgroup>
+                    </optgroup> -->
                   </select>
                   </div>
                   <span class="help-block with-errors"></span>
