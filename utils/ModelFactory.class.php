@@ -144,6 +144,9 @@ class ModelFactory {
 		if (isset($modelData['tag_name'])) {
 			$ret ->set_name($modelData["tag_name"]);
 		}
+    if (isset($modelData['discipline_id'])) {
+			$ret ->set_discipline_id($modelData["discipline_id"]);
+		}
     return $ret;
   }
 
@@ -152,6 +155,7 @@ class ModelFactory {
     $tag =  self::generateTag($modelData);
     $ret->set_id($tag->get_id());
     $ret->set_name($tag->get_name());
+    $ret->set_discipline_id($tag->get_discipline_id());
     if (isset($modelData['clicks'])) {
       $ret ->set_clicks($modelData["clicks"]);
     }

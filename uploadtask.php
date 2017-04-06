@@ -1,10 +1,16 @@
 <?php
 session_start();
     require_once __DIR__."/models/User.class.php";
-    require_once __DIR__ . '/models/Tag.class.php';
-    require_once __DIR__. '/scripts/phpvalidation.php';
     require_once __DIR__."/daos/UserDAO.class.php";
+    require_once __DIR__ . '/models/Tag.class.php';
+    require_once __DIR__.'/daos/TagDAO.class.php';
+    require_once __DIR__."/models/Task.class.php";
     require_once __DIR__."/daos/TaskDAO.class.php";
+    require_once __DIR__."/models/Discipline.class.php";
+    require_once __DIR__."/daos/DisciplineDAO.class.php";
+    require_once __DIR__. '/scripts/phpvalidation.php';
+
+
 $feedback = "";
 
 
@@ -22,8 +28,6 @@ $_SESSION[ "user_id"] !='' ){
         <title>ReviUL-Upload Task
         </title>
         <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
-
-
    <?php
     require_once __DIR__ . '/templates/loggedinuser.php';
 
@@ -154,8 +158,7 @@ $_SESSION[ "user_id"] !='' ){
      }
       if($uploadFormOK){
 
-       require_once __DIR__."/models/Task.class.php";
-       require_once __DIR__."/daos/TaskDAO.class.php";
+
         $format = $extension;
         $storage_address = $target_file;
 
@@ -174,7 +177,9 @@ $_SESSION[ "user_id"] !='' ){
       $task->set_format($format);
       $task->set_storage_address($storage_address);
       $tagArray = array();
+
       for($i = 0; $i < count($tags); $i++){
+
           $tagArray[$i] = TagDAO::find_tag_by_name($tags[$i]);
       }
       $task->set_tags($tagArray);
@@ -183,13 +188,6 @@ $_SESSION[ "user_id"] !='' ){
         $feedback = '<h3 class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
         <i class="glyphicon glyphicon-ok"></i> Task Uploaded Successfully</h3>' .$feedback;
-        $title = "";
-        $type =  "";
-        $description = "";
-        $claim_deadline = "";
-        $completion_deadline = "";
-        $no_pages = "";
-        $no_words = "";
       }
     }
 
@@ -274,7 +272,26 @@ $_SESSION[ "user_id"] !='' ){
                           <div class="col-md-8 input-group">
                               <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
                                 <select class="selectpicker" data-width="75%" id="tags" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
-                                  <optgroup label="Computer Science">
+                                  <?php
+                                  //$allDisciplines = array();
+                                  echo("Hello");
+                                  $allDisciplines = DisciplineDAO::find_all_disciplines();
+
+                                  print_r($allDisciplines);
+
+                                  foreach($allDisciplines as $aDisc){
+                                    echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                                    // echo ('<optgroup label="Computer Science">');
+                                      $availTags = array();
+                                      $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                                      foreach($availTags as $aTag){
+                                        echo'<option>' .$aTag->get_name() .'</option>';
+                                        // echo '  <option>Graphics</option>';
+                                      }
+
+                                    echo '</optgroup>';
+                                  }  ?>
+                                  <!-- <optgroup label="Computer Science">
                                       <option>Graphics</option>
                                       <option>Artificial Intelligence</option>
                                       <option>Computer Architecture & Engineering</option>
@@ -296,7 +313,7 @@ $_SESSION[ "user_id"] !='' ){
                                       <option>Developmental Psychology</option>
                                       <option>Educational Psychology</option>
                                       <option>Experimental Psychology</option>
-                                  </optgroup>
+                                  </optgroup> -->
               							 </select>
                         </div>
                   </div>

@@ -5,6 +5,20 @@ require_once __DIR__."/../utils/PDOAccess.class.php";
 
 class DisciplineDAO {
 
+  public static function find_all_disciplines(){
+    $disciplines = array();
+      $query = "SELECT * FROM `discipline`;";
+      echo($query);
+      $result = PDOAccess::returnSQLquery($query);
+      if ($result) {
+        foreach($result as $row){
+          $disciplines[] = ModelFactory::buildModel("Discipline",$row);
+        }
+      }
+      print_r($disciplines);
+    return $disciplines;
+  }
+
   public static function find_discipline_by_name($discipline_name){
     $discipline = NULL;
     if (!is_null($discipline_name)) {
