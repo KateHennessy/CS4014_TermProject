@@ -56,6 +56,11 @@
    } else {
      // echo("In else " .$_SESSION["user_id"]);
      ?>
+     <!DOCTYPE html>
+     <html lang="en">
+       <head>
+         <title>ReviUL-Contact Us
+         </title>
 
 
            <?php
