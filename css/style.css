@@ -360,11 +360,7 @@ body {
 	color:#FF1F1F;
 }
 
-
-#Success {
-  display: none;
-  visibility: hidden;
-}
+/*HIDDEN CLASSES FOR NO JS*/
 
 #discipline{display:none;}
 #tags{display:none;}

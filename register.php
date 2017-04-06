@@ -347,6 +347,41 @@
             <button type="submit" name="signup_button" class="btn btn-lg btn-success">Submit
             </button>
           </form>
+		  </div>
+	  </div>
+		  
+	  <div class="col-sm-1"></div>
+		   
+					<noscript>
+					<div class="col-xs-12 col-sm-3 well">
+				<div class="row" >
+					 <h1 class="">Log In</h1>
+					  <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
+                        <div class="form-group has-feedback">
+                          <label class="sr-only" for="email">Email address
+                          </label>
+                          <input type="email" name ="email" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" id="emailLogin" placeholder="Email address" required>
+                          <span class="glyphicon form-control-feedback"></span>
+                          <span class="help-block with-errors"></span>
+                        </div>
+
+                        <div class="form-group has-feedback">
+                          <label class="sr-only" for="password">Password
+                          </label>
+                          <input type="password" name="password" class="form-control" id="passwordLogin" placeholder="Password" required>
+                          <span class="glyphicon form-control-feedback"></span>
+                            <span class="help-block with-errors"></span>
+
+                          <div class="small text-right">
+                            <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
+                          </div>
+                         
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
+                          </button>
+                        </div>                       
+                      </form></noscript>
 		  
 		  
 
