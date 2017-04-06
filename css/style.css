@@ -85,55 +85,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
 }
 
 /*END OF LOGIN PROPERTIES*/
-/*
-/*.ui-autocomplete {
-  position: relative;
-  /*top: 85%;
-  left: 35%;*/
-  /*z-index: 1000;
-  display: none;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  list-style: none;
-  font-size: 14px;
-  text-align: left;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box;
-}
-.ui-autocomplete > li > div {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  color: #333333;
-  white-space: nowrap;
-}
-.ui-state-hover,
-.ui-state-active,
-.ui-state-focus {
-  text-decoration: none;
-  color: #262626;
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
-.ui-helper-hidden-accessible {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}*/
-
 
 /***
 User Profile Sidebar by @keenthemes
@@ -360,12 +311,6 @@ body {
 	width: auto;
 }
 
-/*multiple upload*/
-/*.entry:not(:first-of-type)
-{
-    margin-top: 10px;
-}*/
-
 
 /*textarea*/
 input[type=text], select, textarea {
@@ -394,20 +339,7 @@ input[type=text], select, textarea {
 #bootstrapSelectForm .selectContainer .form-control-feedback {
     /* Adjust feedback icon position */
     right: -15px;
-
-
-
-/*UPLOAD A TASK CSS FOR UPLOAD FILE*/
-
-/*.entry:not(:first-of-type)
-{
-    margin-top: 10px;
-<<<<<<< HEAD
 }
-=======
-}*/
->>>>>>> 700f78c912d358b9c1e24bc7b7bba7fe44e9345b
-/*conflict<<<<<<< HEAD*/
 
 
 /*FOOTER CSS FOR ALL PAGES */
@@ -419,41 +351,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 40px;
 }
-/*UNSURE IF BELOW CODE IS BEING USED*/
-/*#footer {
-  position: absolute;
-  bottom: 0;
-  width: 90%;*/
-  /* Set the fixed height of the footer here */
-  /*height: 180px;
-  background:*/
-  /* color overlay */
-    /*linear-gradient(
-      rgba(240, 212, 0, 0.45),
-      rgba(0, 0, 0, 0.45)*/
-    ),
-    /* image to overlay */
-    /*url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);*/
-}
 
-
-/* Custom footer CSS
--------------------------------------------------- */
-/*.footer{
-  background: rgb(51,51,51);
-  bottom:0;
-}
-.container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
-}
-.container .text-muted {
-  margin: 20px 0;
-}
-.footertext {
-  color: #ffffff;
-}*/
 
 
 /*validation error mess*/
@@ -461,14 +359,15 @@ body {
 .val_error{
 	color:#FF1F1F;
 }
-/*conflict
-=======
->>>>>>> 3d63574b84cb8a7bcd949eeb8f3ff6fcf2f6174e*/
+
 
 #Success {
   display: none;
   visibility: hidden;
 }
+
+#discipline{display:none;}
+#tags{display:none;}
 
 /*Footer */
 
@@ -484,5 +383,4 @@ body {
     margin-right: 0;
     height: 90px;
     text-align: center;
-
 }
