@@ -12,7 +12,7 @@
               $user = UserDAO::getUserByID($id);
               $uploadedTasks = TaskDAO::find_user_uploaded_tasks_offset($user->get_id(), 4, 0);
               $claimedTasks = TASKDAO::find_user_claimed_tasks_offset($user->get_id(), 4, 0);
-              $count_tasks = TaskDAO::count_tasks($user->get_id());
+
               // print_r($claimedTasks);
 
             } else {
@@ -31,7 +31,6 @@
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/models/Tag.class.php';
     require_once __DIR__."/utils/Settings.class.php";
-    require_once __DIR__."/database/DatabaseQueries.php";
     ?>
      <div class="container-fluid">
     <div class="col-xs-12 well">
@@ -94,9 +93,7 @@
                                                 <div class="col-xs-12">
                                                 <ul class="list-inline">
                                                     <li><?php echo $task->get_format() ?> </li>
-
                                                     <li><?php echo$task->get_no_pages() ?> Pages</li>
-
                                                     <li><?php echo$task->get_no_words() ?> Words</li>
                                                 </ul>
                                               </div>
@@ -119,6 +116,9 @@
                                                   break;
                                                   case "unfinished":
                                                   echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                                                  break;
+                                                  case "complete":
+                                                  echo '<div><label for="danger" class="btn btn-success">Complete</label></div>';
                                                   break;
                                                   default:
                                                   echo '';
@@ -199,6 +199,9 @@
                                                   break;
                                                   case "unfinished":
                                                   echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                                                  break;
+                                                  case "complete":
+                                                  echo '<div><label for="danger" class="btn btn-success">Complete</label></div>';
                                                   break;
                                                   default:
                                                   echo '';

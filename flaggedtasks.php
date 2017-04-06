@@ -15,8 +15,12 @@
     } else {
         header("location:./register.php");
     }
+	
+		
+	
 
-      $count_tasks = TaskDAO::count_tasks($user->get_id());
+
+      
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +40,7 @@
     $totalnoAvailable = TaskDAO::find_no_flagged_tasks();
     $limit = 7;
     $pages = ceil($totalnoAvailable / $limit);
-
+	
     $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
         'options' => array(
             'default'   => 1,
@@ -48,6 +52,7 @@
    $offset = ($page - 1)  * $limit;
    // Some information to display to the user
  $start = $offset + 1;
+if($start < 0)$start = 0;
  $end = min(($offset + $limit), $totalnoAvailable);
  $prevlink = ($page > 1) ? '<li><a href="flaggedtasks.php?page=' . ($page - 1) . '" title="Previous page">Previous</a></li>' : '<li class="disabled"><a href="flaggedtasks.php?page=1" title="First page">Previous</a></li>';
 
@@ -56,7 +61,9 @@
  // echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $totalnoAvailable, ' results ', $nextlink, ' </p></div>';
 
     $tasks = TaskDAO::find_flagged_tasks_offset($limit, $offset);
-
+	if($user->get_reputation() < 40){
+		require_once __DIR__.'/scripts/page_not_found.php';
+	}else{
 
 
     ?>
@@ -149,6 +156,7 @@
         <br>
         <br>
     </div>
+	<?php } ?>
 
     <?php
     require_once __DIR__.'/templates/footer.php';

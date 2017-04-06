@@ -16,7 +16,7 @@
         header("location:./register.php");
     }
 
-      $count_tasks = TaskDAO::count_tasks($user->get_id());
+      
 ?>
 <!DOCTYPE html>
 <html lang="en">

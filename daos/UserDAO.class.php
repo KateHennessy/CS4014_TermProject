@@ -49,15 +49,15 @@ class UserDAO{
 
     public static function find_user_in_banned($user_id){
       $bannedUser = NULL;
-      $query = "SELECT * FROM user WHERE user_id  IN
-      (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .');';
+      $query = "(SELECT * FROM user WHERE user_id  IN
+      (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .'));';
       $result = PDOAccess::returnSQLquery($query);
-      if($result ->rowCount() > 0){
+      //print_r ($result->execute());
+      if($result->rowCount() > 0){
         return true;
-
       }else{
+          
         return false;
-
       }
     }
 

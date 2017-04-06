@@ -137,19 +137,22 @@ require_once __DIR__.'/templates/usersidebar.php';
                                                 // $status = StatusDAO::find_most_recent_status($task_id);
                                                 switch($task->get_status()->get_name()){
                                                   case "unclaimed":
-                                                  echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
+                                                  echo '<div><label class="btn btn-info">Not Claimed</label></div>';
                                                   break;
                                                   case "in progress":
-                                                  echo '<div><label for="warning" class="btn btn-warning">In Progress</label></div>';
+                                                  echo '<div><label class="btn btn-warning">In Progress</label></div>';
                                                   break;
                                                   case "expired":
-                                                  echo '<div><label for="danger" class="btn btn-danger">Expired</label></div>';
+                                                  echo '<div><label class="btn btn-danger">Expired</label></div>';
                                                   break;
                                                   case "cancelled":
-                                                  echo '<div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
+                                                  echo '<div><label  class="btn btn-danger">Cancelled</label></div>';
                                                   break;
                                                   case "unfinished":
-                                                  echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+                                                  echo '<div><label class="btn btn-danger">Unfinished</label></div>';
+                                                  break;
+                                                  case "complete":
+                                                  echo '<div><label class="btn btn-success">Complete</label></div>';
                                                   break;
                                                   default:
                                                   echo '';
