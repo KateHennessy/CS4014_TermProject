@@ -3,6 +3,7 @@
 
 <?php
   session_start();
+  $feedback = "";
     require_once __DIR__.'/models/User.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
     require_once __DIR__."/utils/Settings.class.php";
@@ -15,11 +16,29 @@
      $user = UserDAO::login($email, $password);
 
      if(!is_null($user)){
-       $_SESSION["user_id"] = $user->get_id();
-      header("location:./profilepage.php");
+       $banned = UserDAO::find_user_in_banned($user -> get_id());
+           //if(!is_null($banned)){
+           if($banned){
+             $feedback = ' <h3 class="alert alert-danger alert-dismissable">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+             <img class="center-block" src= "http://i3.kym-cdn.com/entries/icons/facebook/000/006/725/desk_flip.jpg" style = "width: 180px; height: 180px;" /><br /> <br />
+             <i class="glyphicon glyphicon-alert"></i> You have been banned for inappropriate content.
+             Contact administration with any issues. </h3> <br /><br />';
+           }else{
+             $_SESSION["user_id"] = $user->get_id();
+
+            header("location:./profilepage.php");
+          }
      }else{
-       header("location:./register.php");
+      //  header("location:./register.php");
+      $feedback = ' <h3 class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <i class="glyphicon glyphicon-alert"></i> Incorrect email or password. </h3> <br /><br />';
      }
+
+    //  if(is_null($user)){
+    //    header("location:./information.php");
+    //  }
    }
 
    if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
@@ -53,6 +72,7 @@
     <div class="container-fluid">
         <div class="col-xs-11 col-sm-8 well">
             <div class="profile-content">
+                <?php echo $feedback; ?>
                 <h1><div class="glyphicon glyphicon-info-sign"></div>General Information</h1><br>
                 <h3>User Information</h3>
                   <p align = "justify">
@@ -108,7 +128,7 @@
                   <p align = "justify">
                     It is important to update your status on claimed tasks, as this could affect your reputation score.
                   </p>
-                  
+
                 <h3>Banning of Users</h3>
                   <p align = "justify">
                     If a user uploads content which is deemed inappropriate by another user, other users have the option to flag that task.
