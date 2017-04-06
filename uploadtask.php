@@ -322,8 +322,9 @@ $_SESSION[ "user_id"] !='' ){
                       <label class="col-md-4 control-label" for=" ">Claim Deadline</label>
                       <div class="input-group">
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                          <input type="text" required  id="datetimepicker1" name="claim_deadline" dateCheck="1" class="form-control input-md" />
+                          <input type="text" required  id="datetimepicker1" name="claim_deadline" data-dateCheck="1" class="form-control input-md" />
                       </div>
+                        <span class="help-block with-errors"></span>
                   </div>
         	 <!-- </div> -->
 
@@ -332,8 +333,9 @@ $_SESSION[ "user_id"] !='' ){
                         <label class="col-md-4 control-label" for=" ">Due Date</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <input type="text" required id="datetimepicker2" name="completion_deadline"  dateCheck="1" class="form-control input-md" />
+                            <input type="text" required id="datetimepicker2" name="completion_deadline"  data-dateCheck="1" class="form-control input-md" />
                         </div>
+                          <span class="help-block with-errors"></span>
                     </div>
 
 
@@ -402,7 +404,7 @@ $_SESSION[ "user_id"] !='' ){
 
 <script>
     $(document).ready(function() {
-
+      console.log("Hello");
      $("#uploadForm").validator({
           custom: {
             filecheck: function ($el){
@@ -419,16 +421,14 @@ $_SESSION[ "user_id"] !='' ){
               }
             },
             dateCheck: function($el){
-              var today =  Date();
-              console.log(today);
+              var today = new Date();
               var inputed = $el.val();
-              console.log(inputed);
               var parts =inputed.split('-');
-              var mydate = new Date(parts[0],parts[0]-1,parts[1]);
+              var mydate =  new Date(parts[0],parts[1]-1,parts[2], 23,59);
               if(mydate < today){
-                return "cannot enter past date"
+                return "Cannot enter past date"
               }
-            },
+            }
           }
         });
 
