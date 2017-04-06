@@ -210,16 +210,22 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
                     <select class="selectpicker" name="discipline" multiple data-max-options="1"
                     required="required" data-error="Please choose a discipline" data-width="75%">
-                      <option>Computer Science</option>
-                      <option>Psychology</option>
+                    <?php $allDisciplines = DisciplineDAO::find_all_disciplines();
+                      foreach($allDisciplines as $aDisc){
+                        echo '<option>' .$aDisc->get_name() .'</option>';
+                      } ?>
+                       <!-- <option>Computer Science</option>
+                       <option>Psychology</option> -->
                     </select>
 
                   </div>
                   <span class="help-block with-errors"></span>
 				  <noscript>
 				  <div class="input-group"><select class="custom-select" name="discipline">
-						<option>Computer Science</option>
-                      <option>Psychology</option>
+						<?php $allDisciplines = DisciplineDAO::find_all_disciplines();
+                      foreach($allDisciplines as $aDisc){
+                        echo '<option>' .$aDisc->get_name() .'</option>';
+                      } ?>
                     </select></div>
 					</noscript>
                 </div>
@@ -279,29 +285,26 @@
                     <select class="selectpicker" name="tags[]" data-width="75%" multiple
                     data-selected-text-format="count > 1" data-max-options="4" 
                     required="required">
-                      <optgroup label="Computer Science" >
-                        <option>Graphics</option>
-                        <option>Artificial Intelligence</option>
-                        <option>Computer Architecture & Engineering</option>
-                        <option>Biosystems & Computational Biology</option>
-                        <option>Human-Computer Interaction</option>
-                        <option>Operating Systems & Networking</option>
-                        <option>Programming Systems</option>
-                        <option>Scientific Computing</option>
-                        <option>Security</option>
-                        <option>Theory</option>
-                    </optgroup>
-                    <optgroup label="Psychology">
-                      <option>Abnormal Psychology</option>
-                      <option>Behavioral Psychology</option>
-                      <option>Biopsychology</option>
-                      <option>Cognitive Psychology</option>
-                      <option>Comparative Psychology</option>
-                      <option>Cross-Cultural Psychology</option>
-                      <option>Developmental Psychology</option>
-                      <option>Educational Psychology</option>
-                      <option>Experimental Psychology</option>
-                    </optgroup>
+                    <?php
+                    //$allDisciplines = array();
+
+                    $allDisciplines = DisciplineDAO::find_all_disciplines();
+
+                    
+
+                    foreach($allDisciplines as $aDisc){
+                      echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                      // echo ('<optgroup label="Computer Science">');
+                        $availTags = array();
+                        $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                        foreach($availTags as $aTag){
+                          echo'<option>' .$aTag->get_name() .'</option>';
+                          // echo '  <option>Graphics</option>';
+                        }
+
+                      echo '</optgroup>';
+                    }  ?>
+
                   </select>
                   </div>
                   <span class="help-block with-errors"></span>
@@ -309,29 +312,25 @@
 				  <noscript>
 				  <div class="input-group">
 				  <select class="custom-select" name="tags[]" multiple>
-						 <optgroup label="Computer Science" >
-							 
-                        <option>Graphics</option>
-                        <option>Artificial Intelligence</option>
-                        <option>Computer Architecture & Engineering</option>
-                        <option>Biosystems & Computational Biology</option>
-                        <option>Human-Computer Interaction</option>
-                        <option>Operating Systems & Networking</option>
-                        <option>Programming Systems</option>
-                        <option>Scientific Computing</option>
-                        <option>Security</option>
-                        <option>Theory</option>
-                    </optgroup>
-                    <optgroup label="Psychology">
-                      <option>Abnormal Psychology</option>
-                      <option>Behavioral Psychology</option>
-                      <option>Biopsychology</option>
-                      <option>Cognitive Psychology</option>
-                      <option>Comparative Psychology</option>
-                      <option>Cross-Cultural Psychology</option>
-                      <option>Developmental Psychology</option>
-                      <option>Educational Psychology</option>
-                      <option>Experimental Psychology</option>
+						  <?php
+                    //$allDisciplines = array();
+
+                    $allDisciplines = DisciplineDAO::find_all_disciplines();
+
+                    
+
+                    foreach($allDisciplines as $aDisc){
+                      echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                      // echo ('<optgroup label="Computer Science">');
+                        $availTags = array();
+                        $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                        foreach($availTags as $aTag){
+                          echo'<option>' .$aTag->get_name() .'</option>';
+                          // echo '  <option>Graphics</option>';
+                        }
+
+                      echo '</optgroup>';
+                    }  ?>
 						</select>
 						</div>
 						</noscript>
