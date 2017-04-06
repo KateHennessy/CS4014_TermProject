@@ -336,7 +336,54 @@ ALTER TABLE `user_tag`
   ADD CONSTRAINT `user_tag_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
+
+
+  INSERT INTO `discipline` (`discipline_id`, `discipline_name`) VALUES (NULL, 'Computer Science');
+  INSERT INTO `discipline` (`discipline_id`, `discipline_name`) VALUES (NULL, 'Psychology');
+  INSERT INTO `discipline` (`discipline_id`, `discipline_name`) VALUES (NULL, 'History');
+
+
+
+INSERT INTO `tag` (`tag_id`, `tag_name` ,`discipline_id`) VALUES (NULL, 'Graphics', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Artificial Intelligence', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Computer Architecture & Engineering', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Biosystems & Computational Biology', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Human-Computer Interaction', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Operating Systems & Networking', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Programming Systems', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Scientific Computing', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Security', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Theory', 1);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Abnormal Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Behavioral Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Biopsychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Cognitive Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Comparative Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Cross-Cultural Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Developmental Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Educational Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Experimental Psychology', 2);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'War', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Middle Ages', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'History of Women', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Vikings', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Roman Empire', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Ancient Egypt', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Prehistoric', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Religion', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'Social History', 3);
+INSERT INTO `tag` (`tag_id`, `tag_name`,`discipline_id`) VALUES (NULL, 'World History', 3);
+
+
+
+INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'unclaimed');
+INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'unfinished');
+INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'in progress');
+INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'expired');
+INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'complete');
+INSERT INTO `status` (`status_id`, `status_name`) VALUES (NULL, 'cancelled');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
