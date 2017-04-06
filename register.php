@@ -140,8 +140,11 @@
         <div class="row">
           <h1 class="">Sign Up</h1>
           <br>
-
-          <form method="post" role="form" data-toggle="validator">
+		  <!--  role="form" data-toggle="validator"-->
+			<!--<script><form role="form" data-toggle="validator"></script>-->
+				 
+         <form novalidate method="post" role="form" data-toggle="validator">
+		
             <div class="col-sm-12">
               <?php echo $feedback; ?>
               <div class="row">
@@ -189,9 +192,9 @@
                 <div class="col-sm-6 form-group has-feedback">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
-                  <div class="input-group">
+                  <div class="input-group"  id="discipline">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                    <select class="selectpicker" name="discipline" id="single-select" multiple data-max-options="1"
+                    <select class="selectpicker" name="discipline" multiple data-max-options="1"
                     required="required" data-error="Please choose a discipline" data-width="75%">
                       <option>Computer Science</option>
                       <option>Psychology</option>
@@ -199,7 +202,15 @@
 
                   </div>
                   <span class="help-block with-errors"></span>
+				  <noscript>
+				  <div class="input-group"><select class="custom-select" name="discipline">
+						<option>Computer Science</option>
+                      <option>Psychology</option>
+                    </select></div>
+					</noscript>
                 </div>
+				
+						
 
               </div>
 
@@ -248,12 +259,13 @@
                   These tags will determine what tasks appear in your feed. Please choose between 1 and 4 tags.">
                     <span class="text-white"> ?</span>
                   </button>
-                  <div class="input-group">
+				  
+                  <div class="input-group" id="tags">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-                    <select class="selectpicker" id="multi-select" name="tags[]" data-width="75%" multiple
-                    data-selected-text-format="count > 1" data-max-options="4"
+                    <select class="selectpicker" name="tags[]" data-width="75%" multiple
+                    data-selected-text-format="count > 1" data-max-options="4" 
                     required="required">
-                      <optgroup label="Computer Science">
+                      <optgroup label="Computer Science" >
                         <option>Graphics</option>
                         <option>Artificial Intelligence</option>
                         <option>Computer Architecture & Engineering</option>
@@ -279,35 +291,85 @@
                   </select>
                   </div>
                   <span class="help-block with-errors"></span>
+				  
+				  <noscript>
+				  <div class="input-group">
+				  <select class="custom-select" name="tags[]" multiple>
+						 <optgroup label="Computer Science" >
+							 
+                        <option>Graphics</option>
+                        <option>Artificial Intelligence</option>
+                        <option>Computer Architecture & Engineering</option>
+                        <option>Biosystems & Computational Biology</option>
+                        <option>Human-Computer Interaction</option>
+                        <option>Operating Systems & Networking</option>
+                        <option>Programming Systems</option>
+                        <option>Scientific Computing</option>
+                        <option>Security</option>
+                        <option>Theory</option>
+                    </optgroup>
+                    <optgroup label="Psychology">
+                      <option>Abnormal Psychology</option>
+                      <option>Behavioral Psychology</option>
+                      <option>Biopsychology</option>
+                      <option>Cognitive Psychology</option>
+                      <option>Comparative Psychology</option>
+                      <option>Cross-Cultural Psychology</option>
+                      <option>Developmental Psychology</option>
+                      <option>Educational Psychology</option>
+                      <option>Experimental Psychology</option>
+						</select>
+						</div>
+						</noscript>
                 </div>
-
+				
+			
+								
               </div>
-            </div>
+			 
+			</div>			
+				
+            
             <button type="submit" name="signup_button" class="btn btn-lg btn-success">Submit
             </button>
           </form>
+		  
+		  
 
         </div>
       </div>
     </div>
     <?php  ?>
+	
 
     <?php
     require_once __DIR__.'/templates/footer.php';
     ?>
-
+	
     <script>
-      $(document).ready(function(){
+	
 
-        // $('#multi-select').on('change', function () {
-        //   var count = $(this).find("option:selected").length;
-        //   if(count > 0 && count <= 4){
-        //     successInput(this);
-        //   }else{
-        //     failInput(this);
-        //   }
-        // });
-        //
+      $(document).ready(function(){
+		  
+		 $("#tags").show();
+		 
+		 $("#discipline").show();
+		  
+		  
+		 
+//}
+		  
+
+       // $('#multi-select').on('change', function () {
+        //  var count = $(this).find("option:selected").length;
+       //   if(count > 0 && count <= 4){
+       //     successInput(this);
+       //   }else{
+	//failInput(this);
+      //     }
+      //  });
+        
+		//document.getElementById('multi-select').removeAttribute("multiple");;
         // $('#single-select').on('change', function () {
         //   var count = $(this).find("option:selected").length;
         //   if(count == 1){
