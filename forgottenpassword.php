@@ -10,6 +10,7 @@ require_once __DIR__.'/models/User.class.php';
 require_once __DIR__.'/daos/UserDAO.class.php';
 require_once __DIR__."/utils/Settings.class.php";
 require_once __DIR__."/utils/PDOAccess.class.php";
+require_once __DIR__."/scripts/phpvalidation.php";
 $feedback = "";
  //Run if form was used
       if (isset($_POST) && count($_POST) > 0 && isset($_POST["reset_email"])) {
@@ -18,7 +19,7 @@ $feedback = "";
           $email = trim(strtolower($_POST["reset_email"]));
  //check email exists
         $user = UserDAO::getUserByEmail($email);
-        if(!is_null($user->get_id())){
+        if(!is_null($user)){
           ///generate a new password
                    $validCharacters = "ABCDEFGHIJKLMNPQRSTUXYVWZ123456789";
                    $validCharNumber = strlen($validCharacters);
@@ -38,13 +39,13 @@ $feedback = "";
             $feedback = '<h3 class="text-success text-center"> <i class="glyphicon glyphicon-ok"></i>' .$random_password .'</h3><br /><br /><br />';
           }
           if(!preg_match('/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/', $email)){
-    				$feedback = '  <h3 class="alert alert-danger alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <i class="glyphicon glyphicon-alert"></i> UL Email is required. </h3> <br /><br />';
+    				$feedback .= phpvalidation::displayFailure(" UL Email is required");
     			$uploadFormOK = false;
 
     			}
 
+        }else{
+          $feedback .=  phpvalidation::displayFailure("This email is not registered to an account");
         }
        }else if(isset($_POST["login_button"])){
          $email = trim(strtolower($_POST["email"]));
@@ -55,7 +56,7 @@ $feedback = "";
            $_SESSION["user_id"] = $user->get_id();
           header("location:./profilepage.php");
          }else{
-           header("location:./register.php");
+           header("location:./forgottenpassword.php");
          }
        }else{ $feedback = '
          <form method="post" data-toggle="validator" >
