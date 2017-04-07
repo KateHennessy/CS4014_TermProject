@@ -185,7 +185,7 @@ $_SESSION[ "user_id"] !='' ){
                                 <br>
                                 <!-- Form Name -->
                                 <legend>Fill in the form:</legend>
-                <form novalidate method="post" id="uploadForm">
+                <form novalidate method="post" id="uploadForm"  enctype="multipart/form-data"  role="form">
 
 
                 <!-- data-toggle="validator"> -->
