@@ -3,29 +3,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="images/icon.ico">
 
-    <!-- JQUERY -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    </script>
-    <!-- <script src="./js/successMessage.js"> -->
-    </script>
-
-    <!-- ONLINE BOOTSTRAP FILES -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
-
-    <!-- ONLINE BOOTSTRAP SELECT FILES (FOR TAGS SELECTION) -->
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!--  CSS FILES -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">                            <!-- ONLINE BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">  <!-- ONLINE BOOTSTRAP SELECT FILES (FOR TAGS SELECTION) -->
+    <link rel="stylesheet" href="css/style.css">                                                                                 <!-- LOCAL CUSTOM CSS SHEET-->
 
 
-
-
-    <!-- Custom CSS FILES -->
-    <link rel="stylesheet" href="css/style.css">
-  
+    <!-- JAVASCRIPT FILES -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>                                <!-- ONLINE JQUERY -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>                               <!-- ONLINE BOOTSTRAP JS FILES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>           <!-- ONLINE BOOTSTRAP SELECT FILES -->
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 
   </head>
@@ -60,27 +47,18 @@
 				<li><button type="submit" class="btn btn-primary btn-lg btn-block">Log Out</button>
 
                 <form method="post" action="./logout.php">
-                    <!--Menu bar on right hand side of nav bar -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-
                             <ul id="login-dp" class="dropdown-menu">
-
                                 <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
                                 <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
                                 <div class="form-group">
-                                    <!-- <input type="button" value="Log Out" class="btn-primary btn-block btn" onclick="window.location.href="<?php echo 'information.php'; ?>"> -->
                                     <button type="submit" class="btn btn-primary btn-block">Log Out</button>
                                 </div>
-
                             </ul>
                         </li>
-
                     </ul>
          </form>
          </div>
         </div>
-        <!-- /.navbar-collapse -->
-
-        <!-- /.container-fluid -->
     </nav>

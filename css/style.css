@@ -264,7 +264,7 @@ body {
     height:300px;
   }
   .fixedHead{
-    height:40%;
+    height:30%;
   }
 }
 @media(max-width:991px){
@@ -380,4 +380,7 @@ body {
     height: 60px;
     text-align: center;
     z-index: 3;
+}
+.removeHover{
+    pointer-events: none;
 }

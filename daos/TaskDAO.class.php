@@ -289,68 +289,75 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
       return $flaggedTasks;
   }
 
-public static function find_flagged_tasks_offset($limit, $offset){
-  $flaggedTasks = array();
-  $query = 'SELECT * FROM task WHERE task_id IN
-  (SELECT task_id FROM flagged_task) LIMIT ' .$offset .',' .$limit .';';
+  public static function find_flagged_tasks_offset($limit, $offset){
+    $flaggedTasks = array();
+    $query = 'SELECT * FROM task WHERE task_id IN
+    (SELECT task_id FROM flagged_task) LIMIT ' .$offset .',' .$limit .';';
 
-  $result = PDOAccess::returnSQLquery($query);
-  if($result){
-	  foreach($result as $row){
-		$flaggedTasks[] = ModelFactory::buildModel("Task", $row);
-	  }
-	}
-  return $flaggedTasks;
-}
-
-public static function find_task_in_flagged($task_id){
-  $task = NULL;
-  if(!is_null($task_id)){
-    $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
     $result = PDOAccess::returnSQLquery($query);
-    if($result->rowCount() > 0){
-        $row = $result -> fetch(PDO::FETCH_ASSOC);
-        $task = ModelFactory::buildModel("Task", $row);
+    if($result){
+  	  foreach($result as $row){
+  		$flaggedTasks[] = ModelFactory::buildModel("Task", $row);
+  	  }
+  	}
+    return $flaggedTasks;
+  }
+
+  public static function find_task_in_flagged($task_id){
+    $task = NULL;
+    if(!is_null($task_id)){
+      $query = 'SELECT * FROM flagged_task WHERE task_id='.$task_id .';';
+      $result = PDOAccess::returnSQLquery($query);
+      if($result->rowCount() > 0){
+          $row = $result -> fetch(PDO::FETCH_ASSOC);
+          $task = ModelFactory::buildModel("Task", $row);
+      }else{
+      }
+    }
+    return $task;
+  }
+
+  public static function deflag_task($task_id){
+    $deflagged = false;
+    if(!is_null($task_id)){
+        if(!is_null(self::find_task_in_flagged($task_id))){
+          $query = 'DELETE FROM `flagged_task` WHERE `task_id` = ' .$task_id .';';
+          $result = PDOAccess::deleteSQLquery($query);
+          $deflagged = $result;
+        }
+    }
+    return $deflagged;
+  }
+
+  public static function remove_all_user_tasks($creator_id){
+    if(!is_null($creator_id)){
+      $query = 'DELETE FROM `task` WHERE `task`.`creator_id` = ' .$creator_id .' AND `task_id` NOT IN (SELECT `task_id` FROM claimed_task);';
+      return PDOAccess::deleteSQLquery($query);
     }else{
+      return false;
     }
   }
-  return $task;
-}
 
-public static function deflag_task($task_id){
-  $deflagged = false;
-  if(!is_null($task_id)){
-      if(!is_null(self::find_task_in_flagged($task_id))){
-        $query = 'DELETE FROM `flagged_task` WHERE `task_id` = ' .$task_id .';';
-        $result = PDOAccess::deleteSQLquery($query);
-        $deflagged = $result;
-      }
+  public static function delete_task($task_id){
+    if(!is_null($task_id)){
+      $query = 'DELETE FROM `task` WHERE `task`.`task_id` = ' .$task_id .';';
+      return PDOAccess::deleteSQLquery($query);
+    }else{
+      return false;
+    }
   }
-  return $deflagged;
-}
 
-public static function remove_all_user_tasks($creator_id){
-  if(!is_null($creator_id)){
-    $query = 'DELETE FROM `task` WHERE `task`.`creator_id` = ' .$creator_id .' AND `task_id` NOT IN (SELECT `task_id` FROM claimed_task);';
-    return PDOAccess::deleteSQLquery($query);
-  }else{
-    return false;
+  public static function count_tasks($creator_id){
+    $count_tasks = NULL;
+    if(!is_null($creator_id)){
+          $query = 'SELECT * FROM  task  WHERE creator_id = ' .PDOAccess::prepareString($creator_id) .';';
+          $result = PDOAccess::returnNoRows($query);
+
+          $count_tasks = $result;
+        }
+
+    return $count_tasks;
   }
-}
-
-public static function count_tasks($creator_id){
-  $count_tasks = NULL;
-  if(!is_null($creator_id)){
-        $query = 'SELECT * FROM  task  WHERE creator_id = ' .PDOAccess::prepareString($creator_id) .';';
-        $result = PDOAccess::returnNoRows($query);
-
-        $count_tasks = $result;
-      }
-
-  return $count_tasks;
-}
-
-
 
 
 }

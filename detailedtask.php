@@ -7,6 +7,8 @@
     require_once __DIR__.'/daos/UserDAO.class.php';
     require_once __DIR__.'/daos/TaskDAO.class.php';
     require_once __DIR__.'/scripts/phpvalidation.php';
+    require_once __DIR__.'/scripts/detailedtaskviews.php';
+
 
       $feedback = "";  //This will be used to add php feedback.
 
@@ -184,11 +186,30 @@
     }
 
     if(isset($_GET["taskcancelledOK"])){
-      if($_GET["taskcancelledOK"]){
+      if($_GET["taskcancelledOK"] == 1){
         $feedback = phpvalidation::displayWarning("You have marked this task as cancelled. 15 points have been removed from your reputation score.");
       }else{
         $feedback = phpvalidation::displayFailureSubtext("There was an error updating the task status", "If the problem persists please contact the site administrator");
       }
+    }
+
+    if(isset($_POST["removeBannedTask"])){
+      $url = 'detailedtask.php?id=' .$task->get_id() .'&removebannedOK=';
+      if(TaskDAO::delete_task($task->get_id())){
+        $url .="1";
+      }else{
+        $url .= "0";
+      }
+      header("Location: " .$url);
+    }
+
+    if(isset($_GET["removebannedOK"])){
+      if($_GET["removebannedOK"] == 1){
+        $feedback = phpvalidation::displaySuccess("This task has been removed from our system.");
+      }else{
+        $feedback = phpvalidation::displayFailureSubtext("There was an error removing this task",  "If the problem persists please contact the site administrator");
+      }
+
     }
 ?>
 
@@ -210,9 +231,7 @@
 
           <div class="col-md-9 profile-content">
               <div class="" id="detailedTask">
-
                                 <?php
-                                // echo($task->get_creator_id());
                                     echo($feedback);
                                     if(!is_null($task->get_id())){
                                           if($task->get_status()->get_name() != 'expired'){?>
@@ -325,140 +344,29 @@
 
                               </div>
 
+                              <div class="panel-footer" style="min-height:90px">
 <?php
-
 
                 if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
-                  ?>
-                  <div class="panel-footer">
-                    <!-- <span class="pull-right"> -->
-
-                    <?php switch($task->get_status()->get_name()){
-                      case "unclaimed":
-                      echo '<span class="pull-right"><div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
-                      break;
-
-                      case "in progress":
-                      echo '<span class="pull-right"><div class="row"><label for="warning" class="btn btn-warning">In Progress</label></div>
-                            <div class="row">Contact the claimer at: <span class="text-info">'.UserDAO::getUserByID($task->get_claimer_id())->get_email() .' </span></div>';
-                      break;
-                      case "expired":
-                      echo '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Expired</label></div>';
-                      break;
-                      case "cancelled":
-                      echo '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
-                      break;
-                      case "unfinished":
-                      echo '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
-                      break;
-                      case "complete":
-                        echo '<div class="row">';
-                        echo '<span class=""><div class="col-sm-6"><br><label class="btn btn-success">Complete</label></div></span>';
-                      if($task->get_score() == 0){
-                        echo '<div class="col-sm-6">
-                               <form method="post">
-                                  <span class="">
-                                    <div class="">Review the task claimer</div>
-                                      <button  type="submit" name="reviewHappy" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-thumbs-up"></i>Happy</button>
-                                      <button  type="submit" name="reviewUnHappy" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i> Not Happy</button>
-                                    </div>
-                                    </form>';
-                      }
-                      echo '</div>';
-
-
-                      break;
-                      default:
-                      echo '';
-                      break;
-                    } ?>
-                  </span>
-              <br/><br><br>
-            </div>
-<?php
+                    echo detailedTaskView::createView("Creator", $task);
                 } //END OF CREATOR VIEWING THEIR OWN TASK
 
-                else if(UserDAO::find_user_in_banned($task->get_creator_id())){
-
-                    echo '<div class="panel-footer">
-                    <h3 class="text-danger text-center"> <i class="glyphicon glyphicon-flag"> </i>This user has been banned. This is task is no longer valid. </h3>
-                    </div>';
+                else if(UserDAO::find_user_in_banned($task->get_creator_id())){   //Task Is Banned
+                  echo detailedTaskView::createView("BannedTask", $task);
                 }
                 else if(is_null($task->get_claimer_id())){ // CLAIMER IS NULL - TWO POSSIBILITIES - MODERATOR LOOKING AT FLAGGED TASK OR POTENTIAL CLAIMER
 
                   if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())) && $user->get_reputation() >=40){ //MODERATOR LOOKING AT FLAGGED TASK
-                    echo '<div class="panel-footer">
-                                    <span class="pull-right">
-                                    <form method="post">
-                                      <button  type="submit" name="removeFlag" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Remove from Flagged Tasks</button>
-                                      <button  type="submit" name="banUser" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Ban User</button>
-                                    </form>
-                                  </span>
-                              <br/><br>
-                            </div>';
+                    echo detailedTaskView::createView("Flagged", $task);
+
                   }else if($task->get_status()->get_name()=='unclaimed'){ //POTENTIAL CLAIMER
-                    echo '<div class="panel-footer col-sm-12">
-
-                                <span class="pull-left">
-                                   <a class="btn btn-default" href="availabletasks.php"><span class="small">Back </span> <span class="small hidden-xs"> to Available Tasks</span></a>
-                                 </span>
-
-                                  <span class="pull-right">
-                                    <form method="post" role="form">
-                                      <button type="submit" name="claimTask" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-check"></i>Claim Task</button>
-                                      <button type="submit" name="flagTask" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-flag"></i> Flag Task</button>
-                                    </form>
-                                  </span>
-
-                              <br/><br>
-                            </div>';
-                          }
-
+                    echo detailedTaskView::createView("PotentialClaimer", $task);
                         } //END OF CLAIMER IS NULL
-
+}
                 else if($task->get_claimer_id() == $user->get_id()){  //CURRENT VIEWER IS THE CLAIMER OF THE TASK
-
-                  if($task->get_status()->get_name() == "complete"){
-                    echo '<div class="panel-footer">
-                    <form method="post">
-                    <div class="row">
-                        <div class="col-sm-6 pull-left">
-                            <div><label class="btn btn-success">Complete</label></div>
-                       </div>
-                        <div class="col-sm-6 pull-right">
-                           <div><label class="btn btn-primary">Review: ';
-                           if($task->get_score()==0){
-                             echo ("Not Yet Reviewed");
-                           }else if ($task->get_score()==-5){
-                              echo "Not Happy";
-                            }else if($task->get_score()==5){
-                              echo "Happy";
-                            } else{
-                              echo "UNKNOWN";
-                            }
-                            echo '</label></div>
-                      </div>
-                  </div>
-                    </form>
-
-                          </div>';
-                  }else{
-                      echo '<div class="panel-footer">
-                      <form method="post">
-                      <div class="row">
-                        <div class="col-sm-12 pull-left">
-                          <button  type="submit" name="taskComplete" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-check"></i>Mark Task as Complete</button>
-                          <button  type="submit" name="taskCancelled" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i> Mark Task as Cancelled</button>
-                          </div>
-                        </div>
-                      </form>
-
-                            </div>';
-                      }
+                    echo detailedTaskView::CreateView("Claimer", $task);
                 }
-
-
-                        else{ // THE USER IS NOT THE CREATOR OR THE CLAIMER - NO ACCESS
+                else{ // THE USER IS NOT THE CREATOR OR THE CLAIMER - NO ACCESS
                           ?>
                           <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
                             <p class="small text-center"> This task is not available. Please find another task.</p>
@@ -485,6 +393,8 @@
                       </div>
                     </div></div>
                         <?php } ?>
+
+                      </div>
                       </div>
 
                   </div>

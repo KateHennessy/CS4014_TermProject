@@ -6,12 +6,10 @@ class UserDAO{
     public static function getUserByEmail($email) {
         $user = null;
         if (!is_null($email)) {
-					// echo(PDOAccess::prepareString($email) .'<br />');
 					$query = "SELECT * FROM user WHERE email =" .PDOAccess::prepareString($email) .";";
             $result = PDOAccess::returnSQLquery($query);
             if ($result) {
 							$row = $result -> fetch(PDO::FETCH_ASSOC);
-							// print_r("<br />id: " .$row['user_id'] ."<br />");
                 $user = ModelFactory::buildModel("User", $row);
             }
         }
@@ -36,7 +34,6 @@ class UserDAO{
       $query = "SELECT * FROM user WHERE user_id  IN
       (SELECT user_id FROM banned_users);";
       $result = PDOAccess::returnSQLquery($query);
-      // if ($result->fetchColumn()) {
         if ($result) {
         foreach($result as $row){
           $user = ModelFactory::buildModel("User", $row);
@@ -52,11 +49,10 @@ class UserDAO{
       $query = "(SELECT * FROM user WHERE user_id  IN
       (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .'));';
       $result = PDOAccess::returnSQLquery($query);
-      //print_r ($result->execute());
       if($result->rowCount() > 0){
         return true;
       }else{
-          
+
         return false;
       }
     }
@@ -88,14 +84,11 @@ class UserDAO{
 						$tags = $user->get_tags();
 						$user = self::getUserByEmail($user->get_email());
 						$user_id = $user->get_id();
-						// echo(count($tags) ." tags <br />");
 						for($i = 0; $i < count($tags); $i++){
 							$tagdao = new TagDAO();
 								$tagdao->insertUserTag($user_id, $tags[$i]->get_id());
 						}
-						// echo("user: " .$user->get_id());
         } else {
-					// echo("Null");
             $user = null;
         }
     }

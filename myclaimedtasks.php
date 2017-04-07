@@ -5,30 +5,22 @@
     require_once __DIR__."/models/User.class.php";
     require_once __DIR__."/daos/UserDAO.class.php";
     require_once __DIR__."/daos/TaskDAO.class.php";
-
-
+    require_once __DIR__."/scripts/taskstatusbuttons.php";
 
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $id = $_SESSION["user_id"];
               $user = new User();
               $user = UserDAO::getUserByID($id);
-
               $totalnoAvailable = TaskDAO::find_no_claimed_tasks($id);
               $count_tasks = TaskDAO::count_tasks($user->get_id());
-
-
               $limit = 6;
               $pages = ceil($totalnoAvailable / $limit);
-
-
               $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
               'options' => array(
                   'default'   => 1,
                   'min_range' => 1,
               ),
               )));
-
-
 
               // Calculate the offset for the query
               $offset = ($page - 1)  * $limit;
@@ -65,10 +57,6 @@
 
       <?php
     require_once __DIR__.'/templates/usersidebar.php';
-
-
-
-
         ?>
 
       <div class="col-md-9 profile-content">
@@ -85,79 +73,44 @@
                     if(count($claimedTasks) == 0) { ?>
                       <h5 class="col-sm-6 text-primary"> No tasks claimed. To claim one <a href="<?php echo 'availabletasks.php'?>"> <em>Click here </em></a></h5>
                     <?php }
-
                     foreach($claimedTasks as $task){ ?>
-
-
-
-                  <div class="col-sm-6 col-lg-4">
-                      <div class="panel panel-default">
-                          <div class="panel-heading fixed">
-                              <div class="row fixedHead">
-                                  <div class="col-sm-8 col-xs-12">
-                                      <a class="pull-left"  href="<?php echo 'detailedtask.php?id='.$task->get_id()?>" target="_parent">
-
-                                          <!-- </a> -->
-                                          <h4 class="ellipsis"><div class="glyphicon glyphicon-edit"></div><?php
-                                          $fullTitle = $task->get_title();
-                                          $out = strlen($fullTitle) > 35 ? substr($fullTitle,0,35)."..." : $fullTitle;
-                                          echo $out ?></h4></a>
+                      <div class="col-sm-6 col-lg-4">
+                          <div class="panel panel-default">
+                              <div class="panel-heading fixed">
+                                  <div class="row fixedHead">
+                                      <div class="col-sm-8 col-xs-12">
+                                          <a class="pull-left"  href="<?php echo 'detailedtask.php?id='.$task->get_id()?>">
+                                              <h4 class="ellipsis"><div class="glyphicon glyphicon-edit"></div><?php
+                                              $fullTitle = $task->get_title();
+                                              $out = strlen($fullTitle) > 35 ? substr($fullTitle,0,35)."..." : $fullTitle;
+                                              echo $out ?></h4></a>
+                                      </div>
+                                      <div class="pull-right hidden-xs col-sm-4">
+                                          <h4><small class="pull-right"><?php  $fullType = $task->get_type(); $shortenedType= strlen($fullType) > 35 ? substr($fullType,0,35)."..." : $fullType; echo($shortenedType); ?></small></h4>
+                                      </div>
                                   </div>
-                                  <div class="pull-right hidden-xs col-sm-4">
-                                      <h4><small class="pull-right"><?php echo$task->get_type() ?></small></h4>
+
+                                  <div class="row">
+                                    <div class="col-xs-12">
+                                      <ul class="list-inline">
+                                          <li><?php echo $task->get_format() ?> </li>
+                                          <li><?php echo$task->get_no_pages() ?> Pages</li>
+                                          <li><?php echo$task->get_no_words() ?> Words</li>
+                                      </ul>
                                   </div>
+                                </div>
+                                  <p class="hidden-xs fixedBody"><?php echo$task->get_description() ?>. </p>
+                                  <?php
+                                  echo TaskStatusButtons::create_task_status_button($task->get_status()->get_name());
+                                  ?>
                               </div>
-
-                              <div class="row">
-                              <div class="col-xs-12">
-                              <ul class="list-inline">
-                                  <li><?php echo $task->get_format() ?> </li>
-
-                                  <li><?php echo$task->get_no_pages() ?> Pages</li>
-
-                                  <li><?php echo$task->get_no_words() ?> Words</li>
-                              </ul>
-                            </div>
-                            </div>
-                              <p class="hidden-xs fixedBody"><?php echo$task->get_description() ?>. </p>
-                              <?php
-                              // $status = StatusDAO::find_most_recent_status($task_id);
-                              switch($task->get_status()->get_name()){
-                                case "unclaimed":
-                                echo '<div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
-                                break;
-                                case "in progress":
-                                echo '<div><label for="warning" class="btn btn-warning">In Progress</label></div>';
-                                break;
-                                case "expired":
-                                echo '<div><label for="danger" class="btn btn-danger">Expired</label></div>';
-                                break;
-                                case "cancelled":
-                                echo '<div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
-                                break;
-                                case "unfinished":
-                                echo '<div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
-                                break;
-                                case "complete":
-                                echo '<div><label class="btn btn-success">Complete</label></div>';
-                                break;
-                                default:
-                                echo '';
-                                break;
-                              }
-                              ?>
-
                           </div>
                       </div>
-                  </div> <?php } ?>
-
+                  <?php } ?>
                   </div>
-
                     <div class ="row">
                       <div class="col-sm-6 col-md-12">
-
                     <?php
-
                     echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
                     ' .$prevlink);
                     for($i = 1; $i <= $pages; $i++){
@@ -169,25 +122,17 @@
                     }
                     echo($nextlink);
                     ?>
-                    <!-- End Task1-->
                   </div>
                 </div>
-
-
                     <!--End Claimed Tasks-->
-
-
               </div>
             </div>
           </div>
         </div>
-
+        <br>
                     <!--End Claimed Tasks-->
-
-                    <?php
-                    require_once __DIR__.'/templates/footer.php';
-                    ?>
-
-                </body>
-
-                </html>
+        <?php
+        require_once __DIR__.'/templates/footer.php';
+        ?>
+  </body>
+</html>
