@@ -185,7 +185,7 @@ $_SESSION[ "user_id"] !='' ){
                                 <br>
                                 <!-- Form Name -->
                                 <legend>Fill in the form:</legend>
-                <form method="post" id="uploadForm" enctype="multipart/form-data"  role="form" >
+                <form novalidate method="post" id="uploadForm">
 
 
                 <!-- data-toggle="validator"> -->
@@ -238,9 +238,9 @@ $_SESSION[ "user_id"] !='' ){
                                       <span class="text-white"> ?</span>
                                   </button>
               								</label>
-                          <div class="col-md-8 input-group">
+                          <div class="col-md-8 input-group" id="tags" >
                               <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-                                <select class="selectpicker" data-width="75%" id="tags" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
+                                <select class="selectpicker"  data-width="75%" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
                                   <?php
                                   //$allDisciplines = array();
                                   $allDisciplines = DisciplineDAO::find_all_disciplines();
@@ -256,31 +256,35 @@ $_SESSION[ "user_id"] !='' ){
                                       }
                                     echo '</optgroup>';
                                   }  ?>
-                                  <!-- <optgroup label="Computer Science">
-                                      <option>Graphics</option>
-                                      <option>Artificial Intelligence</option>
-                                      <option>Computer Architecture & Engineering</option>
-                                      <option>Biosystems & Computational Biology</option>
-                                      <option>Human-Computer Interaction</option>
-                                      <option>Operating Systems & Networking</option>
-                                      <option>Programming Systems</option>
-                                      <option>Scientific Computing</option>
-                                      <option>Security</option>
-                                      <option>Theory</option>
-                                  </optgroup>
-                                  <optgroup label="Psychology">
-                                      <option>Abnormal Psychology</option>
-                                      <option>Behavioral Psychology</option>
-                                      <option>Biopsychology</option>
-                                      <option>Cognitive Psychology</option>
-                                      <option>Comparative Psychology</option>
-                                      <option>Cross-Cultural Psychology</option>
-                                      <option>Developmental Psychology</option>
-                                      <option>Educational Psychology</option>
-                                      <option>Experimental Psychology</option>
-                                  </optgroup> -->
+                                
               							 </select>
                         </div>
+						
+				  <noscript>
+				  <div class="input-group">
+				  <select class="custom-select" name="tags[]" multiple>
+						  <?php
+                    //$allDisciplines = array();
+
+                    $allDisciplines = DisciplineDAO::find_all_disciplines();
+
+                    
+
+                    foreach($allDisciplines as $aDisc){
+                      echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                      // echo ('<optgroup label="Computer Science">');
+                        $availTags = array();
+                        $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                        foreach($availTags as $aTag){
+                          echo'<option>' .$aTag->get_name() .'</option>';
+                          // echo '  <option>Graphics</option>';
+                        }
+
+                      echo '</optgroup>';
+                    }  ?>
+						</select>
+						</div>
+						</noscript>
                   </div>
 
                   <div class="form-group has-feedback">
@@ -327,7 +331,7 @@ $_SESSION[ "user_id"] !='' ){
 
                   <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="uploaded_document">Preview Document</label>
-                        <div class="col-md-8 input-group">
+                        <div class="col-md-8 input-group" id="document">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
                             <!-- <input id="no_words"  required name="no_words" type="text" maxlength="15"  placeholder="" class="form-control input-md"> -->
                             <label class="input-group-btn" value="">
@@ -341,8 +345,9 @@ $_SESSION[ "user_id"] !='' ){
                                   <span id="fileName" style="max-width:90%"></span><span class="glyphicon form-control-feedback"  style="z-index:3; background-color:white;"></span></label>
 
                       </div>
+					  
                       <span class="help-block with-errors"></span>
-                </div>
+                </div><noscript></noscript>
 
                         <div class="row">
                             <div class="col-xs-2">
@@ -369,7 +374,11 @@ $_SESSION[ "user_id"] !='' ){
 
 <script>
     $(document).ready(function() {
-      console.log("Hello");
+		 $("#tags").show();
+		 
+		 $("#discipline").show();
+		  
+    
      $("#uploadForm").validator({
           custom: {
             filecheck: function ($el){
