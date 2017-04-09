@@ -9,51 +9,13 @@
         require_once __DIR__."/utils/PDOAccess.class.php";
         require_once __DIR__."/scripts/phpvalidation.php";
 
-        if(isset($_POST["login_button"])){
-         $email = trim(strtolower($_POST["email"]));
-         $password = $_POST["password"];
-         $user = new User();
-         $user = UserDAO::login($email, $password);
 
-         if(!is_null($user)){
-           $banned = UserDAO::find_user_in_banned($user -> get_id());
-               //if(!is_null($banned)){
-               if($banned){
-                 $feedback = ' <h3 class="alert alert-danger alert-dismissable">
-                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                 <img class="center-block" src= "http://i3.kym-cdn.com/entries/icons/facebook/000/006/725/desk_flip.jpg" style = "width: 180px; height: 180px;" /><br /> <br />
-                 <i class="glyphicon glyphicon-alert"></i> You have been banned for inappropriate content.
-                 Contact administration with any issues. </h3> <br /><br />';
-               }else{
-                 $_SESSION["user_id"] = $user->get_id();
-
-                header("location:./profilepage.php");
-              }
-         }else{
-          //  header("location:./register.php");
-          $feedback = ' <h3 class="alert alert-danger alert-dismissable">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-          <i class="glyphicon glyphicon-alert"></i> Incorrect email or password. </h3> <br /><br />';
-         }
-
-
-        //  if(is_null($user)){
-        //    header("location:./aboutus.php");
-        //  }
-       }
 
        if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
          $id = $_SESSION["user_id"];
-         ?>
-          <!-- <div class="container-fluid">
-         <div class="col-xs-12 well"> -->
-
-
-               <?php
         require_once __DIR__.'/templates/loggedinuser.php';
-         // echo("ID: " .$id);
+
        } else {
-         // echo("In else " .$_SESSION["user_id"]);
          ?>
          <!DOCTYPE html>
          <html lang="en">
@@ -65,34 +27,31 @@
             require_once __DIR__.'/templates/header.template.php';
        }
         ?>
-
     <div class="container-fluid">
         <div class="col-xs-11 col-sm-8 well">
             <div class="profile-content">
               <?php echo $feedback; ?>
                 <h1><div class="glyphicon glyphicon-user"></div>About Us</h1><br>
-
                 <div class="container">
                     <div class="row">
                       <div class="col-lg-12">
-
-
                             <div>
-                              <img class="img-circle img-responsive" src="images/kate_h.jpg" alt="">
+                              <img class="img-circle img-responsive" style="width:150px; height:150px;" src="images/kate_h.jpg" alt="">
                             </div>
                             <div>
                               <div>
                                 <h4>Kate Hennessy</h4>
                               </div>
-                              <div>
+                              <div >
                                 <p class="text-muted" align = "justify">
                                     Kate is currently studying for her Higher Diploma in Software Development at the Unviversity of Limerick.
+                                    She attained a Bachelor of Science in Music Media and Performance Technology in 2015 at the University of Limerick.
                                 </p>
                               </div>
                             </div>
 
-                            <div>
-                              <img class="img-circle img-responsive" src="images/orla_b.jpg" alt="">
+                            <div class="col-md-offset-4">
+                              <img class="img-circle img-responsive"  style="width:150px; height:150px;" src="images/orla_b2.jpg" alt="">
                             </div>
                             <div>
                               <div>
@@ -107,8 +66,8 @@
                               </div>
                             </div>
 
-                            <div>
-                              <img class="img-circle img-responsive" src="images/annie_ashok.jpg" alt="">
+                            <div class="col-md-offset-8">
+                              <img class="img-circle img-responsive" style="width:150px; height:150px;" src="images/annie_ashok.jpg" alt="">
                             </div>
                             <div>
                               <div>
@@ -120,9 +79,6 @@
                                 </p>
                               </div>
                             </div>
-
-
-
                       </div>
                     </div>
                   </div>
@@ -130,7 +86,7 @@
               </div>
           </div>
       </div>
-      
+
 
                 <?php
                 require_once __DIR__.'/templates/footer.php';

@@ -1,9 +1,32 @@
+<?php if(isset($_POST["login_button"])){
+  $email = trim(strtolower($_POST["email"]));
+  $password = $_POST["password"];
+  $user = new User();
+  $user = UserDAO::login($email, $password);
 
+  if(!is_null($user)){
+    $banned = UserDAO::find_user_in_banned($user -> get_id());
+        if($banned){
+          $feedback = ' <h3 class="alert alert-danger alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          <img class="center-block" src= "http://i3.kym-cdn.com/entries/icons/facebook/000/006/725/desk_flip.jpg" style = "width: 180px; height: 180px;" /><br /> <br />
+          <i class="glyphicon glyphicon-alert"></i> You have been banned for inappropriate content.
+          Contact administration with any issues. </h3> <br /><br />';
+        }else{
+          $_SESSION["user_id"] = $user->get_id();
+         header("location:./profilepage.php");
+       }
+  }else{
+   //  header("location:./register.php");
+   $feedback = ' <h3 class="alert alert-danger alert-dismissable">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+   <i class="glyphicon glyphicon-alert"></i> Incorrect email or password. </h3> <br /><br />';
+  }
+
+}?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="images/icon.ico">
-
-
 
     <!-- ONLINE BOOTSTRAP FILES -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

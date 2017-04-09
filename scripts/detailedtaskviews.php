@@ -33,18 +33,31 @@
 
      switch($task->get_status()->get_name()){
        case "unclaimed":
-       return  '<span class="pull-right"><div><label for="primary" class="btn btn-info">Not Claimed</label></div>';
+       return  '<span class="pull-right">
+                  <div>
+                    <label for="primary" class="btn btn-info">Not Claimed</label>
+                  </div>
+                </span>';
        case "in progress":
-       return  '<span class="pull-right"><div class="row"><label for="warning" class="btn btn-warning">In Progress</label></div>
-             <div class="row">Contact the claimer at: <span class="text-info">'.UserDAO::getUserByID($task->get_claimer_id())->get_email() .' </span></div>';
+       return  '<span class="">
+                  <div class="row">
+                    <div class="pull-right">
+                      <label for="warning" class="btn btn-warning removeHover">In Progress</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="pull-right">Contact the claimer at: <span class="text-info">'.UserDAO::getUserByID($task->get_claimer_id())->get_email() .' </span>
+                    </div>
+                  </div>
+                </span>';
        case "expired":
-       return  '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Expired</label></div>';
+       return  '<span class="pull-right"><div><label for="danger" class="btn btn-danger removeHover">Expired</label></div>';
        case "cancelled":
-       return '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Cancelled</label></div>';
+       return '<span class="pull-right"><div><label for="danger" class="btn btn-danger removeHover">Cancelled</label></div>';
        case "unfinished":
-       return '<span class="pull-right"><div><label for="danger" class="btn btn-danger">Unfinished</label></div>';
+       return '<span class="pull-right"><div><label for="danger" class="btn btn-danger removeHover">Unfinished</label></div>';
        case "complete":
-       $creatorView = '<div class="row"><span class=""><div class="col-sm-6"><br><label class="btn btn-success">Complete</label></div></span>';
+       $creatorView = '<div class="row"><span class=""><div class="col-sm-6"><br><label class="btn btn-success removeHover">Complete</label></div></span>';
        if($task->get_score() == 0){
          $creatorView .= '<div class="col-sm-6">
                 <form method="post">

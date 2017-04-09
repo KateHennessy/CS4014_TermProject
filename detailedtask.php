@@ -233,7 +233,7 @@
               <div class="" id="detailedTask">
                                 <?php
                                     echo($feedback);
-                                    if(!is_null($task->get_id())){
+                                    if(!is_null($task)){
                                           if($task->get_status()->get_name() != 'expired'){?>
                                     <div class="panel panel-default">
                                   <div class="panel-heading">

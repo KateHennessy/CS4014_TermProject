@@ -17,12 +17,12 @@
     require_once __DIR__.'/daos/DisciplineDAO.class.php';
     require_once __DIR__.'/daos/TagDAO.class.php';
     require_once __DIR__.'/daos/UserDAO.class.php';
+    require_once __DIR__.'/scripts/phpvalidation.php';
 
       if (isset($_POST) && count ($_POST) > 0) {
 
         if(isset($_POST["signup_button"])){
-			$uploadFormOK = true;
-
+			    $uploadFormOK = true;
           $firstName = htmlspecialchars(ucfirst(trim($_POST["first_name"])));
           $lastName = htmlspecialchars(ucfirst(trim($_POST["last_name"])));
           $email = trim(strtolower($_POST["signup_email"]));
@@ -31,123 +31,87 @@
           $discipline_name = $_POST["discipline"];
           $tags= $_POST["tags"];
 
-          if ($passOne != $passTwo) { //in case Javascript is disabled.
-            $feedback = '  <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> Passwords are not the same. </h3> <br /><br />';
-			 $uploadFormOK = false;
-		  }
-
-           if(count($tags) < 1 || count($tags) > 4){
-            $feedback = '  <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> Incorrect number of tags entered. </h3> <br /><br />';
-			 $uploadFormOK = false;
-		   }
-
-		   //check wheter user/email already exists
-          $user = null;
-        //  $userDao = new UserDAO();
-          $user = UserDAO::getUserByEmail($email);
-
-         if(!is_null($user->get_email())){
-            // require_once __DIR__.'/templates/header.template.php';
-            $feedback = '  <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> A user already exists with this email. </h3> <br /><br />';
-			 $uploadFormOK = false;
-		 }
-
-           if(strlen($firstName > 25) || strlen($firstName) == 0 ){
-			  $feedback = '  <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> First Name is required. </h3> <br /><br />';
-			$uploadFormOK = false;
-
-			}
-			if(strlen($lastName > 25) || strlen( $lastName) == 0 ){
-			  $feedback = '  <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> Last Name is required. </h3> <br /><br />';
-			$uploadFormOK = false;
-
-			}
-			if(!preg_match('/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/', $email)){
-				$feedback = '  <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> Email is required. </h3> <br /><br />';
-			$uploadFormOK = false;
-
-			}
 
 
+          if(count($tags) < 1 || count($tags) > 4){
+            $feedback .=  phpvalidation::displayFailure('Incorrect number of tags entered.');
+    			  $uploadFormOK = false;
+    		  }
 
 
-
-				if($uploadFormOK == true){
-
-                  $siteSalt  = "hPxmjz6hJc";
-                  $saltedHash = hash('sha256', $passOne.$siteSalt);
-
-                  $user = new User();
-                  $user->set_first_name($firstName);
-                  $user->set_last_name($lastName);
-                  $user->set_email($email);
-                  $user->set_password($saltedHash);
-                  $user->set_discipline(DisciplineDAO::find_discipline_by_name($discipline_name));
-                  $tagArray = array();
-                  for($i = 0; $i < count($tags); $i++){
-                      $tagArray[$i] = TagDAO::find_tag_by_name($tags[$i]);
-                  }
-                  $user->set_tags($tagArray);
-                  $user = UserDAO::save($user);
-                  if(!is_null($user->get_id())){
-
-                    $_SESSION["user_id"] = $user->get_id();
-                    header("location:./profilepage.php");
-                  }else{
-                    echo("null");
-                  }
-              }
-         }else if(isset($_POST["login_button"])){
-           $email = trim(strtolower($_POST["email"]));
-           $password = $_POST["password"];
-           $user = new User();
-           $user = UserDAO::login($email, $password);
-
-
-           if(!is_null($user)){
-             $banned = UserDAO::find_user_in_banned($user -> get_id());
-                 //if(!is_null($banned)){
-                 if($banned){
-                   $feedback = ' <h3 class="alert alert-danger alert-dismissable">
-                   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                   <img class="center-block" src= "http://i3.kym-cdn.com/entries/icons/facebook/000/006/725/desk_flip.jpg" style = "width: 180px; height: 180px;" /><br /> <br />
-                   <i class="glyphicon glyphicon-alert"></i> You have been banned for inappropriate content.
-                   Contact administration with any issues. </h3> <br /><br />';
-                 }else{
-                   $_SESSION["user_id"] = $user->get_id();
-
-                  header("location:./profilepage.php");
-                }
-           }else{
-            //  header("location:./register.php");
-            $feedback = ' <h3 class="alert alert-danger alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <i class="glyphicon glyphicon-alert"></i> Incorrect email or password. </h3> <br /><br />';
-           }
-
-
-
-         }else{
-          //  echo("nothing");
-         }
-
+      if(strlen($email) == 0){
+        $feedback .= phpvalidation::displayFailure('Please enter a UL email address');
+        $uploadFormOK = false;
       }
-      // if (!isset($_POST) || count($_POST) == 0) {
-          require_once __DIR__.'/templates/header.template.php';?>
-          <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script> have put this in logged out header page as needed for login-->
 
+      if(strlen($email) > 128){
+        $feedback .= phpvalidation::displayFailure('Email entered is too long');
+        $uploadFormOK = false;
+      }
+      if(!preg_match('/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/', $email)){
+				$feedback .= phpvalidation::displayFailureSubtext('UL Email is required.', 'Email must end with @ul.ie or @studentmail.ul.ie');
+			$uploadFormOK = false;
+			}
+      //check wheter user/email already exists
+      $user = null;
+      if($uploadFormOK){
+            $user = UserDAO::getUserByEmail($email);
+           if(!is_null($user->get_email())){
+              // require_once __DIR__.'/templates/header.template.php';
+              $feedback .= phpvalidation::displayFailure('A user already exists with this email.');
+  			       $uploadFormOK = false;
+  		    }
+     }
+
+     if(strlen($firstName > 25) || strlen($firstName) == 0 ){
+			  $feedback .=  phpvalidation::displayFailure('First Name is required.');
+			$uploadFormOK = false;
+			}
+
+			if(strlen($lastName > 25) || strlen( $lastName) == 0 ){
+			  $feedback .= phpvalidation::displayFailure('Last Name is required.');
+			  $uploadFormOK = false;
+			}
+      if(strlen($passOne == 0)){
+         $feedback .= phpvalidation::displayFailure('Password is too short.');
+         $uploadFormOK = false;
+      }
+      if(strlen($passOne > 25)){
+        $feedback .= phpvalidation::displayFailure('Password is too long.');
+        $uploadFormOK = false;
+      }
+      if ($passOne != $passTwo) { //in case Javascript is disabled.
+            $feedback .= phpvalidation::displayFailure('Passwords are not the same.');
+            $uploadFormOK = false;
+       }
+
+			if($uploadFormOK == true){
+                $siteSalt  = "hPxmjz6hJc";
+                $saltedHash = hash('sha256', $passOne.$siteSalt);
+                $user = new User();
+                $user->set_first_name($firstName);
+                $user->set_last_name($lastName);
+                $user->set_email($email);
+                $user->set_password($saltedHash);
+                $user->set_discipline(DisciplineDAO::find_discipline_by_name($discipline_name));
+                $tagArray = array();
+                for($i = 0; $i < count($tags); $i++){
+                    $tagArray[$i] = TagDAO::find_tag_by_name($tags[$i]);
+                }
+                $user->set_tags($tagArray);
+                $user = UserDAO::save($user);
+                if(!is_null($user->get_id())){
+
+                  $_SESSION["user_id"] = $user->get_id();
+                  header("location:./profilepage.php");
+                }else{
+                  echo("null");
+                }
+            }
+         }
+      }
+          require_once __DIR__.'/templates/header.template.php';?>
+      
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
@@ -335,41 +299,6 @@
           </form>
 		  </div>
 	  </div>
-
-	  <div class="col-sm-1"></div>
-
-					<!-- <noscript>
-					<div class="col-xs-12 col-sm-3 well">
-				<div class="row" >
-					 <h1 class="">Log In</h1>
-					  <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
-                        <div class="form-group has-feedback">
-                          <label class="sr-only" for="email">Email address
-                          </label>
-                          <input type="email" name ="email" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" id="emailLogin" placeholder="Email address" required>
-                          <span class="glyphicon form-control-feedback"></span>
-                          <span class="help-block with-errors"></span>
-                        </div>
-
-                        <div class="form-group has-feedback">
-                          <label class="sr-only" for="password">Password
-                          </label>
-                          <input type="password" name="password" class="form-control" id="passwordLogin" placeholder="Password" required>
-                          <span class="glyphicon form-control-feedback"></span>
-                            <span class="help-block with-errors"></span>
-
-                          <div class="small text-right">
-                            <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
-                          </div>
-
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
-                          </button>
-                        </div>
-                      </form></noscript> -->
-
-
 
         </div>
       </div>
