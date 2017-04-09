@@ -154,11 +154,12 @@
         <div class="row">
           <h1 class="">Sign Up</h1>
           <br>
-		  <!--  role="form" data-toggle="validator"-->
-			<!--<script><form role="form" data-toggle="validator"></script>-->
-				 
-         <form novalidate method="post" role="form" data-toggle="validator">
-		
+
+         <form  method="post" role="form" data-toggle="validator">
+           <noscript> <div class="alert alert-warning">
+
+         <p>  <i class="glyphicon glyphicon-alert"></i> Please enable javascript for best user experience</p></div></noscript>
+
             <div class="col-sm-12">
               <?php echo $feedback; ?>
               <div class="row">
@@ -199,29 +200,23 @@
                   <span class="help-block with-errors"></span>
                 </div>
 
-
-                <!-- /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$/g -->
-
-
                 <div class="col-sm-6 form-group has-feedback">
                   <label>Discipline <em class="text-danger"> *</em>
                   </label>
                   <div class="input-group"  id="discipline">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                    <select class="selectpicker" name="discipline" multiple data-max-options="1"
-                    required="required" data-error="Please choose a discipline" data-width="75%">
+                    <select id="disciplineSelect" class="selectpicker" name="discipline" multiple data-max-options="1"
+                    data-error="Please choose a discipline" data-width="75%">
                     <?php $allDisciplines = DisciplineDAO::find_all_disciplines();
                       foreach($allDisciplines as $aDisc){
                         echo '<option>' .$aDisc->get_name() .'</option>';
                       } ?>
-                       <!-- <option>Computer Science</option>
-                       <option>Psychology</option> -->
                     </select>
 
                   </div>
                   <span class="help-block with-errors"></span>
 				  <noscript>
-				  <div class="input-group"><select class="custom-select" name="discipline">
+				  <div class="input-group" style="min-width:100%"><select required class="custom-select" name="discipline">
 						<?php $allDisciplines = DisciplineDAO::find_all_disciplines();
                       foreach($allDisciplines as $aDisc){
                         echo '<option>' .$aDisc->get_name() .'</option>';
@@ -229,8 +224,8 @@
                     </select></div>
 					</noscript>
                 </div>
-				
-						
+
+
 
               </div>
 
@@ -279,18 +274,17 @@
                   These tags will determine what tasks appear in your feed. Please choose between 1 and 4 tags.">
                     <span class="text-white"> ?</span>
                   </button>
-				  
+
                   <div class="input-group" id="tags">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-                    <select class="selectpicker" name="tags[]" data-width="75%" multiple
-                    data-selected-text-format="count > 1" data-max-options="4" 
-                    required="required">
+                    <select id="tagsSelect" class="selectpicker" name="tags[]" data-width="75%" multiple
+                    data-selected-text-format="count > 1" data-max-options="4">
                     <?php
                     //$allDisciplines = array();
 
                     $allDisciplines = DisciplineDAO::find_all_disciplines();
 
-                    
+
 
                     foreach($allDisciplines as $aDisc){
                       echo '<optgroup label = "' .$aDisc->get_name() .'">';
@@ -308,49 +302,42 @@
                   </select>
                   </div>
                   <span class="help-block with-errors"></span>
-				  
+
 				  <noscript>
-				  <div class="input-group">
+				  <div class="input-group" style="width:100%">
 				  <select class="custom-select" name="tags[]" multiple>
 						  <?php
-                    //$allDisciplines = array();
+                $allDisciplines = DisciplineDAO::find_all_disciplines();
+                foreach($allDisciplines as $aDisc){
+                  echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                    $availTags = array();
+                    $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                    foreach($availTags as $aTag){
+                      echo'<option>' .$aTag->get_name() .'</option>';
+                    }
 
-                    $allDisciplines = DisciplineDAO::find_all_disciplines();
-
-                    
-
-                    foreach($allDisciplines as $aDisc){
-                      echo '<optgroup label = "' .$aDisc->get_name() .'">';
-                      // echo ('<optgroup label="Computer Science">');
-                        $availTags = array();
-                        $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
-                        foreach($availTags as $aTag){
-                          echo'<option>' .$aTag->get_name() .'</option>';
-                          // echo '  <option>Graphics</option>';
-                        }
-
-                      echo '</optgroup>';
-                    }  ?>
+                  echo '</optgroup>';
+                }  ?>
 						</select>
 						</div>
 						</noscript>
                 </div>
-				
-			
-								
+
+
+
               </div>
-			 
-			</div>			
-				
-            
+
+			</div>
+
+
             <button type="submit" name="signup_button" class="btn btn-lg btn-success">Submit
             </button>
           </form>
 		  </div>
 	  </div>
-		  
+
 	  <div class="col-sm-1"></div>
-		   
+
 					<noscript>
 					<div class="col-xs-12 col-sm-3 well">
 				<div class="row" >
@@ -374,35 +361,37 @@
                           <div class="small text-right">
                             <a href="<?php echo 'forgottenpassword.php'; ?>">Forget your password ?</a>
                           </div>
-                         
+
                         </div>
                         <div class="form-group">
                           <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
                           </button>
-                        </div>                       
+                        </div>
                       </form></noscript>
-		  
-		  
+
+
 
         </div>
       </div>
     </div>
     <?php  ?>
-	
+
 
     <?php
     require_once __DIR__.'/templates/footer.php';
     ?>
-	
-    <script>
-	
 
-      $(document).ready(function(){
-		  
-		 $("#tags").show();
-		 
-		 $("#discipline").show();
-		  
+    <script>
+
+
+$(document).ready(function(){
+
+        $("#tags").show();
+        $("#tagsSelect").attr('required','');      //adding this as chrome having issues with these hidden elements when js disabled if required set in above html
+
+        $("#discipline").show();
+        $("#disciplineSelect").attr('required','');
+
 
 });
 

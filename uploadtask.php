@@ -9,6 +9,22 @@ session_start();
     require_once __DIR__."/models/Discipline.class.php";
     require_once __DIR__."/daos/DisciplineDAO.class.php";
     require_once __DIR__. '/scripts/phpvalidation.php';
+
+class UploadVal{
+    public static function fileUploaded()
+  {
+      if(empty($_FILES)) {
+          return false;
+      }
+      $file = $_FILES['uploaded_document'];
+      if(!file_exists($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])){
+          $errors['FileNotExists'] = true;
+          return false;
+      }
+      return true;
+  }
+}
+
 $feedback = "";
 if (isset($_SESSION[ "user_id"]) &&
 $_SESSION[ "user_id"] !='' ){
@@ -40,7 +56,12 @@ $_SESSION[ "user_id"] !='' ){
      $description = htmlspecialchars(ucfirst($_POST["description"]));
      $no_pages = htmlspecialchars(ucfirst(trim($_POST["no_pages"])));
      $no_words = htmlspecialchars(ucfirst(trim($_POST["no_words"])));
-     $tags = $_POST["tags"];
+     $tags = array();
+     if(isset($_POST["tags"])){$tags = $_POST["tags"];}else{
+       $feedback .=phpvalidation::displayFailure("Please select between 1 and 4 Tags for your task");
+       $uploadFormOK = false;
+     }
+
      if(!is_null(TaskDAO::find_task($creator_id, $title)->get_id())){
        $feedback .= phpvalidation::displayFailure("You have already created a task with this title");
        $uploadFormOK = false;
@@ -50,93 +71,64 @@ $_SESSION[ "user_id"] !='' ){
        $uploadFormOK = false;
      }
      if(!is_numeric($no_pages)){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Please enter a number for Number of Pages.</h3>';
+       $feedback.= phpvalidation::displayFailure('Please enter a number for Number of Pages.');
        $uploadFormOK = false;
      }
      $claim_deadline = date('Y-m-d H:i:s',strtotime($_POST["claim_deadline"]." 23:59:00"));
      $completion_deadline = date('Y-m-d H:i:s',strtotime($_POST["completion_deadline"]." 23:59:00"));
      if($claim_deadline < date('Y-m-d H:i:s', time())){
        $uploadFormOK = false;
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       You have entered a past date for your Claim Deadline.</h3>';
-       $claim_deadline = "";
+       $feedback.= phpvalidation::displayFailure('You have entered a past date for your Claim Deadline.');
      }
      if($completion_deadline < $claim_deadline){
        $uploadFormOK = false;
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       You have entered a Due Date that is closer than your Claim Deadline.</h3>';
+       $feedback.= phpvalidation::displayFailure('You have entered a Due Date that is closer than your Claim Deadline.');
      }
 	 if(strlen($title) < 1){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Please enter the task tile.</h3>';
+       $feedback.= phpvalidation::displayFailure('Please enter the task title.');
        $uploadFormOK = false;
      }
      if(strlen($title) > 128){
-         $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-         <i class="glyphicon glyphicon-remove"></i>
-         Task Title is too long.</h3>';
+         $feedback.= phpvalidation::displayFailure('Task title is too long.');
          $uploadFormOK = false;
        }
 	  if(strlen($type) < 1){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Please enter the task type.</h3>';
+       $feedback.= phpvalidation::displayFailure('Please enter the task type.');
        $uploadFormOK = false;
      }
      if(strlen($type) > 128){
-        $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-remove"></i>
-        Task Type is too long.</h3>';
+        $feedback.= phpvalidation::displayFailure('Task Type is too long.');
         $uploadFormOK = false;
       }
 	 if(strlen($description) < 1){
-       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Please enter the description.</h3>';
+       $feedback.= phpvalidation::displayFailure('Please enter the description.');
        $uploadFormOK = false;
      }
      if(strlen($description)> 600){
-         $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-         <i class="glyphicon glyphicon-remove"></i>
-         Description is too long.</h3>';
+         $feedback.= phpvalidation::displayFailure('Description is too long.');
          $uploadFormOK = false;
        }
 	  if(!is_numeric($no_pages)){
-       $feedback.= '<h3 class="alert alert-warning alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Please enter the number of pages.</h3>';
+       $feedback.= phpvalidation::displayFailure('Please enter the number of pages.');
        $uploadFormOK = false;
      }
 	 if(!is_numeric($no_words)){
-       $feedback.= '<h3 class="alert alert-danger alert-dismissable">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-       <i class="glyphicon glyphicon-remove"></i>
-       Please enter the number of words.</h3>';
+       $feedback.= phpvalidation::displayFailure('Please enter the number of words.');
        $uploadFormOK = false;
      }
-      if($uploadFormOK){
-         require_once __DIR__.'/scripts/upload_file.php'; // first checking if file uploaded is ok before progressing with rest of task upload
+      if($uploadFormOK){            // first checking if file uploaded is ok before progressing with rest of task upload
+        if(UploadVal::fileUploaded()){
+         require_once __DIR__.'/scripts/upload_file.php';
         //  if($uploadOk == 1){
-          if($uploadOk != 1){
+          if($uploadOk != 1){   //uploadOk is a variable in upload_file - which returns 1 if uploading file was successful
             $uploadFormOK = false;
           }
+        }else{
+          phpvalidation::displayFailure('Please upload a sample file');
+          $uploadFormOK = false;
+        }
      }
-      if($uploadFormOK){
+      if($uploadFormOK){        //extension and target file coming from upload_File
         $format = $extension;
         $storage_address = $target_file;
       //  task_id
@@ -158,12 +150,9 @@ $_SESSION[ "user_id"] !='' ){
       $task->set_tags($tagArray);
       $task = TaskDAO::save($task);
       if(!is_null($task->get_id())){
-        $feedback = '<h3 class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <i class="glyphicon glyphicon-ok"></i> Task Uploaded Successfully</h3>' .$feedback;
+        $feedback = phpvalidation::displaySuccess('Task Uploaded Successfully');
       }
     }
-  // }
  }
  }/*end of within session id set*/ else {
    header( "location:./register.php");
@@ -172,24 +161,23 @@ $_SESSION[ "user_id"] !='' ){
         <div class="col-md-9 profile-content">
             <div class="" id="overview">
                 <div class="">
-                    <!-- upload -->
                     <div class="container">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h2><strong>Upload</strong><i> your task</i></h2>
+
                             </div>
                             <div class="panel-body">
+                              <noscript> <div class="alert alert-warning">
+
+                            <p>  <i class="glyphicon glyphicon-alert"></i> Please enable javascript for best user experience</p></div></noscript>
                                 <?php echo($feedback);
                                     ?>
                                 <br>
                                 <br>
-                                <!-- Form Name -->
                                 <legend>Fill in the form:</legend>
-                <form novalidate method="post" id="uploadForm"  enctype="multipart/form-data"  role="form">
+                <form  method="post" id="uploadForm"  enctype="multipart/form-data">
 
-
-                <!-- data-toggle="validator"> -->
-        					<!-- <div class="row"> -->
                       <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="File Type">Task Name
                                         <button id="tooltip1" type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="bottom" data-original-title="Please note, this name must be unique and you must have not previously uploaded a task of the same name."> ?</span>
@@ -238,13 +226,13 @@ $_SESSION[ "user_id"] !='' ){
                                       <span class="text-white"> ?</span>
                                   </button>
               								</label>
-                          <div class="col-md-8 input-group" id="tags" >
+                          <div class="input-group" id="tags">
                               <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-                                <select class="selectpicker"  data-width="75%" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" required="required" name="tags">
+                                <select class="selectpicker" id="tagsSelect" name="tags[]" data-width="fit" multiple data-selected-text-format="count > 1" data-max-options="4" name="tags">
                                   <?php
                                   //$allDisciplines = array();
                                   $allDisciplines = DisciplineDAO::find_all_disciplines();
-                                  print_r($allDisciplines);
+
                                   foreach($allDisciplines as $aDisc){
                                     echo '<optgroup label = "' .$aDisc->get_name() .'">';
                                     // echo ('<optgroup label="Computer Science">');
@@ -256,42 +244,34 @@ $_SESSION[ "user_id"] !='' ){
                                       }
                                     echo '</optgroup>';
                                   }  ?>
-                                
+
               							 </select>
                         </div>
-						
-				  <noscript>
-				  <div class="input-group">
-				  <select class="custom-select" name="tags[]" multiple>
-						  <?php
-                    //$allDisciplines = array();
 
-                    $allDisciplines = DisciplineDAO::find_all_disciplines();
-
-                    
-
-                    foreach($allDisciplines as $aDisc){
-                      echo '<optgroup label = "' .$aDisc->get_name() .'">';
-                      // echo ('<optgroup label="Computer Science">');
-                        $availTags = array();
-                        $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
-                        foreach($availTags as $aTag){
-                          echo'<option>' .$aTag->get_name() .'</option>';
-                          // echo '  <option>Graphics</option>';
-                        }
-
-                      echo '</optgroup>';
-                    }  ?>
-						</select>
-						</div>
-						</noscript>
+              				  <noscript>
+              				    <div class="input-group" style="min-width:65%">
+                  				  <select class="custom-select" name="tags[]" required multiple>
+                  						  <?php
+                                      $allDisciplines = DisciplineDAO::find_all_disciplines();
+                                      foreach($allDisciplines as $aDisc){
+                                        echo '<optgroup label = "' .$aDisc->get_name() .'">';
+                                          $availTags = array();
+                                          $availTags = TagDAO::find_all_tags_in_discipline($aDisc->get_id());
+                                          foreach($availTags as $aTag){
+                                            echo'<option>' .$aTag->get_name() .'</option>';
+                                          }
+                                        echo '</optgroup>';
+                                      }  ?>
+                  						</select>
+                						</div>
+              						</noscript>
                   </div>
 
                   <div class="form-group has-feedback">
                       <label class="col-md-4 control-label" for=" ">Claim Deadline</label>
                       <div class="input-group">
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                          <input type="text" required  id="datetimepicker1" name="claim_deadline" data-dateCheck="1" class="form-control input-md" />
+                          <input type="text" required  id="datetimepicker1" name="claim_deadline" placeholder="yyyy-mm-dd" data-dateCheck="1" class="form-control input-md" />
                       </div>
                         <span class="help-block with-errors"></span>
                   </div>
@@ -302,7 +282,7 @@ $_SESSION[ "user_id"] !='' ){
                         <label class="col-md-4 control-label" for=" ">Due Date</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <input type="text" required id="datetimepicker2" name="completion_deadline"  data-dateCheck="1" class="form-control input-md" />
+                            <input type="text" required id="datetimepicker2" name="completion_deadline"  placeholder="yyyy-mm-dd" data-dateCheck="1" class="form-control input-md" />
                         </div>
                           <span class="help-block with-errors"></span>
                     </div>
@@ -312,7 +292,7 @@ $_SESSION[ "user_id"] !='' ){
                           <label class="col-md-4 control-label" for=" ">Page Count</label>
                           <div class="input-group">
                               <span class="input-group-addon"><span class="glyphicon glyphicon-duplicate"></span></span>
-                              <input id="no_pages"  required name="no_pages" type="text" maxlength="15"  placeholder="" class="form-control input-md">
+                              <input id="no_pages"  required name="no_pages" type="text" maxlength="15" class="form-control input-md">
               								<span class="glyphicon form-control-feedback"></span>
               					</div>
               							<span class="help-block with-errors"></span>
@@ -331,23 +311,31 @@ $_SESSION[ "user_id"] !='' ){
 
                   <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="uploaded_document">Preview Document</label>
-                        <div class="col-md-8 input-group" id="document">
+                        <div class="col-md-8 input-group" id="document" >
                             <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
                             <!-- <input id="no_words"  required name="no_words" type="text" maxlength="15"  placeholder="" class="form-control input-md"> -->
                             <label class="input-group-btn" value="">
                                 <span class="btn btn-primary" style="z-index:3; margin-right:-5px;">
                                     Browse
                                 <input id="uploaded_document" value=""
-                                    style="display:none" required name="uploaded_document" data-filecheck="1" type="file" minLength=1 class="form-control input-md">
+                                    style="display:none"  name="uploaded_document" data-filecheck="1" type="file" minLength=1 class="form-control input-md">
                                   </span>
                                 </label>
                                 <label type="text" class="form-control has-feedback" style="overflow:auto; ">
                                   <span id="fileName" style="max-width:90%"></span><span class="glyphicon form-control-feedback"  style="z-index:3; background-color:white;"></span></label>
-
                       </div>
-					  
+
                       <span class="help-block with-errors"></span>
-                </div><noscript></noscript>
+                      <noscript>
+                        <div class="input-group">
+                          <label class="">
+                            <input type="file"  name="uploaded_document" id="file" required class="">
+                            <span class="custom-file-control"></span>
+                        </label>
+                      </div>
+                    </noscript>
+                </div>
+
 
                         <div class="row">
                             <div class="col-xs-2">
@@ -362,7 +350,6 @@ $_SESSION[ "user_id"] !='' ){
           </div>
        </div>
      </div>
-<!-- /container -->
    </div>
 </div>
 
@@ -375,10 +362,14 @@ $_SESSION[ "user_id"] !='' ){
 <script>
     $(document).ready(function() {
 		 $("#tags").show();
-		 
+     $("#tagsSelect").attr('required','');      //adding this as chrome having issues with these hidden elements when js disabled if required set in above html
+
 		 $("#discipline").show();
-		  
-    
+     $("#disciplineSelect").attr('required','');
+     $("#document").css('display', 'inline-block');
+     $("#document").find('.form-control').css('float','none');      //float left being applied by .less on displaying
+     $("#uploaded_document").attr('required','');
+
      $("#uploadForm").validator({
           custom: {
             filecheck: function ($el){

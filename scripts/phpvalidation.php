@@ -47,5 +47,8 @@ class phpvalidation {
     <i class="glyphicon glyphicon-remove"></i>' .$text .'</h3><p> '.$subText .'</p></div>';
   }
 
+
+
+
 }
 ?>

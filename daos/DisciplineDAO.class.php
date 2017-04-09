@@ -8,14 +8,12 @@ class DisciplineDAO {
   public static function find_all_disciplines(){
     $disciplines = array();
       $query = "SELECT * FROM `discipline`;";
-      echo($query);
       $result = PDOAccess::returnSQLquery($query);
       if ($result) {
         foreach($result as $row){
           $disciplines[] = ModelFactory::buildModel("Discipline",$row);
         }
       }
-      print_r($disciplines);
     return $disciplines;
   }
 
