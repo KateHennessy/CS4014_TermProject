@@ -338,7 +338,7 @@
 
 	  <div class="col-sm-1"></div>
 
-					<noscript>
+					<!-- <noscript>
 					<div class="col-xs-12 col-sm-3 well">
 				<div class="row" >
 					 <h1 class="">Log In</h1>
@@ -367,13 +367,13 @@
                           <button type="submit" name="login_button" class="btn btn-primary btn-block">Sign in
                           </button>
                         </div>
-                      </form></noscript>
+                      </form></noscript> -->
 
 
 
         </div>
       </div>
-    </div>
+    </div><br><br>
     <?php  ?>
 
 
