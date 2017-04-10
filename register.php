@@ -39,7 +39,7 @@
     		  }
 
 
-      if(strlen($email) == 0){
+      if(strlen($email) < 7){
         $feedback .= phpvalidation::displayFailure('Please enter a UL email address');
         $uploadFormOK = false;
       }
@@ -63,20 +63,20 @@
   		    }
      }
 
-     if(strlen($firstName > 25) || strlen($firstName) == 0 ){
+     if(strlen($firstName) > 25 || strlen($firstName) == 0 ){
 			  $feedback .=  phpvalidation::displayFailure('First Name is required.');
 			$uploadFormOK = false;
 			}
 
-			if(strlen($lastName > 25) || strlen( $lastName) == 0 ){
+			if(strlen($lastName) > 25 || strlen( $lastName) == 0 ){
 			  $feedback .= phpvalidation::displayFailure('Last Name is required.');
 			  $uploadFormOK = false;
 			}
-      if(strlen($passOne == 0)){
+      if(strlen($passOne) < 5){
          $feedback .= phpvalidation::displayFailure('Password is too short.');
          $uploadFormOK = false;
       }
-      if(strlen($passOne > 25)){
+      if(strlen($passOne) > 25){
         $feedback .= phpvalidation::displayFailure('Password is too long.');
         $uploadFormOK = false;
       }
@@ -111,7 +111,7 @@
          }
       }
           require_once __DIR__.'/templates/header.template.php';?>
-      
+
     <!-- Main PAGE -->
     <div class="container-fluid">
       <div class="col-xs-11 col-sm-8 well">
@@ -320,7 +320,7 @@ $(document).ready(function(){
 
         $("#discipline").show();
         $("#disciplineSelect").attr('required','');
-
+        $("[id^='tooltip']").tooltip();
 
 });
 
