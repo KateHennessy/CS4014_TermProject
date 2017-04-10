@@ -70,9 +70,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
   float: right !important;
   /*margin-right: -15px;*/
 }
-.navbar-right ~ .navbar-right {
 
-}
 
 .dropdown-menu{
   left:auto;
