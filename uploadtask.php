@@ -31,23 +31,6 @@ $_SESSION[ "user_id"] !='' ){
    $id = $_SESSION[ "user_id"];
    $user = new User();
    $user = UserDAO::getUserByID($id);
-  ?>
-  <!DOCTYPE html>
-  <html lang="en">
-     <head>
-        <title>ReviUL-Upload Task
-        </title>
-        <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
-   <?php
-    require_once __DIR__ . '/templates/loggedinuser.php';
-   ?>
-   <!-- CONTAINER START -->
-          <div class="container-fluid">
-             <div class="col-xs-12 well">
-               <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
-
-         <?php
-   require_once __DIR__. '/templates/usersidebar.php';
    $uploadFormOK = true;
    if(isset($_POST["uploadsubmit"])) {
      $creator_id = $id;
@@ -84,7 +67,7 @@ $_SESSION[ "user_id"] !='' ){
        $uploadFormOK = false;
        $feedback.= phpvalidation::displayFailure('You have entered a Due Date that is closer than your Claim Deadline.');
      }
-	 if(strlen($title) < 1){
+  if(strlen($title) < 1){
        $feedback.= phpvalidation::displayFailure('Please enter the task title.');
        $uploadFormOK = false;
      }
@@ -92,7 +75,7 @@ $_SESSION[ "user_id"] !='' ){
          $feedback.= phpvalidation::displayFailure('Task title is too long.');
          $uploadFormOK = false;
        }
-	  if(strlen($type) < 1){
+   if(strlen($type) < 1){
        $feedback.= phpvalidation::displayFailure('Please enter the task type.');
        $uploadFormOK = false;
      }
@@ -100,7 +83,7 @@ $_SESSION[ "user_id"] !='' ){
         $feedback.= phpvalidation::displayFailure('Task Type is too long.');
         $uploadFormOK = false;
       }
-	 if(strlen($description) < 1){
+  if(strlen($description) < 1){
        $feedback.= phpvalidation::displayFailure('Please enter the description.');
        $uploadFormOK = false;
      }
@@ -108,11 +91,11 @@ $_SESSION[ "user_id"] !='' ){
          $feedback.= phpvalidation::displayFailure('Description is too long.');
          $uploadFormOK = false;
        }
-	  if(!is_numeric($no_pages)){
+   if(!is_numeric($no_pages)){
        $feedback.= phpvalidation::displayFailure('Please enter the number of pages.');
        $uploadFormOK = false;
      }
-	 if(!is_numeric($no_words)){
+  if(!is_numeric($no_words)){
        $feedback.= phpvalidation::displayFailure('Please enter the number of words.');
        $uploadFormOK = false;
      }
@@ -150,13 +133,40 @@ $_SESSION[ "user_id"] !='' ){
       $task->set_tags($tagArray);
       $task = TaskDAO::save($task);
       if(!is_null($task->get_id())){
-        $feedback = phpvalidation::displaySuccess('Task Uploaded Successfully');
+        header("Location: uploadtask.php?uploadedOK=1");
+
+
       }
     }
  }
- }/*end of within session id set*/ else {
+ if(isset($_GET["uploadedOK"])){
+   if($_GET["uploadedOK"] == 1){
+     $feedback = phpvalidation::displaySuccess('Task Uploaded Successfully');
+   }else{
+      $feedback = phpvalidation::displayFailureSubtext('There was an error uploading your task', 'If the issue persists please contact the system administrator');
+   }
+ }
+ }else {
    header( "location:./register.php");
-    } ?>
+    }
+  ?>
+  <!DOCTYPE html>
+  <html lang="en">
+     <head>
+        <title>ReviUL-Upload Task
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
+   <?php
+    require_once __DIR__ . '/templates/loggedinuser.php';
+   ?>
+   <!-- CONTAINER START -->
+          <div class="container-fluid">
+             <div class="col-xs-12 well">
+               <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+
+         <?php
+   require_once __DIR__. '/templates/usersidebar.php';
+   ?>
       <script src="js/jquery.datetimepicker.full.js"></script>
         <div class="col-md-9 profile-content">
             <div class="" id="overview">
@@ -309,37 +319,44 @@ $_SESSION[ "user_id"] !='' ){
                   </div>
 
 
-                  <div class="form-group has-feedback">
-                        <label class="col-md-4 control-label" for="uploaded_document">Preview Document</label>
-                        <div class="col-md-8 input-group" id="document" >
+                  <div class="form-group has-feedback" style="width:100%" id="document">
+                        <label class="col-md-4 control-label">Preview Document</label>
+                        <div class="col-md-8 input-group" >
                             <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
                             <!-- <input id="no_words"  required name="no_words" type="text" maxlength="15"  placeholder="" class="form-control input-md"> -->
                             <label class="input-group-btn" value="">
-                                <span class="btn btn-primary" style="z-index:3; margin-right:-5px;">
+                                <span class="btn btn-primary input-md" style="z-index:3; margin-right:-5px;">
                                     Browse
-                                <input id="uploaded_document" value=""
-                                    style="display:none"  name="uploaded_document" data-filecheck="1" type="file" minLength=1 class="form-control input-md">
-                                  </span>
-                                </label>
-                                <label type="text" class="form-control has-feedback" style="overflow:auto; ">
-                                  <span id="fileName" style="max-width:90%"></span><span class="glyphicon form-control-feedback"  style="z-index:3; background-color:white;"></span></label>
+                                    <input id="uploaded_document" value=""
+                                      style="display:none"  name="uploaded_document" data-filecheck="1" type="file" minLength=1 class="form-control input-md">
+                                </span>
+                            </label>
+                            <label type="text" class="form-control has-feedback" style="overflow:auto; ">
+                              <span id="fileName" style=""></span>
+                              <span class="glyphicon form-control-feedback"  style="z-index:3; background-color:white;"></span>
+                            </label>
                       </div>
 
                       <span class="help-block with-errors"></span>
-                      <noscript>
-                        <div class="input-group">
-                          <label class="">
-                            <input type="file"  name="uploaded_document" id="file" required class="">
-                            <span class="custom-file-control"></span>
-                        </label>
-                      </div>
-                    </noscript>
+
                 </div>
+                <noscript>
+                  <div class="form-group has-feedback" >
+                        <label class="col-md-4 control-label">Preview Document</label>
+                  <div class="input-group">
+                    <label class="">
+                      <input type="file"  name="uploaded_document" id="file" required class="">
+                      <span class="custom-file-control"></span>
+                  </label>
+                </div>
+              </label>
+            </div>
+              </noscript>
 
 
                         <div class="row">
                             <div class="col-xs-2">
-                              <!-- Need to validate that file size < 8mb -->
+
                                 <input type="submit" id="uploadsubmit"  name="uploadsubmit" class="btn btn-lg btn-success"></input>
                             </div>
                         </div>
@@ -366,8 +383,12 @@ $_SESSION[ "user_id"] !='' ){
 
 		 $("#discipline").show();
      $("#disciplineSelect").attr('required','');
-     $("#document").css('display', 'inline-block');
-     $("#document").find('.form-control').css('float','none');      //float left being applied by .less on displaying
+
+
+    $("#document").css('display', 'table');
+    // $("#document").find('label').addClass('col-md-4');
+    //  $("#document").find('.form-control').css('float','none');      //float left being applied by .less on displaying
+
      $("#uploaded_document").attr('required','');
 
      $("#uploadForm").validator({

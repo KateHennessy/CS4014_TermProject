@@ -5,6 +5,119 @@
  class detailedTaskView{
    private $task;
 
+public static function createTaskHTML($task){
+  if(!is_null($task->get_id())){
+    $tags ="";
+      foreach($task->get_tags() as $aTag){
+      $tags .='<h4><span class="label label-primary">'.$aTag->get_name() .'</span></h4> ';
+    }
+    return '<div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="">
+                    <h2>' .$task->get_title() .'</h2>
+                </div>
+              </div>
+              <br />
+              <div class="panel-body">
+                    <div class = "row">
+                        <div class="form-group">
+                          <label class="col-md-3 control-label" for="Task Type">Task Type: </label>
+                            <div class="col-md-9">
+                                <div>' .$task->get_type() .'</div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div class = "row">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Brief Description Of The Task:</label>
+                            <div class="col-md-9">
+                              <div><p class="text-justify">' .$task->get_description() .'</p></div>
+                            </div>
+                        </div>
+                      </div>
+                      <hr/>
+                      <div class = "row">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Tags: </label>
+                            <div class="col-md-9">
+                              <div>'  .$tags .' </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      <div class = "row">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Claim By Date: </label>
+                            <div class="col-md-9">
+                              <div> ' .$task->get_claim_deadline()->format('D d/m/y') .'</div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div class = "row">
+                        <div class="form-group">
+                          <label class="col-md-3 control-label">Due Date: </label>
+                              <div class="col-md-9">
+                                <div>' .$task->get_completion_deadline()->format('D d/m/y') .'</div>
+                              </div>
+                          </div>
+                      </div>
+                      <hr />
+
+                      <div class = "row">
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">Number of Pages: </label>
+                                <div class="col-md-9">
+                                  <div>' .$task->get_no_pages() .'</div>
+                                </div>
+                            </div>
+                          </div>
+                          <hr />
+
+                            <div class = "row">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Number of Words: </label>
+                                <div class="col-md-9">
+                                  <div>' .$task->get_no_words() .'</div>
+                                </div>
+                            </div>
+                          </div>
+                          <hr />
+
+                          <div class = "row">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Document Type: </label>
+                                  <div class="col-md-9">
+                                    <div>' .$task->get_format().'</div>
+                                  </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class = "row">
+                            <div class="form-group">
+                              <form method="post">
+                                <label class="col-md-3 control-label">Preview: </label>
+                                  <div class="col-md-9">
+                                    <div><button name="download" class="btn btn-primary"> Click Here For Preview</button></div>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+              </div>
+              <div class="panel-footer" style="min-height:90px">';
+  }
+else return '';
+
+}
+public static function createNotFoundTaskHTML(){
+  return '  <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
+      <p class="small text-center"> This task is not available. Please find another task.</p>
+    </div>';
+}
+
    public static function createView($viewType, $task){
      $view = null;
      switch($viewType) {
@@ -35,7 +148,7 @@
        case "unclaimed":
        return  '<span class="pull-right">
                   <div>
-                    <label for="primary" class="btn btn-info">Not Claimed</label>
+                    <label for="primary" class="btn btn-info removeHover">Not Claimed</label>
                   </div>
                 </span>';
        case "in progress":
@@ -86,10 +199,10 @@
          <form method="post">
            <div class="row">
                <div class="col-sm-6 pull-left">
-                   <div><label class="btn btn-success">Complete</label></div>
+                   <div><label class="btn btn-success removeHover">Complete</label></div>
               </div>
                <div class="col-sm-6 pull-right">
-                  <div><label class="btn btn-primary">Review: ';
+                  <div><label class="btn btn-primary removeHover">Review: ';
 
                   switch($task->get_score()){
                     case 0:
@@ -107,7 +220,14 @@
               </div>
            </div>
         </form>';
-     }else{
+     }else if($task->get_status()->get_name() == "unfinished"){
+        $claimerView = '<span class="pull-right">
+                   <div>
+                     <label class="btn btn-danger removeHover">Unfinished</label>
+                   </div>
+                 </span>';
+
+   }else{
          $claimerView = '
         <form method="post">
            <div class="row">

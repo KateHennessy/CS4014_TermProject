@@ -1,4 +1,7 @@
-<?php if(isset($_POST["login_button"])){
+<?php
+require_once __DIR__."/../daos/TaskDAO.class.php";
+
+if(isset($_POST["login_button"])){
   $email = trim(strtolower($_POST["email"]));
   $password = $_POST["password"];
   $user = new User();
@@ -13,7 +16,9 @@
           <i class="glyphicon glyphicon-alert"></i> You have been banned for inappropriate content.
           Contact administration with any issues. </h3> <br /><br />';
         }else{
+          TaskDAO::update_all_task_statuses();
           $_SESSION["user_id"] = $user->get_id();
+
          header("location:./profilepage.php");
        }
   }else{

@@ -22,42 +22,30 @@
       <div class="container-fluid background-image">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation
-            </span>
+
+          <label type="button" class="navbar-toggle collapsed" for="menuToggle" data-toggle="collapse" data-target="#userMenu">
             <span class="icon-bar">
             </span>
             <span class="icon-bar">
             </span>
             <span class="icon-bar">
             </span>
-          </button>
+          </label>
+
           <a class="navbar-brand" href="index.php">RevIUL
           </a>
-        </div>
+        </div>  <input type="checkbox" id="menuToggle" style="display:none"/>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="userMenu">
           <form method="post" action="./logout.php">
                  <!--Menu bar on right hand side of nav bar -->
-             <ul class="nav navbar-nav navbar">
+             <ul class="nav navbar-nav navbar-custom">
 				<li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
 
 				<li><a href="<?php echo 'accountsettings.php'; ?>">Account Settings</a></li>
 				<li><button type="submit" class="btn btn-primary btn-lg btn-block">Log Out</button>
 
-                <form method="post" action="./logout.php">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <ul id="login-dp" class="dropdown-menu">
-                                <li><a href="<?php echo 'profilepage.php'; ?>">My Profile</a></li>
-                                <li><a href="<?php echo 'changepassword.php'; ?>">Account Settings</a></li>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Log Out</button>
-                                </div>
-                            </ul>
-                        </li>
-                    </ul>
          </form>
          </div>
         </div>

@@ -43,12 +43,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
 #login-dp .help-block{
     font-size:12px
 }
-/*#login-dp .bottom{
-    background-color:rgba(255,255,255,.8);
-    border-top:1px solid #ddd;
-    clear:both;
-    padding:14px;
-}*/
+
 
 #login-dp .form-group {
     margin-bottom: 10px;
@@ -64,13 +59,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9296', end
      display:block;
 
    }
-
+#menuToggle:checked + #userMenu{
+    display:block;
+}
 
 .navbar-right {
   float: right !important;
   /*margin-right: -15px;*/
 }
 
+@media(min-width:768px){
+  .navbar-custom{
+    float:right;
+  }
+}
 
 .dropdown-menu{
   left:auto;
@@ -103,15 +105,6 @@ body {
   background: #fff;
 }
 
-/*.profile-userpic img {
-  float: none;
-  margin: 0 auto;
-  width: 50%;
-  height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  border-radius: 50% !important;
-} */
 
 .profile-usertitle {
   text-align: center;
@@ -211,25 +204,6 @@ body {
 
 /*upload task */
 
-/* layout.css Style */
-.upload-drop-zone {
-  height: 200px;
-  border-width: 2px;
-  margin-bottom: 20px;
-}
-
-/* skin.css Style*/
-.upload-drop-zone {
-  color: #ccc;
-  border-style: dashed;
-  border-color: #ccc;
-  line-height: 200px;
-  text-align: center
-}
-.upload-drop-zone.drop {
-  color: #222;
-  border-color: #222;
-}
 
 @media (max-width:362px){
   .container-fluid{
@@ -247,12 +221,6 @@ body {
 }
 
 
- /* @media only screen and (max-width: 480px) {
-  @media only screen and (max-width: 480px) {
- .controls{
-   	width:100px;
-	}
-}
 /*        TASKS PANEL CLASSES        */
 @media(min-width:768px){
   .fixed{
@@ -380,7 +348,3 @@ body {
 .removeHover{
     pointer-events: none;
 }
-
-
-
-#

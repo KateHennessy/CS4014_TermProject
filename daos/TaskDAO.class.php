@@ -17,6 +17,13 @@ class TaskDAO{
     }
   }
 
+  public static function update_all_task_statuses(){
+    PDOAccess::call('ChangeClaimedToUnfinished','');
+    PDOAccess::call('ChangeUnclaimedToExpired','');
+
+
+  }
+
 
 
     public static function find_score_from_task_id($task_id){
@@ -233,7 +240,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
             }
           }
           // CAN USER NEXT LINE TO TEST SUM OF CLICKS
-          $task->set_title($task->get_title() .'  (Sum of Clicks: ' .$sum .')');
+          //$task->set_title($task->get_title() .'  (Sum of Clicks: ' .$sum .')');
             $availableTasks[] = $task;
   	  }
 

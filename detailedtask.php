@@ -20,22 +20,22 @@
       $task = NULL;
       if(isset($_GET["id"])){
         $task_id = $_GET["id"];
-      $task = new Task();
-      $task = TaskDAO::find_task_by_id($task_id);
-      $flagged = TaskDAO::find_Task_in_flagged($task_id);
-      if(!is_null($task->get_id())){
-        foreach($task->get_tags() as $taskTag){
-        foreach($user->get_tags() as $userTag){
-          if($taskTag->get_id() == $userTag->get_id()){
-             TagDAO::incrementUserTag($userTag, $user->get_id());
+        $task = new Task();
+        $task = TaskDAO::find_task_by_id($task_id);
+        $flagged = TaskDAO::find_Task_in_flagged($task_id);
+        // if(!is_null($task)){
+        if(!is_null($task->get_id())){
+          foreach($task->get_tags() as $taskTag){
+            foreach($user->get_tags() as $userTag){
+              if($taskTag->get_id() == $userTag->get_id()){
+                 TagDAO::incrementUserTag($userTag, $user->get_id());
+              }
+            }
           }
         }
       }
     }
-
-
-    }
-    } else {
+    else {
         header("location:./register.php");
     }
 
@@ -49,25 +49,25 @@
       }
 
     }
+
     if(isset($_POST["download"])){
       require __DIR__.'/scripts/download_file.php';
       exit;
-
-  }
-  if(isset($_POST["flagTask"])){
-      $url = 'detailedtask.php?id=' .$task->get_id() .'&flagOK=';
-      if(!is_null($flagged)){
-        $url .='2';
-      }
-      else if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
-        UserDAO::change_user_reputation($user, 2);
-        $url .= '1';
-      }else{
-          $url.= '0';
-      }
-
-       header("Location: " .$url);
     }
+
+    if(isset($_POST["flagTask"])){
+        $url = 'detailedtask.php?id=' .$task->get_id() .'&flagOK=';
+        if(!is_null($flagged)){
+          $url .='2';
+        }else if(TaskDAO::flag_task($task->get_id(), $user->get_id())){
+          UserDAO::change_user_reputation($user, 2);
+          $url .= '1';
+        }else{
+            $url.= '0';
+        }
+         header("Location: " .$url);
+    }
+
     if(isset($_GET['flagOK'])){
       if($_GET['flagOK'] == 2){
         $feedback = phpvalidation::displayWarning("Task Has Already Been Flagged");
@@ -96,7 +96,6 @@
         $feedback = phpvalidation::displayFailureSubtext("There was an issue deflagging this task. "," If the problem persists please contact the site administrator.");
       }
     }
-
 
     if(isset($_POST["banUser"])){
         $url = 'detailedtask.php?id=' .$task->get_id() .'&banOK=';
@@ -231,168 +230,54 @@
 
           <div class="col-md-9 profile-content">
               <div class="" id="detailedTask">
-                                <?php
-                                    echo($feedback);
-                                    if(!is_null($task)){
-                                          if($task->get_status()->get_name() != 'expired'){?>
-                                    <div class="panel panel-default">
-                                  <div class="panel-heading">
-                                  <div class="">
-                                      <h2><?php echo $task->get_title(); ?></h2>
-                                  </div>
-                              </div>
-                              <br />
-                              <div class="panel-body">
-                                  <!-- <table class="table table-user-information"> -->
-                                      <!-- <tbody> -->
-                                      <div class = "row">
-                                          <div class="form-group">
-                                            <label class="col-md-3 control-label" for="Task Type">Task Type: </label>
-                                              <div class="col-md-9">
-                                                  <div><?php echo $task->get_type(); ?> </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <hr />
 
-                                        <div class = "row">
-                                          <div class="form-group">
-                                                <label class="col-md-3 control-label">Brief Description Of The Task:</label>
-                                                  <div class="col-md-9">
-                                                    <div><p class="text-justify"><?php echo $task->get_description(); ?></p></div>
-                                                  </div>
-                                          </div>
-                                        </div>
-                                        <hr />
-
-                                        <div class = "row">
-                                          <div class="form-group">
-                                              <label class="col-md-3 control-label">Tags: </label>
-                                              <div class="col-md-9">
-                                              <div><?php foreach($task->get_tags() as $aTag){
-                                                echo '<h4><span class="label label-primary">'.$aTag->get_name() .'</span></h4> ';
-                                              }  ?></div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <hr />
-
-                                        <div class = "row">
-                                          <div class="form-group">
-                                              <label class="col-md-3 control-label">Claim By Date: </label>
-                                              <div class="col-md-9">
-                                              <div><?php echo $task->get_claim_deadline()->format('D d/m/y'); ?></div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <hr />
-
-                                        <div class = "row">
-                                          <div class="form-group">
-                                            <label class="col-md-3 control-label">Due Date: </label>
-                                                <div class="col-md-9">
-                                                  <div><?php echo $task->get_completion_deadline()->format('D d/m/y'); ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr />
-
-                                        <div class = "row">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Number of Pages: </label>
-                                                  <div class="col-md-9">
-                                                    <div><?php echo $task->get_no_pages(); ?></div>
-                                                  </div>
-                                              </div>
-                                            </div>
-                                            <hr />
-
-                                              <div class = "row">
-                                              <div class="form-group">
-                                                  <label class="col-md-3 control-label">Number of Words: </label>
-                                                  <div class="col-md-9">
-                                                    <div><?php echo $task->get_no_words(); ?></div>
-                                                  </div>
-                                              </div>
-                                            </div>
-                                            <hr />
-
-                                            <div class = "row">
-                                              <div class="form-group">
-                                                  <label class="col-md-3 control-label">Document Type: </label>
-                                                    <div class="col-md-9">
-                                                      <div><?php echo $task->get_format(); ?></div>
-                                                    </div>
-                                              </div>
-                                            </div>
-                                            <hr />
-
-                                            <div class = "row">
-                                              <div class="form-group">
-                                                <form method="post">
-                                                  <label class="col-md-3 control-label">Preview: </label>
-                                                    <div class="col-md-9">
-                                                      <div><button name="download" class="btn btn-primary"> Click Here For Preview</button></div>
-                                                    </div>
-                                                  </form>
-                                              </div>
-                                          </div>
-
-<!--
-                                      </tbody>
-                                  </table> -->
-
-                              </div>
-
-                              <div class="panel-footer" style="min-height:90px">
 <?php
+            if(!is_null($task->get_id())){
+                  if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
+                      echo detailedTaskView::createTaskHTML($task);
+                      echo detailedTaskView::createView("Creator", $task);
+                  } //END OF CREATOR VIEWING THEIR OWN TASK
 
-                if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
-                    echo detailedTaskView::createView("Creator", $task);
-                } //END OF CREATOR VIEWING THEIR OWN TASK
+                  else if(UserDAO::find_user_in_banned($task->get_creator_id())){   //Task Is Banned
+                      echo detailedTaskView::createView("BannedTask", $task);
+                  }
+                  else if(is_null($task->get_claimer_id())){ // CLAIMER IS NULL - TWO POSSIBILITIES - MODERATOR LOOKING AT FLAGGED TASK OR POTENTIAL CLAIMER
+                      if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())) && $user->get_reputation() >=40){ //MODERATOR LOOKING AT FLAGGED TASK
+                        echo detailedTaskView::createTaskHTML($task);
+                        echo detailedTaskView::createView("Flagged", $task);
 
-                else if(UserDAO::find_user_in_banned($task->get_creator_id())){   //Task Is Banned
-                  echo detailedTaskView::createView("BannedTask", $task);
-                }
-                else if(is_null($task->get_claimer_id())){ // CLAIMER IS NULL - TWO POSSIBILITIES - MODERATOR LOOKING AT FLAGGED TASK OR POTENTIAL CLAIMER
+                      }else if($task->get_status()->get_name()=='unclaimed'){ //POTENTIAL CLAIMER
+                        echo detailedTaskView::createTaskHTML($task);
+                        echo detailedTaskView::createView("PotentialClaimer", $task);
+                      } //END OF CLAIMER IS NULL
 
-                  if(!is_null(TASKDAO::find_task_in_flagged($task->get_id())) && $user->get_reputation() >=40){ //MODERATOR LOOKING AT FLAGGED TASK
-                    echo detailedTaskView::createView("Flagged", $task);
-
-                  }else if($task->get_status()->get_name()=='unclaimed'){ //POTENTIAL CLAIMER
-                    echo detailedTaskView::createView("PotentialClaimer", $task);
-                        } //END OF CLAIMER IS NULL
-}
-                else if($task->get_claimer_id() == $user->get_id()){  //CURRENT VIEWER IS THE CLAIMER OF THE TASK
+                  }
+                  else if($task->get_claimer_id() == $user->get_id()){  //CURRENT VIEWER IS THE CLAIMER OF THE TASK
+                    echo detailedTaskView::createTaskHTML($task);
                     echo detailedTaskView::CreateView("Claimer", $task);
-                }
-                else{ // THE USER IS NOT THE CREATOR OR THE CLAIMER - NO ACCESS
-                          ?>
-                          <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
-                            <p class="small text-center"> This task is not available. Please find another task.</p>
-                          </div>
-                          <?php
+                  }else{      // THE USER IS NOT THE CREATOR OR THE CLAIMER - NO ACCESS
+                    echo(detailedTaskView::createNotFOundTaskHTML());
+                  }
+            }else{  //TASK ID IS NULL - Task doesn't exist
+                    echo detailedTaskView::createNotFoundTaskHTML();
+
                         }
                         ?>
 
 
                       </div>
-                      <?php }else{
-                      ?>
-                      <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
-                        <p class="small text-center"> This task is not available. Please find another task.</p>
-                      </div>
-                      <?php }
-                    } // ID Is not NULL
 
 
-                      else{ ?>
-                        <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
+                    <!-- // ID Is not NULL -->
+
+                        <!-- //Task id found was null -->
+                      <!-- else{ ?> -->
+                        <!-- <div class="col-xs-12"> <h2 class="text-danger text-center"> <i class= "glyphicon glyphicon-exclamation-sign"></i> Task Not Found </h2>
                           <p class="small text-center"> This task is not available. Please find another task.</p>
-                        </div>
+                        </div> -->
                       </div>
                     </div></div>
-                        <?php } ?>
+
 
                       </div>
                       </div>

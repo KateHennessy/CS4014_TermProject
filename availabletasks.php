@@ -16,7 +16,7 @@
         header("location:./register.php");
     }
 
-      
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,8 +139,6 @@ $nextlink = ($page < $pages) ? '<li><a href="availabletasks.php?page=' . ($page 
                     </div>
                 </div>
 
-            <!-- </div> -->
-            <!-- End Col -->
         </div>
         <!-- </div> -->
 
