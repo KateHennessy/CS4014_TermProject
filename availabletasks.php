@@ -76,9 +76,9 @@ $nextlink = ($page < $pages) ? '<li><a href="availabletasks.php?page=' . ($page 
 
                                   <?php
                                   foreach($tasks as $task){ ?>
-                                    <div class="col-xs-12 fixedMax">
+                                    <div class="col-xs-12">
                                         <div class="panel panel-default">
-                                            <div class="panel-heading">
+                                            <div class="panel-heading fixedMax">
                                                 <div class="row">
                                                     <div class="col-xs-12">
                                                         <a class="pull-left" href="<?php echo 'detailedtask.php?id=' .$task->get_id(); ?>" target="_parent">
@@ -86,8 +86,8 @@ $nextlink = ($page < $pages) ? '<li><a href="availabletasks.php?page=' . ($page 
                                                             <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="pull-left col-sm-6">
+                                                <div class="row"  style="height:100%">
+                                                    <div class="pull-left col-sm-6 col-xs-12">
 
                                                         <i class="glyphicon glyphicon-file pull-left text-primary"></i>
                                                         <p class="text-muted"><small class="pull-left">Type: <span class="text-primary"><?php echo $task->get_type(); ?></span></small><br>
@@ -101,8 +101,11 @@ $nextlink = ($page < $pages) ? '<li><a href="availabletasks.php?page=' . ($page 
                                                             <small class="pull-left">Word Count: <span class="text-primary"><?php echo $task->get_no_words(); ?></span></small><br></p>
                                                     </div>
 
-                                                    <div class="divider pull-right hidden-xs col-sm-6 scroll">
-                                                        <p class="hidden-xs fixedBodyLarge scroll"> <?php echo $task->get_description(); ?></p>
+                                                    <div class="pull-right hidden-xs col-sm-6" style="height:100%">
+                                                      <div class=" fixedBodyLarge divider scroll hidden-xs">
+                                                          <p class="hidden-xs fixedBodyLarge" style="padding-left:10px;"> <?php echo $task->get_description(); ?></p>
+                                                      </div>
+
                                                     </div>
                                                 </div>
                                             </div>
