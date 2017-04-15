@@ -227,7 +227,14 @@ public static function createNotFoundTaskHTML(){
                    </div>
                  </span>';
 
-   }else{
+   }else if($task->get_status()->get_name() == "cancelled"){
+      $claimerView = '<span class="pull-right">
+                 <div>
+                   <label class="btn btn-danger removeHover">Cancelled</label>
+                 </div>
+               </span>';
+
+ }else{
          $claimerView = '
         <form method="post">
            <div class="row">

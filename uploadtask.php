@@ -221,7 +221,7 @@ $_SESSION[ "user_id"] !='' ){
                     <div class="form-group has-feedback">
                         <label class="col-md-4 control-label" for="Task Description">Brief Description Of The Task</label>
                         <div class="col-md-8">
-                            <textarea id="description"  name="description" maxlength="600" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll; padding-box"></textarea>
+                            <textarea id="description"  name="description" maxlength="599" required placeholder="Give a brief description of your task.." style="height:200px" style="overflow:scroll; padding-box"></textarea>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                         <span class="help-block with-errors"></span>
@@ -328,7 +328,7 @@ $_SESSION[ "user_id"] !='' ){
                                 <span class="btn btn-primary input-md" style="z-index:3; margin-right:-5px;">
                                     Browse
                                     <input id="uploaded_document" value=""
-                                      style="display:none"  name="uploaded_document" data-filecheck="1" type="file" minLength=1 class="form-control input-md">
+                                      style="display:none"  name="uploaded_document" data-filecheck type="file" minLength=1 class="form-control input-md">
                                 </span>
                             </label>
                             <label type="text" class="form-control has-feedback" style="overflow:auto; ">
@@ -407,6 +407,7 @@ $_SESSION[ "user_id"] !='' ){
               }
             },
             dateCheck: function($el){
+              // Checking datetimepickers to make sure selected dates are not past dates
               var today = new Date();
               var inputed = $el.val();
               var parts =inputed.split('-');
@@ -414,9 +415,18 @@ $_SESSION[ "user_id"] !='' ){
               if(mydate < today){
                 return "Cannot enter past date"
               }
+              // If we are in the due date input, check if the due date is after the claim deadline
+              if($el[0].id == "datetimepicker2"){
+                var firstparts =  $("#datetimepicker1").val().split('-');
+                var firstdate =  new Date(firstparts[0],firstparts[1]-1,firstparts[2], 23,59);
+                if(mydate <= firstdate){
+                  return "Due date must be after Claim Deadline";
+                }
+              }
             }
           }
         });
+
           //bootstrap input-group button modified from https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3
       //We can attach the `fileselect` event to all file inputs on the page
        $(document).on('change', ':file', function() {
@@ -433,6 +443,9 @@ $_SESSION[ "user_id"] !='' ){
           timepicker:false,
           format:'Y-m-d'
         });
+
+
+        
         // Tooltip function
         $("[id^='tooltip']").tooltip();
     });

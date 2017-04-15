@@ -148,12 +148,16 @@ class UserDAO{
 
       public static function change_user_reputation(&$user, $points){
         if(!is_null($user)){
-          $currentPoints = $user->get_reputation();
-          $newPoints = $currentPoints + $points;
-          $query = 'UPDATE user SET reputation = ' .$newPoints .' WHERE email = ' .PDOAccess::prepareString($user->get_email()) .';';
-          $result = PDOAccess::insertSQLquery($query);
+          // $currentPoints = $user->get_reputation();
+          // $newPoints = $currentPoints + $points;
+          // $query = 'UPDATE user SET reputation = ' .$newPoints .' WHERE email = ' .PDOAccess::prepareString($user->get_email()) .';';
+          // $result = PDOAccess::insertSQLquery($query);
+          $args = array();
+          $args[] = $user->get_id();
+          $args[] = $points;
+          $result = PDOAccess::call('UpdateUserReputation',$args);
           $user = self::getUserById($user->get_id());
-          return $result;
+          return $result > 0;
         }else{
           return false;
         }

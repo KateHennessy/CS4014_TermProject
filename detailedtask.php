@@ -40,14 +40,26 @@
     }
 
     if(isset($_POST["claimTask"])){
+        $url = 'detailedtask.php?id=' .$task->get_id() .'&claimTaskOK=';
       if(TaskDAO::claim_task($user->get_id(), $task->get_id())){
         $task = TaskDAO::find_task_by_id($task_id);
         UserDAO::change_user_reputation($user, 10);
-        $feedback = phpvalidation::displaySuccess("Task Claimed Successfully");
+        $feedback .= phpvalidation::displaySuccess("Task Claimed Successfully");
+        $url .='1';
       }else{
-
+        $url .='0';
       }
+      header("Location: " .$url);
+    }
 
+
+    if(isset($_GET['claimTaskOK'])){
+      if($_GET['claimTaskOK'] == 1){
+        $feedback = phpvalidation::displaySuccess("Task Has Been Claimed");
+      }
+        else{
+          $feedback = phpvalidation::displayFailureSubtext("There was an issue claiming this task.", "If the problem persists please contact the site administrator.");
+        }
     }
 
     if(isset($_POST["download"])){
@@ -100,7 +112,7 @@
     if(isset($_POST["banUser"])){
         $url = 'detailedtask.php?id=' .$task->get_id() .'&banOK=';
       if(UserDAO::ban_user($task->get_creator_id())){
-          TaskDAO::remove_all_user_tasks($task->get_creator_id());
+          // TaskDAO::remove_all_user_tasks($task->get_creator_id());
             $url .="1";
       }else{
         $url .= "0";
@@ -232,6 +244,7 @@
               <div class="" id="detailedTask">
 
 <?php
+          echo $feedback;
             if(!is_null($task->get_id())){
                   if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
                       echo detailedTaskView::createTaskHTML($task);

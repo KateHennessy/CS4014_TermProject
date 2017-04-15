@@ -114,15 +114,26 @@ class PDOAccess {
             $db->error_msg = "\r\n" . "SQL Statement or connect is <code>null</code>" . date('H:i:s');
             return false;
         }
+				$conn = $db->connection;
+				$data = array();
+				//echo($sql);
+				$result = $conn -> prepare($sql);
+				if($result){
+						$result-> execute();
+						return true;
+				}else{
+					echo("issue with insert");
+					return NULL;
+				}
 
-        $conn = $db->connection;
-        $data = array();
-        if ($result = $conn->query($sql)) {
-            foreach ($result as $row) {
-                $data[] = $row;
-            }
-        }
-        return empty($data) ? false : $data;
+
+        // if ($result = $conn->query($sql)) {
+            // foreach ($result as $row) {
+						// 	echo("row");
+            //     $data[] = $row;
+            // }
+        // }
+
     }
 }
 ?>

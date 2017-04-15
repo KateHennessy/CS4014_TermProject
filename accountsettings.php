@@ -52,9 +52,6 @@ $feedback ="";
                   $saltedHash = hash('sha256', $newPass.$siteSalt);
 
                   $result = PDOAccess::insertSQLquery ("UPDATE user SET pass = '$saltedHash' WHERE user_id = '".$id ."'");
-                  // echo '<script type="text/javascript">',
-                  //         'successMessage();',
-                  //       '</script>';
                     $feedback = '<h3 class="alert alert-success alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                     <i class="glyphicon glyphicon-ok"></i> Password Changed Successfully</h3>' .$feedback;

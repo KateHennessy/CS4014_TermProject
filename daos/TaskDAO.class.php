@@ -76,7 +76,6 @@ public static function claim_task($user_id, $task_id){
       .PDOAccess::prepareString($task_id) .', '."'0'" .');';
       $result = PDOAccess::insertSQLquery($query);
         if ($result) {
-          // $task = self::find_task_by_id($task_id);
           StatusDAO::update_task_status("in progress", $task_id);
           $claimed = true;
         }
