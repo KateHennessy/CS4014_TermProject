@@ -53,7 +53,6 @@
                   </p>
                   </div>
                   <noscript>
-                    <h3>Who can join this website?</h3>
                     <p align = "justify">
                       Students and staff at the University of Limerick can join ReviUL to avail of a free and easy proof reading service. User's must be a member of the University of Limerick with a valid UL email.
                     </p>
@@ -74,7 +73,6 @@
                   </p>
                 </div>
                 <noscript>
-                  <h3>What are reputation points?</h3>
                   <p align = "justify">
                     Members of the website can gain reputation points by claiming a task to proof read and also flagging any task as inappropriate. However, user's can also lose reputation points if they cancel a task or also if they fail to submit a task before the due date.
                   </p>
@@ -89,36 +87,60 @@
                     User's can upload tasks they wish to have proof read by another user. These tasks can include a thesis or assignment. These tasks can also be across a range of disciplines. The file uploaded must also be a PDF or a docx.
                   </p>
                   <p align = "justify">
-                    When uploading a task, users must provide relevant information on their task. This information can include document type, word count, page count, title of task and a snippet of the content in the task.
-                  </p>
-                  <p align = "justify">
-                    Users can search for tasks they wish to claim to proof read for other user. Once a user has found a task they wish to proof read, they can message the user who uploaded that task on their profile page. In this message, a user can state what task they wish to claim and also include their email address so the user can reply back with the task in question.
-                  </p>
-                  <p align = "justify">
-                    When uploading a sample of your task, please ensure it is not the entire document. There are file size resitrictions in place.
-                  </p>
-                  <p align = "justify">
                     Your profile page will contain a snippet of information on tasks you have uploaded. It will not show every task you have ever uploaded or claimed. To see such tasks please go ton the "My Tasks" or "My Claimed Tasks" in the side bar.
                   </p>
                 </div>
                 <noscript>
-                  <h3>Why do I need to upload tasks?</h3>
                   <p align = "justify">
-                    User's can upload tasks they wish to have proof read by another user. These tasks can include a thesis or assignment. These tasks can also be across a range of disciplines. The file uploaded must also be a PDF or a docx.
-                  </p>
-                  <p align = "justify">
-                    When uploading a task, users must provide relevant information on their task. This information can include document type, word count, page count, title of task and a snippet of the content in the task.
-                  </p>
-                  <p align = "justify">
-                    Users can search for tasks they wish to claim to proof read for other user. Once a user has found a task they wish to proof read, they can message the user who uploaded that task on their profile page. In this message, a user can state what task they wish to claim and also include their email address so the user can reply back with the task in question.
-                  </p>
-                  <p align = "justify">
-                    When uploading a sample of your task, please ensure it is not the entire document. There are file size resitrictions in place.
+                    User's can upload tasks they wish to have proof read by another user. These tasks can include a thesis or assignment. These tasks can also be across a range of disciplines.
                   </p>
                   <p align = "justify">
                     Your profile page will contain a snippet of information on tasks you have uploaded. It will not show every task you have ever uploaded or claimed. To see such tasks please go ton the "My Tasks" or "My Claimed Tasks" in the side bar.
                   </p>
                 </noscript>
+
+                <button class ="accordion">What type of task can I upload?</button>
+                <div class ="panel">
+                  <p>
+                    You can uplaod an assignment, thesis etc to ReviUL. The file uploaded must also be a PDF or a docx.
+                  </p>
+                  <p align = "justify">
+                    When uploading a task, users must provide relevant information on their task. This information can include document type, word count, page count, title of task and a snippet of the content in the task.
+                  </p>
+                </div>
+                <noscript>
+                  <p>
+                    You can uplaod an assignment, thesis etc to ReviUL. The file uploaded must also be a PDF or a docx.
+                  </p>
+                  <p align = "justify">
+                    When uploading a task, users must provide relevant information on their task. This information can include document type, word count, page count, title of task and a snippet of the content in the task.
+                  </p>
+                </noscript>
+
+
+                <button class ="accordion">What information do I need to provide with my uploaded task?</button>
+                <div class ="panel">
+                  <p align = "justify">
+                    When uploading a sample of your task, please ensure it is not the entire document. There are file size resitrictions in place.
+                  </p>
+                </div>
+                <noscript>
+                  <p align = "justify">
+                    When uploading a sample of your task, please ensure it is not the entire document. There are file size resitrictions in place.
+                  </p>
+                </noscript>
+
+                <button class ="accordion">How can I find unclaimed tasks in order to claim one?</button>
+                <div class ="panel">
+                  <p align = "justify">
+                    Users can search for tasks they wish to claim to proof read for other user. Once a user has found a task they wish to proof read, they can message the user who uploaded that task on their profile page. In this message, a user can state what task they wish to claim and also include their email address so the user can reply back with the task in question.
+                  </p>
+                  </div>
+                  <noscript>
+                    <p align = "justify">
+                      Users can search for tasks they wish to claim to proof read for other user. Once a user has found a task they wish to proof read, they can message the user who uploaded that task on their profile page. In this message, a user can state what task they wish to claim and also include their email address so the user can reply back with the task in question.
+                    </p>
+                  </noscript>
 
                 <button class ="accordion">How can I claim a task to proof read it?</button>
                 <div class ="panel">
@@ -133,7 +155,6 @@
                   </p>
                 </div>
                 <noscript>
-                  <h3>How can I claim a task to proof read it?</h3>
                   <p align = "justify">
                     You can claim a task by clicking on the task title. Once you do this you will be brought to a detailed task page with a claim button on the bottom of the screen.
                   </p>
@@ -142,6 +163,22 @@
                   </p>
                   <p align = "justify">
                     The date the task in question must be completed by is in the detailed task view. You can see this date before claiming the task. Therefore, all users are aware of the timeline in which the task must be proof read by.
+                  </p>
+                </noscript>
+
+                <button class ="accordion">How will I know if my task has been claimed?</button>
+                <div class ="panel">
+                  <p>
+                    The task will appear as claimed both in your Profile Page and you My Task page.
+                    When you enter the detailed view of your task, the individuals email address who has claimed your task will appear.
+                    You will then email your full document to the individual for them to proof read.
+                  </p>
+                </div>
+                <noscript>
+                  <p>
+                    The task will appear as claimed both in your Profile Page and you My Task page.
+                    When you enter the detailed view of your task, the individuals email address who has claimed your task will appear.
+                    You will then email your full document to the individual for them to proof read.
                   </p>
                 </noscript>
 
@@ -158,7 +195,6 @@
                   </p>
                 </div>
                 <noscript>
-                  <h3>How can I update task information(task status)?</h3>
                   <p align = "justify">
                     Updating the status of a task is important once you have claimed it. You can update the status to cancelled or completed.
                   </p>
@@ -183,7 +219,6 @@
                   </p>
                 </div>
                 <noscript>
-                  <h3>Why are some users banned?</h3>
                   <p align = "justify">
                     If a user uploads content which is deemed inappropriate by another user, other users have the option to flag that task.
                   </p>
