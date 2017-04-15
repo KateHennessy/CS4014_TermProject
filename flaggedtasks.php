@@ -15,12 +15,12 @@
     } else {
         header("location:./register.php");
     }
-	
-		
-	
 
 
-      
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@
     $totalnoAvailable = TaskDAO::find_no_flagged_tasks();
     $limit = 7;
     $pages = ceil($totalnoAvailable / $limit);
-	
+
     $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
         'options' => array(
             'default'   => 1,
@@ -80,42 +80,46 @@ if($start < 0)$start = 0;
                           <br />
 
 
-                                  <?php
-                                  foreach($tasks as $task){ ?>
-                                    <div class="col-xs-12 fixedMax">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <a class="pull-left" href="<?php echo 'detailedtask.php?id=' .$task->get_id(); ?>" target="_parent">
-                                                            <!-- </a> -->
-                                                            <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="pull-left col-sm-6">
-
-                                                        <i class="glyphicon glyphicon-file pull-left text-primary"></i>
-                                                        <p class="text-muted"><small class="pull-left">Type: <span class="text-primary"><?php echo $task->get_type(); ?></span></small><br>
-                                                            <i class="glyphicon glyphicon-calendar pull-left text-primary"></i>
-                                                            <small class="pull-left"> Claim Before: <span class="text-primary"><?php echo $task->get_claim_deadline()->format('d/m/Y'); ?></span></small><br>
-                                                            <i class="glyphicon glyphicon-hourglass pull-left text-primary"></i>
-                                                            <small class="pull-left">  Due Date: <span class="text-primary"> <?php echo $task->get_completion_deadline()->format('d/m/Y'); ?></span></small><br>
-                                                            <i class="glyphicon glyphicon-duplicate pull-left text-primary"></i>
-                                                            <small class="pull-left">Page Count: <span class="text-primary"><?php echo $task->get_no_pages(); ?></span></small><br>
-                                                            <i class="glyphicon glyphicon-stats pull-left text-primary"></i>
-                                                            <small class="pull-left">Word Count: <span class="text-primary"><?php echo $task->get_no_words(); ?></span></small><br></p>
-                                                    </div>
-
-                                                    <div class="divider pull-right hidden-xs col-sm-6 scroll">
-                                                        <p class="hidden-xs fixedBodyLarge scroll"> <?php echo $task->get_description(); ?></p>
-                                                    </div>
-                                                </div>
+                          <?php
+                          foreach($tasks as $task){ ?>
+                            <div class="col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading fixedMax">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <a class="pull-left" href="<?php echo 'detailedtask.php?id=' .$task->get_id(); ?>" target="_parent">
+                                                    <!-- </a> -->
+                                                    <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
                                             </div>
                                         </div>
+                                        <div class="row"  style="height:100%">
+                                            <div class="pull-left col-sm-6 col-xs-12">
 
+                                                <i class="glyphicon glyphicon-file pull-left text-primary"></i>
+                                                <p class="text-muted"><small class="pull-left">Type: <span class="text-primary"><?php echo $task->get_type(); ?></span></small><br>
+                                                    <i class="glyphicon glyphicon-calendar pull-left text-primary"></i>
+                                                    <small class="pull-left"> Claim Before: <span class="text-primary"><?php echo $task->get_claim_deadline()->format('d/m/Y'); ?></span></small><br>
+                                                    <i class="glyphicon glyphicon-hourglass pull-left text-primary"></i>
+                                                    <small class="pull-left">  Due Date: <span class="text-primary"> <?php echo $task->get_completion_deadline()->format('d/m/Y'); ?></span></small><br>
+                                                    <i class="glyphicon glyphicon-duplicate pull-left text-primary"></i>
+                                                    <small class="pull-left">Page Count: <span class="text-primary"><?php echo $task->get_no_pages(); ?></span></small><br>
+                                                    <i class="glyphicon glyphicon-stats pull-left text-primary"></i>
+                                                    <small class="pull-left">Word Count: <span class="text-primary"><?php echo $task->get_no_words(); ?></span></small><br></p>
+                                            </div>
+
+                                            <div class="pull-right hidden-xs col-sm-6" style="height:100%">
+                                              <div class=" fixedBodyLarge divider scroll hidden-xs">
+                                                  <p class="hidden-xs fixedBodyLarge" style="padding-left:10px;"> <?php echo $task->get_description(); ?></p>
+                                              </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                <?php  }
+                                </div>
+
+                            </div>
+                        <?php  }
+
 
                                 echo('</ul> <br / ><span class="small">  Page '. $page .' of ' .$pages.' pages, displaying '.$start.'-'.$end.' of '.$totalnoAvailable .'</span><br /> <ul class="pagination">
                                 ' .$prevlink);

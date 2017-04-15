@@ -23,7 +23,6 @@
         $task = new Task();
         $task = TaskDAO::find_task_by_id($task_id);
         $flagged = TaskDAO::find_Task_in_flagged($task_id);
-        // if(!is_null($task)){
         if(!is_null($task->get_id())){
           foreach($task->get_tags() as $taskTag){
             foreach($user->get_tags() as $userTag){

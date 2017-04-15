@@ -18,7 +18,6 @@ class UploadVal{
       }
       $file = $_FILES['uploaded_document'];
       if(!file_exists($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])){
-          $errors['FileNotExists'] = true;
           return false;
       }
       return true;
@@ -40,7 +39,16 @@ $_SESSION[ "user_id"] !='' ){
      $no_pages = htmlspecialchars(ucfirst(trim($_POST["no_pages"])));
      $no_words = htmlspecialchars(ucfirst(trim($_POST["no_words"])));
      $tags = array();
-     if(isset($_POST["tags"])){$tags = $_POST["tags"];}else{
+     if(isset($_POST["tags"])){
+         $tags = $_POST["tags"];
+         if(count($tags) < 1){
+           $feedback .=phpvalidation::displayFailure("No tags selected. Please select between 1 and 4 Tags for your task");
+           $uploadFormOK = false;
+         }else if(count($tags) > 4){
+           $feedback .=phpvalidation::displayFailure("Too many tags selected. Please select between 1 and 4 Tags for your task");
+           $uploadFormOK = false;
+         }
+     }else{
        $feedback .=phpvalidation::displayFailure("Please select between 1 and 4 Tags for your task");
        $uploadFormOK = false;
      }
@@ -445,7 +453,7 @@ $_SESSION[ "user_id"] !='' ){
         });
 
 
-        
+
         // Tooltip function
         $("[id^='tooltip']").tooltip();
     });

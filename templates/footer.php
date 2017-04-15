@@ -1,3 +1,4 @@
+<br />
   <div class="footer">
     <!-- Brand and toggle get grouped for better mobile display -->
 

@@ -1,7 +1,6 @@
 
 <div class="col-md-9 profile-content">
-                    <div class="" id="overview">
-                        <div class="">
+
                           <div class="row">
                               <div class="col-xs-12">
                                   <h1 class="text-danger text-center"><i class="glyphicon glyphicon-warning-sign"></i> Page Not Found</h1>
@@ -9,6 +8,3 @@
                               </div>
                           </div>
 										</div>
-										</div>
-										</div>
-

@@ -13,7 +13,7 @@ public static function createTaskHTML($task){
     }
     return '<div class="panel panel-default">
               <div class="panel-heading">
-                <div class="">
+                <div class="" style="overflow:auto">
                     <h2>' .$task->get_title() .'</h2>
                 </div>
               </div>
@@ -23,7 +23,7 @@ public static function createTaskHTML($task){
                         <div class="form-group">
                           <label class="col-md-3 control-label" for="Task Type">Task Type: </label>
                             <div class="col-md-9">
-                                <div>' .$task->get_type() .'</div>
+                                <div style="overflow:auto">' .$task->get_type() .'</div>
                           </div>
                         </div>
                       </div>
@@ -33,7 +33,7 @@ public static function createTaskHTML($task){
                         <div class="form-group">
                             <label class="col-md-3 control-label">Brief Description Of The Task:</label>
                             <div class="col-md-9">
-                              <div><p class="text-justify">' .$task->get_description() .'</p></div>
+                              <div style="overflow:auto"><p class="text-justify">' .$task->get_description() .'</p></div>
                             </div>
                         </div>
                       </div>

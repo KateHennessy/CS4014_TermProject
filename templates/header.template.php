@@ -18,8 +18,9 @@ if(isset($_POST["login_button"])){
         }else{
           TaskDAO::update_all_task_statuses();
           $_SESSION["user_id"] = $user->get_id();
+         header("location:http://localhost/CS4014_TermProject/");
+         exit();
 
-         header("location:./profilepage.php");
        }
   }else{
    //  header("location:./register.php");
@@ -29,6 +30,7 @@ if(isset($_POST["login_button"])){
   }
 
 }?>
+  <!-- <base href="http://localhost/CS4014_TermProject/" /> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="images/icon.ico">

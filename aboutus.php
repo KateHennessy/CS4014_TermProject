@@ -1,5 +1,3 @@
-
-
     <?php
       session_start();
       $feedback = "";
@@ -8,29 +6,39 @@
         require_once __DIR__."/utils/Settings.class.php";
         require_once __DIR__."/utils/PDOAccess.class.php";
         require_once __DIR__."/scripts/phpvalidation.php";
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <title>ReviUL-About Us
+            </title>
 
+              <?php
 
 
        if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
-         $id = $_SESSION["user_id"];
-        require_once __DIR__.'/templates/loggedinuser.php';
-
-       } else {
-         ?>
-         <!DOCTYPE html>
-         <html lang="en">
-           <head>
-             <title>ReviUL-About Us
-             </title>
-
-               <?php
-            require_once __DIR__.'/templates/header.template.php';
+          $id = $_SESSION["user_id"];
+          $user = new User();
+          $user = UserDAO::getUserByID($id);
+          require_once __DIR__.'/templates/loggedinuser.php';
+       }else{
+         require_once __DIR__.'/templates/header.template.php';
        }
         ?>
+
     <div class="container-fluid">
-        <div class="col-xs-11 col-sm-8 well">
-            <div class="profile-content">
-              <?php echo $feedback; ?>
+      <?php
+      if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
+         $id = $_SESSION["user_id"];
+         echo '<div class="col-xs-12 well">';
+         require_once __DIR__.'/templates/usersidebar.php';
+         echo '<div class="col-md-9 profile-content">';
+       }else{
+         echo '<div class="col-xs-11 col-sm-8 well">
+                <div class="profile-content">';
+
+       }
+        echo $feedback; ?>
                 <h1><div class="glyphicon glyphicon-user"></div>About Us</h1><br>
                 <div class="container">
                     <div class="row">
@@ -88,10 +96,10 @@
       </div>
 
 
-                <?php
-                require_once __DIR__.'/templates/footer.php';
-                ?>
+        <?php
+        require_once __DIR__.'/templates/footer.php';
+        ?>
 
 
-</body>
+    </body>
 </html>

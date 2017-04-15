@@ -1,4 +1,4 @@
-
+    <base href="http://localhost/CS4014_TermProject/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="images/icon.ico">
