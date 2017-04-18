@@ -19,7 +19,7 @@ $feedback = "";
           $email = trim(strtolower($_POST["reset_email"]));
  //check email exists
         $user = UserDAO::getUserByEmail($email);
-        if(!is_null($user)){
+        if(!is_null($user->get_id())){
           ///generate a new password
                    $validCharacters = "ABCDEFGHIJKLMNPQRSTUXYVWZ123456789";
                    $validCharNumber = strlen($validCharacters);
@@ -108,13 +108,16 @@ require_once __DIR__.'/templates/header.template.php';
         <div class="row">
 		   <h1><div class="glyphicon glyphicon-lock"></div> Forgotten Password </h1><br>
 		   <?php echo $feedback; ?>
-
+         <br/><br/>  <br/><br/>
 
         </div>
       </div>
+
     </div>
+
 </div>
 </div>
+
 
 
 <?php

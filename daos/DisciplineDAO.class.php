@@ -29,4 +29,19 @@ class DisciplineDAO {
       }
       return $discipline;
     }
+
+    public static function find_discipline_by_id($discipline_id){
+      $discipline = NULL;
+      if (!is_null($discipline_id)) {
+          $query = "SELECT * FROM discipline WHERE discipline_id =" .$discipline_id .";";
+          $result = PDOAccess::returnSQLquery($query);
+          if ($result) {
+            $row = $result -> fetch(PDO::FETCH_ASSOC);
+            $discipline = ModelFactory::buildModel("Discipline",$row);
+          }
+        }
+        return $discipline;
+
+    }
+
   }

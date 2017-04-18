@@ -34,7 +34,7 @@
 
     $tasks = array();
     $totalnoAvailable = TaskDAO::find_no_available_tasks($id);
-    $limit = 3;
+    $limit = 6;
     $pages = ceil($totalnoAvailable / $limit);
 
     $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(

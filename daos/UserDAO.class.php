@@ -62,36 +62,50 @@ class UserDAO{
 		public static function save($user) {
       if (is_null($user->get_id())) {
           self::insert($user);
-      }/*else {
+      }else {
           self::update($user);
-      }*/
+      }
       return $user;
     }
 
-	private static function insert(&$user) {
-		// First - insert user into Database
-		date_default_timezone_set('Europe/Dublin');
-		$date = date('Y-m-d H:i:s', time());
-		$query = "INSERT INTO `user` (`user_id`, `f_name`,
-			`l_name`, `email`, `pass`, `discipline_id`, `reputation`,
-			 `signup_date`) VALUES ( NULL," .PDOAccess::prepareString($user->get_first_name()) .","
-			 .PDOAccess::prepareString($user->get_last_name()) ."," .PDOAccess::prepareString($user->get_email()) .","
-			 .PDOAccess::prepareString($user->get_password()) ."," .PDOAccess::prepareString($user->get_discipline()->get_id())
-			 .",'0','" .$date ."');";
-			 $result = PDOAccess::insertSQLquery($query);
-       //Next - add users tags to the user_tag table
-        if ($result) {
-					  $tags = array();
-						$tags = $user->get_tags();
-						$user = self::getUserByEmail($user->get_email());
-						$user_id = $user->get_id();
-						for($i = 0; $i < count($tags); $i++){
-							$tagdao = new TagDAO();
-								$tagdao->insertUserTag($user_id, $tags[$i]->get_id());
-						}
-        } else {
-            $user = null;
-        }
+	  private static function insert(&$user) {
+  		// First - insert user into Database
+  		date_default_timezone_set('Europe/Dublin');
+  		$date = date('Y-m-d H:i:s', time());
+  		$query = "INSERT INTO `user` (`user_id`, `f_name`,
+  			`l_name`, `email`, `pass`, `discipline_id`, `reputation`,
+  			 `signup_date`) VALUES ( NULL," .PDOAccess::prepareString($user->get_first_name()) .","
+  			 .PDOAccess::prepareString($user->get_last_name()) ."," .PDOAccess::prepareString($user->get_email()) .","
+  			 .PDOAccess::prepareString($user->get_password()) ."," .PDOAccess::prepareString($user->get_discipline()->get_id())
+  			 .",'0','" .$date ."');";
+
+  			 $result = PDOAccess::insertSQLquery($query);
+         //Next - add users tags to the user_tag table
+          if ($result) {
+  					  $tags = array();
+  						$tags = $user->get_tags();
+  						$user = self::getUserByEmail($user->get_email());
+  						$user_id = $user->get_id();
+  						for($i = 0; $i < count($tags); $i++){
+  							$tagdao = new TagDAO();
+  								$tagdao->insertUserTag($user_id, $tags[$i]->get_id());
+  						}
+          } else {
+              $user = null;
+          }
+    }
+
+    private static function update(&$user){
+      $query = 'UPDATE `user` SET `f_name` = '.PDOAccess::prepareString($user->get_first_name())
+      .', `l_name` = ' .PDOAccess::prepareString($user->get_last_name())
+      .', `pass` = ' .PDOAccess::prepareString($user->get_password())
+      .', `discipline_id` = ' .PDOAccess::prepareString($user->get_discipline()->get_id())
+      .' WHERE `user`.`user_id` = ' .$user->get_id() .';';
+      
+       $result = PDOAccess::insertSQLquery($query);
+       if ($result) {
+         $user = UserDAO::getUserByID($user->get_id());
+       }
     }
 
 		public static function login($email, $password) {
@@ -109,6 +123,7 @@ class UserDAO{
 		         return null;
 		 		}
 		 	}
+
 
       public static function ban_user($user_id){
           $banned = false; // boolean to be used if exists in banned users

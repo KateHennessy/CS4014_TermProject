@@ -18,7 +18,8 @@ if(isset($_POST["login_button"])){
         }else{
           TaskDAO::update_all_task_statuses();
           $_SESSION["user_id"] = $user->get_id();
-         header("location:http://localhost/CS4014_TermProject/");
+          header("Location: http://testweb3.csisad.ul.campus/modules/CS4014/group10/CS4014_TermProject");
+         //header("location:http://localhost/CS4014_TermProject/");
          exit();
 
        }
