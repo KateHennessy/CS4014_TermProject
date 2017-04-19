@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <h2> My Tasks Overview</h2>
-                                <p>A snippet of information on <a href="mytasks.php"><em class="text-muted">tasks I have uploaded</em> </a></p>
+                                <p>The four most recent <a href="mytasks.php"><em class="text-muted">tasks I have uploaded</em> </a></p>
                             </div>
                         </div>
                         <br />
@@ -92,7 +92,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
                                             <h2> My Claimed Tasks Overview</h2>
-                                            <p>A snippet of information on  <a href="myclaimedtasks.php"><em class="text-muted">tasks I have claimed</em></a></p>
+                                            <p>The four most recent <a href="myclaimedtasks.php"><em class="text-muted">tasks I have claimed</em></a></p>
                                         </div>
                                     </div>
                                     <br />
