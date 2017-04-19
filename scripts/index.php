@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <title>ReviUL-Page Not Found</title>
-    <base href="http://localhost/CS4014_TermProject/" />
       <?php
 
           session_start();

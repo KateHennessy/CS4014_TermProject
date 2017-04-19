@@ -3,6 +3,7 @@
    require_once __DIR__."/../models/User.class.php";
    require_once __DIR__."/../daos/UserDAO.class.php";
    require_once __DIR__.'/../models/Tag.class.php';
+
    require_once __DIR__."/../daos/TaskDAO.class.php";
    ?>
 <!-- User Side Bar -->
@@ -23,6 +24,9 @@
                     echo("<label class=\"text-muted\">General User</label>");
                   }
                 ?>
+                <br>
+                <label class="text-muted"><?php echo $user->get_discipline()->get_name() ?>
+               </label>
 
               </div>
 

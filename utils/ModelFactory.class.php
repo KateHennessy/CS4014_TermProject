@@ -4,6 +4,7 @@
 require_once __DIR__."/../models/User.class.php";
 require_once __DIR__."/../models/Tag.class.php";
 require_once __DIR__."/../daos/TagDAO.class.php";
+require_once __DIR__."/../daos/DisciplineDAO.class.php";
 
 class ModelFactory {
     public static function buildModel($modelName, $modelData) {
@@ -64,7 +65,10 @@ class ModelFactory {
 		}
 
     if(isset($modelData['discipline_id'])){
-      $ret ->set_discipline($modelData["discipline_id"]);
+      $discipline = DisciplineDAO::find_discipline_by_id($modelData['discipline_id']);
+      // $ret ->set_discipline($modelData["discipline_id"]);
+    
+      $ret ->set_discipline($discipline);
     }
 
     if(isset($modelData['reputation'])){

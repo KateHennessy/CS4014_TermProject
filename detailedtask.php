@@ -8,7 +8,7 @@
     require_once __DIR__.'/daos/TaskDAO.class.php';
     require_once __DIR__.'/scripts/phpvalidation.php';
     require_once __DIR__.'/scripts/detailedtaskviews.php';
-
+    $task;
 
       $feedback = "";  //This will be used to add php feedback.
 
@@ -244,7 +244,7 @@
 
 <?php
           echo $feedback;
-            if(!is_null($task->get_id())){
+            if(!is_null($task)){
                   if($user->get_id() == $task->get_creator_id()){  // A TASK CREATOR IS LOOKING AT A DETAILED VIEW OF THEIR OWN TASK
                       echo detailedTaskView::createTaskHTML($task);
                       echo detailedTaskView::createView("Creator", $task);

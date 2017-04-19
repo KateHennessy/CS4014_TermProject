@@ -2,9 +2,7 @@
 <html lang="en">
   <head>
     <title>ReviUL-Page Not Found</title>
-    <base href="http://localhost/CS4014_TermProject/" />
       <?php
-
           session_start();
           require_once __DIR__."/../models/User.class.php";
           require_once __DIR__."/../daos/UserDAO.class.php";

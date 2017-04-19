@@ -155,8 +155,9 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                    <input type="email" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$" placeholder="Enter UL Email Here.." required id="emailForm" name="signup_email"
-                           class="form-control">
+                    <input type="email" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ul)\.ie$"
+                    placeholder="Enter UL Email Here.." required id="emailForm" name="signup_email"
+                           maxlength="127" class="form-control">
                   <span class="glyphicon form-control-feedback"></span>
                   </div>
                   <span class="help-block with-errors"></span>
@@ -216,6 +217,8 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-sm-6 col-xs-hidden">
+                </div>
                 <div class="col-sm-6 form-group has-feedback">
                   <label>Tags <em class="text-danger"> *</em>
                   </label>

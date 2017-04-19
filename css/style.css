@@ -372,8 +372,8 @@ button.accordion.active, button.accordion:hover {
 }
 
 /* Style the accordion panel. Note: hidden by default */
-div.panel {
+/*div.panel {
     padding: 10px;
     background-color: white;
-    /*display: none;*/
-}
+
+}*/
