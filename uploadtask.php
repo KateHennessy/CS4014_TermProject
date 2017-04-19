@@ -107,15 +107,18 @@ $_SESSION[ "user_id"] !='' ){
        $feedback.= phpvalidation::displayFailure('Please enter the number of words.');
        $uploadFormOK = false;
      }
+
       if($uploadFormOK){            // first checking if file uploaded is ok before progressing with rest of task upload
         if(UploadVal::fileUploaded()){
          require_once __DIR__.'/scripts/upload_file.php';
         //  if($uploadOk == 1){
           if($uploadOk != 1){   //uploadOk is a variable in upload_file - which returns 1 if uploading file was successful
+          //$feedback .= phpvalidation::displayFailure('There is an issue with the sample file you uploaded.');
             $uploadFormOK = false;
           }
         }else{
-          phpvalidation::displayFailure('Please upload a sample file');
+
+         $feedback .=  phpvalidation::displayFailureSubtext('There is an issue with the sample file you uploaded.', 'If you have uploaded a correct file type there may be an issue with your file.');
           $uploadFormOK = false;
         }
      }
