@@ -48,9 +48,14 @@ class UserDAO{
       $bannedUser = NULL;
       $query = "(SELECT * FROM user WHERE user_id  IN
       (SELECT user_id FROM banned_user WHERE user_id = ".$user_id .'));';
-      $result = PDOAccess::returnSQLquery($query);
+      $result = PDOAccess::returnNoRows($query);
+
+
+
       // if($result){
-      if($result->rowCount() > 0){
+    //     echo($result->rowCount());
+    if($result > 0){
+
         return true;
       }else{
 
@@ -101,7 +106,7 @@ class UserDAO{
       .', `pass` = ' .PDOAccess::prepareString($user->get_password())
       .', `discipline_id` = ' .PDOAccess::prepareString($user->get_discipline()->get_id())
       .' WHERE `user`.`user_id` = ' .$user->get_id() .';';
-      
+
        $result = PDOAccess::insertSQLquery($query);
        if ($result) {
          $user = UserDAO::getUserByID($user->get_id());

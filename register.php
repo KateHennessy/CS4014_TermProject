@@ -130,7 +130,7 @@
                   </label>
                   <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" placeholder="Enter First Name Here.." maxlength="15" required id="firstName" name="first_name" class="form-control" >
+                    <input type="text" placeholder="Enter First Name Here.." pattern="^[A-Za-z.\s_-]+$" maxlength="15" required id="firstName" name="first_name" class="form-control" >
                     <span class="glyphicon form-control-feedback"></span>
                   </div>
                     <span class="help-block with-errors"></span>
@@ -142,7 +142,7 @@
                   </label>
                   <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" placeholder="Enter Last Name Here.." maxlength="30" required id="lastName" name="last_name" class="form-control">
+                    <input type="text" placeholder="Enter Last Name Here.." pattern="^[A-Za-z.\s_-]+$" maxlength="30" required id="lastName" name="last_name" class="form-control">
                     <span class="glyphicon form-control-feedback"></span>
                   </div>
                     <span class="help-block with-errors"></span>

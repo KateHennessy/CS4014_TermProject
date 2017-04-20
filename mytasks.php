@@ -14,7 +14,7 @@
             if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
               $user = UserDAO::getUserByID($_SESSION["user_id"]);
               $totalnoAvailable = TaskDAO::find_no_user_uploaded_tasks($_SESSION["user_id"]);
-              $limit = 7;
+              $limit = 6;
               $pages = ceil($totalnoAvailable / $limit);
               $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
               'options' => array(

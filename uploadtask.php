@@ -203,7 +203,7 @@ $_SESSION[ "user_id"] !='' ){
                         </label>
                           <div class="input-group">
                               <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                              <input id="task_title" required name="task_title" type="text" maxlength="128"  placeholder="" class="form-control input-md">
+                              <input id="task_title" required name="task_title" pattern="^[A-Za-z.\s_-]+$" type="text" maxlength="128"  placeholder="" class="form-control input-md">
               								<span class="glyphicon form-control-feedback"></span>
               					 </div>
               							<span class="help-block with-errors"></span>
@@ -216,7 +216,7 @@ $_SESSION[ "user_id"] !='' ){
         							</label>
         							<div class="col-md-8 input-group">
         								<span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-        								<input id="task_type" name="task_type" type="text" required maxlength="128" class="form-control input-md">
+        								<input id="task_type" name="task_type" type="text" pattern="^[A-Za-z.\s_-]+$" required maxlength="128" class="form-control input-md">
         								<span class="glyphicon form-control-feedback"></span>
         							</div>
         							<div>
