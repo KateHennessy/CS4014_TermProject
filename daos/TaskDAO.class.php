@@ -165,7 +165,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
   $uploadedTasks = NULL;
   if(!is_null($user_id)){
     $uploadedTasks = array();
-    $query = "SELECT * FROM task WHERE creator_id = " .$user_id .' ORDER BY task_id DESC LIMIT '. $offset .', ' .$limit .';';
+    $query = "SELECT * FROM task WHERE creator_id = " .$user_id .' ORDER BY completion_deadline ASC LIMIT '. $offset .', ' .$limit .';';
     $result = PDOAccess::returnSQLquery($query);
 	if($result){
 		foreach($result as $row){
@@ -195,7 +195,7 @@ public static function find_user_uploaded_tasks_offset($user_id, $limit, $offset
 
       $claimedTasks = array();
       $query = 'SELECT * FROM task WHERE task_id IN
-      (SELECT task_id FROM claimed_task WHERE claimer_id = ' .$user_id .') ORDER BY task_id DESC LIMIT '. $offset .', ' .$limit .';';
+      (SELECT task_id FROM claimed_task WHERE claimer_id = ' .$user_id .') ORDER BY completion_deadline ASC LIMIT '. $offset .', ' .$limit .';';
       $result = PDOAccess::returnSQLquery($query);
 	  if($result){
 		  foreach($result as $row){

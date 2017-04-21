@@ -9,6 +9,7 @@
 
     if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != ''){
       $id = $_SESSION["user_id"];
+      $task = new Task();
       $user = new User();
       $userDao = new UserDAO();
       $user = $userDao->getUserByID($id);
@@ -83,27 +84,27 @@ $nextlink = ($page < $pages) ? '<li><a href="availabletasks.php?page=' . ($page 
                                                     <div class="col-xs-12">
                                                         <a class="pull-left" href="<?php echo 'detailedtask.php?id=' .$task->get_id(); ?>" target="_parent">
                                                             <!-- </a> -->
-                                                            <h4><div class="glyphicon glyphicon-edit"></div><?php echo $task->get_title(); ?></h4></a>
+                                                            <h4><div class="glyphicon glyphicon-edit"></div><?php echo htmlspecialchars_decode($task->get_title()); ?></h4></a>
                                                     </div>
                                                 </div>
                                                 <div class="row"  style="height:100%">
                                                     <div class="pull-left col-sm-6 col-xs-12">
 
                                                         <i class="glyphicon glyphicon-file pull-left text-primary"></i>
-                                                        <p class="text-muted"><small class="pull-left">Type: <span class="text-primary"><?php echo $task->get_type(); ?></span></small><br>
+                                                        <p class="text-muted"><small class="pull-left">Type: <span class="text-primary"><?php echo htmlspecialchars_decode($task->get_type()); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-calendar pull-left text-primary"></i>
-                                                            <small class="pull-left"> Claim Before: <span class="text-primary"><?php echo $task->get_claim_deadline()->format('d/m/Y'); ?></span></small><br>
+                                                            <small class="pull-left"> Claim Before: <span class="text-primary"><?php  echo htmlspecialchars_decode($task->get_claim_deadline()->format('d/m/Y')); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-hourglass pull-left text-primary"></i>
-                                                            <small class="pull-left">  Due Date: <span class="text-primary"> <?php echo $task->get_completion_deadline()->format('d/m/Y'); ?></span></small><br>
+                                                            <small class="pull-left">  Due Date: <span class="text-primary"> <?php echo htmlspecialchars_decode($task->get_completion_deadline()->format('d/m/Y')); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-duplicate pull-left text-primary"></i>
-                                                            <small class="pull-left">Page Count: <span class="text-primary"><?php echo $task->get_no_pages(); ?></span></small><br>
+                                                            <small class="pull-left">Page Count: <span class="text-primary"><?php echo htmlspecialchars_decode($task->get_no_pages()); ?></span></small><br>
                                                             <i class="glyphicon glyphicon-stats pull-left text-primary"></i>
-                                                            <small class="pull-left">Word Count: <span class="text-primary"><?php echo $task->get_no_words(); ?></span></small><br></p>
+                                                            <small class="pull-left">Word Count: <span class="text-primary"><?php echo htmlspecialchars_decode($task->get_no_words()); ?></span></small><br></p>
                                                     </div>
 
                                                     <div class="pull-right hidden-xs col-sm-6" style="height:100%">
                                                       <div class=" fixedBodyLarge divider scroll hidden-xs">
-                                                          <p class="hidden-xs fixedBodyLarge" style="padding-left:10px;"> <?php echo $task->get_description(); ?></p>
+                                                          <p class="hidden-xs fixedBodyLarge" style="padding-left:10px;"> <?php echo htmlspecialchars_decode($task->get_description()); ?></p>
                                                       </div>
 
                                                     </div>

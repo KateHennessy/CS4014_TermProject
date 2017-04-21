@@ -91,6 +91,7 @@ class PDOAccess {
     $db = PDOAccess::getInstance();
     $conn = $db->connection;
       $result = $conn->query($query);
+			//$result = $conn->prepare($query);
 
       return $result;
 

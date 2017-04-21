@@ -107,15 +107,18 @@ $_SESSION[ "user_id"] !='' ){
        $feedback.= phpvalidation::displayFailure('Please enter the number of words.');
        $uploadFormOK = false;
      }
+
       if($uploadFormOK){            // first checking if file uploaded is ok before progressing with rest of task upload
         if(UploadVal::fileUploaded()){
          require_once __DIR__.'/scripts/upload_file.php';
         //  if($uploadOk == 1){
           if($uploadOk != 1){   //uploadOk is a variable in upload_file - which returns 1 if uploading file was successful
+          //$feedback .= phpvalidation::displayFailure('There is an issue with the sample file you uploaded.');
             $uploadFormOK = false;
           }
         }else{
-          phpvalidation::displayFailure('Please upload a sample file');
+
+         $feedback .=  phpvalidation::displayFailureSubtext('There is an issue with the sample file you uploaded.', 'If you have uploaded a correct file type there may be an issue with your file.');
           $uploadFormOK = false;
         }
      }
@@ -203,7 +206,7 @@ $_SESSION[ "user_id"] !='' ){
                         </label>
                           <div class="input-group">
                               <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                              <input id="task_title" required name="task_title" type="text" maxlength="128"  placeholder="" class="form-control input-md">
+                              <input id="task_title" required name="task_title" pattern="^[A-Za-z.\s_-']+$" type="text" maxlength="128"  placeholder="" class="form-control input-md">
               								<span class="glyphicon form-control-feedback"></span>
               					 </div>
               							<span class="help-block with-errors"></span>
@@ -216,7 +219,7 @@ $_SESSION[ "user_id"] !='' ){
         							</label>
         							<div class="col-md-8 input-group">
         								<span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-        								<input id="task_type" name="task_type" type="text" required maxlength="128" class="form-control input-md">
+        								<input id="task_type" name="task_type" type="text" pattern="^[A-Za-z.\s_-']+$" required maxlength="128" class="form-control input-md">
         								<span class="glyphicon form-control-feedback"></span>
         							</div>
         							<div>

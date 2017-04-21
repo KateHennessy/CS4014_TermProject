@@ -220,7 +220,7 @@ require_once __DIR__.'/templates/usersidebar.php';
                     </label>
                     <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                      <input type="text" placeholder="Enter First Name Here.." name="newFirstName" id="fNameForm" class="form-control" maxlength ="25" required="">
+                      <input type="text" placeholder="Enter First Name Here.." pattern="^[A-Za-z.\s_-]+$" name="newFirstName" id="fNameForm" class="form-control" maxlength ="25" required="">
         			        <span class="glyphicon form-control-feedback"></span>
         			      </div>
         			      <span class="help-block with-errors"></span>
@@ -231,7 +231,7 @@ require_once __DIR__.'/templates/usersidebar.php';
            </div>
 
 
-          
+
           <!-- <div class="col-xs-12"> -->
             <div class="panel panel-footer">
 
@@ -244,7 +244,7 @@ require_once __DIR__.'/templates/usersidebar.php';
                         </label>
                         <div class="input-group">
                           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                          <input type="text" placeholder="Enter Last Name Here.." name="newLastName" id="lNameForm" class="form-control" maxlength ="25" required="">
+                          <input type="text" placeholder="Enter Last Name Here.." pattern="^[A-Za-z.\s_-]+$" name="newLastName" id="lNameForm" class="form-control" maxlength ="25" required="">
               			<span class="glyphicon form-control-feedback"></span>
               			</div>
               			<span class="help-block with-errors"></span>

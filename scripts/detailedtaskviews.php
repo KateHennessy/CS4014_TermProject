@@ -3,8 +3,6 @@
   require_once __DIR__.'/../models/Task.class.php';
 
  class detailedTaskView{
-   private $task;
-
 public static function createTaskHTML($task){
   if(!is_null($task->get_id())){
     $tags ="";
@@ -14,7 +12,7 @@ public static function createTaskHTML($task){
     return '<div class="panel panel-default">
               <div class="panel-heading">
                 <div class="" style="overflow:auto">
-                    <h2>' .$task->get_title() .'</h2>
+                    <h2>' .htmlspecialchars_decode($task->get_title()) .'</h2>
                 </div>
               </div>
               <br />
@@ -23,7 +21,7 @@ public static function createTaskHTML($task){
                         <div class="form-group">
                           <label class="col-md-3 control-label" for="Task Type">Task Type: </label>
                             <div class="col-md-9">
-                                <div style="overflow:auto">' .$task->get_type() .'</div>
+                                <div style="overflow:auto">' .htmlspecialchars_decode($task->get_type()) .'</div>
                           </div>
                         </div>
                       </div>
@@ -33,7 +31,7 @@ public static function createTaskHTML($task){
                         <div class="form-group">
                             <label class="col-md-3 control-label">Brief Description Of The Task:</label>
                             <div class="col-md-9">
-                              <div style="overflow:auto"><p class="text-justify">' .$task->get_description() .'</p></div>
+                              <div style="overflow:auto"><p class="text-justify">' .htmlspecialchars_decode($task->get_description()) .'</p></div>
                             </div>
                         </div>
                       </div>
@@ -159,7 +157,7 @@ public static function createNotFoundTaskHTML(){
                     </div>
                   </div>
                   <div class="row">
-                    <div class="pull-right">Contact the claimer at: <span class="text-info">'.UserDAO::getUserByID($task->get_claimer_id())->get_email() .' </span>
+                    <div class="pull-right">Contact the claimer at: <span class="text-info">'.htmlspecialchars_decode(UserDAO::getUserByID($task->get_claimer_id())->get_email()) .' </span>
                     </div>
                   </div>
                 </span>';

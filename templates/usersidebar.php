@@ -14,8 +14,8 @@
               <div class="profile-usertitle">
 
                 <!--Output User Name -->
-                <label class="text-muted"><?php echo $user->get_first_name() ?>
-                <?php echo $user->get_last_name() ?> </label>
+                <label class="text-muted"><?php echo htmlspecialchars_decode($user->get_first_name()) ?>
+                <?php echo htmlspecialchars_decode($user->get_last_name()) ?> </label>
                 <br />
                 <?php
                 if($user->get_reputation() >= '40') {
@@ -86,6 +86,7 @@
       $(document).ready(function(){
 
       var pathname = document.location.href.match(/[^\/]+$/)[0];
+      id = null;
         switch(pathname){
           case "profilepage.php":
           id = $('#profile_overview');
@@ -109,7 +110,10 @@
           id = $('#accountsettings');
           break;
         }
-         id.addClass("active");
+        if(id != null){
+          id.addClass("active");
+        }
+
         });
 
 
