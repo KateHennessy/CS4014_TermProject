@@ -86,6 +86,7 @@
       $(document).ready(function(){
 
       var pathname = document.location.href.match(/[^\/]+$/)[0];
+      id = null;
         switch(pathname){
           case "profilepage.php":
           id = $('#profile_overview');
@@ -109,7 +110,10 @@
           id = $('#accountsettings');
           break;
         }
-         id.addClass("active");
+        if(id != null){
+          id.addClass("active");
+        }
+
         });
 
 
