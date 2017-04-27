@@ -33,7 +33,7 @@
           }
         }
       }else{
-      
+
       }
     }
     else {
@@ -167,9 +167,9 @@
 
     if(isset($_POST["reviewUnHappy"])){
         $url = 'detailedtask.php?id=' .$task->get_id() .'&unhappyOK=';
-      if(TaskDAO::set_score_for_task(5, $task->get_id())){
+      if(TaskDAO::set_score_for_task(-5, $task->get_id())){
         $creator = UserDAO::getUserByID($task->get_claimer_id());
-        UserDAO::change_user_reputation($creator, 5);
+        UserDAO::change_user_reputation($creator, -5);
         $url .= "1";
       }else{
         $url .= "2";

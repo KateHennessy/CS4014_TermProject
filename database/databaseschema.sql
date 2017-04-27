@@ -176,7 +176,7 @@ DROP TABLE IF EXISTS `claimed_task`;
 CREATE TABLE `claimed_task` (
   `claimer_id` int(11) UNSIGNED NOT NULL,
   `task_id` bigint(20) UNSIGNED NOT NULL,
-  `score` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `score` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
