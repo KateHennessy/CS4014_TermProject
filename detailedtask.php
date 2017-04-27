@@ -265,6 +265,9 @@
                         echo detailedTaskView::createTaskHTML($task);
                         echo detailedTaskView::createView("PotentialClaimer", $task);
                       } //END OF CLAIMER IS NULL
+                      else{
+                        echo detailedTaskView::createNotFoundTaskHTML();
+                      }
 
                   }
                   else if($task->get_claimer_id() == $user->get_id()){  //CURRENT VIEWER IS THE CLAIMER OF THE TASK
