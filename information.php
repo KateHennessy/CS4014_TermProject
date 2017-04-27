@@ -9,7 +9,7 @@
     <!DOCTYPE html>
     <html lang="en">
       <head>
-        <title>ReviUL-Information
+        <title>ReviUL-Information/FAQs
         </title>
 
     <?php
